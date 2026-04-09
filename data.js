@@ -19702,7 +19702,7 @@ ASDB.nodes = {
     sport: ['surf'],
     era: '1980s-present',
     status: 'pre-populated',
-    bio: 'Lifelong surfer from New Smyrna Beach and mother of professional surfers Eric Geiselman and Evan Geiselman. Former wife of shaper Greg Geiselman. Gina is the family archivist — she documented every competition, contest result, and milestone in both of her sons' careers from their earliest ESA contests through Eric's pro career and Evan's 12 East Coast Championship titles and WSL Challenger Series campaigns.',
+    bio: "Lifelong surfer from New Smyrna Beach and mother of professional surfers Eric Geiselman and Evan Geiselman. Former wife of shaper Greg Geiselman. Gina is the family archivist — she documented every competition, contest result, and milestone in both of her sons' careers from their earliest ESA contests through Eric's pro career and Evan's 12 East Coast Championship titles and WSL Challenger Series campaigns.",
     connections: [
       {id: 'eric-geiselman', rel: 'Son'},
       {id: 'evan-geiselman', rel: 'Son'},
