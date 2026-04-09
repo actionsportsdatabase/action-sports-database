@@ -235,9 +235,9 @@ ASDB.nodes = {
     era:'1960s–present', status:'pre-populated',
     birthplace:'New Smyrna Beach, FL',
     nationality:'🇺🇸',
-    bio:'New Smyrna Beach community figure and mother of Adam Wright. Along with Tom Wright (ex-ex-husbandd), co-built the Smyrna Surfari Club — one of the oldest and most storied surf clubs on the East Coast. Her family\'s roots and commitment to the NSB surf community span generations.',
+    bio:'New Smyrna Beach community figure and mother of Adam Wright. Along with Tom Wright (ex-husband), co-built the Smyrna Surfari Club — one of the oldest and most storied surf clubs on the East Coast. Her family\'s roots and commitment to the NSB surf community span generations.',
     notable:[
-      'Co-built the Smyrna Surfari Club with ex-husbandd Tom Wright',
+      'Co-built the Smyrna Surfari Club with ex-husband Tom Wright',
       'Mother of Adam Wright — 4th generation NSB native and ASDB co-founder',
       'NSB community figure across multiple decades',
       'Part of the extended New Smyrna Beach surf community heritage',
