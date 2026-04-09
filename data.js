@@ -23,7 +23,7 @@ ASDB.nodes = {
       {id:'mike-cruickshank', rel:'Gotcha team manager'},
       {id:'rob-machado', rel:'Shared Gotcha sponsorship era; photo connection at Inlet Charley\'s'},
       {id:'charlie-baldwin', rel:'Shaper — CB Surfboards; owner of Inlet Charley\'s'},
-      {id:'geiselman-family', rel:'Close family connection — includes Evan Geiselman'},
+      {id:'geiselman-family', rel:'Grew up in the same NSB surf community — acquaintances'},
       {id:'gotcha', rel:'Sponsor (1990s)'},
       {id:'arnette-optics', rel:'Sponsor & mentor relationship'},
       {id:'freestyle-watches', rel:'Sponsor'},
@@ -266,7 +266,7 @@ ASDB.nodes = {
       {id: 'evan-geiselman', rel: 'Son — WSL Challenger Series / 12x East Coast Champion'},
       {id: 'orion-surfboards', rel: 'Family brand — founded by Greg'},
       {id: 'nsb-inlet', rel: 'Home break — all four surfed here'},
-      {id: 'adam-wright', rel: 'Close NSB community connection'},
+      {id: 'adam-wright', rel: 'Same NSB surf community — acquaintances'},
     ],
   },
 
@@ -291,7 +291,7 @@ ASDB.nodes = {
       {id: 'orion-surfboards', rel: 'Board sponsor — family brand'},
       {id: 'nsb-inlet', rel: 'Home break — grew up here'},
       {id: 'pipeline', rel: 'Near-fatal wipeout December 2015'},
-      {id: 'adam-wright', rel: 'NSB surf community connection'},
+      {id: 'adam-wright', rel: 'Same NSB surf community — acquaintances'},
     ],
   },
 
