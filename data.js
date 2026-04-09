@@ -10328,7 +10328,7 @@ ASDB.nodes = {
   'stein-eriksen': {
     id: 'stein-eriksen',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Stein Eriksen',
     discipline: 'Alpine Racing',
     era: '1940s-1960s',
@@ -10341,7 +10341,7 @@ ASDB.nodes = {
   'toni-sailer': {
     id: 'toni-sailer',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Toni Sailer',
     discipline: 'Alpine Racing',
     era: '1950s',
@@ -10354,7 +10354,7 @@ ASDB.nodes = {
   'jean-claude-killy': {
     id: 'jean-claude-killy',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Jean-Claude Killy',
     discipline: 'Alpine Racing',
     era: '1960s',
@@ -10367,7 +10367,7 @@ ASDB.nodes = {
   'karl-schranz': {
     id: 'karl-schranz',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Karl Schranz',
     discipline: 'Alpine Racing',
     era: '1960s-1970s',
@@ -10380,7 +10380,7 @@ ASDB.nodes = {
   'ingemar-stenmark': {
     id: 'ingemar-stenmark',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Ingemar Stenmark',
     discipline: 'Alpine Racing',
     era: '1970s-1980s',
@@ -10393,7 +10393,7 @@ ASDB.nodes = {
   'pirmin-zurbriggen': {
     id: 'pirmin-zurbriggen',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Pirmin Zurbriggen',
     discipline: 'Alpine Racing',
     era: '1980s',
@@ -10406,7 +10406,7 @@ ASDB.nodes = {
   'alberto-tomba': {
     id: 'alberto-tomba',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Alberto Tomba',
     discipline: 'Alpine Racing',
     era: '1980s-1990s',
@@ -10419,7 +10419,7 @@ ASDB.nodes = {
   'hermann-maier': {
     id: 'hermann-maier',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Hermann Maier',
     discipline: 'Alpine Racing',
     era: '1990s-2000s',
@@ -10432,7 +10432,7 @@ ASDB.nodes = {
   'picabo-street': {
     id: 'picabo-street',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Picabo Street',
     discipline: 'Alpine Racing',
     era: '1990s-2000s',
@@ -10445,7 +10445,7 @@ ASDB.nodes = {
   'bode-miller': {
     id: 'bode-miller',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Bode Miller',
     discipline: 'Alpine Racing',
     era: '2000s-2010s',
@@ -10458,7 +10458,7 @@ ASDB.nodes = {
   'lindsey-vonn': {
     id: 'lindsey-vonn',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Lindsey Vonn',
     discipline: 'Alpine Racing',
     era: '2000s-2010s',
@@ -10471,7 +10471,7 @@ ASDB.nodes = {
   'mikaela-shiffrin': {
     id: 'mikaela-shiffrin',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Mikaela Shiffrin',
     discipline: 'Alpine Racing',
     era: '2010s-present',
@@ -10484,7 +10484,7 @@ ASDB.nodes = {
   'ted-ligety': {
     id: 'ted-ligety',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Ted Ligety',
     discipline: 'Alpine Racing',
     era: '2000s-2010s',
@@ -10497,7 +10497,7 @@ ASDB.nodes = {
   'wayne-wong': {
     id: 'wayne-wong',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Wayne Wong',
     discipline: 'Freestyle',
     era: '1970s',
@@ -10510,7 +10510,7 @@ ASDB.nodes = {
   'suzy-chaffee': {
     id: 'suzy-chaffee',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Suzy Chaffee',
     discipline: 'Freestyle',
     era: '1970s',
@@ -10523,7 +10523,7 @@ ASDB.nodes = {
   'donna-weinbrecht': {
     id: 'donna-weinbrecht',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Donna Weinbrecht',
     discipline: 'Moguls',
     era: '1990s',
@@ -10536,7 +10536,7 @@ ASDB.nodes = {
   'jonny-moseley': {
     id: 'jonny-moseley',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Jonny Moseley',
     discipline: 'Moguls',
     era: '1990s-2000s',
@@ -10549,7 +10549,7 @@ ASDB.nodes = {
   'scott-schmidt': {
     id: 'scott-schmidt',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Scott Schmidt',
     discipline: 'Freeride',
     era: '1980s-1990s',
@@ -10562,7 +10562,7 @@ ASDB.nodes = {
   'glen-plake': {
     id: 'glen-plake',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Glen Plake',
     discipline: 'Freeride',
     era: '1980s-present',
@@ -10575,7 +10575,7 @@ ASDB.nodes = {
   'doug-coombs': {
     id: 'doug-coombs',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Doug Coombs',
     discipline: 'Freeride',
     era: '1990s-2006',
@@ -10588,7 +10588,7 @@ ASDB.nodes = {
   'shane-mcconkey': {
     id: 'shane-mcconkey',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Shane McConkey',
     discipline: 'Freeride',
     era: '1990s-2009',
@@ -10601,7 +10601,7 @@ ASDB.nodes = {
   'tanner-hall': {
     id: 'tanner-hall',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Tanner Hall',
     discipline: 'Halfpipe / Slopestyle',
     era: '2000s-present',
@@ -10614,7 +10614,7 @@ ASDB.nodes = {
   'candide-thovex': {
     id: 'candide-thovex',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Candide Thovex',
     discipline: 'Freeride',
     era: '2000s-present',
@@ -10627,7 +10627,7 @@ ASDB.nodes = {
   'jp-auclair': {
     id: 'jp-auclair',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'JP Auclair',
     discipline: 'Freeride',
     era: '2000s-2014',
@@ -10640,7 +10640,7 @@ ASDB.nodes = {
   'simon-dumont': {
     id: 'simon-dumont',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Simon Dumont',
     discipline: 'Slopestyle',
     era: '2000s',
@@ -10653,7 +10653,7 @@ ASDB.nodes = {
   'jon-olsson': {
     id: 'jon-olsson',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Jon Olsson',
     discipline: 'Slopestyle',
     era: '2000s',
@@ -10666,7 +10666,7 @@ ASDB.nodes = {
   'nick-goepper': {
     id: 'nick-goepper',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Nick Goepper',
     discipline: 'Slopestyle',
     era: '2010s-present',
@@ -10679,7 +10679,7 @@ ASDB.nodes = {
   'henrik-harlaut': {
     id: 'henrik-harlaut',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Henrik Harlaut',
     discipline: 'Slopestyle',
     era: '2010s-present',
@@ -10692,7 +10692,7 @@ ASDB.nodes = {
   'eileen-gu': {
     id: 'eileen-gu',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Eileen Gu',
     discipline: 'Halfpipe / Slopestyle',
     era: '2010s-present',
@@ -10705,7 +10705,7 @@ ASDB.nodes = {
   'kelly-sildaru': {
     id: 'kelly-sildaru',
     type: 'athlete',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Kelly Sildaru',
     discipline: 'Slopestyle',
     era: '2010s-present',
@@ -10718,7 +10718,7 @@ ASDB.nodes = {
   'jake-burton-carpenter': {
     id: 'jake-burton-carpenter',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Jake Burton Carpenter',
     discipline: 'Founder / All-Mountain',
     era: '1977-2019',
@@ -10731,7 +10731,7 @@ ASDB.nodes = {
   'tom-sims': {
     id: 'tom-sims',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Tom Sims',
     discipline: 'Pioneer',
     era: '1963-2012',
@@ -10744,7 +10744,7 @@ ASDB.nodes = {
   'terry-kidwell': {
     id: 'terry-kidwell',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Terry Kidwell',
     discipline: 'Halfpipe',
     era: '1980s',
@@ -10757,7 +10757,7 @@ ASDB.nodes = {
   'craig-kelly': {
     id: 'craig-kelly',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Craig Kelly',
     discipline: 'Freeride',
     era: '1988-2003',
@@ -10770,7 +10770,7 @@ ASDB.nodes = {
   'terje-haakonsen': {
     id: 'terje-haakonsen',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Terje Haakonsen',
     discipline: 'Halfpipe',
     era: '1990s-present',
@@ -10783,7 +10783,7 @@ ASDB.nodes = {
   'jamie-lynn': {
     id: 'jamie-lynn',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Jamie Lynn',
     discipline: 'All-Mountain',
     era: '1990s',
@@ -10796,7 +10796,7 @@ ASDB.nodes = {
   'chloe-kim': {
     id: 'chloe-kim',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Chloe Kim',
     discipline: 'Halfpipe',
     era: '2010s-present',
@@ -10809,7 +10809,7 @@ ASDB.nodes = {
   'mark-mcmorris': {
     id: 'mark-mcmorris',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Mark McMorris',
     discipline: 'Slopestyle',
     era: '2010s-present',
@@ -10822,7 +10822,7 @@ ASDB.nodes = {
   'torah-bright': {
     id: 'torah-bright',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Torah Bright',
     discipline: 'Halfpipe',
     era: '2000s-2010s',
@@ -10835,7 +10835,7 @@ ASDB.nodes = {
   'kelly-clark': {
     id: 'kelly-clark',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Kelly Clark',
     discipline: 'Halfpipe',
     era: '2000s-2010s',
@@ -10848,7 +10848,7 @@ ASDB.nodes = {
   'hannah-teter': {
     id: 'hannah-teter',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Hannah Teter',
     discipline: 'Halfpipe',
     era: '2000s-2010s',
@@ -10861,7 +10861,7 @@ ASDB.nodes = {
   'gretchen-bleiler': {
     id: 'gretchen-bleiler',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Gretchen Bleiler',
     discipline: 'Halfpipe',
     era: '2000s',
@@ -10874,7 +10874,7 @@ ASDB.nodes = {
   'anna-gasser': {
     id: 'anna-gasser',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Anna Gasser',
     discipline: 'Big Air',
     era: '2010s-present',
@@ -10887,7 +10887,7 @@ ASDB.nodes = {
   'sage-kotsenburg': {
     id: 'sage-kotsenburg',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Sage Kotsenburg',
     discipline: 'Slopestyle',
     era: '2010s',
@@ -10900,7 +10900,7 @@ ASDB.nodes = {
   'jeremy-jones': {
     id: 'jeremy-jones',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Jeremy Jones',
     discipline: 'Freeride',
     era: '2000s-present',
@@ -10913,7 +10913,7 @@ ASDB.nodes = {
   'peter-line': {
     id: 'peter-line',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Peter Line',
     discipline: 'Freeride',
     era: '1990s-2000s',
@@ -10926,7 +10926,7 @@ ASDB.nodes = {
   'jp-walker': {
     id: 'jp-walker',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'JP Walker',
     discipline: 'Street / Rail',
     era: '2000s',
@@ -10939,7 +10939,7 @@ ASDB.nodes = {
   'mike-basich': {
     id: 'mike-basich',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Mike Basich',
     discipline: 'Freeride',
     era: '1990s-2000s',
@@ -10952,7 +10952,7 @@ ASDB.nodes = {
   'sbastien-toutant': {
     id: 'sbastien-toutant',
     type: 'athlete',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Sébastien Toutant',
     discipline: 'Big Air',
     era: '2010s-present',
@@ -10965,7 +10965,7 @@ ASDB.nodes = {
   'roger-decoster': {
     id: 'roger-decoster',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Roger DeCoster',
     discipline: 'Motocross',
     era: '1970s',
@@ -10978,7 +10978,7 @@ ASDB.nodes = {
   'marty-tripes': {
     id: 'marty-tripes',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Marty Tripes',
     discipline: 'Supercross',
     era: '1970s',
@@ -10991,7 +10991,7 @@ ASDB.nodes = {
   'marty-smith': {
     id: 'marty-smith',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Marty Smith',
     discipline: 'Motocross',
     era: '1970s',
@@ -11004,7 +11004,7 @@ ASDB.nodes = {
   'bob-hannah': {
     id: 'bob-hannah',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Bob Hannah',
     discipline: 'Supercross',
     era: '1970s-1980s',
@@ -11017,7 +11017,7 @@ ASDB.nodes = {
   'rick-johnson': {
     id: 'rick-johnson',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Rick Johnson',
     discipline: 'Supercross',
     era: '1980s',
@@ -11030,7 +11030,7 @@ ASDB.nodes = {
   'david-bailey': {
     id: 'david-bailey',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'David Bailey',
     discipline: 'Supercross',
     era: '1980s',
@@ -11043,7 +11043,7 @@ ASDB.nodes = {
   'jeff-stanton': {
     id: 'jeff-stanton',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Jeff Stanton',
     discipline: 'Supercross',
     era: '1980s-1990s',
@@ -11056,7 +11056,7 @@ ASDB.nodes = {
   'jean-michel-bayle': {
     id: 'jean-michel-bayle',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Jean-Michel Bayle',
     discipline: 'Supercross',
     era: '1980s-1990s',
@@ -11069,7 +11069,7 @@ ASDB.nodes = {
   'damon-bradshaw': {
     id: 'damon-bradshaw',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Damon Bradshaw',
     discipline: 'Supercross',
     era: '1980s-1990s',
@@ -11082,7 +11082,7 @@ ASDB.nodes = {
   'jeremy-mcgrath': {
     id: 'jeremy-mcgrath',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Jeremy McGrath',
     discipline: 'Supercross',
     era: '1990s-2000s',
@@ -11095,7 +11095,7 @@ ASDB.nodes = {
   'kevin-windham': {
     id: 'kevin-windham',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Kevin Windham',
     discipline: 'Supercross',
     era: '1990s-2000s',
@@ -11108,7 +11108,7 @@ ASDB.nodes = {
   'ricky-carmichael': {
     id: 'ricky-carmichael',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Ricky Carmichael',
     discipline: 'Supercross / Motocross',
     era: '2000s',
@@ -11121,7 +11121,7 @@ ASDB.nodes = {
   'chad-reed': {
     id: 'chad-reed',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Chad Reed',
     discipline: 'Supercross',
     era: '2000s-2010s',
@@ -11134,7 +11134,7 @@ ASDB.nodes = {
   'james-stewart': {
     id: 'james-stewart',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'James Stewart',
     discipline: 'Supercross',
     era: '2000s',
@@ -11147,7 +11147,7 @@ ASDB.nodes = {
   'ryan-villopoto': {
     id: 'ryan-villopoto',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Ryan Villopoto',
     discipline: 'Supercross',
     era: '2010s',
@@ -11160,7 +11160,7 @@ ASDB.nodes = {
   'ryan-dungey': {
     id: 'ryan-dungey',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Ryan Dungey',
     discipline: 'Supercross',
     era: '2010s',
@@ -11173,7 +11173,7 @@ ASDB.nodes = {
   'ken-roczen': {
     id: 'ken-roczen',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Ken Roczen',
     discipline: 'Supercross',
     era: '2010s-present',
@@ -11186,7 +11186,7 @@ ASDB.nodes = {
   'eli-tomac': {
     id: 'eli-tomac',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Eli Tomac',
     discipline: 'Supercross',
     era: '2010s-present',
@@ -11199,7 +11199,7 @@ ASDB.nodes = {
   'cooper-webb': {
     id: 'cooper-webb',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Cooper Webb',
     discipline: 'Supercross',
     era: '2010s-present',
@@ -11212,7 +11212,7 @@ ASDB.nodes = {
   'jason-anderson': {
     id: 'jason-anderson',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Jason Anderson',
     discipline: 'Supercross',
     era: '2010s-present',
@@ -11225,7 +11225,7 @@ ASDB.nodes = {
   'chase-sexton': {
     id: 'chase-sexton',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Chase Sexton',
     discipline: 'Supercross',
     era: '2020s-present',
@@ -11238,7 +11238,7 @@ ASDB.nodes = {
   'jett-lawrence': {
     id: 'jett-lawrence',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Jett Lawrence',
     discipline: 'Supercross',
     era: '2020s-present',
@@ -11251,7 +11251,7 @@ ASDB.nodes = {
   'hunter-lawrence': {
     id: 'hunter-lawrence',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Hunter Lawrence',
     discipline: 'Supercross',
     era: '2020s-present',
@@ -11264,7 +11264,7 @@ ASDB.nodes = {
   'brian-deegan': {
     id: 'brian-deegan',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Brian Deegan',
     discipline: 'FMX',
     era: '1990s-2000s',
@@ -11277,7 +11277,7 @@ ASDB.nodes = {
   'carey-hart': {
     id: 'carey-hart',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Carey Hart',
     discipline: 'FMX',
     era: '1990s-2000s',
@@ -11290,7 +11290,7 @@ ASDB.nodes = {
   'mike-metzger': {
     id: 'mike-metzger',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Mike Metzger',
     discipline: 'FMX',
     era: '2000s',
@@ -11303,7 +11303,7 @@ ASDB.nodes = {
   'nate-adams': {
     id: 'nate-adams',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Nate Adams',
     discipline: 'FMX',
     era: '2000s',
@@ -11316,7 +11316,7 @@ ASDB.nodes = {
   'robbie-maddison': {
     id: 'robbie-maddison',
     type: 'athlete',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Robbie Maddison',
     discipline: 'FMX',
     era: '2000s-2010s',
@@ -11329,7 +11329,7 @@ ASDB.nodes = {
   'bob-haro': {
     id: 'bob-haro',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Bob Haro',
     discipline: 'Freestyle',
     era: '1970s-1990s',
@@ -11342,7 +11342,7 @@ ASDB.nodes = {
   'dennis-mccoy': {
     id: 'dennis-mccoy',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Dennis McCoy',
     discipline: 'Vert',
     era: '1980s-2000s',
@@ -11355,7 +11355,7 @@ ASDB.nodes = {
   'dave-mirra': {
     id: 'dave-mirra',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Dave Mirra',
     discipline: 'Vert / Park',
     era: '1990s-2000s',
@@ -11368,7 +11368,7 @@ ASDB.nodes = {
   'mat-hoffman': {
     id: 'mat-hoffman',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Mat Hoffman',
     discipline: 'Vert',
     era: '1980s-2000s',
@@ -11381,7 +11381,7 @@ ASDB.nodes = {
   'jay-miron': {
     id: 'jay-miron',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Jay Miron',
     discipline: 'Vert',
     era: '1990s-2000s',
@@ -11394,7 +11394,7 @@ ASDB.nodes = {
   'simon-tabron': {
     id: 'simon-tabron',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Simon Tabron',
     discipline: 'Vert',
     era: '1990s-2000s',
@@ -11407,7 +11407,7 @@ ASDB.nodes = {
   'van-homan': {
     id: 'van-homan',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Van Homan',
     discipline: 'Street',
     era: '1990s-2000s',
@@ -11420,7 +11420,7 @@ ASDB.nodes = {
   'todd-lyons': {
     id: 'todd-lyons',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Todd Lyons',
     discipline: 'Vert',
     era: '1990s',
@@ -11433,7 +11433,7 @@ ASDB.nodes = {
   'tj-lavin': {
     id: 'tj-lavin',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'TJ Lavin',
     discipline: 'Dirt',
     era: '1990s-2000s',
@@ -11446,7 +11446,7 @@ ASDB.nodes = {
   'ryan-nyquist': {
     id: 'ryan-nyquist',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Ryan Nyquist',
     discipline: 'Dirt / Park',
     era: '1990s-2000s',
@@ -11459,7 +11459,7 @@ ASDB.nodes = {
   'kevin-robinson': {
     id: 'kevin-robinson',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Kevin Robinson',
     discipline: 'Vert',
     era: '1990s-2000s',
@@ -11472,7 +11472,7 @@ ASDB.nodes = {
   'jamie-bestwick': {
     id: 'jamie-bestwick',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Jamie Bestwick',
     discipline: 'Vert',
     era: '1990s-2010s',
@@ -11485,7 +11485,7 @@ ASDB.nodes = {
   'chad-kagy': {
     id: 'chad-kagy',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Chad Kagy',
     discipline: 'Vert / Big Air',
     era: '1990s-2000s',
@@ -11498,7 +11498,7 @@ ASDB.nodes = {
   'garrett-reynolds': {
     id: 'garrett-reynolds',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Garrett Reynolds',
     discipline: 'Street',
     era: '2000s-2020s',
@@ -11511,7 +11511,7 @@ ASDB.nodes = {
   'nathan-williams': {
     id: 'nathan-williams',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Nathan Williams',
     discipline: 'Street',
     era: '2000s-present',
@@ -11524,7 +11524,7 @@ ASDB.nodes = {
   'stevie-churchill': {
     id: 'stevie-churchill',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Stevie Churchill',
     discipline: 'Park / Street',
     era: '2010s-present',
@@ -11537,7 +11537,7 @@ ASDB.nodes = {
   'matthias-dandois': {
     id: 'matthias-dandois',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Matthias Dandois',
     discipline: 'Flatland',
     era: '2010s-present',
@@ -11550,7 +11550,7 @@ ASDB.nodes = {
   'martti-kuoppa': {
     id: 'martti-kuoppa',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Martti Kuoppa',
     discipline: 'Flatland',
     era: '1990s-2010s',
@@ -11563,7 +11563,7 @@ ASDB.nodes = {
   'viki-gomez': {
     id: 'viki-gomez',
     type: 'athlete',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Viki Gomez',
     discipline: 'Flatland',
     era: '2000s-present',
@@ -11576,7 +11576,7 @@ ASDB.nodes = {
   'gary-fisher': {
     id: 'gary-fisher',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Gary Fisher',
     discipline: 'Downhill / Cross-Country',
     era: '1970s-present',
@@ -11589,7 +11589,7 @@ ASDB.nodes = {
   'joe-breeze': {
     id: 'joe-breeze',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Joe Breeze',
     discipline: 'Downhill',
     era: '1970s-1980s',
@@ -11602,7 +11602,7 @@ ASDB.nodes = {
   'charlie-kelly': {
     id: 'charlie-kelly',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Charlie Kelly',
     discipline: 'Pioneer',
     era: '1970s-1980s',
@@ -11615,7 +11615,7 @@ ASDB.nodes = {
   'tom-ritchey': {
     id: 'tom-ritchey',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Tom Ritchey',
     discipline: 'Pioneer',
     era: '1970s-present',
@@ -11628,7 +11628,7 @@ ASDB.nodes = {
   'john-tomac': {
     id: 'john-tomac',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'John Tomac',
     discipline: 'Cross-Country / Downhill',
     era: '1980s-1990s',
@@ -11641,7 +11641,7 @@ ASDB.nodes = {
   'ned-overend': {
     id: 'ned-overend',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Ned Overend',
     discipline: 'Cross-Country',
     era: '1980s-1990s',
@@ -11654,7 +11654,7 @@ ASDB.nodes = {
   'missy-giove': {
     id: 'missy-giove',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Missy Giove',
     discipline: 'Downhill',
     era: '1990s-2000s',
@@ -11667,7 +11667,7 @@ ASDB.nodes = {
   'nicolas-vouilloz': {
     id: 'nicolas-vouilloz',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Nicolas Vouilloz',
     discipline: 'Downhill',
     era: '1990s-2000s',
@@ -11680,7 +11680,7 @@ ASDB.nodes = {
   'greg-minnaar': {
     id: 'greg-minnaar',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Greg Minnaar',
     discipline: 'Downhill',
     era: '2000s-present',
@@ -11693,7 +11693,7 @@ ASDB.nodes = {
   'steve-peat': {
     id: 'steve-peat',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Steve Peat',
     discipline: 'Downhill',
     era: '1990s-2010s',
@@ -11706,7 +11706,7 @@ ASDB.nodes = {
   'sam-hill': {
     id: 'sam-hill',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Sam Hill',
     discipline: 'Downhill / Enduro',
     era: '2000s-present',
@@ -11719,7 +11719,7 @@ ASDB.nodes = {
   'aaron-gwin': {
     id: 'aaron-gwin',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Aaron Gwin',
     discipline: 'Downhill',
     era: '2010s',
@@ -11732,7 +11732,7 @@ ASDB.nodes = {
   'loic-bruni': {
     id: 'loic-bruni',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Loic Bruni',
     discipline: 'Downhill',
     era: '2010s-present',
@@ -11745,7 +11745,7 @@ ASDB.nodes = {
   'rachel-atherton': {
     id: 'rachel-atherton',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Rachel Atherton',
     discipline: 'Downhill',
     era: '2000s-2020s',
@@ -11758,7 +11758,7 @@ ASDB.nodes = {
   'brendan-fairclough': {
     id: 'brendan-fairclough',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Brendan Fairclough',
     discipline: 'Downhill',
     era: '2000s-present',
@@ -11771,7 +11771,7 @@ ASDB.nodes = {
   'cam-mccaul': {
     id: 'cam-mccaul',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Cam McCaul',
     discipline: 'Slopestyle',
     era: '2000s-2010s',
@@ -11784,7 +11784,7 @@ ASDB.nodes = {
   'brandon-semenuk': {
     id: 'brandon-semenuk',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Brandon Semenuk',
     discipline: 'Slopestyle',
     era: '2010s-present',
@@ -11797,7 +11797,7 @@ ASDB.nodes = {
   'andreu-lacondeguy': {
     id: 'andreu-lacondeguy',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Andreu Lacondeguy',
     discipline: 'Slopestyle / Freeride',
     era: '2000s-present',
@@ -11810,7 +11810,7 @@ ASDB.nodes = {
   'kurt-sorge': {
     id: 'kurt-sorge',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Kurt Sorge',
     discipline: 'Freeride',
     era: '2010s-present',
@@ -11823,7 +11823,7 @@ ASDB.nodes = {
   'darren-berrecloth': {
     id: 'darren-berrecloth',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Darren Berrecloth',
     discipline: 'Freeride',
     era: '2000s-2010s',
@@ -11836,7 +11836,7 @@ ASDB.nodes = {
   'julien-absalon': {
     id: 'julien-absalon',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Julien Absalon',
     discipline: 'Cross-Country',
     era: '2000s-2010s',
@@ -11849,7 +11849,7 @@ ASDB.nodes = {
   'nino-schurter': {
     id: 'nino-schurter',
     type: 'athlete',
-    sport: 'mtb',
+    sport: ['mtb'],
     name: 'Nino Schurter',
     discipline: 'Cross-Country',
     era: '2010s-present',
@@ -11862,7 +11862,7 @@ ASDB.nodes = {
   'burton-snowboards': {
     id: 'burton-snowboards',
     type: 'brand',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Burton Snowboards',
     bio: 'Founded 1977 by Jake Burton Carpenter in a Vermont barn. The largest and most influential snowboard company in history. Lobbied for resort access, pioneered equipment design, and signed most of the sport\'s legends. Jake Burton died 2019.',
     hometown: 'Burlington, Vermont',
@@ -11873,7 +11873,7 @@ ASDB.nodes = {
   'sims-snowboards': {
     id: 'sims-snowboards',
     type: 'brand',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Sims Snowboards',
     bio: 'Founded by Tom Sims; early competitor to Burton. One of the first serious snowboard companies. Tom Sims died 2012.',
     hometown: 'USA',
@@ -11884,7 +11884,7 @@ ASDB.nodes = {
   'armada-skis': {
     id: 'armada-skis',
     type: 'brand',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Armada Skis',
     bio: 'Co-founded by Tanner Hall and CR Johnson. Rider-owned freeskiing brand. CR Johnson died 2010; Tanner Hall continued building the brand.',
     hometown: 'USA',
@@ -11895,7 +11895,7 @@ ASDB.nodes = {
   'forum-snowboards': {
     id: 'forum-snowboards',
     type: 'brand',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Forum Snowboards',
     bio: 'Founded 1996 by Peter Line. Assembled "The Forum 8" — considered the most progressive team ever assembled in snowboarding. Defined the street/rail era.',
     hometown: 'USA',
@@ -11906,7 +11906,7 @@ ASDB.nodes = {
   'warren-miller-entertainment': {
     id: 'warren-miller-entertainment',
     type: 'brand',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Warren Miller Entertainment',
     bio: 'Annual ski film tour founded by Warren Miller (1950). 75+ films spanning from Squaw Valley in 1950 to the present. Currently owned by Outside Inc. The longest-running ski film franchise in history.',
     hometown: 'USA',
@@ -11917,7 +11917,7 @@ ASDB.nodes = {
   'teton-gravity-research': {
     id: 'teton-gravity-research',
     type: 'brand',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'Teton Gravity Research',
     bio: 'Founded 1996 by brothers Steve Jones and Todd Jones in Jackson Hole, WY. 40+ award-winning films; 30th anniversary in 2025. Key figures include Jeremy Jones (snowboard), Tanner Hall (ski).',
     hometown: 'Jackson Hole, Wyoming',
@@ -11928,7 +11928,7 @@ ASDB.nodes = {
   'msp-films': {
     id: 'msp-films',
     type: 'brand',
-    sport: 'ski',
+    sport: ['snow'],
     name: 'MSP Films (Matchstick Productions)',
     bio: 'Founded 1992 in Crested Butte, CO by Steve Winter and Murray Wais. "Saving skiing since 1992." World\'s most awarded ski film brand; 25+ feature films; Shane McConkey was signature athlete 1995–2008.',
     hometown: 'Crested Butte, Colorado',
@@ -11939,7 +11939,7 @@ ASDB.nodes = {
   'mack-dawg-productions': {
     id: 'mack-dawg-productions',
     type: 'brand',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Mack Dawg Productions',
     bio: 'Founded by Mike McEntire. 20 years of annual snowboard films; most prolific snowboard filmmaker in history. Innovated snowmobile access for backcountry, HD digital cameras. Featured Forum 8 riders, Terje Haakonsen, Travis Rice.',
     hometown: 'San Francisco, California',
@@ -11950,7 +11950,7 @@ ASDB.nodes = {
   'fox-racing': {
     id: 'fox-racing',
     type: 'brand',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Fox Racing',
     bio: 'Founded 1974 by Geoff Fox. Originally Moto-X Fox (suspension/shocks); pivoted to gear when suspension arm was sold. Iconic Fox head logo. Became the defining MX gear brand. $1B+ market cap (Fox Factory, suspension arm).',
     hometown: 'California, USA',
@@ -11961,7 +11961,7 @@ ASDB.nodes = {
   'metal-mulisha': {
     id: 'metal-mulisha',
     type: 'brand',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Metal Mulisha',
     bio: 'Co-founded by Brian Deegan. Lifestyle brand built around FMX culture, heavy metal, and anti-establishment attitude. Multiple X Games medalists on roster. Rockstar Energy connection.',
     hometown: 'California, USA',
@@ -11972,7 +11972,7 @@ ASDB.nodes = {
   'troy-lee-designs': {
     id: 'troy-lee-designs',
     type: 'brand',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Troy Lee Designs',
     bio: 'Founded 1976. Custom helmets and gear; major crossover between MX and MTB. Known for elaborate graphics and artist collaborations.',
     hometown: 'Corona, California',
@@ -11983,7 +11983,7 @@ ASDB.nodes = {
   'alpinestars': {
     id: 'alpinestars',
     type: 'brand',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'Alpinestars',
     bio: 'Founded 1963 in Italy. Boots first; became full moto gear brand; crossover to auto racing. One of the most respected protection brands in action sports.',
     hometown: 'Italy',
@@ -11994,7 +11994,7 @@ ASDB.nodes = {
   'no-fear': {
     id: 'no-fear',
     type: 'brand',
-    sport: 'moto',
+    sport: ['moto'],
     name: 'No Fear',
     bio: 'Founded 1989. 1990s SX culture emblem. "No Fear" shirts were ubiquitous throughout action sports in the 1990s. Retro revival in recent years.',
     hometown: 'California, USA',
@@ -12005,7 +12005,7 @@ ASDB.nodes = {
   'haro-bikes': {
     id: 'haro-bikes',
     type: 'brand',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Haro Bikes',
     bio: 'Founded by Bob Haro (team 1978, bikes 1984). Haro Freestyler was the iconic freestyle BMX bike. Dave Mirra\'s brand sponsor. Bob Haro choreographed BMX sequence for 1984 Olympics opening ceremony.',
     hometown: 'California, USA',
@@ -12016,7 +12016,7 @@ ASDB.nodes = {
   'gt-bicycles': {
     id: 'gt-bicycles',
     type: 'brand',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'GT Bicycles',
     bio: 'Founded 1975 by Gary Turner. Chromoly frames; pioneered by Eddie Fiola and Mike Dominguez in freestyle. Also a major MTB brand with Greg Minnaar racing history.',
     hometown: 'California, USA',
@@ -12027,7 +12027,7 @@ ASDB.nodes = {
   'mongoose-bmx': {
     id: 'mongoose-bmx',
     type: 'brand',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Mongoose',
     bio: 'Founded 1974 by Skip Hess in Simi Valley garage. Racing-first brand; Dennis McCoy team. One of the original BMX brands.',
     hometown: 'Simi Valley, California',
@@ -12038,7 +12038,7 @@ ASDB.nodes = {
   'hoffman-bikes': {
     id: 'hoffman-bikes',
     type: 'brand',
-    sport: 'bmx',
+    sport: ['bmx'],
     name: 'Hoffman Bikes',
     bio: 'Founded 1991 by Mat Hoffman (The Condor). Oklahoma-based rider-owned brand. Focused on vert and big air.',
     hometown: 'Oklahoma City, Oklahoma',
@@ -12049,7 +12049,7 @@ ASDB.nodes = {
   'protect-our-winters': {
     id: 'protect-our-winters',
     type: 'org',
-    sport: 'snowboard',
+    sport: ['snow'],
     name: 'Protect Our Winters (POW)',
     bio: 'Environmental advocacy organization founded by professional snowboarder Jeremy Jones. Mobilizes the outdoor sports community to fight climate change. Based in Boulder, Colorado.',
     hometown: 'Boulder, Colorado',
