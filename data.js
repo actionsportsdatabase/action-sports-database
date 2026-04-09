@@ -19566,7 +19566,7 @@ ASDB.nodes = {
     stance: 'Regular',
     era: '1980s-present',
     status: 'pre-populated',
-    bio: "Born in the Bahamas, Greg Geiselman walked away from a full-ride competitive swimming scholarship after surfing consumed him. He competed as a professional surfer on the East Coast circuit before transitioning entirely to shaping — founding Orion Surfboards in New Smyrna Beach in 1985. For four decades he has been one of the most respected shapers on the East Coast. Greg was among the first Florida shapers to operate a CNC shaping machine, raising the bar for board precision and consistency across the region. He shapes personally for his sons Eric Geiselman and Evan Geiselman. Ex-ex-husbandd of Gina Geiselman, mother of Eric and Evan.",
+    bio: "Born in the Bahamas, Greg Geiselman walked away from a full-ride competitive swimming scholarship after surfing consumed him. He competed as a professional surfer on the East Coast circuit before transitioning entirely to shaping — founding Orion Surfboards in New Smyrna Beach in 1985. For four decades he has been one of the most respected shapers on the East Coast. Greg was among the first Florida shapers to operate a CNC shaping machine, raising the bar for board precision and consistency across the region. He shapes personally for his sons Eric Geiselman and Evan Geiselman. Former husband of Gina Geiselman, mother of Eric and Evan. The two are divorced.",
     connections: [
       {id: 'orion-surfboards', rel: 'Founder & head shaper — 1985'},
       {id: 'eric-geiselman', rel: 'Son — shapes all his boards'},
@@ -19690,6 +19690,25 @@ ASDB.nodes = {
       {id: 'taylor-steele', rel: 'Director'},
       {id: 'kelly-slater', rel: 'Featured'},
       {id: 'rob-machado', rel: 'Featured'},
+    ],
+  },
+
+  'gina-geiselman': {
+    id: 'gina-geiselman',
+    type: 'person',
+    name: 'Gina Geiselman',
+    birthplace: 'New Smyrna Beach, FL',
+    nationality: '🇺🇸',
+    sport: ['surf'],
+    era: '1980s-present',
+    status: 'pre-populated',
+    bio: 'Lifelong surfer from New Smyrna Beach and mother of professional surfers Eric Geiselman and Evan Geiselman. Former wife of shaper Greg Geiselman. Gina is the family archivist — she documented every competition, contest result, and milestone in both of her sons' careers from their earliest ESA contests through Eric's pro career and Evan's 12 East Coast Championship titles and WSL Challenger Series campaigns.',
+    connections: [
+      {id: 'eric-geiselman', rel: 'Son'},
+      {id: 'evan-geiselman', rel: 'Son'},
+      {id: 'greg-geiselman', rel: 'Ex-husband'},
+      {id: 'geiselman-family', rel: 'Family matriarch'},
+      {id: 'nsb-inlet', rel: 'Home break'},
     ],
   },
 };
