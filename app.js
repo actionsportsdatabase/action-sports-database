@@ -1514,7 +1514,7 @@ function renderSidebar(node) {
     </div>
   ` : '';
 
-  const connItems  = connections.slice(0, 5);
+  const connItems  = connections;
   const connWidget = connItems.length ? `
     <div class="sidebar-widget">
       <h4>Connected to</h4>
@@ -1531,7 +1531,7 @@ function renderSidebar(node) {
           </div>
         `;
       }).join('')}
-      ${connections.length > 5 ? `<div style="margin-top:var(--sp-3);font-size:var(--text-xs);color:var(--accent);cursor:pointer" onclick="document.querySelector('[data-tab=connections]').click()">+ ${connections.length - 5} more connections →</div>` : ''}
+
     </div>
   ` : '';
 
