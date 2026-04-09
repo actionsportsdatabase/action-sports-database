@@ -1,0 +1,1884 @@
+/* ── ACTION SPORTS DATABASE — APP JS ─────────────────────────
+   Navigation: IMDB + Wikipedia + LinkedIn + Ancestry
+   - Hash routing: #profile/id | #filter/type/value
+   - Location filter bar: All / Near Me / WSL / FL / CA / HI / AUS / EC / EU
+   - Breadcrumb trail with full back/forward history
+   - Search-as-you-type with dropdown
+   - "People Also Viewed" sidebar
+   - Clickable connection chips
+   - Hyperlinked Quick Facts — every value is a live filter link
+   - Bio auto-hyperlinks — known node names become clickable
+   - List items (sponsors, keyPeople, teamRiders, orgs, etc.) auto-link
+   - Claim this profile banner
+   - Defunct brand notices
+   - Dark/light theme toggle
+──────────────────────────────────────────────────────────── */
+
+// ── STATE ────────────────────────────────────────────────────
+const State = {
+  currentSport:    'all',
+  currentEra:      'all',
+  currentLocation: 'all',
+  history:         [],       // navigation history stack
+  historyIdx:      -1,       // current position in history
+  currentNode:     null,     // currently displayed node id
+  activeTab:       'overview',
+  userLat:         null,
+  userLon:         null,
+};
+
+// ── SPORT / TYPE META ────────────────────────────────────────
+const SPORT_ICONS = {
+  surf:'🏄', skate:'🛹', snow:'🏔', mtb:'🚵', moto:'🏍', bmx:'🚲',
+  film:'🎬', photo:'📸', music:'🎵', brand:'🏷', location:'📍',
+  org:'🏛', athlete:'🏅', person:'👤',
+};
+
+const TYPE_TAGS = {
+  athlete:  'tag-athlete',
+  person:   'tag-person',
+  brand:    'tag-brand',
+  location: 'tag-location',
+  org:      'tag-org',
+  media:    'tag-film',
+  music:    'tag-music',
+};
+
+// ── FILTER TYPE LABELS ────────────────────────────────────────
+const FILTER_LABELS = {
+  hometown:       '🏠 Hometown',
+  birthplace:     '🏠 Hometown',
+  stance:         '🤙 Stance',
+  'birth-month':  '🎂 Birth Month',
+  sport:          '🏄 Sport',
+  location:       '📍 Location',
+  sponsor:        '🏷 Sponsor',
+  nationality:    '🌍 Nationality',
+  country:        '🌍 Country',
+  era:            '📅 Era',
+  discipline:     '🎯 Discipline',
+  type:           '🗂 Type',
+};
+
+// ── LOCATION MATCH CONFIG ────────────────────────────────────
+const LOCATION_RULES = {
+  florida: {
+    terms: ['florida','fl','new smyrna','nsb','daytona','cocoa beach','brevard',
+            'orlando','miami','jacksonville','fort lauderdale','sebastian inlet'],
+    locationNodes: ['nsb-inlet'],
+  },
+  california: {
+    terms: ['california','ca','san clemente','malibu','santa cruz','trestles',
+            'venice','huntington','oceanside','cardiff','del mar','encinitas',
+            'santa barbara','los angeles','san diego'],
+    locationNodes: ['trestles','venice-beach','huntington-beach','del-mar-skate-ranch','dogbowl'],
+  },
+  hawaii: {
+    terms: ['hawaii','hi','oahu','maui','north shore','pipeline','waikiki',
+            'honolulu','haleiwa','kauai','big island'],
+    locationNodes: ['pipeline','waikiki','waimea-bay','makaha','jaws-peahi'],
+  },
+  australia: {
+    terms: ['australia','au','aus','torquay','queensland','new south wales',
+            'gold coast','bells beach','margaret river','bondi','sydney'],
+    locationNodes: [],
+  },
+  'east-coast': {
+    terms: ['florida','new smyrna','nsb','north carolina','virginia beach',
+            'new york','new jersey','connecticut','delaware','maryland',
+            'rhode island','massachusetts','maine','east coast','outer banks'],
+    locationNodes: ['nsb-inlet'],
+  },
+  europe: {
+    terms: ['france','europe','eu','spain','portugal','hossegor','biarritz',
+            'peniche','ireland','uk','united kingdom','norway','italy','germany'],
+    locationNodes: ['chamonix'],
+  },
+  wsl: {
+    // WSL CT waves / associated nodes
+    terms: ['wsl','world surf league','ct','tour','pipe masters','bells beach',
+            'margaret river','teahupoo','hossegor','peniche','g-land','trestles',
+            'j-bay','pipeline'],
+    locationNodes: ['pipeline','trestles','teahupoo'],
+  },
+};
+
+// ── DOM REFS ─────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+const homeView    = $('home-view');
+const profileView = $('profile-view');
+const filterView  = $('filter-view');
+const nodeGrid    = $('node-grid');
+const browseTitle = $('browse-title');
+const browseCount = $('browse-count');
+const searchInput = $('main-search');
+const searchDrop  = $('search-dropdown');
+const searchView  = $('search-view');
+const breadcrumbBar   = $('breadcrumb-bar');
+const breadcrumbTrail = $('breadcrumb-trail');
+const btnBack     = $('btn-back');
+const btnForward  = $('btn-forward');
+const themeToggle = $('theme-toggle');
+const iconMoon    = $('icon-moon');
+const iconSun     = $('icon-sun');
+const logoBtn     = $('logo-home-btn');
+
+// ── HELPERS ──────────────────────────────────────────────────
+function initials(name) {
+  if (!name) return '?';
+  return name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+}
+
+function sportIcon(node) {
+  if (!node) return '?';
+  if (node.sport && node.sport.length) return SPORT_ICONS[node.sport[0]] || '🏅';
+  if (node.type === 'brand')    return '🏷';
+  if (node.type === 'location') return '📍';
+  if (node.type === 'org')      return '🏛';
+  if (node.type === 'media')    return '🎬';
+  if (node.type === 'music')    return '🎵';
+  if (node.type === 'person')   return '👤';
+  return '⭐';
+}
+
+function sportLabel(sport) {
+  const map = {
+    surf:'Surf', skate:'Skate', snow:'Snow/Ski', mtb:'MTB',
+    moto:'Moto/SX', bmx:'BMX', film:'Film', photo:'Photo',
+    music:'Music', brand:'Brand', location:'Location', org:'Org'
+  };
+  return map[sport] || sport;
+}
+
+function nodeSubtitle(node) {
+  if (!node) return '';
+  if (node.type === 'athlete') {
+    const sports = (node.sport || []).map(sportLabel).join(' / ');
+    const era = node.era || '';
+    return [sports, era].filter(Boolean).join(' · ');
+  }
+  if (node.type === 'brand') {
+    const status = node.status === 'defunct' ? '⚠ Defunct' : 'Active';
+    const years  = node.years || '';
+    return [status, years].filter(Boolean).join(' · ');
+  }
+  if (node.type === 'location') {
+    return [
+      node.country || node.state || node.region,
+      node.sport ? (node.sport[0] ? sportLabel(node.sport[0]) : '') : ''
+    ].filter(Boolean).join(' · ');
+  }
+  if (node.type === 'person') return node.role || '';
+  if (node.type === 'org')    return node.sport ? (node.sport[0] ? sportLabel(node.sport[0]) + ' Org' : 'Org') : 'Org';
+  if (node.type === 'media')  return node.role || 'Media';
+  if (node.type === 'music')  return node.genre || 'Music';
+  return '';
+}
+
+function isDefunctNode(node) {
+  const s = (node.status || '').toLowerCase();
+  return s === 'defunct' || s === 'closed' || s.startsWith('defunct');
+}
+
+// ── FILTER MATCHING ───────────────────────────────────────────
+function eraMatchesFilter(node, era) {
+  if (era === 'all') return true;
+  const nodeEra = (node.era || node.years || node.founded || '');
+  const eraMap = {
+    '1900s': ['1900','1910','1920','1930','1940'],
+    '1950s': ['1950','1960'],
+    '1970s': ['1970'],
+    '1980s': ['1980'],
+    '1990s': ['1990'],
+    '2000s': ['2000'],
+    '2010s': ['2010'],
+    '2020s': ['2020','2021','2022','2023','2024'],
+  };
+  const prefixes = eraMap[era] || [];
+  return prefixes.some(p => nodeEra.includes(p));
+}
+
+function sportMatchesFilter(node, sport) {
+  if (sport === 'all') return true;
+  if (node.sport && node.sport.includes(sport)) return true;
+  if (sport === 'film' && (node.type === 'media' || node.role === 'Filmmaker' || node.role === 'Videographer')) return true;
+  if (sport === 'music' && node.type === 'music') return true;
+  if (sport === 'brand' && node.type === 'brand') return true;
+  if (sport === 'location' && node.type === 'location') return true;
+  return false;
+}
+
+function locationMatchesFilter(node, loc) {
+  if (!loc || loc === 'all') return true;
+
+  const rule = LOCATION_RULES[loc];
+  if (!rule) return true;
+
+  // Check if this node IS one of the keyed location nodes
+  if (rule.locationNodes && rule.locationNodes.includes(node.id)) return true;
+
+  // For non-location nodes: check if any of their connected location nodes match
+  if (rule.locationNodes && node.connections) {
+    for (const c of node.connections) {
+      if (rule.locationNodes.includes(c.id)) return true;
+    }
+  }
+
+  // Text search across all location-related fields
+  const haystack = [
+    node.birthplace, node.nationality, node.headquarters,
+    node.foundedIn, node.state, node.country, node.region,
+    node.bio, node.description, node.history,
+  ].filter(Boolean).join(' ').toLowerCase();
+
+  return rule.terms.some(t => haystack.includes(t));
+}
+
+// Near Me — uses geolocation + proximity to known coords
+const LOCATION_COORDS = {
+  'nsb-inlet':          { lat: 29.06, lon: -80.9 },
+  'pipeline':           { lat: 21.66, lon: -158.05 },
+  'trestles':           { lat: 33.38, lon: -117.59 },
+  'waikiki':            { lat: 21.27, lon: -157.82 },
+  'waimea-bay':         { lat: 21.64, lon: -158.06 },
+  'jaws-peahi':         { lat: 20.96, lon: -156.31 },
+  'makaha':             { lat: 21.47, lon: -158.21 },
+  'venice-beach':       { lat: 33.99, lon: -118.48 },
+  'huntington-beach':   { lat: 33.66, lon: -118.0 },
+  'del-mar-skate-ranch':{ lat: 32.96, lon: -117.26 },
+  'dogbowl':            { lat: 34.0,  lon: -118.5 },
+  'teahupoo':           { lat: -17.86, lon: -149.26 },
+  'stone-edge-skatepark':{ lat: 29.17, lon: -81.02 },
+  'chamonix':           { lat: 45.92, lon: 6.87 },
+  'jackson-hole':       { lat: 43.47, lon: -110.76 },
+  'whistler':           { lat: 50.12, lon: -122.96 },
+  'kelly-slater-wave-co':{ lat: 36.48, lon: -119.44 },
+};
+
+function haversine(lat1, lon1, lat2, lon2) {
+  const R = 3958.8; // miles
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function nearMeMatchesFilter(node) {
+  if (!State.userLat) return true; // show all if no geo yet
+  const coords = LOCATION_COORDS[node.id];
+  if (coords) {
+    return haversine(State.userLat, State.userLon, coords.lat, coords.lon) < 500;
+  }
+  // For athletes: check connected location nodes
+  if (node.connections) {
+    for (const c of node.connections) {
+      const lc = LOCATION_COORDS[c.id];
+      if (lc && haversine(State.userLat, State.userLon, lc.lat, lc.lon) < 500) return true;
+    }
+  }
+  return false;
+}
+
+// ── BUILD NAME INDEX for auto-hyperlinking ───────────────────
+// Map: lower-case name/alias → node id
+
+// Manual aliases: short brand names, abbreviations, nicknames not in node.nick
+const NAME_ALIASES = {
+  // Brands — short forms
+  'arnette':             'arnette-optics',
+  'arnette optics':      'arnette-optics',
+  'freestyle':           'freestyle-watches',
+  'cb surfboards':       'cb-surfboards',
+  'cb':                  'cb-surfboards',
+  'inlet charleys':      'inlet-charleys',
+  "inlet charley's":     'inlet-charleys',
+  "inlet charley's surf shop": 'inlet-charleys',
+  'amp wear':            'amp-wear',
+  'amp':                 'amp-wear',
+  'lost':                'lost-surfboards',
+  '…lost':               'lost-surfboards',
+  'stone edge':          'stone-edge-skatepark',
+  'stone edge skate park': 'stone-edge-skatepark',
+  'stone edge skatepark':'stone-edge-skatepark',
+  'rip curl':            'rip-curl',
+  'powell peralta':      'powell-peralta',
+  'channel islands':     'channel-islands',
+  // Orgs — abbreviations
+  'esa':                 'esa',
+  'eastern surfing association': 'esa',
+  'nssa':                'nssa',
+  'national scholastic surfing association': 'nssa',
+  'smyrna surfari club': 'smyrna-surfari-club',
+  'surfari club':        'smyrna-surfari-club',
+  'hui nalu':            'hui-nalu',
+  // People — common short names / nicks
+  'charlie':             'charlie-baldwin',
+  'charlie baldwin':     'charlie-baldwin',
+  'mike cruickshank':    'mike-cruickshank',
+  'cruickshank':         'mike-cruickshank',
+  'happy':               'mike-cruickshank',
+  'greg arnette':        'greg-arnette',
+  'al merrick':          'al-merrick',
+  'merrick':             'al-merrick',
+  'taylor steele':       'taylor-steele',
+  'warren miller':       'warren-miller',
+  // Athletes — nicks and short
+  'da bull':             'greg-noll',
+  'the goat':            'kelly-slater',
+  'slater':              'kelly-slater',
+  'the hobbit':          'rob-machado',
+  'machado':             'rob-machado',
+  'the birdman':         'tony-hawk',
+  'hawk':                'tony-hawk',
+  'laird':               'laird-hamilton',
+  'the duke':            'duke-kahanamoku',
+  'travis':              'travis-pastrana',
+  // Locations — short names
+  'pipe':                'pipeline',
+  'pipeline':            'pipeline',
+  'nsb inlet':           'nsb-inlet',
+  'nsb':                 'nsb-inlet',
+  'the inlet':           'nsb-inlet',
+  'new smyrna beach':    'nsb-inlet',
+  'trestles':            'trestles',
+  'waimea':              'waimea-bay',
+  'jaws':                'jaws-peahi',
+  'peahi':               'jaws-peahi',
+  'teahupoo':            'teahupoo',
+  // Media
+  'eastern surf mag':    'eastern-surf-mag',
+  'eastern surf magazine':'eastern-surf-mag',
+  'endless summer':      'endless-summer',
+  // Music
+  'pennywise':           'pennywise',
+  'bad religion':        'bad-religion',
+  'jack johnson':        'jack-johnson',
+  // Brands
+  'red bull':            'red-bull',
+  'burton':              'burton',
+  'quiksilver':          'quiksilver',
+  'nitro circus':        'nitro-circus',
+  'mcd':                 'mcd',
+  // Adam Wright companies
+  'seed2source':         'seed2source',
+  'mastermind mushrooms':'mastermind-mushrooms',
+  'mastermind':          'mastermind-mushrooms',
+  'action sports database': 'action-sports-database',
+  'asdb':                'action-sports-database',
+  // Adam family / community
+  'smyrna surfari club': 'smyrna-surfari-club',
+  'surfari club':        'smyrna-surfari-club',
+  'wright & casey':      'wright-casey-law',
+  'wright and casey':    'wright-casey-law',
+  'tom wright':          'tom-wright',
+  'barbara bresnahan':   'barbara-bresnahan',
+  'barbara':             'barbara-bresnahan',
+  // Orgs + Media (additional)
+  'thrasher':            'eastern-surf-mag',   // placeholder until thrasher node added
+  'bones brigade':       'powell-peralta',
+  'the search':          'rip-curl',
+  'surf ranch':          'kelly-slater-wave-co',
+  'wave ranch':          'kelly-slater-wave-co',
+  'kelly slater wave company': 'kelly-slater-wave-co',
+};
+
+function buildNameIndex() {
+  const index = {};
+
+  // Start with manual aliases
+  Object.entries(NAME_ALIASES).forEach(([alias, nodeId]) => {
+    if (ASDB.nodes[nodeId]) index[alias] = nodeId;
+  });
+
+  // Add every node's canonical name
+  Object.values(ASDB.nodes).forEach(n => {
+    index[n.name.toLowerCase()] = n.id;
+    // nick field (strip surrounding quotes)
+    if (n.nick) {
+      const clean = n.nick.toLowerCase().replace(/["“”‘’]/g,'').trim();
+      if (clean.length >= 4) index[clean] = n.id;
+    }
+  });
+
+  return index;
+}
+
+let _nameIndex = null;
+function getNameIndex() {
+  if (!_nameIndex) _nameIndex = buildNameIndex();
+  return _nameIndex;
+}
+
+/* linkifyText(text, currentNodeId)
+   Scans plain text for known node names and wraps them in <a> tags.
+   Skips the current node's own name to avoid self-links. */
+function linkifyText(text, currentNodeId) {
+  if (!text) return '';
+  const idx = getNameIndex();
+
+  // Build sorted array longest-first to match greedy (e.g., "Greg Arnette" before "Greg")
+  const names = Object.keys(idx).sort((a, b) => b.length - a.length);
+
+  let result = text;
+  // We'll do a safe replacement pass — build a placeholder map
+  const placeholders = {};
+  let phCount = 0;
+
+  for (const name of names) {
+    const nodeId = idx[name];
+    if (nodeId === currentNodeId) continue; // don't self-link
+    if (name.length < 3) continue;          // skip very short strings
+
+    const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex   = new RegExp(`(?<![\\w\\-])${escaped}(?![\\w\\-])`, 'gi');
+
+    result = result.replace(regex, match => {
+      // Check if already inside a placeholder
+      if (match.startsWith('\x00')) return match;
+      const ph = `\x00${phCount++}\x00`;
+      placeholders[ph] = `<a class="inline-link" href="#" onclick="navigateTo('${nodeId}');return false;" title="View ${ASDB.nodes[nodeId]?.name || name}">${match}</a>`;
+      return ph;
+    });
+  }
+
+  // Restore placeholders
+  result = result.replace(/\x00\d+\x00/g, ph => placeholders[ph] || ph);
+  return result;
+}
+
+/* linkifyListItem(text, currentNodeId)
+   Like linkifyText but also tries to match the full string against a node name
+   (for sponsor lists like "CB Surfboards" which map directly to a node). */
+function linkifyListItem(text, currentNodeId) {
+  if (!text) return '';
+  const idx = getNameIndex();
+  const lower = text.trim().toLowerCase();
+
+  // Exact match — wrap the whole thing
+  if (idx[lower] && idx[lower] !== currentNodeId) {
+    const nodeId = idx[lower];
+    return `<a class="inline-link" href="#" onclick="navigateTo('${nodeId}');return false;" title="View ${ASDB.nodes[nodeId]?.name}">${text}</a>`;
+  }
+
+  // Partial linkify
+  return linkifyText(text, currentNodeId);
+}
+
+// ── FILTER LINK BUILDER ───────────────────────────────────────
+/* factLink(type, value, display)
+   Returns HTML for a clickable Quick Fact value that navigates to a filter page. */
+function factLink(type, value, display) {
+  if (!value) return '';
+  const d = display || value;
+  const filterVal = String(value).toLowerCase().replace(/\s+/g, '-');
+  return `<a class="fact-link" href="#filter/${type}/${filterVal}" onclick="navigateFilter('${type}','${filterVal}');return false;" title="Browse all ${type}: ${value}">${d}</a>`;
+}
+
+/* bornLink(bornStr)
+   Parses "July 10, 1982" → links to birth-month/july + birth-year/1982 */
+function bornLink(bornStr, nodeId) {
+  if (!bornStr) return '';
+  // Try to parse month
+  const months = ['january','february','march','april','may','june',
+                  'july','august','september','october','november','december'];
+  const lower = bornStr.toLowerCase();
+  const month = months.find(m => lower.includes(m));
+  if (month) {
+    const rest = bornStr.replace(new RegExp(month, 'i'), '').trim();
+    return `${factLink('birth-month', month, month.charAt(0).toUpperCase()+month.slice(1))} ${rest}`;
+  }
+  return bornStr;
+}
+
+// ── RENDER NODE GRID ─────────────────────────────────────────
+function renderGrid() {
+  const nodes = Object.values(ASDB.nodes);
+
+  let filtered = nodes.filter(n =>
+    sportMatchesFilter(n, State.currentSport) &&
+    eraMatchesFilter(n, State.currentEra)
+  );
+
+  // Location filter
+  if (State.currentLocation === 'near-me') {
+    filtered = filtered.filter(n => nearMeMatchesFilter(n));
+  } else {
+    filtered = filtered.filter(n => locationMatchesFilter(n, State.currentLocation));
+  }
+
+  browseCount.textContent = `${filtered.length} entries`;
+
+  const sportTitleMap = {
+    all:'All Entries', surf:'Surf', skate:'Skateboarding',
+    snow:'Snow & Ski', mtb:'Mountain Biking', moto:'Moto & Supercross',
+    bmx:'BMX', film:'Filmmakers & Media', music:'Music',
+    brand:'Brands', location:'Locations & Spots'
+  };
+  browseTitle.textContent = sportTitleMap[State.currentSport] || 'Browse';
+
+  if (filtered.length === 0) {
+    nodeGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><h3>No entries found</h3><p>Try a different filter combination or <a href="#" onclick="resetFilters();return false;" style="color:var(--accent)">reset all filters</a>.</p></div>`;
+    return;
+  }
+
+  const typeOrder = { athlete:0, person:1, org:2, brand:3, media:4, music:5, location:6 };
+  filtered.sort((a, b) => {
+    const ao = typeOrder[a.type] ?? 9;
+    const bo = typeOrder[b.type] ?? 9;
+    if (ao !== bo) return ao - bo;
+    return (a.name || '').localeCompare(b.name || '');
+  });
+
+  nodeGrid.innerHTML = filtered.map(node => renderCard(node)).join('');
+
+  nodeGrid.querySelectorAll('.node-card').forEach(card => {
+    card.addEventListener('click', () => navigateTo(card.dataset.id));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') navigateTo(card.dataset.id);
+    });
+  });
+}
+
+function resetFilters() {
+  State.currentSport    = 'all';
+  State.currentEra      = 'all';
+  State.currentLocation = 'all';
+  document.querySelectorAll('.sport-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.sport === 'all');
+    b.setAttribute('aria-selected', b.dataset.sport === 'all' ? 'true' : 'false');
+  });
+  document.querySelectorAll('.era-chip').forEach(b => {
+    b.classList.toggle('active', b.dataset.era === 'all');
+  });
+  document.querySelectorAll('.loc-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.location === 'all');
+  });
+  renderGrid();
+}
+window.resetFilters = resetFilters;
+
+function renderCard(node) {
+  const tagClass  = TYPE_TAGS[node.type] || 'tag-athlete';
+  const isDefunct = isDefunctNode(node);
+  const sports    = (node.sport || []).slice(0, 2);
+
+  const sportTags  = sports.map(s =>
+    `<span class="tag tag-${s}">${SPORT_ICONS[s] || ''} ${sportLabel(s)}</span>`
+  ).join('');
+
+  const typeTag    = `<span class="tag ${tagClass}">${node.type.charAt(0).toUpperCase() + node.type.slice(1)}</span>`;
+  const defunctTag = isDefunct ? `<span class="defunct-badge">Defunct</span>` : '';
+
+  return `
+    <article class="node-card" data-id="${node.id}" tabindex="0" role="button" aria-label="View ${node.name} profile">
+      <div class="card-avatar">
+        ${initials(node.name)}
+        <span class="card-avatar-icon">${sportIcon(node)}</span>
+      </div>
+      <div class="card-name">${node.name}</div>
+      <div class="card-meta">${nodeSubtitle(node) || '&nbsp;'}</div>
+      <div class="card-tags">
+        ${typeTag}
+        ${sportTags}
+        ${defunctTag}
+      </div>
+    </article>
+  `;
+}
+
+// ── FILTER PAGE ───────────────────────────────────────────────
+function navigateFilter(type, value, addToHistory = true) {
+  const key = `filter:${type}:${value}`;
+
+  if (addToHistory) {
+    if (State.historyIdx < State.history.length - 1) {
+      State.history = State.history.slice(0, State.historyIdx + 1);
+    }
+    if (State.history[State.historyIdx] !== key) {
+      State.history.push(key);
+      State.historyIdx = State.history.length - 1;
+    }
+  }
+
+  State.currentNode = null;
+  State.activeTab   = 'overview';
+  window.location.hash = `#filter/${type}/${value}`;
+
+  homeView.style.display    = 'none';
+  profileView.style.display = 'none';
+  searchView.style.display  = 'none';
+  filterView.style.display  = 'block';
+
+  renderFilterPage(type, value);
+  updateBreadcrumb();
+  updateNavButtons();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.navigateFilter = navigateFilter;
+
+function renderFilterPage(type, value) {
+  const nodes    = Object.values(ASDB.nodes);
+  const label    = FILTER_LABELS[type] || type;
+  const display  = value.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+  let matched = [];
+
+  switch (type) {
+    case 'hometown':
+    case 'birthplace': {
+      const v = value.replace(/-/g, ' ').toLowerCase();
+      matched = nodes.filter(n =>
+        (n.birthplace || '').toLowerCase().includes(v) ||
+        (n.headquarters || '').toLowerCase().includes(v) ||
+        (n.foundedIn || '').toLowerCase().includes(v)
+      );
+      break;
+    }
+    case 'stance': {
+      const v = value.toLowerCase();
+      matched = nodes.filter(n => (n.stance || '').toLowerCase() === v);
+      break;
+    }
+    case 'birth-month': {
+      const v = value.toLowerCase();
+      matched = nodes.filter(n => (n.born || '').toLowerCase().includes(v));
+      break;
+    }
+    case 'birth-year': {
+      matched = nodes.filter(n => (n.born || '').includes(value));
+      break;
+    }
+    case 'sport': {
+      matched = nodes.filter(n => sportMatchesFilter(n, value));
+      break;
+    }
+    case 'nationality':
+    case 'country': {
+      const v = value.replace(/-/g, ' ').toLowerCase();
+      matched = nodes.filter(n =>
+        (n.nationality || '').toLowerCase().includes(v) ||
+        (n.country || '').toLowerCase().includes(v)
+      );
+      break;
+    }
+    case 'location': {
+      matched = nodes.filter(n => locationMatchesFilter(n, value));
+      break;
+    }
+    case 'sponsor': {
+      const v = value.replace(/-/g, ' ').toLowerCase();
+      // Athletes sponsored by this brand + people connected to brand node
+      matched = nodes.filter(n => {
+        if (n.sponsors && n.sponsors.some(s => s.toLowerCase().includes(v))) return true;
+        if (n.connections && n.connections.some(c => {
+          const cn = ASDB.nodes[c.id];
+          return cn && cn.name.toLowerCase().includes(v);
+        })) return true;
+        return false;
+      });
+      break;
+    }
+    case 'era': {
+      matched = nodes.filter(n => eraMatchesFilter(n, value));
+      break;
+    }
+    case 'discipline': {
+      const v = value.replace(/-/g, ' ').toLowerCase();
+      matched = nodes.filter(n => (n.discipline || '').toLowerCase().includes(v));
+      break;
+    }
+    case 'type': {
+      matched = nodes.filter(n => n.type === value);
+      break;
+    }
+    default: {
+      // Generic text search across all string fields
+      const v = value.replace(/-/g, ' ').toLowerCase();
+      matched = nodes.filter(n => JSON.stringify(n).toLowerCase().includes(v));
+    }
+  }
+
+  // Sort: athletes first, then by name
+  const typeOrder = { athlete:0, person:1, org:2, brand:3, media:4, music:5, location:6 };
+  matched.sort((a, b) => {
+    const ao = typeOrder[a.type] ?? 9;
+    const bo = typeOrder[b.type] ?? 9;
+    if (ao !== bo) return ao - bo;
+    return (a.name || '').localeCompare(b.name || '');
+  });
+
+  // Sub-filter tools for stance pages
+  let subFilters = '';
+  if (type === 'stance') {
+    // Group by location
+    const byLoc = {};
+    matched.forEach(n => {
+      const loc = n.birthplace || n.nationality || 'Unknown';
+      if (!byLoc[loc]) byLoc[loc] = 0;
+      byLoc[loc]++;
+    });
+    if (Object.keys(byLoc).length > 1) {
+      subFilters = `
+        <div class="filter-subgroup">
+          <span class="subgroup-label">Also filter by location:</span>
+          ${Object.entries(byLoc).sort((a,b) => b[1]-a[1]).slice(0,6).map(([loc, count]) =>
+            `<a class="subgroup-chip" href="#filter/hometown/${loc.toLowerCase().replace(/\s+/g,'-')}" 
+               onclick="navigateFilter('hometown','${loc.toLowerCase().replace(/\s+/g,'-')}');return false;">${loc} <span class="chip-count">${count}</span></a>`
+          ).join('')}
+        </div>
+      `;
+    }
+  }
+
+  if (type === 'birth-month') {
+    // Group by year decade
+    subFilters = `
+      <div class="filter-subgroup">
+        <span class="subgroup-label">Related filters:</span>
+        <a class="subgroup-chip" href="#filter/stance/regular" onclick="navigateFilter('stance','regular');return false;">Regular stance</a>
+        <a class="subgroup-chip" href="#filter/stance/goofy" onclick="navigateFilter('stance','goofy');return false;">Goofy stance</a>
+      </div>
+    `;
+  }
+
+  const cards = matched.length
+    ? `<div class="node-grid">${matched.map(renderCard).join('')}</div>`
+    : `<div class="empty-state"><h3>No results</h3><p>No entries found for ${display}. The database is growing — check back soon.</p></div>`;
+
+  filterView.innerHTML = `
+    <div class="filter-page">
+      <div class="filter-page-header">
+        <div class="filter-page-breadcrumb">
+          <a class="filter-bc-link" href="#" onclick="navigateHome();return false;">🏠 Home</a>
+          <span class="bc-sep">›</span>
+          <span class="filter-bc-label">${label}</span>
+          <span class="bc-sep">›</span>
+          <strong>${display}</strong>
+        </div>
+        <h2>${label}: <span style="color:var(--accent)">${display}</span></h2>
+        <div class="filter-page-count">${matched.length} entr${matched.length === 1 ? 'y' : 'ies'} match</div>
+        ${subFilters}
+      </div>
+      ${cards}
+    </div>
+  `;
+
+  // Wire card clicks
+  filterView.querySelectorAll('.node-card').forEach(card => {
+    card.addEventListener('click', () => navigateTo(card.dataset.id));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') navigateTo(card.dataset.id);
+    });
+  });
+}
+
+// ── NAVIGATION ───────────────────────────────────────────────
+function navigateTo(id, addToHistory = true) {
+  if (!ASDB.nodes[id]) return;
+
+  if (addToHistory) {
+    if (State.historyIdx < State.history.length - 1) {
+      State.history = State.history.slice(0, State.historyIdx + 1);
+    }
+    const current = State.history[State.historyIdx];
+    if (current !== id) {
+      State.history.push(id);
+      State.historyIdx = State.history.length - 1;
+    }
+  }
+
+  State.currentNode = id;
+  State.activeTab   = 'overview';
+  window.location.hash = `#profile/${id}`;
+
+  homeView.style.display    = 'none';
+  filterView.style.display  = 'none';
+  searchView.style.display  = 'none';
+  profileView.style.display = 'block';
+  homeView.classList.add('hidden');
+  profileView.classList.add('visible');
+
+  renderProfile(id);
+  updateBreadcrumb();
+  updateNavButtons();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.navigateTo = navigateTo;
+
+function navigateHome() {
+  State.currentNode = null;
+  State.activeTab   = 'overview';
+  window.location.hash = '';
+
+  homeView.style.display    = '';
+  homeView.classList.remove('hidden');
+  profileView.style.display = 'none';
+  filterView.style.display  = 'none';
+  searchView.style.display  = 'none';
+  profileView.classList.remove('visible');
+
+  if (State.history[State.historyIdx] !== 'home') {
+    State.history.push('home');
+    State.historyIdx = State.history.length - 1;
+  }
+
+  updateBreadcrumb();
+  updateNavButtons();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.navigateHome = navigateHome;
+
+function goBack() {
+  if (State.historyIdx <= 0) return;
+  State.historyIdx--;
+  const prev = State.history[State.historyIdx];
+  if (!prev || prev === 'home') {
+    navigateHome();
+  } else if (prev.startsWith('filter:')) {
+    const parts = prev.split(':');
+    navigateFilter(parts[1], parts[2], false);
+  } else if (prev.startsWith('search:')) {
+    navigateSearch(prev.slice(7), false);
+  } else {
+    navigateTo(prev, false);
+  }
+}
+
+function goForward() {
+  if (State.historyIdx >= State.history.length - 1) return;
+  State.historyIdx++;
+  const next = State.history[State.historyIdx];
+  if (!next || next === 'home') {
+    navigateHome();
+  } else if (next.startsWith('filter:')) {
+    const parts = next.split(':');
+    navigateFilter(parts[1], parts[2], false);
+  } else if (next.startsWith('search:')) {
+    navigateSearch(next.slice(7), false);
+  } else {
+    navigateTo(next, false);
+  }
+}
+
+function updateNavButtons() {
+  btnBack.disabled    = State.historyIdx <= 0;
+  btnForward.disabled = State.historyIdx >= State.history.length - 1;
+}
+
+// ── BREADCRUMB ───────────────────────────────────────────────
+function updateBreadcrumb() {
+  const trail = State.history.slice(0, State.historyIdx + 1);
+
+  if (trail.length <= 1 && (!trail[0] || trail[0] === 'home')) {
+    breadcrumbBar.classList.remove('visible');
+    return;
+  }
+
+  breadcrumbBar.classList.add('visible');
+
+  const visible = trail.slice(-5);
+  const items   = visible.map((id, i) => {
+    const isLast = i === visible.length - 1;
+    const sep    = i > 0 ? '<span class="bc-sep">›</span>' : '';
+
+    if (!id || id === 'home') {
+      return `${sep}<span class="bc-item ${isLast ? 'active' : ''}" data-bcid="home">🏠 Home</span>`;
+    }
+    if (id.startsWith('filter:')) {
+      const parts = id.split(':');
+      const label = FILTER_LABELS[parts[1]] || parts[1];
+      const val   = parts[2].replace(/-/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+      return `${sep}<span class="bc-item ${isLast ? 'active' : ''}" data-bcid="${id}">${label}: ${val}</span>`;
+    }
+    const node = ASDB.nodes[id];
+    const name = node ? node.name : id;
+    return `${sep}<span class="bc-item ${isLast ? 'active' : ''}" data-bcid="${id}">${name}</span>`;
+  });
+
+  breadcrumbTrail.innerHTML = items.join('');
+
+  breadcrumbTrail.querySelectorAll('.bc-item').forEach(el => {
+    if (el.classList.contains('active')) return;
+    el.addEventListener('click', () => {
+      const bcid = el.dataset.bcid;
+      if (bcid === 'home') {
+        navigateHome();
+      } else if (bcid.startsWith('filter:')) {
+        const parts = bcid.split(':');
+        const globalIdx = State.history.lastIndexOf(bcid);
+        if (globalIdx >= 0) State.historyIdx = globalIdx;
+        navigateFilter(parts[1], parts[2], false);
+      } else {
+        const globalIdx = State.history.lastIndexOf(bcid);
+        if (globalIdx >= 0) State.historyIdx = globalIdx;
+        navigateTo(bcid, false);
+      }
+    });
+  });
+}
+
+// ── RENDER PROFILE PAGE ──────────────────────────────────────
+function renderProfile(id) {
+  const node = ASDB.nodes[id];
+  if (!node) {
+    profileView.innerHTML = `<div class="empty-state"><h3>Not found</h3><p>This profile doesn't exist yet.</p></div>`;
+    return;
+  }
+
+  const isDefunct = isDefunctNode(node);
+  const isClaimed = node.claimed === true;
+  const sports    = node.sport || [];
+
+  const avatarHTML = `<div class="profile-avatar" aria-hidden="true">${initials(node.name)}</div>`;
+
+  const headerChips = [
+    ...sports.map(s => `<span class="tag tag-${s}">${SPORT_ICONS[s] || ''} ${sportLabel(s)}</span>`),
+    node.era        ? `<span class="tag" style="color:var(--accent-2)">${node.era}</span>` : '',
+    node.nationality? `<span class="tag">${node.nationality}</span>` : '',
+    node.born       ? `<span class="tag">Born ${node.born}</span>` : '',
+    node.founded    ? `<span class="tag">Est. ${node.founded}</span>` : '',
+    node.years      ? `<span class="tag">${node.years}</span>` : '',
+  ].filter(Boolean).join('');
+
+  const claimBanner = !isClaimed ? `
+    <div class="claim-banner" role="note">
+      <span class="claim-text">⚡ This profile was pre-populated from public records. Is this you?</span>
+      <button class="claim-btn" onclick="handleClaim('${id}')">Claim this profile</button>
+    </div>
+  ` : '';
+
+  const defunctNotice = isDefunct ? `
+    <div class="defunct-notice" role="note">
+      <span>⚠</span>
+      <span><strong>${node.name}</strong> is a defunct brand/entity that no longer operates. Historical data preserved for research purposes. ${node.yearsActive ? `Active: ${node.yearsActive}` : ''}</span>
+    </div>
+  ` : '';
+
+  const tabs = [
+    { id:'overview',     label:'Overview' },
+    { id:'connections',  label:'Connections' },
+    { id:'record',       label: node.type === 'athlete' ? 'Record' : 'Details' },
+    { id:'media',        label:'Media & Culture' },
+  ];
+
+  const tabButtons = tabs.map(t =>
+    `<button class="profile-tab-btn ${t.id === State.activeTab ? 'active' : ''}" data-tab="${t.id}">${t.label}</button>`
+  ).join('');
+
+  const overviewTab    = renderOverviewTab(node);
+  const connectionsTab = renderConnectionsTab(node);
+  const recordTab      = renderRecordTab(node);
+  const mediaTab       = renderMediaTab(node);
+  const sidebar        = renderSidebar(node);
+
+  const legalFooter = `
+    <div class="profile-legal">
+      <strong>Data sources:</strong> WSL, ISA, X Games, Wikipedia, Thrasher Magazine, Surfing Magazine, Transworld Skateboarding, ESPN, Eastern Surf Magazine, public contest records, and other publicly available sources.
+      Data aggregated from public sources. To update, correct, or remove this profile, click "Claim this profile" above.
+      ${node.claimed ? '' : 'Profile has not been verified or claimed by the subject.'}
+    </div>
+  `;
+
+  profileView.innerHTML = `
+    <div class="profile-layout">
+      <div class="profile-main">
+        <div class="profile-header">
+          ${avatarHTML}
+          <div class="profile-headline">
+            <h1>${node.name}${node.nick ? ` <span style="color:var(--text-muted);font-size:0.6em;font-weight:500">"${node.nick}"</span>` : ''}</h1>
+            <div class="profile-tagline">${nodeSubtitle(node) || (node.role || node.type.charAt(0).toUpperCase() + node.type.slice(1))}</div>
+            <div class="profile-chips">${headerChips}</div>
+          </div>
+        </div>
+
+        ${claimBanner}
+        ${defunctNotice}
+
+        <nav class="profile-tabs" role="tablist" aria-label="Profile sections">
+          ${tabButtons}
+        </nav>
+
+        <div id="tab-overview"    class="tab-panel ${State.activeTab === 'overview'    ? 'active' : ''}">${overviewTab}</div>
+        <div id="tab-connections" class="tab-panel ${State.activeTab === 'connections' ? 'active' : ''}">${connectionsTab}</div>
+        <div id="tab-record"      class="tab-panel ${State.activeTab === 'record'      ? 'active' : ''}">${recordTab}</div>
+        <div id="tab-media"       class="tab-panel ${State.activeTab === 'media'       ? 'active' : ''}">${mediaTab}</div>
+
+        ${legalFooter}
+      </div>
+
+      <aside class="profile-sidebar" aria-label="Related profiles">
+        ${sidebar}
+      </aside>
+    </div>
+  `;
+
+  // Tab switching
+  profileView.querySelectorAll('.profile-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      State.activeTab = btn.dataset.tab;
+      profileView.querySelectorAll('.profile-tab-btn').forEach(b => b.classList.remove('active'));
+      profileView.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const panel = $(`tab-${btn.dataset.tab}`);
+      if (panel) panel.classList.add('active');
+    });
+  });
+
+  // Connection chips
+  profileView.querySelectorAll('.conn-chip[data-conn-id]').forEach(chip => {
+    chip.addEventListener('click', () => navigateTo(chip.dataset.connId));
+  });
+
+  // Sidebar "also viewed"
+  profileView.querySelectorAll('.also-viewed-item[data-id]').forEach(item => {
+    item.addEventListener('click', () => navigateTo(item.dataset.id));
+  });
+}
+
+// ── OVERVIEW TAB ─────────────────────────────────────────────
+function renderOverviewTab(node) {
+  let html = '';
+  const id = node.id;
+
+  // Bio — with auto-hyperlinks
+  if (node.bio) {
+    html += `
+      <div class="profile-section">
+        <h3>About</h3>
+        <p>${linkifyText(node.bio, id)}</p>
+      </div>
+    `;
+  }
+  if (node.description) {
+    html += `
+      <div class="profile-section">
+        <h3>About</h3>
+        <p>${linkifyText(node.description, id)}</p>
+      </div>
+    `;
+  }
+  if (node.history) {
+    html += `
+      <div class="profile-section">
+        <h3>History</h3>
+        <p>${linkifyText(node.history, id)}</p>
+      </div>
+    `;
+  }
+
+  // ── QUICK FACTS — every value is a live link ──
+  const facts = [];
+
+  if (node.born) {
+    facts.push({ label:'Born', html: bornLink(node.born, id) });
+  }
+  if (node.birthplace) {
+    const filterVal = node.birthplace.toLowerCase().replace(/\s+/g,'-');
+    facts.push({ label:'Hometown', html: factLink('hometown', node.birthplace) });
+  }
+  if (node.nationality) {
+    facts.push({ label:'Nationality', html: factLink('nationality', node.nationality) });
+  }
+  if (node.stance) {
+    facts.push({ label:'Stance', html: factLink('stance', node.stance) });
+  }
+  if (node.discipline) {
+    facts.push({ label:'Discipline', html: factLink('discipline', node.discipline) });
+  }
+  if (node.founded) {
+    facts.push({ label:'Founded', html: factLink('era', node.founded, node.founded) });
+  }
+  if (node.founder) {
+    facts.push({ label:'Founder', html: linkifyText(node.founder, id) });
+  }
+  if (node.headquarters) {
+    facts.push({ label:'HQ', html: factLink('location', node.headquarters.toLowerCase().replace(/\s+/g,'-'), node.headquarters) });
+  }
+  if (node.country) {
+    facts.push({ label:'Country', html: factLink('country', node.country) });
+  }
+  if (node.state) {
+    facts.push({ label:'State/Region', html: factLink('location', node.state.toLowerCase().replace(/\s+/g,'-'), node.state) });
+  }
+  if (node.wavetype) {
+    facts.push({ label:'Wave Type', html: node.wavetype });
+  }
+  if (node.bestSwell) {
+    facts.push({ label:'Best Swell', html: node.bestSwell });
+  }
+  if (node.genre) {
+    facts.push({ label:'Genre', html: node.genre });
+  }
+  if (node.role) {
+    facts.push({ label:'Role', html: node.role });
+  }
+  if (node.yearsActive) {
+    facts.push({ label:'Years Active', html: node.yearsActive });
+  }
+  if (node.years) {
+    facts.push({ label:'Era', html: factLink('era', node.years, node.years) });
+  }
+  if (node.sport && node.sport.length) {
+    facts.push({
+      label:'Sport',
+      html: node.sport.map(s =>
+        factLink('sport', s, `${SPORT_ICONS[s] || ''} ${sportLabel(s)}`)
+      ).join(' · ')
+    });
+  }
+  if (isDefunctNode(node)) {
+    facts.push({ label:'Status', html:'<span style="color:var(--text-warning)">⚠ Defunct / No Longer Operating</span>' });
+  } else if ((node.status||'').toLowerCase() === 'active') {
+    facts.push({ label:'Status', html:'<span style="color:var(--accent-2)">✓ Active</span>' });
+  } else if (node.status && node.status !== 'pre-populated') {
+    facts.push({ label:'Status', html: node.status });
+  }
+
+  if (facts.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Quick Facts</h3>
+        <div class="info-grid">
+          ${facts.map(f => `<div class="info-item"><div class="info-label">${f.label}</div><div class="info-value">${f.html}</div></div>`).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  // Sponsors — each links to brand profile if it exists
+  if (node.sponsors && node.sponsors.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Sponsors</h3>
+        <ul class="profile-list">
+          ${node.sponsors.map(s => {
+            const linked = linkifyListItem(s, id);
+            // Use first word-group (clean brand name) for filter
+            // e.g. "CB Surfboards (Charlie Baldwin — Shaper)" → "CB Surfboards"
+            const cleanName = s.split(/\s*[\(—]/)[0].trim();
+            const filterVal = cleanName.toLowerCase().replace(/\s+/g,'-');
+            return `<li class="profile-list-item">
+              <span class="profile-list-bullet">▸</span>
+              <span>${linked} <a class="filter-pill" href="#filter/sponsor/${filterVal}" onclick="navigateFilter('sponsor','${filterVal}');return false;" title="All athletes sponsored by ${cleanName}">All riders →</a></span>
+            </li>`;
+          }).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  // Key People
+  if (node.keyPeople && node.keyPeople.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Key People</h3>
+        <ul class="profile-list">
+          ${node.keyPeople.map(p => {
+            const nameLinked = linkifyListItem(p.name, id);
+            const roleLinked = p.role ? linkifyText(p.role, id) : '';
+            return `<li class="profile-list-item"><span class="profile-list-bullet">👤</span><span><strong>${nameLinked}</strong>${roleLinked ? ` — ${roleLinked}` : ''}</span></li>`;
+          }).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  // Notable Athletes
+  if (node.notableAthletes && node.notableAthletes.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Notable Athletes</h3>
+        <ul class="profile-list">
+          ${node.notableAthletes.map(s => `<li class="profile-list-item"><span class="profile-list-bullet">▸</span><span>${linkifyListItem(s, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  // Notable facts
+  if (node.notable && node.notable.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Notable</h3>
+        <ul class="profile-list">
+          ${node.notable.map(n => `<li class="profile-list-item"><span class="profile-list-bullet">★</span><span>${linkifyText(n, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  // Products
+  if (node.products && node.products.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Products &amp; Lines</h3>
+        <ul class="profile-list">
+          ${node.products.map(p => `<li class="profile-list-item"><span class="profile-list-bullet">▸</span><span>${linkifyText(p, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  // Key Models
+  if (node.keyModels && node.keyModels.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Key Models</h3>
+        <ul class="profile-list">
+          ${node.keyModels.map(m => `<li class="profile-list-item"><span class="profile-list-bullet">▸</span><span>${linkifyText(m, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  // Acquisitions
+  if (node.acquisitions && node.acquisitions.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Ownership History</h3>
+        <ul class="profile-list">
+          ${node.acquisitions.map(a => `<li class="profile-list-item"><span class="profile-list-bullet">🏢</span><span>${linkifyText(a, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  // Films
+  if (node.films && node.films.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Filmography</h3>
+        <ul class="profile-list">
+          ${node.films.map(f => `<li class="profile-list-item"><span class="profile-list-bullet">🎬</span><span>${linkifyText(f, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  // Albums
+  if (node.albums && node.albums.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Discography</h3>
+        <ul class="profile-list">
+          ${node.albums.map(a => `<li class="profile-list-item"><span class="profile-list-bullet">🎵</span><span>${linkifyText(a, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if (!html) {
+    html = `<p style="color:var(--text-muted);padding-top:var(--sp-4)">Overview information is being compiled. <a href="#" onclick="handleClaim('${node.id}');return false;" style="color:var(--accent)">Claim this profile</a> to add details.</p>`;
+  }
+
+  return html;
+}
+
+// ── CONNECTIONS TAB ──────────────────────────────────────────
+function renderConnectionsTab(node) {
+  if (!node.connections || node.connections.length === 0) {
+    return `<p style="color:var(--text-muted);padding-top:var(--sp-4)">No connections mapped yet. <a href="#" onclick="handleClaim('${node.id}');return false;" style="color:var(--accent)">Claim this profile</a> to add your network.</p>`;
+  }
+
+  let html = '<div style="display:flex;flex-direction:column;gap:var(--sp-6)">';
+
+  html += `
+    <div class="profile-section">
+      <h3>All Connections (${node.connections.length})</h3>
+      <div class="conn-chips">
+        ${node.connections.map(c => {
+          const target = ASDB.nodes[c.id];
+          const name   = target ? target.name : c.id;
+          const icon   = target ? sportIcon(target) : '?';
+          const init   = target ? initials(name) : '?';
+          return `
+            <div class="conn-chip" data-conn-id="${c.id}" role="button" tabindex="0" aria-label="View ${name} profile" title="${c.rel || ''}">
+              <span class="conn-chip-avatar">${init}</span>
+              <div>
+                <div class="conn-chip-name">${icon} ${name}</div>
+                <div class="conn-chip-rel">${c.rel || ''}</div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+
+  html += '</div>';
+  return html;
+}
+
+// ── RECORD TAB ───────────────────────────────────────────────
+function renderRecordTab(node) {
+  let html = '';
+  const id = node.id;
+
+  if (node.competitions && node.competitions.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Competition Record</h3>
+        <ul class="profile-list">
+          ${node.competitions.map(c => `<li class="profile-list-item"><span class="profile-list-bullet">🏆</span><span>${linkifyText(c, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if (node.achievements && node.achievements.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Achievements</h3>
+        <ul class="profile-list">
+          ${node.achievements.map(a => `<li class="profile-list-item"><span class="profile-list-bullet">★</span><span>${linkifyText(a, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if (node.orgs && node.orgs.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Organizations &amp; Affiliations</h3>
+        <ul class="profile-list">
+          ${node.orgs.map(o => `<li class="profile-list-item"><span class="profile-list-bullet">🏛</span><span>${linkifyListItem(o, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if (node.equipment && node.equipment.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Equipment</h3>
+        <ul class="profile-list">
+          ${node.equipment.map(e => {
+            const brandLinked = linkifyListItem(e.brand, id);
+            return `<li class="profile-list-item"><span class="profile-list-bullet">▸</span><span>${e.item}: <strong>${brandLinked}</strong>${e.shaper ? ` (${linkifyText(e.shaper, id)})` : ''}</span></li>`;
+          }).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if (node.members && node.members.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Notable Members</h3>
+        <ul class="profile-list">
+          ${node.members.map(m => `<li class="profile-list-item"><span class="profile-list-bullet">▸</span><span>${linkifyListItem(m, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if (node.teamRiders && node.teamRiders.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Team Riders</h3>
+        <ul class="profile-list">
+          ${node.teamRiders.map(r => `<li class="profile-list-item"><span class="profile-list-bullet">🏄</span><span>${linkifyListItem(r, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if (!html) {
+    html = `<p style="color:var(--text-muted);padding-top:var(--sp-4)">Contest records and achievement data are being compiled from public sources. <a href="#" onclick="handleClaim('${node.id}');return false;" style="color:var(--accent)">Claim this profile</a> to add your competition history.</p>`;
+  }
+
+  return html;
+}
+
+// ── MEDIA TAB ────────────────────────────────────────────────
+function renderMediaTab(node) {
+  let html = '';
+  const id = node.id;
+
+  if (node.publications && node.publications.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Publications &amp; Press</h3>
+        <ul class="profile-list">
+          ${node.publications.map(p => `<li class="profile-list-item"><span class="profile-list-bullet">📰</span><span>${linkifyText(p, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+  if (node.media && node.media.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Media Coverage</h3>
+        <ul class="profile-list">
+          ${node.media.map(m => `<li class="profile-list-item"><span class="profile-list-bullet">📰</span><span>${linkifyText(m, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if (node.favFilms && node.favFilms.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Favorite Films</h3>
+        <ul class="profile-list">
+          ${node.favFilms.map(f => `<li class="profile-list-item"><span class="profile-list-bullet">🎬</span><span>${linkifyListItem(f, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if (node.favSpots && node.favSpots.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Favorite Spots</h3>
+        <ul class="profile-list">
+          ${node.favSpots.map(s => `<li class="profile-list-item"><span class="profile-list-bullet">📍</span><span>${linkifyListItem(s, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if (node.albums && node.albums.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Discography</h3>
+        <ul class="profile-list">
+          ${node.albums.map(a => `<li class="profile-list-item"><span class="profile-list-bullet">🎵</span><span>${linkifyText(a, id)}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if (node.sources && node.sources.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Data Sources</h3>
+        <ul class="profile-list">
+          ${node.sources.map(s => `<li class="profile-list-item"><span class="profile-list-bullet">📎</span><span>${s}</span></li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if (!html) {
+    html = `<p style="color:var(--text-muted);padding-top:var(--sp-4)">Media data is being compiled. <a href="#" onclick="handleClaim('${node.id}');return false;" style="color:var(--accent)">Claim this profile</a> to add film, photo, and press credits.</p>`;
+  }
+
+  return html;
+}
+
+// ── SIDEBAR ──────────────────────────────────────────────────
+function renderSidebar(node) {
+  const connections = node.connections || [];
+
+  // "People Also Viewed"
+  const alsoViewed = new Map();
+  connections.forEach(c => {
+    const target = ASDB.nodes[c.id];
+    if (!target) return;
+    if (target.connections) {
+      target.connections.forEach(tc => {
+        if (tc.id !== node.id && !alsoViewed.has(tc.id)) {
+          const n = ASDB.nodes[tc.id];
+          if (n) alsoViewed.set(tc.id, n);
+        }
+      });
+    }
+  });
+
+  if (alsoViewed.size < 4) {
+    const sports = node.sport || [];
+    Object.values(ASDB.nodes).forEach(n => {
+      if (n.id === node.id) return;
+      if (alsoViewed.size >= 6) return;
+      if (sports.some(s => (n.sport || []).includes(s))) {
+        alsoViewed.set(n.id, n);
+      }
+    });
+  }
+
+  const alsoViewedItems = Array.from(alsoViewed.values()).slice(0, 6);
+
+  const alsoViewedHTML = alsoViewedItems.length ? `
+    <div class="sidebar-widget">
+      <h4>People Also Viewed</h4>
+      ${alsoViewedItems.map(n => `
+        <div class="also-viewed-item" data-id="${n.id}" role="button" tabindex="0" aria-label="View ${n.name}">
+          <div class="av-avatar">${initials(n.name)}</div>
+          <div>
+            <div class="av-name">${n.name}</div>
+            <div class="av-meta">${nodeSubtitle(n) || n.type}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  ` : '';
+
+  const connItems  = connections.slice(0, 5);
+  const connWidget = connItems.length ? `
+    <div class="sidebar-widget">
+      <h4>Connected to</h4>
+      ${connItems.map(c => {
+        const target = ASDB.nodes[c.id];
+        if (!target) return '';
+        return `
+          <div class="also-viewed-item" data-id="${c.id}" role="button" tabindex="0" aria-label="View ${target.name}">
+            <div class="av-avatar">${initials(target.name)}</div>
+            <div>
+              <div class="av-name">${target.name}</div>
+              <div class="av-meta" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px">${c.rel || nodeSubtitle(target)}</div>
+            </div>
+          </div>
+        `;
+      }).join('')}
+      ${connections.length > 5 ? `<div style="margin-top:var(--sp-3);font-size:var(--text-xs);color:var(--accent);cursor:pointer" onclick="document.querySelector('[data-tab=connections]').click()">+ ${connections.length - 5} more connections →</div>` : ''}
+    </div>
+  ` : '';
+
+  const claimWidget = !node.claimed ? `
+    <div class="sidebar-widget" style="border-color:var(--claim-border)">
+      <h4>Own this profile?</h4>
+      <p style="font-size:var(--text-xs);color:var(--text-secondary);margin-bottom:var(--sp-3)">Claim your profile to add photos, update your bio, correct your record, and connect with your network.</p>
+      <button class="claim-btn" style="width:100%;text-align:center" onclick="handleClaim('${node.id}')">Claim this profile</button>
+    </div>
+  ` : '';
+
+  return `${connWidget}${alsoViewedHTML}${claimWidget}`;
+}
+
+// ── SEARCH ───────────────────────────────────────────────────
+// ── FULL SEARCH PAGE ─────────────────────────────────────────
+function navigateSearch(query, addToHistory = true) {
+  if (!query.trim()) return;
+
+  const key = `search:${query.trim()}`;
+  if (addToHistory) {
+    if (State.historyIdx < State.history.length - 1) {
+      State.history = State.history.slice(0, State.historyIdx + 1);
+    }
+    if (State.history[State.historyIdx] !== key) {
+      State.history.push(key);
+      State.historyIdx = State.history.length - 1;
+    }
+  }
+
+  State.currentNode = null;
+  window.location.hash = `#search/${encodeURIComponent(query.trim())}`;
+
+  homeView.style.display    = 'none';
+  profileView.style.display = 'none';
+  filterView.style.display  = 'none';
+  searchView.style.display  = 'block';
+
+  renderSearchPage(query.trim());
+  updateBreadcrumb();
+  updateNavButtons();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.navigateSearch = navigateSearch;
+
+function renderSearchPage(query) {
+  const q       = query.toLowerCase();
+  const nodes   = Object.values(ASDB.nodes);
+
+  const scored = nodes.map(n => {
+    let score = 0;
+    const name  = (n.name || '').toLowerCase();
+    const nick  = (n.nick || '').toLowerCase();
+    const bio   = (n.bio || n.description || '').toLowerCase();
+    const bp    = (n.birthplace || n.headquarters || '').toLowerCase();
+    const sport = (n.sport || []).join(' ').toLowerCase();
+
+    if (name === q)                    score += 100;
+    else if (name.startsWith(q))       score += 80;
+    else if (name.includes(q))         score += 60;
+    if (nick.includes(q))              score += 50;
+    if (bp.includes(q))                score += 30;
+    if (sport.includes(q))             score += 20;
+    if (bio.includes(q))               score += 10;
+
+    return { node: n, score };
+  }).filter(r => r.score > 0).sort((a, b) => b.score - a.score);
+
+  const results = scored.map(r => r.node);
+
+  // Group by type for cleaner display
+  const groups = [
+    { label: '🏅 Athletes',  type: 'athlete',  nodes: results.filter(n => n.type === 'athlete') },
+    { label: '👤 People',    type: 'person',   nodes: results.filter(n => n.type === 'person') },
+    { label: '🏷 Brands',    type: 'brand',    nodes: results.filter(n => n.type === 'brand') },
+    { label: '🏛 Orgs',      type: 'org',      nodes: results.filter(n => n.type === 'org') },
+    { label: '📍 Locations', type: 'location', nodes: results.filter(n => n.type === 'location') },
+    { label: '🎬 Media',     type: 'media',    nodes: results.filter(n => n.type === 'media') },
+    { label: '🎵 Music',     type: 'music',    nodes: results.filter(n => n.type === 'music') },
+    { label: '📅 Events',    type: 'event',    nodes: results.filter(n => n.type === 'event') },
+  ].filter(g => g.nodes.length > 0);
+
+  const groupHTML = groups.map(g => `
+    <div class="search-group">
+      <h3 class="search-group-label">${g.label}</h3>
+      <div class="node-grid">${g.nodes.map(renderCard).join('')}</div>
+    </div>
+  `).join('');
+
+  searchView.innerHTML = `
+    <div class="search-page">
+      <div class="search-page-header">
+        <div class="filter-page-breadcrumb">
+          <a class="filter-bc-link" href="#" onclick="navigateHome();return false;">🏠 Home</a>
+          <span class="bc-sep">›</span>
+          <strong>Search: "${query}"</strong>
+        </div>
+        <h2>🔍 "<span style="color:var(--accent)">${query}</span>"</h2>
+        <div class="filter-page-count">${results.length} result${results.length !== 1 ? 's' : ''}</div>
+      </div>
+      ${results.length ? groupHTML : `<div class="empty-state"><h3>No results for "${query}"</h3><p>Try a different spelling, or <a href="#" onclick="navigateHome();return false;" style="color:var(--accent)">browse all entries</a>.</p></div>`}
+    </div>
+  `;
+
+  searchView.querySelectorAll('.node-card').forEach(card => {
+    card.addEventListener('click', () => navigateTo(card.dataset.id));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') navigateTo(card.dataset.id);
+    });
+  });
+}
+
+function handleSearch(query) {
+  const q = query.trim().toLowerCase();
+  if (!q) {
+    searchDrop.classList.remove('open');
+    searchDrop.innerHTML = '';
+    return;
+  }
+
+  const nodes   = Object.values(ASDB.nodes);
+  const results = nodes.filter(n => {
+    const name       = (n.name || '').toLowerCase();
+    const nick       = (n.nick || '').toLowerCase();
+    const bio        = (n.bio || n.description || '').toLowerCase();
+    const birthplace = (n.birthplace || n.headquarters || '').toLowerCase();
+    return name.includes(q) || nick.includes(q) || bio.includes(q) || birthplace.includes(q);
+  }).slice(0, 8);
+
+  if (!results.length) {
+    searchDrop.innerHTML = `<div style="padding:var(--sp-4);color:var(--text-muted);font-size:var(--text-sm)">No results for "${query}"</div>`;
+    searchDrop.classList.add('open');
+    return;
+  }
+
+  const seeAll = `<div class="search-see-all" onclick="navigateSearch('${query.replace(/'/g, "\\'")}')">See all results for "${query}" →</div>`;
+
+  searchDrop.innerHTML = results.map(n => `
+    <div class="search-result-item" data-search-id="${n.id}" role="option">
+      <div class="search-result-avatar">${initials(n.name)}</div>
+      <div>
+        <div class="search-result-name">${n.name}${n.nick ? ` "${n.nick}"` : ''} ${sportIcon(n)}</div>
+        <div class="search-result-meta">${nodeSubtitle(n) || n.type}</div>
+      </div>
+    </div>
+  `).join('') + seeAll;
+
+  searchDrop.classList.add('open');
+
+  searchDrop.querySelectorAll('.search-result-item').forEach(item => {
+    item.addEventListener('click', () => {
+      navigateTo(item.dataset.searchId);
+      searchDrop.classList.remove('open');
+      searchInput.value = '';
+    });
+  });
+}
+
+// ── SPORT FILTER ─────────────────────────────────────────────
+function setupSportFilters() {
+  document.querySelectorAll('.sport-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.sport-tab').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      State.currentSport = btn.dataset.sport;
+      renderGrid();
+    });
+  });
+}
+
+// ── ERA FILTER ───────────────────────────────────────────────
+function setupEraFilters() {
+  document.querySelectorAll('.era-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.era-chip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      State.currentEra = btn.dataset.era;
+      renderGrid();
+    });
+  });
+}
+
+// ── LOCATION FILTER ──────────────────────────────────────────
+function setupLocationFilters() {
+  document.querySelectorAll('.loc-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.loc-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const loc = btn.dataset.location;
+
+      if (loc === 'near-me') {
+        // Request geolocation
+        if (!State.userLat && navigator.geolocation) {
+          btn.textContent = '📍 Locating…';
+          navigator.geolocation.getCurrentPosition(
+            pos => {
+              State.userLat = pos.coords.latitude;
+              State.userLon = pos.coords.longitude;
+              State.currentLocation = 'near-me';
+              btn.textContent = '📍 Near Me';
+              renderGrid();
+            },
+            () => {
+              btn.textContent = '📍 Near Me';
+              // Fall back — show Florida / East Coast as default "near" set
+              State.currentLocation = 'east-coast';
+              renderGrid();
+            }
+          );
+        } else {
+          State.currentLocation = 'near-me';
+          renderGrid();
+        }
+      } else {
+        State.currentLocation = loc;
+        renderGrid();
+      }
+    });
+  });
+}
+
+// ── THEME TOGGLE ─────────────────────────────────────────────
+function setupTheme() {
+  document.documentElement.setAttribute('data-theme', 'dark');
+  updateThemeIcon('dark');
+
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next    = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    updateThemeIcon(next);
+  });
+}
+
+function updateThemeIcon(theme) {
+  if (theme === 'dark') {
+    iconMoon.style.display = 'block';
+    iconSun.style.display  = 'none';
+  } else {
+    iconMoon.style.display = 'none';
+    iconSun.style.display  = 'block';
+  }
+}
+
+// ── CLAIM PROFILE ────────────────────────────────────────────
+function handleClaim(id) {
+  const node = ASDB.nodes[id];
+  const name = node ? node.name : id;
+  alert(`To claim the profile for ${name}, email hello@actionsportsdatabase.com with your name, a link to a public social profile, and any corrections or additions you'd like to make. We'll verify your identity and give you edit access.`);
+}
+window.handleClaim = handleClaim;
+
+// ── HASH ROUTING ─────────────────────────────────────────────
+function handleHashChange() {
+  const hash = window.location.hash;
+
+  if (!hash || hash === '#') {
+    State.history  = ['home'];
+    State.historyIdx = 0;
+    showHome();
+    return;
+  }
+
+  // Profile route
+  const profileMatch = hash.match(/^#profile\/(.+)$/);
+  if (profileMatch) {
+    const id = profileMatch[1];
+    if (ASDB.nodes[id]) {
+      navigateTo(id, true);
+    } else {
+      showHome();
+    }
+    return;
+  }
+
+  // Filter route: #filter/type/value
+  const filterMatch = hash.match(/^#filter\/([^/]+)\/(.+)$/);
+  if (filterMatch) {
+    navigateFilter(filterMatch[1], filterMatch[2], true);
+    return;
+  }
+
+  // Search route: #search/query
+  const searchMatch = hash.match(/^#search\/(.+)$/);
+  if (searchMatch) {
+    navigateSearch(decodeURIComponent(searchMatch[1]), true);
+    return;
+  }
+
+  showHome();
+}
+
+function showHome() {
+  homeView.style.display    = '';
+  homeView.classList.remove('hidden');
+  profileView.style.display = 'none';
+  filterView.style.display  = 'none';
+  searchView.style.display  = 'none';
+  profileView.classList.remove('visible');
+  breadcrumbBar.classList.remove('visible');
+  updateNavButtons();
+}
+
+// ── INIT ─────────────────────────────────────────────────────
+function init() {
+  setupTheme();
+  renderGrid();
+  setupSportFilters();
+  setupEraFilters();
+  setupLocationFilters();
+
+  logoBtn.addEventListener('click', () => {
+    window.location.hash = '';
+    navigateHome();
+  });
+  logoBtn.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { window.location.hash = ''; navigateHome(); }
+  });
+
+  btnBack.addEventListener('click', goBack);
+  btnForward.addEventListener('click', goForward);
+
+  searchInput.addEventListener('input', e => handleSearch(e.target.value));
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      searchDrop.classList.remove('open');
+      searchInput.value = '';
+    }
+    if (e.key === 'Enter' && searchInput.value.trim()) {
+      const q = searchInput.value.trim();
+      searchDrop.classList.remove('open');
+      searchInput.value = '';
+      navigateSearch(q);
+    }
+  });
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.search-wrap')) {
+      searchDrop.classList.remove('open');
+    }
+  });
+
+  window.addEventListener('hashchange', handleHashChange);
+  handleHashChange();
+}
+
+document.addEventListener('DOMContentLoaded', init);
