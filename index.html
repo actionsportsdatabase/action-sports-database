@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASDB — Action Sports Database</title>
+  <meta name="description" content="The Wikipedia of action sports. Athletes, brands, locations, filmmakers, music and culture — all connected." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23e8500a'/><text x='16' y='22' text-anchor='middle' fill='white' font-size='16' font-weight='bold' font-family='system-ui'>A</text></svg>" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ── HEADER ─────────────────────────────────────────────── -->
+<header id="site-header">
+  <div class="container">
+    <div class="header-inner">
+
+      <!-- Logo -->
+      <div class="logo-mark" id="logo-home-btn" role="button" tabindex="0" aria-label="Go to home">
+        <svg class="logo-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Hexagonal mark — geometric, bold -->
+          <path d="M18 2 L32 10 L32 26 L18 34 L4 26 L4 10 Z" stroke="currentColor" stroke-width="2" fill="none" opacity="0.2"/>
+          <path d="M18 6 L28 12 L28 24 L18 30 L8 24 L8 12 Z" fill="var(--accent)" opacity="0.15"/>
+          <!-- A letterform -->
+          <path d="M12 25 L18 11 L24 25 M14.5 20 L21.5 20" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span class="logo-text">AS<span>DB</span></span>
+      </div>
+
+      <!-- Search -->
+      <div class="search-wrap" role="search">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M11 11 L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input
+          type="search"
+          class="search-input"
+          id="main-search"
+          placeholder="Search athletes, brands, spots, music…"
+          autocomplete="off"
+          aria-label="Search database"
+          aria-autocomplete="list"
+          aria-controls="search-dropdown"
+        />
+        <div class="search-results-dropdown" id="search-dropdown" role="listbox"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+          <svg id="icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M13.5 10.5A6 6 0 0 1 5.5 2.5a6 6 0 1 0 8 8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <svg id="icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="none" style="display:none">
+            <circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.2 3.2l1.4 1.4M11.4 11.4l1.4 1.4M11.4 3.2l-1.4 1.4M3.2 11.4l1.4 1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<!-- ── BREADCRUMB BAR ──────────────────────────────────────── -->
+<nav id="breadcrumb-bar" aria-label="Navigation history">
+  <div class="container">
+    <div class="breadcrumb-inner">
+      <button class="nav-btn" id="btn-back" aria-label="Go back" disabled>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7 2 L3 6 L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="nav-btn" id="btn-forward" aria-label="Go forward" disabled>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M5 2 L9 6 L5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div id="breadcrumb-trail" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── MAIN APP ────────────────────────────────────────────── -->
+<main id="app" role="main">
+  <div class="container">
+
+    <!-- ── HOME VIEW ──────────────────────────────────────── -->
+    <section id="home-view" aria-label="Homepage">
+
+      <!-- Hero -->
+      <div class="home-hero">
+        <h1>The Wikipedia of<br><span>Action Sports</span></h1>
+        <p>Athletes, brands, locations, filmmakers, music and culture — all connected from Duke Kahanamoku to the present day.</p>
+
+        <!-- Sport filters -->
+        <div class="sport-filters" id="sport-filters" role="tablist" aria-label="Filter by sport">
+          <button class="sport-tab active" data-sport="all" role="tab" aria-selected="true">All</button>
+          <button class="sport-tab" data-sport="surf" role="tab" aria-selected="false">🏄 Surf</button>
+          <button class="sport-tab" data-sport="skate" role="tab" aria-selected="false">🛹 Skate</button>
+          <button class="sport-tab" data-sport="snow" role="tab" aria-selected="false">🏔 Snow</button>
+          <button class="sport-tab" data-sport="mtb" role="tab" aria-selected="false">🚵 MTB</button>
+          <button class="sport-tab" data-sport="moto" role="tab" aria-selected="false">🏍 Moto/SX</button>
+          <button class="sport-tab" data-sport="bmx" role="tab" aria-selected="false">🚲 BMX</button>
+          <button class="sport-tab" data-sport="film" role="tab" aria-selected="false">🎬 Film</button>
+          <button class="sport-tab" data-sport="music" role="tab" aria-selected="false">🎵 Music</button>
+          <button class="sport-tab" data-sport="brand" role="tab" aria-selected="false">🏷 Brands</button>
+          <button class="sport-tab" data-sport="location" role="tab" aria-selected="false">📍 Locations</button>
+        </div>
+
+        <!-- Location filter -->
+        <div class="location-filters" id="location-filters" role="tablist" aria-label="Filter by location">
+          <button class="loc-tab active" data-location="all">🌍 All</button>
+          <button class="loc-tab" data-location="near-me">📍 Near Me</button>
+          <button class="loc-tab" data-location="wsl">🏆 WSL Circuit</button>
+          <button class="loc-tab" data-location="florida">🌊 Florida</button>
+          <button class="loc-tab" data-location="california">☀️ California</button>
+          <button class="loc-tab" data-location="hawaii">🌺 Hawaii</button>
+          <button class="loc-tab" data-location="australia">🦘 Australia</button>
+          <button class="loc-tab" data-location="east-coast">🗽 East Coast</button>
+          <button class="loc-tab" data-location="europe">🌍 Europe</button>
+        </div>
+
+        <!-- Era filter -->
+        <div class="era-timeline" id="era-filters" aria-label="Filter by era">
+          <button class="era-chip active" data-era="all">All Eras</button>
+          <button class="era-chip" data-era="1900s">1900s–1940s</button>
+          <button class="era-chip" data-era="1950s">1950s–1960s</button>
+          <button class="era-chip" data-era="1970s">1970s</button>
+          <button class="era-chip" data-era="1980s">1980s</button>
+          <button class="era-chip" data-era="1990s">1990s</button>
+          <button class="era-chip" data-era="2000s">2000s</button>
+          <button class="era-chip" data-era="2010s">2010s</button>
+          <button class="era-chip" data-era="2020s">2020s</button>
+        </div>
+      </div>
+
+      <!-- Browse grid (populated by JS) -->
+      <div class="browse-section">
+        <div class="section-header">
+          <span class="section-title" id="browse-title">Athletes &amp; People</span>
+          <span class="section-count" id="browse-count"></span>
+        </div>
+        <div class="node-grid" id="node-grid"></div>
+      </div>
+
+    </section>
+
+    <!-- ── PROFILE VIEW ────────────────────────────────────── -->
+    <section id="profile-view" aria-label="Profile page"></section>
+
+    <!-- ── FILTER VIEW ─────────────────────────────────────── -->
+    <section id="filter-view" aria-label="Filter results" style="display:none"></section>
+
+    <!-- ── SEARCH VIEW ─────────────────────────────────────── -->
+    <section id="search-view" aria-label="Search results" style="display:none"></section>
+
+  </div>
+</main>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer id="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="logo-mark">
+        <span class="logo-text">AS<span>DB</span></span>
+      </div>
+      <div class="footer-copy">
+        Action Sports Database™ — MVP v0.1 | Data aggregated from public sources including WSL, ISA, X Games, Wikipedia, Transworld, Surfing Magazine, Thrasher, ESPN, and other publicly available records. All athlete profiles are pre-populated from public data. To update or remove your information, use the "Claim this profile" link on your profile page.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
