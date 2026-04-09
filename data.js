@@ -19695,20 +19695,22 @@ ASDB.nodes = {
 
   'gina-geiselman': {
     id: 'gina-geiselman',
-    type: 'person',
+    type: 'athlete',
     name: 'Gina Geiselman',
     birthplace: 'New Smyrna Beach, FL',
     nationality: '🇺🇸',
     sport: ['surf'],
+    discipline: 'Competitive Surf / East Coast Circuit',
     era: '1980s-present',
     status: 'pre-populated',
-    bio: "Lifelong surfer from New Smyrna Beach and mother of professional surfers Eric Geiselman and Evan Geiselman. Former wife of shaper Greg Geiselman. Gina is the family archivist — she documented every competition, contest result, and milestone in both of her sons' careers from their earliest ESA contests through Eric's pro career and Evan's 12 East Coast Championship titles and WSL Challenger Series campaigns.",
+    bio: "Competitive surfer from New Smyrna Beach who competed on the East Coast surf circuit. Former wife of shaper Greg Geiselman. Mother of professional surfers Eric Geiselman and Evan Geiselman — a surfing family she helped build from the water up. Gina documented every competition, contest result, and milestone in both of her sons' careers from their earliest ESA contests through Eric's professional career and Evan's 12 East Coast Championship titles and WSL Challenger Series campaigns.",
     connections: [
       {id: 'eric-geiselman', rel: 'Son'},
       {id: 'evan-geiselman', rel: 'Son'},
       {id: 'greg-geiselman', rel: 'Ex-husband'},
       {id: 'geiselman-family', rel: 'Family matriarch'},
-      {id: 'nsb-inlet', rel: 'Home break'},
+      {id: 'nsb-inlet', rel: 'Home break — competed here'},
+      {id: 'esa', rel: 'Competed on the ESA East Coast circuit'},
     ],
   },
 };
