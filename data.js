@@ -29540,6 +29540,19 @@ ASDB.nodes = {
     discipline: "Wave Ski (Women)",
   },
 
+  // ── ASDB CO-FOUNDER ──────────────────────────────────────────
+  'jaime-giroux': {
+    id: "jaime-giroux",
+    type: "athlete",
+    name: "Jaime Giroux",
+    sport: ['parkour'],
+    hometown: "Lake County, FL",
+    bio: "Lake County, Florida Parkour Champion from July 1976 to present day. ASDB co-founder and head of IT. Undefeated and undisputed.",
+    discipline: "Parkour",
+    titles: ["Lake County FL Parkour Champion (1976-present)"],
+    connections: [{id: 'adam-wright', rel: 'ASDB Co-Founder'}],
+  },
+
 };
 ASDB.getNode = (id) => ASDB.nodes[id];
 ASDB.getConnections = (id) => {
