@@ -20739,14 +20739,18 @@ ASDB.nodes = {
     nick: 'Jerm',
     sport: ['surf'],
     location: 'New Smyrna Beach, FL',
-    role: 'Competitive Surfer',
-    bio: "Jeremy Johnston is a New Smyrna Beach competitive surfer who excelled on the NSSA East Coast circuit. He won the 2002 NSSA National Explorer Junior championship and followed it with the 2004 NSSA Explorer Men's championship — back-to-back national titles that placed him among Florida's top amateur surfers of his era. Early contest photos show him as a young grom competing in Globe-sponsored gear. His mother Linda Johnston was a longtime NSSA Southeast administrator. Jeremy is active on Instagram as @jermjohnston.",
-    parents: ['Linda Johnston'],
+    era: '2000s–present',
+    role: 'Competitive Surfer / NSB Legend',
+    bio: "Jeremy Johnston is a New Smyrna Beach surf legend and second-generation NSB surfer. He won the 2002 NSSA National Explorer Junior championship and followed it with the 2004 NSSA Explorer Men's championship — back-to-back national titles that placed him among Florida's top amateur surfers of his era. Jeremy began surfing the NSB Inlet at age 3, the same age his father Leon Johnston found the ocean. He was hand-shaped Wooster boards from age 15 after his talent caught the shaper's eye. Jeremy grew up immersed in the NSB competitive scene shaped by his mother Linda Johnston's work as a longtime NSSA Southeast administrator. He is a passionate ambassador for NSB surf culture and has actively honored the legacies of NSB pioneers including his father Leon Johnston and Mike Martin. He is active on Instagram as @jermjohnston and @germjohnston.",
+    parents: ['Leon Johnston', 'Linda Johnston'],
     connections: [
+      { id: 'leon-johnston', label: 'Father (deceased 2016)' },
       { id: 'linda-johnston', label: 'Mother' },
       { id: 'nssa', label: '2002 Explorer Junior Champ / 2004 Explorer Mens Champ' },
+      { id: 'mike-martin', label: 'NSB legend honored by Jeremy' },
+      { id: 'nsb-inlet', label: 'Home break since age 3' },
     ],
-    source: "nssa.org; en.wikipedia.org/wiki/National_Scholastic_Surfing_Association; instagram.com/jermjohnston",
+    source: "nssa.org; instagram.com/jermjohnston; instagram.com/germjohnston; surfline.com (Shaper's Alley NSB)",
   },
 
   'linda-johnston': {
@@ -20756,13 +20760,15 @@ ASDB.nodes = {
     sport: ['surf'],
     location: 'New Smyrna Beach, FL',
     role: 'NSSA Administrator',
-    bio: "Linda Johnston served as a key administrator for NSSA (National Scholastic Surfing Association) in the Southeast and North Conference, helping coordinate and run contest series across Florida and the East Coast. Her family — including son Jeremy Johnston, a two-time NSSA national champion — was deeply embedded in the competitive surf circuit for years. Linda's organizational work behind the scenes helped provide a competitive pathway for generations of young Florida surfers.",
+    bio: "Linda Johnston is the longtime NSSA Southeast and North Conference administrator based in New Smyrna Beach, Florida. She has run the conference's contest series — with entries mailed to P.O. Box 1664, NSB FL 32170 — for decades, coordinating events from the NSB Inlet to Melbourne and beyond. A cornerstone of Florida's amateur surf pipeline, her organizational work has helped hundreds of young surfers compete and advance to national championships. She was married to Leon Johnston, an NSB surf pioneer and lifeguard who passed away October 28, 2016. Their son Jeremy Johnston is a two-time NSSA national champion and NSB legend. Linda continues to administer the NSSA Southeast conference as of the 2025/26 season.",
     children: ['Jeremy Johnston'],
+    exSpouse: ['Leon Johnston'],
     connections: [
       { id: 'nssa', label: 'Southeast / North Conference Administrator' },
       { id: 'jeremy-johnston', label: 'Son' },
+      { id: 'leon-johnston', label: 'Former Husband (deceased 2016)' },
     ],
-    source: "nssa.org (Southeast/North Conference contact listing)",
+    source: "nssa.org (Southeast/North Conference contact listing); instagram.com/germjohnston",
   },
 
   'josh-wilson': {
@@ -20943,14 +20949,16 @@ ASDB.nodes = {
     sport: ['surf'],
     location: 'New Smyrna Beach, FL',
     era: '1970s–2000s',
-    role: 'Glasser / ASP Head Judge / Industry Figure',
-    bio: "Mike Martin is a New Smyrna Beach surf industry figure whose influence reached far beyond the lineup. He worked as a glasser for Creation Surfboards and later became an ASP (Association of Surfing Professionals) head judge — one of the most authoritative roles in competitive surfing. He was inducted into the East Coast Surfing Hall of Fame in 2014, recognizing decades of contribution to both the craft of board building and the administration of professional surf competition.",
+    role: 'WSL Head Judge / NSB Surf Pioneer',
+    bio: "Mike Martin is one of the most important behind-the-scenes figures in the history of professional surfing, and New Smyrna Beach's most influential contribution to the sport's governing structure. A longtime NSB resident, Martin became the world's first full-time international ASP (now WSL) head judge in 1983 and co-authored the foundational rulebook that still governs the World Surf League today. He shaped how professional competitive surfing is scored, judged, and administered at the highest level — globally. Before his judging career he worked as a glasser for Creation Surfboards in NSB. He was inducted into the East Coast Surfing Hall of Fame in 2014. His legacy is honored annually through the Mike Martin Pro/Am Surf Festival held at the NSB Inlet each spring, hosted by the Smyrna Surfari Club and Surfing in the Sixties 501(c)3. Jeremy Johnston has been an active public champion of Martin's legacy.",
     connections: [
       { id: 'east-coast-surfing-hall-of-fame', label: 'Inductee 2014' },
-      { id: 'inlet-charleys', label: 'NSB surf community' },
-      { id: 'wsl', label: 'Former ASP Head Judge' },
+      { id: 'wsl', label: 'First International Head Judge 1983 / Rulebook Co-Author' },
+      { id: 'smyrna-surfari-club', label: 'Mike Martin Pro/Am host org' },
+      { id: 'jeremy-johnston', label: 'Legacy champion' },
+      { id: 'nsb-inlet', label: 'Home break / contest venue' },
     ],
-    source: "eastcoastsurfinghalloffame.org; hostingnsb.com",
+    source: "robertreddhistorian.com; mikemartinproam.com; eastcoastsurfinghalloffame.org; instagram.com/therealtupat",
   },
 
   'jimmy-lane': {
@@ -26686,6 +26694,46 @@ ASDB.nodes = {
     bio: "The Red Bull Cliff Diving World Series, established in 2009, is the world's premier professional cliff diving competition. Athletes dive from heights of 21-28 meters (men) and 18-23 meters (women) into open water, performing acrobatic dives judged on technique, artistry, and difficulty. The series visits historic and visually spectacular locations including Mostar (Bosnia), Bilbao (Spain), and Boston (USA). Most decorated athletes: Gary Hunt (9 titles) and Rhiannan Iffland (8 titles).",
     location: "Various",
   },
+
+  'leon-johnston': {
+    id: 'leon-johnston',
+    type: 'person',
+    name: 'Leon Johnston',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    era: '1960s–2010s',
+    role: 'NSB Surf Pioneer / Lifeguard',
+    bio: "Leon Johnston (1948 – October 28, 2016) was a New Smyrna Beach surf pioneer and one of the foundational figures of the inland NSB surf community. Growing up bouncing between foster homes, Leon found the ocean young and it became the anchor of his life. He became a Miami Beach lifeguard and eventually settled in New Smyrna Beach, where he became known for his classic style, big heart, and rough-around-the-edges authenticity. A natural presence in the NSB surf scene, Leon helped shape the culture that would produce generations of talented local surfers. He later turned his eye behind the camera, directing surf and ocean content including a Shark Week feature in which he was quoted: 'That day cemented New Smyrna Beach as the undisputed Shark Bite Capital of the World.' His son Jeremy Johnston went on to become a two-time NSSA national champion and is one of the most respected surfers and surf culture ambassadors in NSB history. Leon was married to Linda Johnston, the longtime NSSA Southeast conference administrator. His legacy lives in every wave that breaks at the New Smyrna Beach Inlet.",
+    children: ['Jeremy Johnston'],
+    exSpouse: ['Linda Johnston'],
+    deceased: true,
+    deathYear: '2016',
+    connections: [
+      { id: 'jeremy-johnston', label: 'Son' },
+      { id: 'linda-johnston', label: 'Former Wife' },
+      { id: 'nsb-inlet', label: 'Home break / NSB pioneer' },
+    ],
+    source: "instagram.com/germjohnston (October 2025 tribute post); instagram.com/jermjohnston",
+  },
+
+  'mike-martin-proam': {
+    id: 'mike-martin-proam',
+    type: 'event',
+    name: 'Mike Martin Pro/Am Surf Festival',
+    sport: ['surf'],
+    location: 'New Smyrna Beach Inlet, FL',
+    era: '2010s–present',
+    bio: "The Mike Martin Pro/Am Surf Festival is an annual professional and amateur surf contest held at the New Smyrna Beach Inlet, honoring the legacy of NSB surf pioneer and first WSL international head judge Mike Martin. Hosted by the Smyrna Surfari Club and Surfing in the Sixties 501(c)3, the event has grown into one of the most important surf festivals on the East Coast. The 2026 edition (April 9-12) expanded to include a professional skate contest hosted by Blake Carpenter. It features $15,000 in prize money with $3,000 payouts for men's and women's pro champions. Past and notable competitors include Evan Geiselman, Tommy Coleman, Michael Dunphy, and Kylie Pulcini.",
+    connections: [
+      { id: 'mike-martin', label: 'Event honoree' },
+      { id: 'smyrna-surfari-club', label: 'Host organization' },
+      { id: 'nsb-inlet', label: 'Contest venue' },
+      { id: 'evan-geiselman', label: '2023 Pro champion' },
+      { id: 'jeremy-johnston', label: 'Legacy ambassador' },
+    ],
+    source: "mikemartinproam.com; americansurfmagazine.com; robertreddhistorian.com",
+  },
+
 
 };
 ASDB.getNode = (id) => ASDB.nodes[id];
