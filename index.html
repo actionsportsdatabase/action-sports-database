@@ -181,6 +181,30 @@
   </div>
 </footer>
 
+<!-- ── FLAG / DISPUTE MODAL ───────────────────────────────── -->
+<div id="flag-modal" class="flag-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="flag-modal-title" style="display:none">
+  <div class="flag-modal-box">
+    <button class="flag-modal-close" onclick="closeFlagModal()" aria-label="Close">&#x2715;</button>
+    <div class="flag-modal-icon">&#9873;</div>
+    <h2 id="flag-modal-title">Flag Incorrect Information</h2>
+    <p class="flag-modal-sub">This section will be suspended for 48 hours pending review.</p>
+    <div class="flag-form">
+      <label for="flag-category">Category</label>
+      <select id="flag-category">
+        <option value="factual">Incorrect fact or date</option>
+        <option value="name">Wrong name or spelling</option>
+        <option value="relationship">Incorrect relationship</option>
+        <option value="sponsor">Wrong sponsor/affiliation</option>
+        <option value="photo">Wrong photo or media</option>
+        <option value="other">Other</option>
+      </select>
+      <label for="flag-detail">What's incorrect?</label>
+      <textarea id="flag-detail" placeholder="Describe what's wrong and what the correct information should be..." rows="4"></textarea>
+      <button class="flag-submit-btn" onclick="submitFlag()">Submit Flag</button>
+    </div>
+  </div>
+</div>
+
 <script src="data.js?v=20260409"></script>
 <script src="app.js?v=20260409"></script>
 </body>
