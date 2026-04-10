@@ -20532,6 +20532,239 @@ ASDB.nodes = {
     source: "surfline.com; en.wikipedia.org/wiki/Surfline",
   },
 
+
+  'todd-janda': {
+    id: 'todd-janda',
+    type: 'person',
+    name: 'Todd Janda',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Industry Executive / Product Manager',
+    bio: "Todd Janda is a lifelong surf industry professional rooted in New Smyrna Beach. He served as assistant manager at Inlet Charley's surf shop in NSB — one of the central hubs of the East Coast surf scene — before transitioning into product development. He founded Abyss Product Consulting in 2016, offering full-cycle product management from concept through sourcing and delivery. In 2022 he joined Channel Islands Surfboards as Product Manager, bringing deep East Coast surf market knowledge to one of the sport's most respected board brands. Earlier in his career he also worked with Quiksilver and Dakine. He remains based in New Smyrna Beach.",
+    connections: [
+      { id: 'inlet-charleys', label: 'Former Assistant Manager' },
+      { id: 'channel-islands-surfboards', label: 'Product Manager (2022–present)' },
+    ],
+    source: "linkedin.com/in/todd-janda-38176bb3; cbsnews.com (2001); rocketreach.co",
+  },
+
+  'joe-surbaugh': {
+    id: 'joe-surbaugh',
+    type: 'athlete',
+    name: 'Joe Surbaugh',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Surfer / Coach / Shop Owner',
+    bio: "Joe Surbaugh is a lifelong resident of New Smyrna Beach who has been surfing since the age of 4. He competed in amateur and professional surfing for over 25 years, traveling to surf and compete in Hawaii, Costa Rica, Mexico, France, Spain, Barbados, Puerto Rico, El Salvador, Nicaragua, and across the US. He became Head Surf Coach at Jimmy Lane Surf Academy (JLSA), where he leveraged his competitive experience to coach surfers from beginner through advanced levels. He subsequently opened NSB Surf Shop at 100 N Cooper St (off Flagler Ave), a core surf retail destination serving the New Smyrna Beach community.",
+    connections: [
+      { id: 'inlet-charleys', label: 'NSB Surf Community' },
+    ],
+    source: "surf-lane.com/more-about-me; facebook.com/JimmyLaneSurfingAcademy",
+  },
+
+  'terry-presley': {
+    id: 'terry-presley',
+    type: 'athlete',
+    name: 'Terry Presley',
+    nick: 'Poker',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Surfer',
+    bio: "Terry Presley, nicknamed 'Poker,' is a veteran New Smyrna Beach surfer and a recognized figure in the Volusia County surf community. He is cited alongside David Chambers as part of the generation of local shredders who defined the Inlet lineup. Presley is acknowledged in the photographic history of Florida surfing and is associated with the Smyrna Surfari Club — one of the longest-standing surf clubs in the US.",
+    connections: [
+      { id: 'david-chambers', label: 'NSB Inlet Crew' },
+    ],
+    source: "fau.edu (Surfing Florida: A Photographic History PDF); eastcoastsurfinghalloffame.org; forums.pelicanparts.com",
+  },
+
+  'larry-glen': {
+    id: 'larry-glen',
+    type: 'person',
+    name: 'Larry Glen',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Industry Rep',
+    bio: "Larry Glen is a New Smyrna Beach-based surf industry professional who has served as Florida Sales Representative for Rip Curl since July 1984 — a tenure spanning four decades. He oversees sales for Rip Curl wetsuits, watches, footwear, and apparel across the state of Florida, handling merchandising, window displays, store fixtures, and light boxes at retail accounts statewide. His decades-long career as a Rip Curl rep made him one of the most familiar industry faces at Florida surf shops.",
+    connections: [
+      { id: 'rip-curl', label: 'Florida Sales Rep (1984–present)' },
+    ],
+    source: "linkedin.com/in/larryglenn",
+  },
+
+  'dave-sokol': {
+    id: 'dave-sokol',
+    type: 'person',
+    name: 'Dave Sokol',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Surfer',
+    bio: "Dave Sokol is a New Smyrna Beach surf community member. Data aggregated from public sources. If you are this person, you can claim and expand your profile.",
+    source: "community record",
+  },
+
+  'frank-marshall': {
+    id: 'frank-marshall',
+    type: 'person',
+    name: 'Frank Marshall',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Surfer',
+    bio: "Frank Marshall is a New Smyrna Beach resident and member of the local surf community. Data aggregated from public sources. If you are this person, you can claim and expand your profile.",
+    source: "clustrmaps.com; sunbiz.org",
+  },
+
+  'mike-brewer': {
+    id: 'mike-brewer',
+    type: 'person',
+    name: 'Mike Brewer',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Surfer / Attorney',
+    bio: "Michael Lewis Brewer grew up in Titusville, Florida, swimming and surfing at the beach. He later established a law practice in New Smyrna Beach specializing in tax and estate planning. An avid waterman throughout his life, he surfed regularly and took multiple trips to Costa Rica to surf with his wife and brother. Mike Brewer passed away on October 15, 2024. He was remembered by the NSB community as a dedicated surfer and respected professional.",
+    source: "baldwincremation.com/obituaries/michael-lewis-brewer",
+  },
+
+  'mike-duffy': {
+    id: 'mike-duffy',
+    type: 'athlete',
+    name: 'Mike Duffy',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Surfer',
+    bio: "Mike Duffy is a New Smyrna Beach surfer and member of the Duffy family — a well-known NSB family with deep roots in the local surf and community scene. Brother of Matt Duffy.",
+    siblings: ['Matt Duffy'],
+    connections: [
+      { id: 'matt-duffy', label: 'Brother' },
+    ],
+    source: "legacy.com (Matt Duffy obituary); community record",
+  },
+
+  'matt-duffy': {
+    id: 'matt-duffy',
+    type: 'athlete',
+    name: 'Matt Duffy',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Surfer / Musician',
+    bio: "Matthew Duffy was born January 22, 1978 in Oakville, Ontario, Canada, and came to New Smyrna Beach where he became a beloved member of the surf and arts community. Known for his warm personality, infectious smile, and musical talent, he was a regular at the NSB Inlet and remembered by friends as someone who lit up any room. Patrick 'Tupat' Eichstaedt paid tribute to him as part of the fabric of NSB's history. Matt Duffy passed away suddenly on January 10, 2010. His brother is Mike Duffy.",
+    siblings: ['Mike Duffy'],
+    connections: [
+      { id: 'mike-duffy', label: 'Brother' },
+      { id: 'tupat-eichstaedt', label: 'Friend / NSB Community' },
+    ],
+    source: "legacy.com/us/obituaries/news-journalonline/name/matthew-duffy-obituary?id=22061876",
+  },
+
+  'david-chambers': {
+    id: 'david-chambers',
+    type: 'person',
+    name: 'David Chambers',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Surf Instructor / Inlet Local',
+    bio: "David Chambers is a New Smyrna Beach surfer and surf instructor long associated with Inlet Charley's surf shop. He is cited as part of the Inlet generation that shaped NSB surf culture alongside Terry Presley, and is referenced in East Coast Surfing Hall of Fame documentation. He was noted as an observer at the 2009 Landshark Pro contest at NSB.",
+    connections: [
+      { id: 'inlet-charleys', label: 'Surf Instructor / Staff' },
+      { id: 'terry-presley', label: 'NSB Inlet Crew' },
+    ],
+    source: "tripadvisor.com (NSB surfing topic); eastcoastsurfinghalloffame.org; surfline.com (Landshark Pro 2009)",
+  },
+
+  'hopper-eichstaedt': {
+    id: 'hopper-eichstaedt',
+    type: 'athlete',
+    name: 'Hopper Eichstaedt',
+    nick: 'Hopper',
+    sport: ['surf'],
+    location: 'Mainland Mexico (originally New Smyrna Beach, FL)',
+    role: 'Surfer',
+    bio: "Hopper Eichstaedt is the brother of Patrick 'Tupat' Eichstaedt and a product of the New Smyrna Beach surf scene. Shaped by the NSB Inlet culture, he eventually relocated to Mainland Mexico where he became known for hosting top professional surfers including Bruce Irons and Balaram Stack. Despite living abroad, Hopper returns regularly to NSB and has been described surfing the seven-mile stretch with Tupat and their children, passing down the surf lifestyle their own parents gave them.",
+    siblings: ['Patrick Eichstaedt'],
+    connections: [
+      { id: 'tupat-eichstaedt', label: 'Brother' },
+      { id: 'bruce-irons', label: 'Hosted in Mexico' },
+    ],
+    source: "surfline.com/surf-news/east-coast-four-scores-july/205642",
+  },
+
+  'tupat-eichstaedt': {
+    id: 'tupat-eichstaedt',
+    type: 'person',
+    name: 'Patrick Eichstaedt',
+    nick: 'Tupat',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Photographer / Videographer / Brand Founder',
+    bio: "Patrick 'Tupat' Eichstaedt is one of the most important cultural figures in Florida surf history. A New Smyrna Beach native, he has spent decades documenting and participating in the Florida surf scene as a photographer and videographer. The nickname 'Tupat' was given to him by the crew at Lost Surfboards — Mike Reola and Matt Biolos — who also gave him a platform to showcase what NSB had when Sebastian Inlet was taking all the surf culture credit. He took Bruce Irons, Andy Irons, and Freddie Patacchia under his wing when the Hawaiians came to Florida for contests as groms. His documentation helped launch Aaron 'Gorkin' Cormican onto the Lost team. Tupat co-founded a Hawaiian-style poke sauce brand inspired by travels around the world. His brother is Hopper Eichstaedt. Tupat also left a memorial tribute to NSB community member Matt Duffy upon his passing in 2010.",
+    siblings: ['Hopper Eichstaedt'],
+    connections: [
+      { id: 'hopper-eichstaedt', label: 'Brother' },
+      { id: 'andy-irons', label: 'Hosted / Mentored in NSB' },
+      { id: 'bruce-irons', label: 'Hosted / Mentored in NSB' },
+      { id: 'lost-surfboards', label: 'Gave him his Tupat nickname' },
+      { id: 'matt-duffy', label: 'Friend / Community' },
+    ],
+    source: "inherentbummer.com/home/tupat; inherentbummer.com/bummer-issue-0005; surfline.com/surf-news/east-coast-four-scores-july/205642",
+  },
+
+  'jeremy-johnston': {
+    id: 'jeremy-johnston',
+    type: 'athlete',
+    name: 'Jeremy Johnston',
+    nick: 'Jerm',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Competitive Surfer',
+    bio: "Jeremy Johnston is a New Smyrna Beach competitive surfer who excelled on the NSSA East Coast circuit. He won the 2002 NSSA National Explorer Junior championship and followed it with the 2004 NSSA Explorer Men's championship — back-to-back national titles that placed him among Florida's top amateur surfers of his era. Early contest photos show him as a young grom competing in Globe-sponsored gear. His mother Linda Johnston was a longtime NSSA Southeast administrator. Jeremy is active on Instagram as @jermjohnston.",
+    parents: ['Linda Johnston'],
+    connections: [
+      { id: 'linda-johnston', label: 'Mother' },
+      { id: 'nssa', label: '2002 Explorer Junior Champ / 2004 Explorer Mens Champ' },
+    ],
+    source: "nssa.org; en.wikipedia.org/wiki/National_Scholastic_Surfing_Association; instagram.com/jermjohnston",
+  },
+
+  'linda-johnston': {
+    id: 'linda-johnston',
+    type: 'person',
+    name: 'Linda Johnston',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'NSSA Administrator',
+    bio: "Linda Johnston served as a key administrator for NSSA (National Scholastic Surfing Association) in the Southeast and North Conference, helping coordinate and run contest series across Florida and the East Coast. Her family — including son Jeremy Johnston, a two-time NSSA national champion — was deeply embedded in the competitive surf circuit for years. Linda's organizational work behind the scenes helped provide a competitive pathway for generations of young Florida surfers.",
+    children: ['Jeremy Johnston'],
+    connections: [
+      { id: 'nssa', label: 'Southeast / North Conference Administrator' },
+      { id: 'jeremy-johnston', label: 'Son' },
+    ],
+    source: "nssa.org (Southeast/North Conference contact listing)",
+  },
+
+  'josh-wilson': {
+    id: 'josh-wilson',
+    type: 'athlete',
+    name: 'Josh Wilson',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Competitive Surfer',
+    bio: "Josh Wilson is a New Smyrna Beach competitive surfer who claimed the 1992 NSSA National Boys division championship — one of the top amateur surfing titles in the country. His national title helped put NSB on the map as a producer of elite competitive talent during an era when the East Coast was asserting itself in national amateur surfing.",
+    connections: [
+      { id: 'nssa', label: '1992 National Boys Champion' },
+    ],
+    source: "en.wikipedia.org/wiki/National_Scholastic_Surfing_Association",
+  },
+
+  'tim-keaton': {
+    id: 'tim-keaton',
+    type: 'person',
+    name: 'Tim Keaton',
+    sport: ['surf'],
+    location: 'New Smyrna Beach, FL',
+    role: 'Surfer',
+    bio: "Tim Keaton is a New Smyrna Beach surfer and member of the local surf community. Data aggregated from public sources. If you are this person, you can claim and expand your profile.",
+    source: "community record",
+  },
+
 };
 // ── RELATIONSHIPS INDEX ── for fast lookup
 ASDB.getNode = (id) => ASDB.nodes[id];
