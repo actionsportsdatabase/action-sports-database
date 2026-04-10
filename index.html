@@ -111,6 +111,14 @@
 
       <!-- Actions -->
       <div class="header-actions">
+        <button class="feed-nav-btn" id="feed-nav-btn" onclick="navigateFeed()" aria-label="View Legacy Feed" title="Legacy Feed">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <rect x="1" y="2" width="14" height="2.5" rx="1.25" fill="currentColor" opacity="0.8"/>
+            <rect x="1" y="6.75" width="10" height="2.5" rx="1.25" fill="currentColor" opacity="0.8"/>
+            <rect x="1" y="11.5" width="12" height="2.5" rx="1.25" fill="currentColor" opacity="0.8"/>
+          </svg>
+          <span class="feed-nav-label">Feed</span>
+        </button>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
           <svg id="icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M13.5 10.5A6 6 0 0 1 5.5 2.5a6 6 0 1 0 8 8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -223,6 +231,9 @@
     <!-- ── LEGAL / DATA POLICY VIEW ──────────────────────────── -->
     <section id="legal-view" aria-label="Data Policy and Legal" style="display:none"></section>
 
+    <!-- ── FEED VIEW ──────────────────────────────────────────── -->
+    <section id="feed-view" aria-label="Legacy Feed" style="display:none"></section>
+
   </div>
 </main>
 
@@ -245,6 +256,32 @@
     </div>
   </div>
 </footer>
+
+<!-- ── CLAIM PROFILE MODAL ───────────────────────────────── -->
+<div id="claim-modal" class="flag-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="claim-modal-title" style="display:none">
+  <div class="claim-modal-box">
+    <button class="flag-modal-close" onclick="closeClaimModal()" aria-label="Close">&#x2715;</button>
+    <div class="claim-modal-icon">⚡</div>
+    <h2 id="claim-modal-title">Claim This Profile</h2>
+    <p class="claim-modal-sub">Claiming as: <strong id="claim-modal-name"></strong></p>
+    <div class="claim-form">
+      <label for="claim-instagram">Instagram Handle</label>
+      <input id="claim-instagram" type="text" placeholder="@yourhandle" autocomplete="off" />
+      <label for="claim-hometown">Hometown</label>
+      <input id="claim-hometown" type="text" placeholder="City, State / Country" autocomplete="off" />
+      <label for="claim-sponsors">Current Sponsors</label>
+      <input id="claim-sponsors" type="text" placeholder="e.g., Rip Curl, Lost Surfboards" autocomplete="off" />
+    </div>
+    <div class="claim-unlocks">
+      <div class="claim-unlock-title">What this unlocks</div>
+      <div class="claim-unlock-item">🏆 <span><strong>Your Results Timeline</strong> — All your contest history in one place</span></div>
+      <div class="claim-unlock-item">🌿 <span><strong>Your Lineage Card</strong> — See how you connect to legends</span></div>
+      <div class="claim-unlock-item">👁 <span><strong>Brand View Dashboard</strong> — See who's watching your profile</span></div>
+    </div>
+    <button class="claim-submit-btn" onclick="submitClaim()">Claim My Profile</button>
+    <p class="claim-legal-note">By claiming, you confirm this is your real identity. Data aggregated from public sources.</p>
+  </div>
+</div>
 
 <!-- ── FLAG / DISPUTE MODAL ───────────────────────────────── -->
 <div id="flag-modal" class="flag-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="flag-modal-title" style="display:none">
