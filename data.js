@@ -13,6 +13,7 @@ ASDB.nodes = {
     nationality:'🇺🇸', sport:['surf','skate','mtb'],
     discipline:'Competitive Amateur / Semi-Pro / Regional Pro',
     stance:'Regular', era:'1990s–2000s', status:'pre-populated',
+    parents: ['Tom Wright', 'Barbara Bresnahan'],
     bio: "4th-generation New Smyrna Beach native and competitive surfer. Son of Tom Wright — 3rd-generation NSB native, attorney, and recognized historian of New Smyrna Beach — and Barbara Bresnahan, co-founders of the Smyrna Surfari Club, one of the oldest surf clubs on the East Coast. Growing up at the NSB Inlet, one of the most consistent and shark-populated surf breaks on the East Coast, Adam competed through the ESA and NSSA amateur ranks before reaching the semi-pro and regional pro level. His sponsor list tells the story of the 1990s East Coast surf scene: CB Surfboards (shaper Charlie Baldwin), Inlet Charley's, Gotcha (team managed by Mike Cruickshank), Arnette Optics (founder Greg Arnette became a personal mentor and close family friend), Freestyle Watches, Amp Wear, Rip Curl, Lost Surfboards, and Stone Edge Skate Park. Co-founder of Seed2Source (action sports event sponsorship), Mastermind Mushrooms (functional wellness), and the Action Sports Database — a project 20 years in the making.",
     sponsors:['CB Surfboards (Charlie Baldwin — shaper/sponsor)','Inlet Charley\'s Surf Shop','Gotcha (team mgr: Mike Cruickshank)','Arnette Optics (mentor: Greg Arnette)','Freestyle Watches','Amp Wear','Rip Curl','Lost Surfboards','Stone Edge Skate Park'],
     orgs:['ESA (Eastern Surfing Association)','NSSA (National Scholastic Surfing Association)','Smyrna Surfari Club'],
@@ -148,6 +149,7 @@ ASDB.nodes = {
       'International Surfboard Builders Hall of Fame (isbhof.com)',
       'Surf Splendor Podcast — Feb 2026',
     ],
+    children: ['Lindsay Baldwin', 'Marcy Baldwin'],
     connections:[
       {id:'cb-surfboards', rel:'Founder — 20,000+ boards shaped'},
       {id:'inlet-charleys', rel:'Founder — started as hotdog wagon 1980, sold 2004'},
@@ -208,6 +210,8 @@ ASDB.nodes = {
   'tom-wright': {
     id:'tom-wright', type:'person', name:'Tom Wright',
     role:'Attorney / NSB Historian / Surfer',
+    children: ['Adam Wright'],
+    exSpouse: ['Barbara Bresnahan'],
     era:'1960s–present', status:'pre-populated',
     birthplace:'New Smyrna Beach, FL',
     nationality:'🇺🇸',
@@ -232,6 +236,8 @@ ASDB.nodes = {
   'barbara-bresnahan': {
     id:'barbara-bresnahan', type:'person', name:'Barbara Bresnahan',
     role:'Co-founder — Smyrna Surfari Club / NSB Community Leader',
+    children: ['Adam Wright'],
+    exSpouse: ['Tom Wright'],
     era:'1960s–present', status:'pre-populated',
     birthplace:'New Smyrna Beach, FL',
     nationality:'🇺🇸',
@@ -280,6 +286,8 @@ ASDB.nodes = {
     sport: ['surf'],
     discipline: 'Shortboard / CT / WSL Challenger Series',
     stance: 'Goofy',
+    parents: ['Greg Geiselman', 'Gina Geiselman'],
+    siblings: ['Eric Geiselman'],
     era: '2000s-present',
     status: 'pre-populated',
     bio: "Professional surfer and 12x East Coast Champion from New Smyrna Beach — the most decorated competitive record ever produced on the East Coast. Won his first national title at age 10. Won the US Open Pro Juniors at 16. Competed on the WSL Challenger Series for multiple seasons pushing for a CT card. Younger brother of free surfer Eric Geiselman; son of master shaper Greg Geiselman, who shapes all his boards through Orion Surfboards. In December 2015 he nearly drowned at the Banzai Pipeline on Oahu's North Shore and was rescued by bodyboarder Andre Botha. Currently sponsored by Ron Jon Surf Shop, Free Fly, Reef, Smith, and Orion Surfboards.",
@@ -2520,6 +2528,7 @@ ASDB.nodes = {
     bio:'Hawaiian; 1993 World Champion; stylish North Shore surfer; Pipeline specialist.',
     discipline:'CT / Competitor',
     stance:'Regular',
+    siblings: ['Michael Ho', 'Martin Ho'],
   },
 
   'michael-ho': {
@@ -2533,6 +2542,8 @@ ASDB.nodes = {
     bio:'Hawaiian legend; elder brother of Derek; Pipeline power surfer.',
     discipline:'CT / Competitor',
     stance:'Regular',
+    siblings: ['Derek Ho', 'Martin Ho'],
+    children: ['Mason Ho', 'Coco Ho'],
   },
 
   'richie-collins': {
@@ -2891,6 +2902,7 @@ ASDB.nodes = {
     bio:'Hawaiian; 2× World Champion (2016, 2017); surfing royalty raised on Pipeline; won World Title, Eddie Aikau, and Triple Crown in 2016.',
     discipline:'CT / Competitor',
     stance:'Regular',
+    siblings: ['Nathan Florence', 'Ivan Florence'],
   },
 
   'julian-wilson': {
@@ -3248,6 +3260,7 @@ ASDB.nodes = {
     died:'1978',
     nick:'"Eddie Would Go"',
     stance:'Regular',
+    siblings: ['Clyde Aikau'],
   },
 
   'jeff-clark': {
@@ -3719,6 +3732,8 @@ ASDB.nodes = {
     bio:'Hawaiian; CT competitor; part of the Ho surfing dynasty.',
     discipline:'CT / Competitor',
     stance:'Regular',
+    parents: ['Michael Ho'],
+    siblings: ['Mason Ho'],
   },
 
   'alana-blanchard': {
@@ -12213,6 +12228,8 @@ ASDB.nodes = {
     bio: 'Son of Michael Ho, nephew of Derek Ho. Known for creative, spontaneous surfing style. Pipeline specialist. Part of iconic Hawaiian surfing family.',
     hometown: 'Oahu, Hawaii',
     stance: 'Regular',
+    parents: ['Michael Ho'],
+    siblings: ['Coco Ho'],
   },
 
   'koa-rothman': {
@@ -14227,6 +14244,7 @@ ASDB.nodes = {
     bio: 'Clyde Aikau, younger brother of Eddie Aikau, was a prominent North Shore big-wave surfer and helped establish the legacy of the Aikau family at Waimea Bay. He was a crew member of the Hokule\'a on the 1978 voyage when Eddie disappeared and has been a lifelong steward of his brother\'s memory. Clyde co-founded the Quiksilver In Memory of Eddie Aikau contest and has won the event himself, cementing his place in Hawaiian surf history.',
     hometown: 'Haleiwa, Hawaii',
     stance: 'Regular',
+    siblings: ['Eddie Aikau'],
   },
   'larry-bertlemann': {
     id: 'larry-bertlemann',
@@ -14251,6 +14269,7 @@ ASDB.nodes = {
     bio: 'Martin Ho is the lesser-known brother of Michael Ho and uncle to Mason and Coco Ho, part of one of Hawaii\'s most celebrated surfing families. A skilled competitor on the North Shore, Martin contributed to the Ho family\'s deep roots in Hawaiian surfing culture and was a respected figure on the North Shore during the 1980s and 1990s competitive scene.',
     hometown: 'North Shore, Oahu, Hawaii',
     stance: 'Regular',
+    siblings: ['Michael Ho', 'Derek Ho'],
   },
   'john-pyzel': {
     id: 'john-pyzel',
@@ -19564,6 +19583,8 @@ ASDB.nodes = {
     sport: ['surf'],
     discipline: 'Shortboard / Shaper',
     stance: 'Regular',
+    children: ['Eric Geiselman', 'Evan Geiselman'],
+    exSpouse: ['Gina Geiselman'],
     era: '1980s-present',
     status: 'pre-populated',
     bio: "Born in the Bahamas, Greg Geiselman walked away from a full-ride competitive swimming scholarship after surfing consumed him. He competed as a professional surfer on the East Coast circuit before transitioning entirely to shaping — founding Orion Surfboards in New Smyrna Beach in 1985. For four decades he has been one of the most respected shapers on the East Coast. Greg was among the first Florida shapers to operate a CNC shaping machine, raising the bar for board precision and consistency across the region. He shapes personally for his sons Eric Geiselman and Evan Geiselman. Former husband of Gina Geiselman, mother of Eric and Evan. The two are divorced.",
@@ -19587,6 +19608,8 @@ ASDB.nodes = {
     sport: ['surf'],
     discipline: 'Shortboard / Free Surf / Foil',
     stance: 'Regular',
+    parents: ['Greg Geiselman', 'Gina Geiselman'],
+    siblings: ['Evan Geiselman'],
     era: '2000s-present',
     status: 'pre-populated',
     bio: "Professional free surfer and elder son of shaper Greg Geiselman. Grew up surfing the NSB Inlet and dominated the amateur ranks winning multiple ESA and NSSA titles before turning professional. Won three consecutive North American Pro-Junior titles and the Dew Tour Expression Session. Widely regarded as one of the most stylistically progressive free surfers to come out of the East Coast — known for smooth, powerful surfing that translates from beachbreak to heavy reef. Older brother of WSL competitor Evan Geiselman. Rides boards shaped by his father at Orion Surfboards. Has expanded his riding into high-performance prone and eFoiling with Fliteboard. Currently sponsored by Vissla and Monster Energy.",
@@ -19701,6 +19724,8 @@ ASDB.nodes = {
     nationality: '🇺🇸',
     sport: ['surf'],
     discipline: 'Competitive Surf / East Coast Circuit',
+    children: ['Eric Geiselman', 'Evan Geiselman'],
+    exSpouse: ['Greg Geiselman'],
     era: '1980s-present',
     status: 'pre-populated',
     bio: "Competitive surfer from New Smyrna Beach who competed on the East Coast surf circuit. Former wife of shaper Greg Geiselman. Mother of professional surfers Eric Geiselman and Evan Geiselman — a surfing family she helped build from the water up. Gina documented every competition, contest result, and milestone in both of her sons' careers from their earliest ESA contests through Eric's professional career and Evan's 12 East Coast Championship titles and WSL Challenger Series campaigns.",
