@@ -29594,10 +29594,14 @@ ASDB.nodes = {
   'shawnee-whittaker': {
     id: "shawnee-whittaker",
     type: "athlete",
-    name: "Shawnee Whittaker",
+    name: "Shawnie Whitaker",
     sport: ['adaptive-surf'],
-    bio: "Adaptive surfer and close friend of ASDB co-founders Adam Wright, Jennifer Waxman, and Jaime Giroux.",
+    hometown: "Florida",
+    nationality: "American",
+    bio: "Adaptive surfer representing Florida and the USA at the ISA World Adaptive Surfing Championship. Survived a major car accident on December 16, 1999 as a teenager — was in a coma for 278 days and woke up missing his left leg. Doctors gave him a 10% chance to live and said he would never surf again. Got back on his board with a special waterproof prosthetic leg and now competes at the world level. Views his loss as a gain — December 16, 1999 was the best day of his life. Close friend of ASDB co-founders Adam Wright, Jennifer Waxman, and Jaime Giroux.",
     discipline: "Adaptive Surf",
+    social: {instagram: "shawniewhitaker"},
+    sources: ["Fox 5 Atlanta — Having one leg is no challenge for surfer who inspires others (Sept 2015)"],
     connections: [
       {id: 'adam-wright', rel: 'Close Friend'},
       {id: 'jennifer-waxman', rel: 'Close Friend'},
