@@ -1037,6 +1037,156 @@ function renderProfile(id) {
   });
 }
 
+// ── FLAG / DISPUTE SYSTEM ──────────────────────────────────
+const FLAG_NS = 'asdb_flag_v1';
+const FLAG_TTL = 48 * 60 * 60 * 1000; // 48 hours in ms
+
+function getFlagKey(profileId, sectionKey) {
+  return `${FLAG_NS}:${profileId}:${sectionKey}`;
+}
+
+function isSectionFlagged(profileId, sectionKey) {
+  try {
+    const raw = localStorage.getItem(getFlagKey(profileId, sectionKey));
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    const age = Date.now() - data.timestamp;
+    if (age > FLAG_TTL) {
+      // Expired — auto-reinstate
+      localStorage.removeItem(getFlagKey(profileId, sectionKey));
+      return false;
+    }
+    return true;
+  } catch(e) { return false; }
+}
+
+function getSectionFlagData(profileId, sectionKey) {
+  try {
+    const raw = localStorage.getItem(getFlagKey(profileId, sectionKey));
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) { return null; }
+}
+
+// Wraps a profile section HTML with a flag button and optional suspension overlay
+function flagSection(html, profileId, sectionLabel) {
+  // Create a safe key from the section label
+  const sectionKey = sectionLabel.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const flagged = isSectionFlagged(profileId, sectionKey);
+  const flagData = flagged ? getSectionFlagData(profileId, sectionKey) : null;
+
+  const suspendedOverlay = flagged ? `
+    <div class="flag-suspended-overlay">
+      <span class="flag-suspended-icon">⚠️</span>
+      <span class="flag-suspended-text">This section has been flagged and is under review for up to 48 hours.</span>
+      ${flagData && flagData.detail ? `<span class="flag-suspended-detail">&ldquo;${flagData.detail}&rdquo;</span>` : ''}
+    </div>
+  ` : '';
+
+  // Replace the opening <div class="profile-section"> to inject flag button + suspension state
+  const flaggedClass = flagged ? ' section-flagged' : '';
+  const wrappedSection = html
+    .replace(
+      /<div class="profile-section">/,
+      `<div class="profile-section${flaggedClass}" data-section-key="${sectionKey}" data-profile-id="${profileId}">`
+    )
+    .replace(
+      /<h3>(.*?)<\/h3>/,
+      `<h3>$1<button class="flag-btn" title="Flag incorrect information in this section" onclick="openFlagModal('${profileId}','${sectionKey}','$1')" aria-label="Flag $1 section">⚑</button></h3>`
+    );
+
+  // If flagged, wrap inner content with suspension overlay
+  if (flagged) {
+    return wrappedSection.replace(
+      /<\/h3>/,
+      `</h3>${suspendedOverlay}`
+    );
+  }
+
+  return wrappedSection;
+}
+
+// Current flag target — set when modal opens
+let _flagTarget = { profileId: null, sectionKey: null, sectionLabel: null };
+
+window.openFlagModal = function(profileId, sectionKey, sectionLabel) {
+  _flagTarget = { profileId, sectionKey, sectionLabel };
+  const modal = document.getElementById('flag-modal');
+  const title = document.getElementById('flag-modal-title');
+  if (title) title.textContent = `Flag: ${sectionLabel}`;
+  const detail = document.getElementById('flag-detail');
+  if (detail) detail.value = '';
+  const cat = document.getElementById('flag-category');
+  if (cat) cat.value = 'factual';
+  if (modal) {
+    modal.style.display = 'flex';
+    modal.focus();
+  }
+  // Close on overlay click
+  modal.onclick = function(e) {
+    if (e.target === modal) closeFlagModal();
+  };
+};
+
+window.closeFlagModal = function() {
+  const modal = document.getElementById('flag-modal');
+  if (modal) modal.style.display = 'none';
+  _flagTarget = { profileId: null, sectionKey: null, sectionLabel: null };
+};
+
+window.submitFlag = function() {
+  const { profileId, sectionKey, sectionLabel } = _flagTarget;
+  if (!profileId || !sectionKey) return;
+
+  const category = document.getElementById('flag-category')?.value || 'other';
+  const detail = document.getElementById('flag-detail')?.value?.trim() || '';
+
+  const flagData = {
+    profileId,
+    sectionKey,
+    sectionLabel,
+    category,
+    detail,
+    timestamp: Date.now(),
+    expires: Date.now() + FLAG_TTL,
+  };
+
+  try {
+    localStorage.setItem(getFlagKey(profileId, sectionKey), JSON.stringify(flagData));
+  } catch(e) {
+    console.warn('ASDB flag storage error:', e);
+  }
+
+  closeFlagModal();
+
+  // Re-render the current profile to show suspension
+  const currentHash = window.location.hash;
+  const profileMatch = currentHash.match(/^#profile\/(.+)/);
+  if (profileMatch) {
+    renderProfile(profileMatch[1]);
+  }
+
+  // Show brief confirmation toast
+  showFlagToast('Section flagged — suspended for 48h pending review.');
+};
+
+function showFlagToast(msg) {
+  let toast = document.getElementById('flag-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'flag-toast';
+    toast.className = 'flag-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('flag-toast-visible');
+  setTimeout(() => toast.classList.remove('flag-toast-visible'), 3500);
+}
+
+// Close flag modal on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeFlagModal();
+});
+
 // ── OVERVIEW TAB ─────────────────────────────────────────────
 function renderOverviewTab(node) {
   let html = '';
@@ -1044,20 +1194,20 @@ function renderOverviewTab(node) {
 
   // Bio — with auto-hyperlinks
   if (node.bio) {
-    html += `
+    html += flagSection(`
       <div class="profile-section">
         <h3>About</h3>
         <p>${linkifyText(node.bio, id)}</p>
       </div>
-    `;
+    `, id, 'About');
   }
   if (node.description) {
-    html += `
+    html += flagSection(`
       <div class="profile-section">
         <h3>About</h3>
         <p>${linkifyText(node.description, id)}</p>
       </div>
-    `;
+    `, id, 'About');
   }
   if (node.history) {
     html += `
@@ -1170,26 +1320,24 @@ function renderOverviewTab(node) {
   }
 
   if (facts.length) {
-    html += `
+    html += flagSection(`
       <div class="profile-section">
         <h3>Quick Facts</h3>
         <div class="info-grid">
           ${facts.map(f => `<div class="info-item"><div class="info-label">${f.label}</div><div class="info-value">${f.html}</div></div>`).join('')}
         </div>
       </div>
-    `;
+    `, id, 'Quick Facts');
   }
 
   // Sponsors — each links to brand profile if it exists
   if (node.sponsors && node.sponsors.length) {
-    html += `
+    html += flagSection(`
       <div class="profile-section">
         <h3>Sponsors</h3>
         <ul class="profile-list">
           ${node.sponsors.map(s => {
             const linked = linkifyListItem(s, id);
-            // Use first word-group (clean brand name) for filter
-            // e.g. "CB Surfboards (Charlie Baldwin — Shaper)" → "CB Surfboards"
             const cleanName = s.split(/\s*[\(—]/)[0].trim();
             const filterVal = cleanName.toLowerCase().replace(/\s+/g,'-');
             return `<li class="profile-list-item">
@@ -1199,12 +1347,12 @@ function renderOverviewTab(node) {
           }).join('')}
         </ul>
       </div>
-    `;
+    `, id, 'Sponsors');
   }
 
   // Key People
   if (node.keyPeople && node.keyPeople.length) {
-    html += `
+    html += flagSection(`
       <div class="profile-section">
         <h3>Key People</h3>
         <ul class="profile-list">
@@ -1215,7 +1363,7 @@ function renderOverviewTab(node) {
           }).join('')}
         </ul>
       </div>
-    `;
+    `, id, 'Key People');
   }
 
   // Notable Athletes
@@ -1232,14 +1380,14 @@ function renderOverviewTab(node) {
 
   // Notable facts
   if (node.notable && node.notable.length) {
-    html += `
+    html += flagSection(`
       <div class="profile-section">
         <h3>Notable</h3>
         <ul class="profile-list">
           ${node.notable.map(n => `<li class="profile-list-item"><span class="profile-list-bullet">★</span><span>${linkifyText(n, id)}</span></li>`).join('')}
         </ul>
       </div>
-    `;
+    `, id, 'Notable');
   }
 
   // Products
