@@ -1,52 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <!-- ── PASSWORD GATE (runs before anything else) ────────────── -->
+  <!-- ── PASSWORD GATE ────────────────────────────────────────── -->
+  <style>
+    #asdb-gate { display: flex; }
+    #asdb-root { display: none; }
+  </style>
   <script>
-    (function() {
-      var SESSION_KEY = 'asdb_auth_v1';
-      var PASSWORD = 'NSB1982';
-      var SESSION_TTL = 8 * 60 * 60 * 1000;
-
-      function isAuthed() {
-        try {
-          var raw = sessionStorage.getItem(SESSION_KEY);
-          if (!raw) return false;
-          var data = JSON.parse(raw);
-          return (Date.now() - data.t) < SESSION_TTL;
-        } catch(e) { return false; }
+    var ASDB_PW = 'NSB1982';
+    var ASDB_KEY = 'asdb_v1';
+    // If already authed this session, flip immediately
+    try {
+      var _d = sessionStorage.getItem(ASDB_KEY);
+      if (_d && (Date.now() - JSON.parse(_d).t) < 28800000) {
+        document.addEventListener('DOMContentLoaded', function() {
+          document.getElementById('asdb-gate').style.display = 'none';
+          document.getElementById('asdb-root').style.display = 'block';
+        });
       }
+    } catch(e) {}
 
-      // Inject a <style> tag immediately — blocks root before DOM renders
-      if (!isAuthed()) {
-        var s = document.createElement('style');
-        s.id = 'asdb-gate-style';
-        s.textContent = '#asdb-root { display: none !important; } #asdb-gate { display: flex !important; }';
-        document.head.appendChild(s);
+    function asdbUnlock() {
+      var val = (document.getElementById('gate-input').value || '').trim();
+      if (val === ASDB_PW) {
+        try { sessionStorage.setItem(ASDB_KEY, JSON.stringify({t: Date.now()})); } catch(e) {}
+        document.getElementById('asdb-gate').style.display = 'none';
+        document.getElementById('asdb-root').style.display = 'block';
+      } else {
+        var err = document.getElementById('gate-error');
+        if (err) { err.style.display = 'block'; setTimeout(function(){ err.style.display = 'none'; }, 2500); }
+        var inp = document.getElementById('gate-input');
+        if (inp) { inp.value = ''; inp.focus(); }
       }
-
-      window.__asdbCheckPassword = function() {
-        var input = document.getElementById('gate-input').value.trim();
-        if (input === PASSWORD) {
-          try { sessionStorage.setItem(SESSION_KEY, JSON.stringify({t: Date.now()})); } catch(e){}
-          // Remove the blocking style sheet entirely so !important no longer fights us
-          var blockStyle = document.getElementById('asdb-gate-style');
-          if (blockStyle) blockStyle.parentNode.removeChild(blockStyle);
-          document.getElementById('asdb-gate').style.cssText = 'display:none!important';
-          document.getElementById('asdb-root').style.cssText = '';
-        } else {
-          var err = document.getElementById('gate-error');
-          err.style.display = 'block';
-          document.getElementById('gate-input').value = '';
-          document.getElementById('gate-input').focus();
-          setTimeout(function(){ err.style.display = 'none'; }, 2500);
-        }
-      };
-
-      window.__asdbGateKeydown = function(e) {
-        if (e.key === 'Enter') window.__asdbCheckPassword();
-      };
-    })();
+    }
+    function asdbKeydown(e) { if (e.key === 'Enter') asdbUnlock(); }
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -61,7 +48,7 @@
 <body>
 
 <!-- ── PASSWORD GATE OVERLAY ─────────────────────────────── -->
-<div id="asdb-gate" style="display:none;position:fixed;inset:0;z-index:99999;background:#0e0c09;align-items:center;justify-content:center;flex-direction:column;font-family:'Satoshi',system-ui,sans-serif;">
+<div id="asdb-gate" style="position:fixed;inset:0;z-index:99999;background:#0e0c09;align-items:center;justify-content:center;flex-direction:column;font-family:'Satoshi',system-ui,sans-serif;">
   <div style="text-align:center;padding:2rem;max-width:360px;width:100%;">
     <div style="font-size:2.5rem;font-weight:800;letter-spacing:-0.02em;color:#f0ede8;font-family:'Clash Display',system-ui,sans-serif;margin-bottom:0.25rem;">AS<span style="color:#f06030;">DB</span></div>
     <div style="font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:#7a736a;margin-bottom:2.5rem;">Action Sports Database</div>
@@ -69,12 +56,12 @@
     <input id="gate-input"
       type="password"
       placeholder="Enter password"
-      onkeydown="__asdbGateKeydown(event)"
+      onkeydown="asdbKeydown(event)"
       autofocus
       style="width:100%;padding:0.75rem 1rem;background:#161310;border:1px solid #2c2822;border-radius:8px;color:#f0ede8;font-size:1rem;font-family:inherit;outline:none;margin-bottom:0.75rem;box-sizing:border-box;"
     />
     <div id="gate-error" style="display:none;color:#f06030;font-size:0.8rem;margin-bottom:0.75rem;">Incorrect password &mdash; try again.</div>
-    <button onclick="__asdbCheckPassword()"
+    <button onclick="asdbUnlock()"
       style="width:100%;padding:0.75rem 1rem;background:#f06030;color:#fff;border:none;border-radius:8px;font-size:0.9rem;font-weight:700;font-family:inherit;cursor:pointer;letter-spacing:0.02em;">
       Enter
     </button>
