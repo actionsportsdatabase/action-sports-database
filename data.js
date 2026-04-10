@@ -44,6 +44,9 @@ ASDB.nodes = {
       {id:'seed2source', rel:'Co-founder'},
       {id:'mastermind-mushrooms', rel:'Co-founder'},
       {id:'action-sports-database', rel:'Co-founder — 20-year dream project'},
+      {id:'jennifer-waxman', rel:'ASDB Co-Founder — New Business Development'},
+      {id:'jaime-giroux', rel:'ASDB Co-Founder — IT'},
+      {id:'shawnee-whittaker', rel:'Close Friend'},
       {id:'smyrna-surfari-club', rel:'Member — family co-built the club'},
       {id:'wright-casey-law', rel:'Father\'s law firm — Tom Wright'},
       {id:'tom-wright', rel:'Father — 3rd generation NSB native, attorney, NSB historian'},
@@ -29551,7 +29554,55 @@ ASDB.nodes = {
     bio: "Lake County, Florida Parkour Champion from 1976 to present day. Stunt double for Will Ferrell in the gymnastics scene in Old School. ASDB co-founder and head of IT. Undefeated and undisputed.",
     discipline: "Parkour",
     titles: ["Lake County FL Parkour Champion (1976-present)"],
-    connections: [{id: 'adam-wright', rel: 'ASDB Co-Founder'}],
+    connections: [
+      {id: 'adam-wright', rel: 'ASDB Co-Founder'},
+      {id: 'jennifer-waxman', rel: 'ASDB Co-Founder / Close Friend'},
+      {id: 'shawnee-whittaker', rel: 'Close Friend'},
+    ],
+  },
+
+  // ── ASDB CO-FOUNDER & WAXMAN FAMILY ──────────────────────────
+  'jennifer-waxman': {
+    id: "jennifer-waxman",
+    type: "athlete",
+    name: "Jennifer Waxman",
+    sport: ['skate'],
+    hometown: "Florida",
+    bio: "At the time the youngest female skater and model for UGP Skate Company. ASDB co-founder and head of New Business Development. Sister of semi-professional skateboarder Marty Waxman.",
+    discipline: "Skateboard",
+    connections: [
+      {id: 'adam-wright', rel: 'ASDB Co-Founder'},
+      {id: 'jaime-giroux', rel: 'ASDB Co-Founder / Close Friend'},
+      {id: 'marty-waxman', rel: 'Brother'},
+      {id: 'shawnee-whittaker', rel: 'Close Friend'},
+    ],
+  },
+  'marty-waxman': {
+    id: "marty-waxman",
+    type: "athlete",
+    name: "Marty Waxman",
+    sport: ['skate'],
+    hometown: "Florida",
+    bio: "Semi-professional skateboarder and manager at Kona Skatepark. In the ranks and friendships — still to this day — with many famous iconic skaters from Florida and beyond. Brother of Jennifer Waxman.",
+    discipline: "Skateboard",
+    connections: [
+      {id: 'jennifer-waxman', rel: 'Sister'},
+      {id: 'kona-skatepark', rel: 'Manager'},
+      {id: 'adam-wright', rel: 'Friend'},
+    ],
+  },
+  'shawnee-whittaker': {
+    id: "shawnee-whittaker",
+    type: "athlete",
+    name: "Shawnee Whittaker",
+    sport: ['adaptive-surf'],
+    bio: "Adaptive surfer and close friend of ASDB co-founders Adam Wright, Jennifer Waxman, and Jaime Giroux.",
+    discipline: "Adaptive Surf",
+    connections: [
+      {id: 'adam-wright', rel: 'Close Friend'},
+      {id: 'jennifer-waxman', rel: 'Close Friend'},
+      {id: 'jaime-giroux', rel: 'Close Friend'},
+    ],
   },
 
 };
