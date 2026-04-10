@@ -1117,3 +1117,206 @@ a.subgroup-chip:hover { border-color: var(--accent-2); color: var(--accent-2); }
   background: #fff8e0;
   border-color: #e8a800;
 }
+
+/* ── FLAG / DISPUTE SYSTEM ─────────────────────────────────── */
+
+/* Flag button on section h3 */
+.flag-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+  padding: 2px 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s, border-color 0.15s, background 0.15s;
+  vertical-align: middle;
+  line-height: 1;
+}
+.profile-section:hover .flag-btn {
+  opacity: 1;
+}
+.flag-btn:hover {
+  color: #e8500a;
+  border-color: #e8500a;
+  background: rgba(232,80,10,0.08);
+}
+
+/* Flagged section */
+.section-flagged {
+  position: relative;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.section-flagged .flag-btn {
+  pointer-events: all;
+  opacity: 1;
+  color: #e8a800;
+  border-color: #e8a800;
+}
+
+/* Suspension overlay */
+.flag-suspended-overlay {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px;
+  background: rgba(232,168,0,0.12);
+  border: 1px solid rgba(232,168,0,0.4);
+  border-radius: 6px;
+  margin: 8px 0 10px;
+  pointer-events: all;
+}
+.flag-suspended-icon { font-size: 1rem; }
+.flag-suspended-text {
+  font-size: 0.78rem;
+  color: #e8a800;
+  font-weight: 500;
+}
+.flag-suspended-detail {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── FLAG MODAL ──────────────────────────────────────────────── */
+.flag-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(0,0,0,0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(3px);
+}
+.flag-modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem 1.75rem 1.75rem;
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+}
+.flag-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+.flag-modal-close:hover { color: var(--text); }
+.flag-modal-icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: #e8500a;
+}
+.flag-modal-box h2 {
+  font-family: var(--font-display, 'Clash Display', sans-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.3rem;
+  color: var(--text);
+  padding-right: 2rem;
+}
+.flag-modal-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0 0 1.25rem;
+}
+.flag-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.flag-form label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+.flag-form select,
+.flag-form textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: var(--font-body, 'Satoshi', sans-serif);
+  font-size: 0.85rem;
+  padding: 0.55rem 0.75rem;
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.15s;
+}
+.flag-form select:focus,
+.flag-form textarea:focus {
+  border-color: var(--accent);
+}
+.flag-submit-btn {
+  margin-top: 0.4rem;
+  padding: 0.6rem 1.25rem;
+  background: #e8500a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-display, 'Clash Display', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  align-self: flex-end;
+}
+.flag-submit-btn:hover { background: #c94008; }
+
+/* ── TOAST ───────────────────────────────────────────────────── */
+.flag-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #1e1c18;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.82rem;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.flag-toast.flag-toast-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Light mode adjustments */
+[data-theme="light"] .flag-modal-box {
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+}
+[data-theme="light"] .flag-form select,
+[data-theme="light"] .flag-form textarea {
+  background: #f5f5f5;
+  color: #111;
+}
+[data-theme="light"] .flag-toast {
+  background: #1a1a1a;
+}
