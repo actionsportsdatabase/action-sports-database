@@ -44,6 +44,8 @@ const SPORT_ICONS = {
   kayak:'🛶', canoe:'🛶', raft:'🛶', jetski:'🏄',
   // Winter alt
   snowmobile:'🏔', iceclimb:'🧊',
+  // Adaptive
+  'adaptive-surf':'♿',
   // Other
   breaking:'💃', 'adventure-race':'🏕', climb3x3:'🏀', paintball:'🎯',
   // Display types
@@ -185,6 +187,7 @@ function sportLabel(sport) {
     // Other
     snowmobile:'Snowmobile', iceclimb:'Ice Climbing',
     breaking:'Breaking', 'adventure-race':'Adventure Racing',
+    'adaptive-surf':'Adaptive Surf',
   };
   return map[sport] || sport;
 }
@@ -250,6 +253,7 @@ const SPORT_GROUPS = {
   climb:    ['climb','sport-climb','boulder','free-climb','rock-climb','ice-climb'],
   air:      ['skydive','base','wingsuit','cliffdive','paraglide','speedfly'],
   parkour:  ['parkour','freerun'],
+  'adaptive-surf': ['adaptive-surf'],
   breaking: ['breaking'],
   film:     [],
   music:    [],
