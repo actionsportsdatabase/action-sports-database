@@ -23,7 +23,7 @@ ASDB.nodes = {
       {id:'greg-arnette', rel:'Mentor & close family friend — founder of Arnette Optics'},
       {id:'mike-cruickshank', rel:'Gotcha team manager'},
       {id:'rob-machado', rel:'Shared Gotcha sponsorship era; photo connection at Inlet Charley\'s'},
-      {id:'charlie-baldwin', rel:'Shaper — CB Surfboards; owner of Inlet Charley\'s'},
+      {id:'charlie-baldwin', rel:'Godfather — CB Surfboards shaper, Inlet Charley\'s owner'},
       {id:'geiselman-family', rel:'Grew up in the same NSB surf community — acquaintances'},
       {id:'gotcha', rel:'Sponsor (1990s)'},
       {id:'arnette-optics', rel:'Sponsor & mentor relationship'},
@@ -135,7 +135,7 @@ ASDB.nodes = {
     nick:'"C.B."',
     born:'New Smyrna Beach, FL', birthplace:'New Smyrna Beach, FL',
     era:'1968–present', status:'pre-populated',
-    bio:'Born and raised in New Smyrna Beach, Florida. Charlie "C.B." Baldwin rode his first surfboard at 13 and entered his first contest two years later. He won the Florida State Surfing Championship in 1968 and the East Coast Surfing Championship in 1971. After that win he turned pro, eventually winning two more East Coast titles and two U.S. Surfing Championships in a nearly 20-year professional career. In 1972 he rode for David Nuhiwa (Dyno) Surfboards in California. He retired from the tour in 1990, then returned in 1996 — this time competing alongside his daughters Lindsay and Marcy. In 1980, Charlie started a beachside hotdog wagon on Flagler Ave in NSB, running surf contests from the top of it. That wagon became Inlet Charley\'s Surf Shop at 510 Flagler Ave. He sold the shop in 2004 (it became a Rip Curl store) but continued shaping under the CB Surfboards name. He has shaped over 20,000 boards and distributed them up and down the East Coast. Also owns New Smyrna Beach Motors, the long-time family car business started by his father. Charlie shaped boards for Adam Wright and was a cornerstone of the NSB surf community. His daughter Marcy Baldwin now chairs the Smyrna Surfari Club.',
+    bio:'Born and raised in New Smyrna Beach, Florida. Charlie "C.B." Baldwin rode his first surfboard at 13 and entered his first contest two years later. He won the Florida State Surfing Championship in 1968 and the East Coast Surfing Championship in 1971. After that win he turned pro, eventually winning two more East Coast titles and two U.S. Surfing Championships in a nearly 20-year professional career. In 1972 he rode for David Nuhiwa (Dyno) Surfboards in California. He retired from the tour in 1990, then returned in 1996 — this time competing alongside his daughters Lindsay and Marcie. In 1980, Charlie started a beachside hotdog wagon on Flagler Ave in NSB, running surf contests from the top of it. That wagon became Inlet Charley\'s Surf Shop at 510 Flagler Ave. He sold the shop in 2004 (it became a Rip Curl store) but continued shaping under the CB Surfboards name. He has shaped over 20,000 boards and distributed them up and down the East Coast. Also owns New Smyrna Beach Motors, the long-time family car business started by his father. Charlie shaped boards for Adam Wright and was a cornerstone of the NSB surf community. His daughter Marcie Baldwin now chairs the Smyrna Surfari Club.',
     achievements:[
       'Florida State Surfing Championship — 1968',
       'East Coast Surfing Championships — 1971',
@@ -149,17 +149,38 @@ ASDB.nodes = {
       'International Surfboard Builders Hall of Fame (isbhof.com)',
       'Surf Splendor Podcast — Feb 2026',
     ],
-    children: ['Lindsay Baldwin', 'Marcy Baldwin'],
+    children: ['Lindsay Baldwin', 'Marcie Baldwin'],
+    spouse: ['Jennifer Baldwin'],
     connections:[
       {id:'cb-surfboards', rel:'Founder — 20,000+ boards shaped'},
+      {id:'jennifer-baldwin', rel:'Wife — co-built Inlet Charley\'s Surf Shop'},
       {id:'inlet-charleys', rel:'Founder — started as hotdog wagon 1980, sold 2004'},
-      {id:'adam-wright', rel:'Local sponsor — shaped boards, NSB surf community'},
+      {id:'adam-wright', rel:'Godfather — shaped boards, local sponsor, NSB surf community'},
       {id:'nsb-inlet', rel:'Home break — born and raised here'},
-      {id:'smyrna-surfari-club', rel:'Pillar of the club — daughter Marcy now chairs'},
+      {id:'smyrna-surfari-club', rel:'Pillar of the club — daughter Marcie now chairs'},
       {id:'esa', rel:'East Coast surf competition community'},
     ],
   },
 
+
+  'jennifer-baldwin': {
+    id:'jennifer-baldwin', type:'person', name:'Jennifer Baldwin',
+    role:'Co-founder — Inlet Charley\'s Surf Shop / NSB Community',
+    era:'1980s–present', status:'pre-populated',
+    birthplace:'New Smyrna Beach, FL',
+    nationality:'🇺🇸',
+    spouse: ['Charlie Baldwin'],
+    children: ['Lindsay Baldwin', 'Marcie Baldwin'],
+    bio:"Wife of Charlie Baldwin and co-founder of Inlet Charley\'s Surf Shop — the legendary surf shop that anchored the New Smyrna Beach surf community from 1980 to 2004. Jennifer was instrumental in building the shop from a beachside hotdog wagon on Flagler Ave into the East Coast\'s premier surf retail destination. A pillar of the NSB surfing family, mother of competitive surfers Lindsay and Marcie Baldwin.",
+    connections:[
+      {id:'charlie-baldwin', rel:'Husband — co-founded Inlet Charley\'s together'},
+      {id:'inlet-charleys', rel:'Co-founder — built alongside Charlie'},
+      {id:'cb-surfboards', rel:'Co-built the family surf business'},
+      {id:'nsb-inlet', rel:'NSB community — lifelong connection'},
+      {id:'smyrna-surfari-club', rel:'Family pillar of the club'},
+      {id:'adam-wright', rel:'Godmother connection — Charlie is Adam\'s godfather'},
+    ],
+  },
   'al-merrick': {
     id:'al-merrick', type:'person', name:'Al Merrick',
     role:'Master Shaper / Brand Founder',
@@ -385,17 +406,18 @@ ASDB.nodes = {
     foundedIn:'New Smyrna Beach, FL', headquarters:'New Smyrna Beach, FL',
     peakEra:'1980s–present',
     status:'Active', status2:'pre-populated',
-    bio:'One of the East Coast\'s most respected surfboard brands, founded by New Smyrna Beach legend Charlie "C.B." Baldwin. Charlie won the Florida State Surfing Championship (1968), the East Coast Surfing Championships (1971), and two U.S. Surfing Championships over a nearly 20-year pro career. He turned professional in 1972 on sponsorship from California manufacturers and rode for David Nuhiwa (Dyno) Surfboards. After retiring from touring in 1990, he returned to compete again in 1996, this time alongside his daughters Lindsay and Marcy. Charlie started CB Surfboards and eventually opened Inlet Charley\'s in 1980 as a beachside hotdog wagon on Flagler Ave in NSB, growing it into the region\'s anchor surf shop. He sold Inlet Charley\'s in 2004 (it became a Rip Curl store) but continued shaping under the CB name. Over 20,000 boards shaped and distributed up and down the East Coast. Inducted into the East Coast Surfing Hall of Fame (2000) and the International Surfboard Builders Hall of Fame (2022). Charlie shaped boards for Adam Wright and served as a core local sponsor.',
+    bio:'One of the East Coast\'s most respected surfboard brands, founded by New Smyrna Beach legend Charlie "C.B." Baldwin. Charlie won the Florida State Surfing Championship (1968), the East Coast Surfing Championships (1971), and two U.S. Surfing Championships over a nearly 20-year pro career. He turned professional in 1972 on sponsorship from California manufacturers and rode for David Nuhiwa (Dyno) Surfboards. After retiring from touring in 1990, he returned to compete again in 1996, this time alongside his daughters Lindsay and Marcie. Charlie started CB Surfboards and eventually opened Inlet Charley\'s in 1980 as a beachside hotdog wagon on Flagler Ave in NSB, growing it into the region\'s anchor surf shop. He sold Inlet Charley\'s in 2004 (it became a Rip Curl store) but continued shaping under the CB name. Over 20,000 boards shaped and distributed up and down the East Coast. Inducted into the East Coast Surfing Hall of Fame (2000) and the International Surfboard Builders Hall of Fame (2022). Charlie shaped boards for Adam Wright and served as a core local sponsor.',
     keyPeople:[
       {name:'Charlie Baldwin', role:'Founder, master shaper — ISBHOF 2022'},
+      {name:'Jennifer Baldwin', role:'Co-founder — wife, built Inlet Charley\'s alongside Charlie'},
       {name:'Lindsay Baldwin', role:'Daughter — competitive surfer'},
-      {name:'Marcy Baldwin', role:'Daughter — Chair of Smyrna Surfari Club'},
+      {name:'Marcie Baldwin', role:'Daughter — Chair of Smyrna Surfari Club'},
     ],
     achievements:['20,000+ surfboards shaped','East Coast distribution up and down the coast','ISBHOF Inductee 2022 (Charlie Baldwin)'],
     notable:[
       'Boards shaped out of NSB and distributed coast-to-coast',
       'Charlie Baldwin won Florida State Championship (1968) and ECSC (1971)',
-      'Family business — daughters Lindsay and Marcy both competed nationally',
+      'Family business — daughters Lindsay and Marcie both competed nationally',
     ],
     sources:['International Surfboard Builders Hall of Fame (isbhof.com)','East Coast Surfing Hall of Fame','Surf Splendor Podcast (Feb 2026)'],
     connections:[
@@ -403,7 +425,7 @@ ASDB.nodes = {
       {id:'adam-wright', rel:'Sponsored rider — shaped boards for Adam'},
       {id:'inlet-charleys', rel:'Sold at Inlet Charley\'s Surf Shop'},
       {id:'nsb-inlet', rel:'Home break — test track for designs'},
-      {id:'smyrna-surfari-club', rel:'Community pillar — Marcy Baldwin is club chair'},
+      {id:'smyrna-surfari-club', rel:'Community pillar — Marcie Baldwin is club chair'},
     ],
   },
 
@@ -417,7 +439,8 @@ ASDB.nodes = {
     bio:'NSB\'s anchor surf shop and the heartbeat of East Coast surfing for over two decades. Charlie Baldwin started it in 1980 as a beachside hotdog wagon — literally selling hotdogs from a wagon on Flagler Ave while also running surf contests on top of the wagon. It grew into a full surf shop at 510 Flagler Ave, stocking CB Surfboards and acting as the region\'s primary sponsor of local competitions. Inlet Charley\'s sponsored local surfers, organized regional contests, and was the hub that connected the NSB surf scene to the wider world. Rob Machado visited the shop and was photographed there alongside Adam Wright — a connection only possible through the shop\'s role as a crossroads for the surf world. Charlie Baldwin sold Inlet Charley\'s in 2004; it was rebranded as a Rip Curl store. The property at 510 Flagler Ave eventually closed entirely (listed as closed on Yelp, March 2026). The legacy lives on through CB Surfboards.',
     keyPeople:[
       {name:'Charlie Baldwin', role:'Founder — sold in 2004'},
-      {name:'Marcy Baldwin', role:'Daughter of Charlie — now chairs Smyrna Surfari Club'},
+      {name:'Jennifer Baldwin', role:'Co-founder — wife, built the shop alongside Charlie'},
+      {name:'Marcie Baldwin', role:'Daughter of Charlie — now chairs Smyrna Surfari Club'},
     ],
     notable:[
       'Started as a hotdog wagon on Flagler Ave — grew into the region\'s premier surf shop',
@@ -429,6 +452,7 @@ ASDB.nodes = {
     sources:['East Coast Surfing Hall of Fame (Charlie Baldwin bio)','Surf Splendor Podcast (Feb 2026)','Yelp listing (closed Mar 2026)','ISBHOF Inductee Page'],
     connections:[
       {id:'charlie-baldwin', rel:'Founder — sold 2004'},
+      {id:'jennifer-baldwin', rel:'Co-founder — wife, built the shop alongside Charlie'},
       {id:'adam-wright', rel:'Local sponsor — home shop, regional team'},
       {id:'rob-machado', rel:'Visited — photographed here with Adam Wright'},
       {id:'cb-surfboards', rel:'Primary stockist of CB Surfboards'},
