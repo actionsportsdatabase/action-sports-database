@@ -5,9 +5,7 @@
   <script>
     (function() {
       var SESSION_KEY = 'asdb_auth_v1';
-      // Change this password to whatever you want
-      var PASSWORD = 'NSBsurf1982';
-      // Session lasts 8 hours
+      var PASSWORD = 'NSB1982';
       var SESSION_TTL = 8 * 60 * 60 * 1000;
 
       function isAuthed() {
@@ -19,14 +17,10 @@
         } catch(e) { return false; }
       }
 
-      if (isAuthed()) return; // already in, skip gate
-
-      // Block page render until authed
-      document.addEventListener('DOMContentLoaded', function() {
-        var gate = document.getElementById('asdb-gate');
-        if (gate) gate.style.display = 'flex';
-        document.getElementById('asdb-root').style.display = 'none';
-      });
+      // Write gate styles immediately into <head> so nothing flashes
+      if (!isAuthed()) {
+        document.write('<style>#asdb-root{display:none!important}#asdb-gate{display:flex!important}</style>');
+      }
 
       window.__asdbCheckPassword = function() {
         var input = document.getElementById('gate-input').value;
@@ -34,6 +28,7 @@
           try { sessionStorage.setItem(SESSION_KEY, JSON.stringify({t: Date.now()})); } catch(e){}
           document.getElementById('asdb-gate').style.display = 'none';
           document.getElementById('asdb-root').style.display = 'block';
+          document.getElementById('asdb-root').style.removeProperty('display');
         } else {
           var err = document.getElementById('gate-error');
           err.style.display = 'block';
@@ -278,8 +273,8 @@
   </div>
 </div>
 
-<script src="data.js?v=20260410"></script>
-<script src="app.js?v=20260410"></script>
+<script src="data.js?v=20260411"></script>
+<script src="app.js?v=20260411"></script>
 
 </div><!-- /#asdb-root -->
 </body>
