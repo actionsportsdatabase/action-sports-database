@@ -17,18 +17,23 @@
         } catch(e) { return false; }
       }
 
-      // Write gate styles immediately into <head> so nothing flashes
+      // Inject a <style> tag immediately — blocks root before DOM renders
       if (!isAuthed()) {
-        document.write('<style>#asdb-root{display:none!important}#asdb-gate{display:flex!important}</style>');
+        var s = document.createElement('style');
+        s.id = 'asdb-gate-style';
+        s.textContent = '#asdb-root { display: none !important; } #asdb-gate { display: flex !important; }';
+        document.head.appendChild(s);
       }
 
       window.__asdbCheckPassword = function() {
-        var input = document.getElementById('gate-input').value;
+        var input = document.getElementById('gate-input').value.trim();
         if (input === PASSWORD) {
           try { sessionStorage.setItem(SESSION_KEY, JSON.stringify({t: Date.now()})); } catch(e){}
-          document.getElementById('asdb-gate').style.display = 'none';
-          document.getElementById('asdb-root').style.display = 'block';
-          document.getElementById('asdb-root').style.removeProperty('display');
+          // Remove the blocking style sheet entirely so !important no longer fights us
+          var blockStyle = document.getElementById('asdb-gate-style');
+          if (blockStyle) blockStyle.parentNode.removeChild(blockStyle);
+          document.getElementById('asdb-gate').style.cssText = 'display:none!important';
+          document.getElementById('asdb-root').style.cssText = '';
         } else {
           var err = document.getElementById('gate-error');
           err.style.display = 'block';
