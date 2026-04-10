@@ -34,6 +34,7 @@ ASDB.nodes = {
       {id:'cb-surfboards', rel:'Sponsor/shaper'},
       {id:'inlet-charleys', rel:'Local sponsor/shop — hosted Rob Machado autograph signings'},
       {id:'stone-edge-skatepark', rel:'Skate sponsor/home park'},
+      {id:'ehren-tresher', rel:'Best friend growing up — grew up surfing NSB together'},
       {id:'nsb-inlet', rel:'Home break — grew up surfing here'},
       {id:'smyrna-surfari-club', rel:'Member'},
       {id:'esa', rel:'Competition member'},
@@ -20188,6 +20189,105 @@ ASDB.nodes = {
     connections:[
       {id:'adam-wright', rel:'Surf companion — St. Augustine, 1994–95'},
       {id:'nsb-inlet', rel:'NSB/St. Augustine surf community'},
+    ],
+  },
+
+
+  'ehren-tresher': {
+    id:'ehren-tresher', type:'person', name:'Ehren Tresher',
+    role:'NSB Local / Former Rip Curl Store Manager / Real Estate',
+    nationality:'🇺🇸', sport:['surf'],
+    birthplace:'New Smyrna Beach, FL',
+    era:'1990s–present', status:'pre-populated',
+    born:'c. 1982',
+    spouse: ['Leslie Tresher'],
+    bio:"5th-generation Floridian, born and raised in New Smyrna Beach — and best friend of Adam Wright growing up. The two grew up surfing, fishing, and living the NSB beach town life together. A November 1995 Daytona Beach News-Journal photo captured Ehren heading to the surf at age 13 with classmates Mike Morrisey and John Mikkonen — all students at New Smyrna Middle School. After graduating from New Smyrna Beach High School, he earned a bachelor's degree in Elementary Education from UCF and taught in Volusia County for two years. When Inlet Charley's was acquired by Rip Curl, Ehren stepped in as store manager at the Flagler Ave location — a role that grew into a six-year run on the West Coast overseeing six Rip Curl stores throughout Central California. He eventually returned to NSB with his family. Back home, he contributed as additional cinematographer on Hometown Hype — a White Claw-sponsored NSB surf documentary directed by paralyzed filmmaker Sam Scribner. Now a Buyer's Specialist with Florida Life Real Estate Group, drawing on 30+ years of deep local knowledge and community ties.",
+    sources:[
+      'Daytona Beach News-Journal — November 28, 1995 (Newspapers.com) — photo caption: age 13 at NSB surf with classmates Mike Morrisey and John Mikkonen',
+      'Florida Life Real Estate Group — agent profile',
+      'Hometown Hype NSB surf film credits',
+      'Tresher Properties — Facebook page',
+    ],
+    connections:[
+      {id:'adam-wright', rel:'Best friend growing up — grew up surfing NSB together'},
+      {id:'nsb-inlet', rel:'Home break — grew up surfing here, 5th-generation NSB native'},
+      {id:'inlet-charleys', rel:'Store manager after Rip Curl takeover — transitioned into 6-year West Coast Rip Curl career'},
+      {id:'rip-curl', rel:'Store manager — Flagler Ave NSB, then 6 Rip Curl stores in Central California'},
+      {id:'leslie-tresher', rel:'Wife — wedding & family photographer, NSB'},
+      {id:'mike-morrisey', rel:'Childhood surf companion — classmates at NSB Middle School, 1995'},
+      {id:'john-mikkonen', rel:'Childhood surf companion — classmates at NSB Middle School, 1995'},
+      {id:'hometown-hype', rel:'Additional cinematographer — NSB surf documentary'},
+      {id:'sam-scribner', rel:'Collaborated on Hometown Hype — directed by Scribner'},
+    ],
+  },
+
+  'leslie-tresher': {
+    id:'leslie-tresher', type:'person', name:'Leslie Tresher',
+    role:'Photographer / Graphic Designer — NSB',
+    nationality:'🇺🇸',
+    era:'2000s–present', status:'pre-populated',
+    birthplace:'New Smyrna Beach, FL',
+    spouse: ['Ehren Tresher'],
+    bio:"Wedding and family photographer based in New Smyrna Beach. Holds a BFA in Graphic Design from the University of Florida. Spent several years in California with her husband Ehren during his Rip Curl management tenure before returning to NSB with their two daughters. Part of the multigenerational NSB beach community.",
+    connections:[
+      {id:'ehren-tresher', rel:'Husband — NSB local, former Rip Curl manager'},
+      {id:'nsb-inlet', rel:'NSB community — raised and returned here'},
+    ],
+  },
+
+  'mike-morrisey': {
+    id:'mike-morrisey', type:'person', name:'Mike Morrisey',
+    nationality:'🇺🇸', sport:['surf'],
+    birthplace:'New Smyrna Beach, FL',
+    era:'1990s–2000s', status:'pre-populated',
+    born:'c. 1981',
+    bio:"NSB local surfer photographed heading to the surf in New Smyrna Beach in November 1995 at age 14, alongside classmates Ehren Tresher and John Mikkonen — all students at New Smyrna Middle School. Part of the NSB surf generation of the mid-1990s.",
+    sources:['Daytona Beach News-Journal — November 28, 1995 (Newspapers.com)'],
+    connections:[
+      {id:'nsb-inlet', rel:'Home break — NSB local surfer'},
+      {id:'ehren-tresher', rel:'Childhood surf companion — classmates at NSB Middle School, 1995'},
+      {id:'john-mikkonen', rel:'Classmate — NSB Middle School, 1995 surf photo'},
+    ],
+  },
+
+  'john-mikkonen': {
+    id:'john-mikkonen', type:'person', name:'John Mikkonen',
+    nationality:'🇺🇸', sport:['surf'],
+    birthplace:'New Smyrna Beach, FL',
+    era:'1990s–2000s', status:'pre-populated',
+    born:'c. 1981',
+    bio:"NSB local surfer photographed heading to the surf in New Smyrna Beach in November 1995 at age 14, alongside classmates Ehren Tresher and Mike Morrisey — all students at New Smyrna Middle School. Part of the NSB surf generation of the mid-1990s.",
+    sources:['Daytona Beach News-Journal — November 28, 1995 (Newspapers.com)'],
+    connections:[
+      {id:'nsb-inlet', rel:'Home break — NSB local surfer'},
+      {id:'ehren-tresher', rel:'Childhood surf companion — classmates at NSB Middle School, 1995'},
+      {id:'mike-morrisey', rel:'Classmate — NSB Middle School, 1995 surf photo'},
+    ],
+  },
+
+  'sam-scribner': {
+    id:'sam-scribner', type:'person', name:'Sam Scribner',
+    role:'Filmmaker — Hometown Hype NSB Surf Documentary',
+    nationality:'🇺🇸', sport:['surf'],
+    era:'2010s–present', status:'pre-populated',
+    bio:"Paralyzed filmmaker who reconnected with surf culture through documentary filmmaking. Directed Hometown Hype — a White Claw-sponsored documentary about the New Smyrna Beach surf community. The film features NSB locals and documents the unique culture of one of the East Coast's most storied surf towns. Ehren Tresher served as additional cinematographer.",
+    connections:[
+      {id:'hometown-hype', rel:'Director — Hometown Hype NSB surf documentary'},
+      {id:'ehren-tresher', rel:'Collaborator — Tresher served as additional cinematographer'},
+      {id:'nsb-inlet', rel:'Subject of Hometown Hype documentary'},
+    ],
+  },
+
+  'hometown-hype': {
+    id:'hometown-hype', type:'media', name:'Hometown Hype',
+    role:'NSB Surf Documentary',
+    sport:['surf'],
+    era:'2020s', status:'pre-populated',
+    bio:"White Claw-sponsored documentary film about the New Smyrna Beach surf community. Directed by Sam Scribner — a paralyzed filmmaker who reconnected with surf culture through film. The documentary captures the unique culture, history, and local characters of NSB's surf scene. Additional cinematography by Ehren Tresher, a 5th-generation NSB native and former Rip Curl manager.",
+    connections:[
+      {id:'sam-scribner', rel:'Director'},
+      {id:'ehren-tresher', rel:'Additional cinematographer'},
+      {id:'nsb-inlet', rel:'Subject — NSB surf community documentary'},
     ],
   },
 
