@@ -20754,14 +20754,14 @@ ASDB.nodes = {
     source: "en.wikipedia.org/wiki/National_Scholastic_Surfing_Association",
   },
 
-  'tim-keaton': {
-    id: 'tim-keaton',
+  'tim-deaton': {
+    id: 'tim-deaton',
     type: 'person',
-    name: 'Tim Keaton',
+    name: 'Tim Deaton',
     sport: ['surf'],
     location: 'New Smyrna Beach, FL',
     role: 'Surfer',
-    bio: "Tim Keaton is a New Smyrna Beach surfer and member of the local surf community. Data aggregated from public sources. If you are this person, you can claim and expand your profile.",
+    bio: "Tim Deaton is a New Smyrna Beach surfer and member of the local surf community. Data aggregated from public sources. If you are this person, you can claim and expand your profile.",
     source: "community record",
   },
 
