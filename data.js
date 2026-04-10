@@ -29548,7 +29548,7 @@ ASDB.nodes = {
     sport: ['parkour'],
     born: "July 15, 1976",
     hometown: "Lake County, FL",
-    bio: "Lake County, Florida Parkour Champion from 1976 to present day. Famous for the gymnastics scene in Will Ferrell's Old School. ASDB co-founder and head of IT. Undefeated and undisputed.",
+    bio: "Lake County, Florida Parkour Champion from 1976 to present day. Stunt double for Will Ferrell in the gymnastics scene in Old School. ASDB co-founder and head of IT. Undefeated and undisputed.",
     discipline: "Parkour",
     titles: ["Lake County FL Parkour Champion (1976-present)"],
     connections: [{id: 'adam-wright', rel: 'ASDB Co-Founder'}],
