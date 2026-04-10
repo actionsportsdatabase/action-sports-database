@@ -844,6 +844,27 @@ ASDB.nodes = {
     connections:[{id:'adam-wright', rel:'Published/featured'}],
   },
 
+  'newspapers-com': {
+    id:'newspapers-com', type:'media', name:'Newspapers.com',
+    mediaType:'archive', sport:['surf','skate','snow','moto','bmx','mtb'],
+    role:'Historical Archive / Research Source',
+    status:'Active', founded:'2012',
+    headquarters:'Provo, UT',
+    bio:"Newspapers.com is a historical newspaper archive operated by Ancestry.com, containing over 900 million pages from thousands of U.S. and international newspapers dating back to the 1700s. For the Action Sports Database, it serves as a primary research tool for verifying historical contest results, athlete birth records, local contest coverage, and career timelines — particularly for pre-internet era athletes (1950s–1990s). All content from Newspapers.com is treated as a cited research source: facts, dates, and contest results are referenced and linked, not reproduced. ASDB uses it in accordance with its commercial use policy: Own the facts, reference the source.",
+    role:'Research archive — cited source, not reproduced',
+    notable:[
+      'Primary archive for pre-internet action sports history',
+      'Used to verify contest results, birth records, and career timelines (1950s–1990s)',
+      'Cited inline on profiles where historical press coverage was sourced',
+      'ASDB policy: reference and link — do not reproduce full articles',
+      'Part of Ancestry.com — 900M+ pages from 25,000+ publications',
+    ],
+    connections:[
+      {id:'eastern-surf-mag', rel:'Adjacent archive source — regional surf press'},
+      {id:'action-sports-database', rel:'Research source for historical data verification'},
+    ],
+  },
+
   'endless-summer': {
     id:'endless-summer', type:'media', name:'The Endless Summer',
     mediaType:'surf film', year:'1966', director:'Bruce Brown',
