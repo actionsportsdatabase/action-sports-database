@@ -1,6 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
+  <!-- ── PASSWORD GATE (runs before anything else) ────────────── -->
+  <script>
+    (function() {
+      var SESSION_KEY = 'asdb_auth_v1';
+      // Change this password to whatever you want
+      var PASSWORD = 'NSBsurf1982';
+      // Session lasts 8 hours
+      var SESSION_TTL = 8 * 60 * 60 * 1000;
+
+      function isAuthed() {
+        try {
+          var raw = sessionStorage.getItem(SESSION_KEY);
+          if (!raw) return false;
+          var data = JSON.parse(raw);
+          return (Date.now() - data.t) < SESSION_TTL;
+        } catch(e) { return false; }
+      }
+
+      if (isAuthed()) return; // already in, skip gate
+
+      // Block page render until authed
+      document.addEventListener('DOMContentLoaded', function() {
+        var gate = document.getElementById('asdb-gate');
+        if (gate) gate.style.display = 'flex';
+        document.getElementById('asdb-root').style.display = 'none';
+      });
+
+      window.__asdbCheckPassword = function() {
+        var input = document.getElementById('gate-input').value;
+        if (input === PASSWORD) {
+          try { sessionStorage.setItem(SESSION_KEY, JSON.stringify({t: Date.now()})); } catch(e){}
+          document.getElementById('asdb-gate').style.display = 'none';
+          document.getElementById('asdb-root').style.display = 'block';
+        } else {
+          var err = document.getElementById('gate-error');
+          err.style.display = 'block';
+          document.getElementById('gate-input').value = '';
+          document.getElementById('gate-input').focus();
+          setTimeout(function(){ err.style.display = 'none'; }, 2500);
+        }
+      };
+
+      window.__asdbGateKeydown = function(e) {
+        if (e.key === 'Enter') window.__asdbCheckPassword();
+      };
+    })();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ASDB — Action Sports Database</title>
@@ -12,6 +59,32 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+<!-- ── PASSWORD GATE OVERLAY ─────────────────────────────── -->
+<div id="asdb-gate" style="display:none;position:fixed;inset:0;z-index:99999;background:#0e0c09;align-items:center;justify-content:center;flex-direction:column;font-family:'Satoshi',system-ui,sans-serif;">
+  <div style="text-align:center;padding:2rem;max-width:360px;width:100%;">
+    <div style="font-size:2.5rem;font-weight:800;letter-spacing:-0.02em;color:#f0ede8;font-family:'Clash Display',system-ui,sans-serif;margin-bottom:0.25rem;">AS<span style="color:#f06030;">DB</span></div>
+    <div style="font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:#7a736a;margin-bottom:2.5rem;">Action Sports Database</div>
+    <div style="font-size:0.8rem;color:#7a736a;margin-bottom:1rem;letter-spacing:0.04em;">BETA ACCESS</div>
+    <input id="gate-input"
+      type="password"
+      placeholder="Enter password"
+      onkeydown="__asdbGateKeydown(event)"
+      autofocus
+      style="width:100%;padding:0.75rem 1rem;background:#161310;border:1px solid #2c2822;border-radius:8px;color:#f0ede8;font-size:1rem;font-family:inherit;outline:none;margin-bottom:0.75rem;box-sizing:border-box;"
+    />
+    <div id="gate-error" style="display:none;color:#f06030;font-size:0.8rem;margin-bottom:0.75rem;">Incorrect password &mdash; try again.</div>
+    <button onclick="__asdbCheckPassword()"
+      style="width:100%;padding:0.75rem 1rem;background:#f06030;color:#fff;border:none;border-radius:8px;font-size:0.9rem;font-weight:700;font-family:inherit;cursor:pointer;letter-spacing:0.02em;">
+      Enter
+    </button>
+    <div style="margin-top:2rem;font-size:0.7rem;color:#4a453f;">© Action Sports Database &mdash; All rights reserved. Unauthorized use prohibited.
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN APP (hidden until authed) ────────────────────── -->
+<div id="asdb-root">
 
 <!-- ── HEADER ─────────────────────────────────────────────── -->
 <header id="site-header">
@@ -207,5 +280,7 @@
 
 <script src="data.js?v=20260410"></script>
 <script src="app.js?v=20260410"></script>
+
+</div><!-- /#asdb-root -->
 </body>
 </html>
