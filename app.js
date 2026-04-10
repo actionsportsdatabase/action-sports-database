@@ -1079,6 +1079,39 @@ function renderOverviewTab(node) {
   if (node.nationality) {
     facts.push({ label:'Nationality', html: factLink('nationality', node.nationality) });
   }
+
+  // ── FAMILY RELATIONS ──
+  if (node.parents && node.parents.length) {
+    facts.push({
+      label: 'Parents',
+      html: node.parents.map(p => linkifyText(p, id)).join(' &amp; ')
+    });
+  }
+  if (node.children && node.children.length) {
+    facts.push({
+      label: 'Children',
+      html: node.children.map(c => linkifyText(c, id)).join(', ')
+    });
+  }
+  if (node.siblings && node.siblings.length) {
+    facts.push({
+      label: 'Siblings',
+      html: node.siblings.map(s => linkifyText(s, id)).join(', ')
+    });
+  }
+  if (node.spouse && node.spouse.length) {
+    facts.push({
+      label: 'Spouse',
+      html: node.spouse.map(s => linkifyText(s, id)).join(', ')
+    });
+  }
+  if (node.exSpouse && node.exSpouse.length) {
+    facts.push({
+      label: 'Ex-Spouse',
+      html: node.exSpouse.map(s => linkifyText(s, id)).join(', ')
+    });
+  }
+
   if (node.stance) {
     facts.push({ label:'Stance', html: factLink('stance', node.stance) });
   }
