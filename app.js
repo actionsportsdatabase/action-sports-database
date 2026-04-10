@@ -114,6 +114,7 @@ const browseCount = $('browse-count');
 const searchInput = $('main-search');
 const searchDrop  = $('search-dropdown');
 const searchView  = $('search-view');
+const legalView   = $('legal-view');
 const breadcrumbBar   = $('breadcrumb-bar');
 const breadcrumbTrail = $('breadcrumb-trail');
 const btnBack     = $('btn-back');
@@ -607,6 +608,7 @@ function navigateFilter(type, value, addToHistory = true) {
   homeView.style.display    = 'none';
   profileView.style.display = 'none';
   searchView.style.display  = 'none';
+  legalView.style.display   = 'none';
   filterView.style.display  = 'block';
 
   renderFilterPage(type, value);
@@ -1867,10 +1869,154 @@ function showHome() {
   profileView.style.display = 'none';
   filterView.style.display  = 'none';
   searchView.style.display  = 'none';
+  legalView.style.display   = 'none';
   profileView.classList.remove('visible');
   breadcrumbBar.classList.remove('visible');
   updateNavButtons();
 }
+
+// ── LEGAL PAGE ──────────────────────────────────────────────
+const LEGAL_TABS = [
+  { id: 'overview',   label: 'Overview' },
+  { id: 'sources',    label: 'Sources' },
+  { id: 'copyright',  label: 'Copyright' },
+  { id: 'claim',      label: 'Claim Your Profile' },
+];
+
+function renderLegalContent(tab) {
+  switch(tab) {
+    case 'sources': return `
+      <div class="legal-section">
+        <h2>Primary Sources</h2>
+        <p>All data in the Action Sports Database is aggregated from publicly available sources. We do not reproduce full articles or copyrighted text. Where content originates from a specific publication, it is cited inline on each profile page.</p>
+        <table class="source-table">
+          <thead><tr><th>Source</th><th>Type</th><th>How We Use It</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://www.worldsurfleague.com" target="_blank" rel="noopener">World Surf League (WSL)</a></td><td>Governing Body</td><td>Official competition results, rankings, CT/CS rosters</td></tr>
+            <tr><td><a href="https://www.newspapers.com" target="_blank" rel="noopener">Newspapers.com</a></td><td>Archive / Research</td><td>Historical contest results, athlete bios, local coverage — cited as research source, not reproduced</td></tr>
+            <tr><td><a href="https://www.surfermag.com" target="_blank" rel="noopener">Surfer Magazine</a></td><td>Trade Publication</td><td>Historical athlete profiles, career timelines — cited by issue/date</td></tr>
+            <tr><td><a href="https://www.surferspath.com" target="_blank" rel="noopener">Surfing Magazine / Eastern Surf Magazine</a></td><td>Trade Publication</td><td>Regional contest coverage, East Coast athlete records</td></tr>
+            <tr><td><a href="https://skateboarding.transworld.net" target="_blank" rel="noopener">Transworld Surf / Skateboarding</a></td><td>Trade Publication</td><td>Athlete profiles, competition results, era documentation</td></tr>
+            <tr><td><a href="https://www.thrashermagazine.com" target="_blank" rel="noopener">Thrasher Magazine</a></td><td>Trade Publication</td><td>Skate history, HOF references, team rosters</td></tr>
+            <tr><td><a href="https://www.skateboarding.com" target="_blank" rel="noopener">Skateboarding Hall of Fame (SHOF)</a></td><td>Hall of Fame</td><td>Induction records, birth years, career summaries</td></tr>
+            <tr><td><a href="https://www.isbhof.com" target="_blank" rel="noopener">International Surfboard Builders Hall of Fame (ISBHOF)</a></td><td>Hall of Fame</td><td>Shaper bios, induction years</td></tr>
+            <tr><td><a href="https://www.eastcoastsurfinghalloffame.org" target="_blank" rel="noopener">East Coast Surfing Hall of Fame</a></td><td>Hall of Fame</td><td>East Coast athlete records, induction dates</td></tr>
+            <tr><td><a href="https://en.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a></td><td>Reference</td><td>Background facts, career timelines — cross-referenced against primary sources</td></tr>
+            <tr><td><a href="https://www.espn.com/action-sports" target="_blank" rel="noopener">ESPN / X Games</a></td><td>Broadcaster / Event</td><td>Competition results, athlete rosters, X Games historical records</td></tr>
+            <tr><td><a href="https://www.daytona-news.com" target="_blank" rel="noopener">Daytona News-Journal</a></td><td>Regional Press</td><td>Local athlete coverage, NSB contest results</td></tr>
+            <tr><td><a href="https://www.orlandosentinel.com" target="_blank" rel="noopener">Orlando Sentinel</a></td><td>Regional Press</td><td>Local athlete coverage, East Coast competition history</td></tr>
+            <tr><td><a href="https://www.surfersjournal.com" target="_blank" rel="noopener">The Surfer's Journal</a></td><td>Journal</td><td>Long-form athlete histories, equipment lineages, shaper profiles</td></tr>
+          </tbody>
+        </table>
+        <div class="legal-disclaimer">We treat Newspapers.com as a cited research source — facts, dates, and contest results are referenced and linked, not reproduced. If you believe any content from a specific publication has been used beyond fair reference, please contact us via the Claim Your Profile process.</div>
+      </div>
+    `;
+
+    case 'copyright': return `
+      <div class="legal-section">
+        <h2>Copyright &amp; Intellectual Property Policy</h2>
+        <p>Action Sports Database is an informational reference platform. Our content model is designed to respect intellectual property while building a comprehensive historical record of action sports.</p>
+
+        <h3>What We Own</h3>
+        <div class="legal-policy-box">
+          <div class="policy-label">Original ASDB Content</div>
+          <p>Our original descriptions, rankings, relationship maps, timelines, and the database architecture itself are owned by Action Sports Database. This includes our editorial summaries, UI/UX, and any content written specifically for this platform.</p>
+        </div>
+
+        <h3>What We Reference</h3>
+        <div class="legal-policy-box">
+          <div class="policy-label">Public Record &amp; Cited Sources</div>
+          <p>Facts, statistics, competition results, birth dates, and career milestones are public record and not subject to copyright. Where we draw on specific publications (e.g., Newspapers.com archives, Surfer Magazine, Thrasher), we cite the source and do not reproduce full articles. This falls within standard fair use for reference and educational purposes.</p>
+        </div>
+
+        <h3>What We Do Not Do</h3>
+        <ul>
+          <li>Reproduce full copyrighted articles or magazine features</li>
+          <li>Display copyrighted photographs without license or embed permission</li>
+          <li>Aggregate paid/paywalled content without authorization</li>
+          <li>Claim ownership over athlete names, logos, or brand trademarks</li>
+        </ul>
+
+        <h3>Commercial Use Roadmap</h3>
+        <p>As ASDB scales commercially, we follow this model — consistent with legal guidance on fair use and database rights:</p>
+        <ul>
+          <li><strong>Own:</strong> Facts, stats, our descriptions, rankings, timelines, and UX</li>
+          <li><strong>Reference:</strong> Newspapers.com and other archives as cited research sources (links and citations, not reproduction)</li>
+          <li><strong>Display:</strong> Originals primarily via embeds and occasional fair-use snippets with attribution</li>
+          <li><strong>License:</strong> Anything beyond light, supplementary use of specific articles or titles</li>
+        </ul>
+        <div class="legal-disclaimer">For anything beyond light supplementary use, we consult with an IP attorney to confirm whether specific usage patterns are comfortably within fair use or require a license. This is the standard we hold ourselves to.</div>
+
+        <h3>DMCA &amp; Takedowns</h3>
+        <p>If you are a rights holder and believe your content has been used improperly, contact us at the address below. We respond to valid DMCA notices within 5 business days and will remove or correct any content found to be in violation.</p>
+      </div>
+    `;
+
+    case 'claim': return `
+      <div class="legal-section">
+        <h2>Claim Your Profile</h2>
+        <p>All athlete, brand, and organization profiles in ASDB are pre-populated from publicly available data. If you are the subject of a profile — or represent someone who is — you have the right to:</p>
+        <ul>
+          <li>Verify and correct factual information</li>
+          <li>Add career milestones, sponsor history, or media credits</li>
+          <li>Request removal of a profile entirely</li>
+          <li>Flag a profile as representing a minor (under 18) pending guardian verification</li>
+          <li>Add a "Claim this profile" badge linking to your official social or website</li>
+        </ul>
+        <div class="legal-policy-box">
+          <div class="policy-label">Minor Athlete Policy</div>
+          <p>Any profile identified as representing an athlete under 18 years of age is flagged as <strong>"Minor Athlete — Profile Pending Guardian Verification"</strong> and limited to minimal public information until a parent or guardian has verified and approved the profile.</p>
+        </div>
+        <div class="legal-policy-box">
+          <div class="policy-label">Data Disclaimer</div>
+          <p>All data in this database has been aggregated from public sources including sports governing bodies, regional and national press, industry publications, hall of fame records, and athlete-authorized public profiles. This platform does not claim to hold private personal data and does not sell user information.</p>
+        </div>
+        <h3>Contact</h3>
+        <p>To claim, correct, or remove a profile: use the <strong>"Claim this profile"</strong> button on any profile page, or reach out directly through the Action Sports Database organization on GitHub.</p>
+      </div>
+    `;
+
+    default: return `
+      <div class="legal-section">
+        <h2>Data Policy Overview</h2>
+        <p>Action Sports Database (ASDB) is a reference platform for the history of action sports — surf, skate, snow, moto, BMX, MTB, and beyond. We document athletes, brands, events, locations, films, and the cultural connections between them.</p>
+        <p>Our data model is built on three principles:</p>
+        <ul>
+          <li><strong>Public record first.</strong> Facts, stats, competition results, and career timelines are public record. We cite our sources inline on every profile.</li>
+          <li><strong>Fair reference, not reproduction.</strong> Where we draw on published journalism or archival research (e.g., Newspapers.com), we reference and link — we do not reproduce full copyrighted text.</li>
+          <li><strong>Athlete rights matter.</strong> Every profile includes a "Claim this profile" option. Anyone can correct, update, or remove their information.</li>
+        </ul>
+        <div class="legal-disclaimer">Action Sports Database™ is currently in MVP phase. Data accuracy is ongoing. If you find an error, use the Claim Your Profile process or open an issue on GitHub.</div>
+      </div>
+    `;
+  }
+}
+
+function renderLegal(tab = 'overview') {
+  const lv = document.getElementById('legal-view');
+  lv.innerHTML = `
+    <div class="legal-page">
+      <h1>Data Policy &amp; Legal</h1>
+      <p class="legal-sub">Last updated April 2026 — Action Sports Database™ MVP v0.1</p>
+      <nav class="legal-tabs" aria-label="Legal sections">
+        ${LEGAL_TABS.map(t => `<button class="legal-tab${t.id===tab?' active':''}" onclick="navigateLegal('${t.id}')">${t.label}</button>`).join('')}
+      </nav>
+      ${renderLegalContent(tab)}
+    </div>
+  `;
+
+  homeView.style.display    = 'none';
+  profileView.style.display = 'none';
+  filterView.style.display  = 'none';
+  searchView.style.display  = 'none';
+  lv.style.display          = 'block';
+  homeView.classList.add('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.navigateLegal = function(tab = 'overview') {
+  window.location.hash = `#legal/${tab}`;
+  renderLegal(tab);
+};
 
 // ── INIT ─────────────────────────────────────────────────────
 function init() {
