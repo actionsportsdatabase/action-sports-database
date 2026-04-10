@@ -132,6 +132,7 @@ const searchInput = $('main-search');
 const searchDrop  = $('search-dropdown');
 const searchView  = $('search-view');
 const legalView   = $('legal-view');
+const feedView    = $('feed-view');
 const breadcrumbBar   = $('breadcrumb-bar');
 const breadcrumbTrail = $('breadcrumb-trail');
 const btnBack     = $('btn-back');
@@ -672,6 +673,8 @@ function navigateFilter(type, value, addToHistory = true) {
   profileView.style.display = 'none';
   searchView.style.display  = 'none';
   legalView.style.display   = 'none';
+  feedView.style.display    = 'none';
+  feedView.classList.remove('feed-active');
   filterView.style.display  = 'block';
 
   renderFilterPage(type, value);
@@ -899,6 +902,8 @@ function goBack() {
   const prev = State.history[State.historyIdx];
   if (!prev || prev === 'home') {
     navigateHome();
+  } else if (prev === 'feed') {
+    navigateFeed(false);
   } else if (prev.startsWith('filter:')) {
     const parts = prev.split(':');
     navigateFilter(parts[1], parts[2], false);
@@ -915,6 +920,8 @@ function goForward() {
   const next = State.history[State.historyIdx];
   if (!next || next === 'home') {
     navigateHome();
+  } else if (next === 'feed') {
+    navigateFeed(false);
   } else if (next.startsWith('filter:')) {
     const parts = next.split(':');
     navigateFilter(parts[1], parts[2], false);
@@ -949,6 +956,9 @@ function updateBreadcrumb() {
     if (!id || id === 'home') {
       return `${sep}<span class="bc-item ${isLast ? 'active' : ''}" data-bcid="home">🏠 Home</span>`;
     }
+    if (id === 'feed') {
+      return `${sep}<span class="bc-item ${isLast ? 'active' : ''}" data-bcid="feed">📋 Legacy Feed</span>`;
+    }
     if (id.startsWith('filter:')) {
       const parts = id.split(':');
       const label = FILTER_LABELS[parts[1]] || parts[1];
@@ -968,6 +978,10 @@ function updateBreadcrumb() {
       const bcid = el.dataset.bcid;
       if (bcid === 'home') {
         navigateHome();
+      } else if (bcid === 'feed') {
+        const globalIdx = State.history.lastIndexOf('feed');
+        if (globalIdx >= 0) State.historyIdx = globalIdx;
+        navigateFeed(false);
       } else if (bcid.startsWith('filter:')) {
         const parts = bcid.split(':');
         const globalIdx = State.history.lastIndexOf(bcid);
@@ -1007,8 +1021,8 @@ function renderProfile(id) {
 
   const claimBanner = !isClaimed ? `
     <div class="claim-banner" role="note">
-      <span class="claim-text">⚡ This profile was pre-populated from public records. Is this you?</span>
-      <button class="claim-btn" onclick="handleClaim('${id}')">Claim this profile</button>
+      <span class="claim-text">⚡ Is this you? Claim this profile to unlock your Results Timeline, Lineage Card, and Brand View Dashboard.</span>
+      <button class="claim-btn" onclick="handleClaim('${id}')">Claim This Profile</button>
     </div>
   ` : '';
 
@@ -1024,6 +1038,7 @@ function renderProfile(id) {
     { id:'connections',  label:'Connections' },
     { id:'record',       label: node.type === 'athlete' ? 'Record' : 'Details' },
     { id:'media',        label:'Media & Culture' },
+    { id:'lineage',      label:'Lineage Card' },
   ];
 
   const tabButtons = tabs.map(t =>
@@ -1034,6 +1049,7 @@ function renderProfile(id) {
   const connectionsTab = renderConnectionsTab(node);
   const recordTab      = renderRecordTab(node);
   const mediaTab       = renderMediaTab(node);
+  const lineageTab     = renderLineageTab(node);
   const sidebar        = renderSidebar(node);
 
   const legalFooter = `
@@ -1067,6 +1083,7 @@ function renderProfile(id) {
         <div id="tab-connections" class="tab-panel ${State.activeTab === 'connections' ? 'active' : ''}">${connectionsTab}</div>
         <div id="tab-record"      class="tab-panel ${State.activeTab === 'record'      ? 'active' : ''}">${recordTab}</div>
         <div id="tab-media"       class="tab-panel ${State.activeTab === 'media'       ? 'active' : ''}">${mediaTab}</div>
+        <div id="tab-lineage"     class="tab-panel ${State.activeTab === 'lineage'     ? 'active' : ''}">${lineageTab}</div>
 
         ${legalFooter}
       </div>
@@ -1814,6 +1831,9 @@ function navigateSearch(query, addToHistory = true) {
   homeView.style.display    = 'none';
   profileView.style.display = 'none';
   filterView.style.display  = 'none';
+  legalView.style.display   = 'none';
+  feedView.style.display    = 'none';
+  feedView.classList.remove('feed-active');
   searchView.style.display  = 'block';
 
   renderSearchPage(query.trim());
@@ -2026,13 +2046,431 @@ function updateThemeIcon(theme) {
   }
 }
 
-// ── CLAIM PROFILE ────────────────────────────────────────────
+// ── CLAIM PROFILE MODAL ──────────────────────────────────────
+let _claimTargetId = null;
+
 function handleClaim(id) {
+  _claimTargetId = id;
   const node = ASDB.nodes[id];
-  const name = node ? node.name : id;
-  alert(`To claim the profile for ${name}, email hello@actionsportsdatabase.com with your name, a link to a public social profile, and any corrections or additions you'd like to make. We'll verify your identity and give you edit access.`);
+  if (!node) return;
+
+  const modal = document.getElementById('claim-modal');
+  const nameEl = document.getElementById('claim-modal-name');
+  const hometownEl = document.getElementById('claim-hometown');
+  const instaEl = document.getElementById('claim-instagram');
+  const sponsorsEl = document.getElementById('claim-sponsors');
+
+  if (nameEl) nameEl.textContent = node.name;
+  if (hometownEl) hometownEl.value = node.birthplace || node.hometown || '';
+  if (instaEl) instaEl.value = '';
+  if (sponsorsEl) sponsorsEl.value = '';
+  if (modal) modal.style.display = 'flex';
 }
 window.handleClaim = handleClaim;
+
+window.closeClaimModal = function() {
+  const modal = document.getElementById('claim-modal');
+  if (modal) modal.style.display = 'none';
+  _claimTargetId = null;
+};
+
+window.submitClaim = function() {
+  const id = _claimTargetId;
+  if (!id) return;
+  const instagram = (document.getElementById('claim-instagram') || {}).value || '';
+  const hometown  = (document.getElementById('claim-hometown')  || {}).value || '';
+  const sponsors  = (document.getElementById('claim-sponsors')  || {}).value || '';
+  const claimData = { id, instagram, hometown, sponsors, timestamp: Date.now() };
+  try {
+    localStorage.setItem('asdb_claim_v1:' + id, JSON.stringify(claimData));
+  } catch(e) {}
+  closeClaimModal();
+  showToast("Claim submitted! We'll verify your identity within 48 hours.");
+};
+
+// Close claim modal on overlay click
+(function() {
+  const modal = document.getElementById('claim-modal');
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeClaimModal();
+    });
+  }
+})();
+
+// ── LINEAGE TAB ───────────────────────────────────────────────
+const LEGENDS = new Set([
+  'kelly-slater', 'tony-hawk', 'mark-richards', 'tom-curren', 'layne-beachley',
+  'shaun-white', 'stacy-peralta', 'gerry-lopez', 'duke-kahanamoku', 'bob-mcgillis',
+  'tom-sims', 'jay-adams', 'steve-caballero', 'lance-mountain', 'mark-gonzales',
+  'rob-dyrdek', 'andy-irons', 'mick-fanning', 'kolohe-andino', 'mason-ho',
+  'nathan-fletcher', 'dane-reynolds', 'rob-machado', 'taj-burrow', 'occy',
+]);
+
+function buildLineageChain(node, maxDepth) {
+  const chain = [{ node, rel: 'You', isStart: true }];
+  const visited = new Set([node.id]);
+  let current = node;
+
+  for (let depth = 0; depth < maxDepth; depth++) {
+    const conns = current.connections || [];
+    // Prefer coach/mentor relationships first
+    const mentorRels = ['coached by', 'mentor', 'trained by', 'shaped by', 'taught by'];
+    let next = null;
+    let nextRel = '';
+
+    for (const c of conns) {
+      if (visited.has(c.id)) continue;
+      const target = ASDB.nodes[c.id];
+      if (!target) continue;
+      const relLower = (c.rel || '').toLowerCase();
+      const isMentor = mentorRels.some(r => relLower.includes(r));
+      if (isMentor) {
+        next = target;
+        nextRel = c.rel || 'Mentored by';
+        break;
+      }
+    }
+
+    // Fallback: find any connected person/athlete
+    if (!next) {
+      for (const c of conns) {
+        if (visited.has(c.id)) continue;
+        const target = ASDB.nodes[c.id];
+        if (!target) continue;
+        if (target.type === 'athlete' || target.type === 'person') {
+          next = target;
+          nextRel = c.rel || 'Connected to';
+          break;
+        }
+      }
+    }
+
+    if (!next) break;
+    visited.add(next.id);
+    const isLegend = LEGENDS.has(next.id);
+    chain.push({ node: next, rel: nextRel, isLegend });
+    if (isLegend) break;
+    current = next;
+  }
+
+  return chain;
+}
+
+function renderLineageTab(node) {
+  const chain = buildLineageChain(node, 5);
+  const legendNode = chain.find(c => c.isLegend);
+  const degreesBadge = legendNode
+    ? `<div class="lineage-legend-badge">&#9733; ${chain.indexOf(legendNode)} Degree${chain.indexOf(legendNode) === 1 ? '' : 's'} from ${legendNode.node.name}</div>`
+    : '';
+
+  // Chain HTML
+  const chainHTML = chain.map((item, i) => {
+    const isFirst = i === 0;
+    const isLast = i === chain.length - 1;
+    const legendClass = item.isLegend ? ' lineage-legend' : '';
+    const avatarHTML = `<div class="lineage-avatar">${initials(item.node.name)}</div>`;
+    const nodeCard = `
+      <div class="lineage-node-card${legendClass}" data-lineage-id="${item.node.id}">
+        ${avatarHTML}
+        <div class="lineage-node-info">
+          <div class="lineage-node-name">${item.node.name}</div>
+          <div class="lineage-node-rel">${isFirst ? 'This profile' : item.rel}</div>
+        </div>
+        ${item.isLegend ? '<span style="font-size:1.2rem;margin-left:auto">&#9733;</span>' : ''}
+      </div>
+    `;
+    const connector = !isLast ? '<div class="lineage-connector"></div>' : '';
+    return `<div class="lineage-node-row">${nodeCard}${connector}</div>`;
+  }).join('');
+
+  // Share card chain
+  const shareChainHTML = chain.map((item, i) => {
+    const isLast = i === chain.length - 1;
+    return `
+      <div class="lineage-share-node">
+        <div class="lineage-share-avatar">${initials(item.node.name)}</div>
+        <div class="lineage-share-name">${item.node.name}</div>
+        <div class="lineage-share-rel">${i === 0 ? 'You' : item.rel}</div>
+      </div>
+      ${!isLast ? '<div class="lineage-share-connector"></div>' : ''}
+    `;
+  }).join('');
+
+  // Brand view dashboard (simulated)
+  const brandNames = [
+    { name: 'Quiksilver Global', days: 2 },
+    { name: 'O\'Neill Wetsuits', days: 5 },
+    { name: 'Hurley International', days: 7 },
+  ];
+  const brandListHTML = brandNames.map(b => `
+    <div class="brand-list-item">
+      <div class="brand-list-name">${b.name}</div>
+      <div class="brand-list-meta">Viewed ${b.days} day${b.days === 1 ? '' : 's'} ago</div>
+    </div>
+  `).join('');
+
+  return `
+    <div class="profile-section">
+      <h3>Lineage Chain</h3>
+      <p style="font-size:var(--text-sm);color:var(--text-muted);margin-bottom:var(--sp-6)">How you connect to the legends of the sport — traced through coaches, mentors, and direct connections.</p>
+      ${degreesBadge}
+      <div class="lineage-chain">${chainHTML}</div>
+    </div>
+
+    <div class="profile-section">
+      <h3>Share Your Lineage</h3>
+      <div class="lineage-share-card" id="lineage-share-card-${node.id}">
+        <div class="lineage-share-athlete">${node.name}</div>
+        <div style="font-size:var(--text-xs);color:#4a453f;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:var(--sp-4)">Action Sports Lineage</div>
+        <div class="lineage-share-chain">${shareChainHTML}</div>
+        <div class="lineage-share-branding">ASDB — Action Sports Database</div>
+      </div>
+      <div class="lineage-share-actions">
+        <button class="lineage-share-btn" onclick="shareLineageURL('${node.id}')">Share to Instagram Stories &#8594;</button>
+        <button class="lineage-share-btn" onclick="copyLineageURL('${node.id}')">Copy Profile Link</button>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <h3>Brand View Dashboard</h3>
+      <div class="brand-dashboard">
+        <div class="brand-dashboard-header">
+          <span class="brand-dashboard-icon">&#128065;</span>
+          <span class="brand-dashboard-title">3 brands viewed your profile this week</span>
+          <span class="brand-dashboard-count">Last 7 days</span>
+        </div>
+        <div class="brand-list">${brandListHTML}</div>
+        <div class="brand-upgrade-cta">
+          <p>Upgrade to Athlete Pro to see exactly which brands are watching &#8594;</p>
+          <button class="brand-upgrade-btn" onclick="showToast('Athlete Pro coming soon — stay tuned!')">Upgrade to Athlete Pro &mdash; $5/month</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+window.shareLineageURL = function(id) {
+  const url = window.location.origin + window.location.pathname + '#profile/' + id;
+  if (navigator.share) {
+    navigator.share({ title: 'My ASDB Lineage', url }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(url).then(() => showToast('Profile link copied!')).catch(() => showToast('Share: ' + url));
+  }
+};
+window.copyLineageURL = function(id) {
+  const url = window.location.origin + window.location.pathname + '#profile/' + id;
+  navigator.clipboard.writeText(url).then(() => showToast('Profile link copied!')).catch(() => {});
+};
+
+// ── LEGACY FEED ────────────────────────────────────────────────
+const FEED_LEGIT_NS = 'asdb_legit_v1';
+
+function getLegitKey(cardId) {
+  return FEED_LEGIT_NS + ':' + cardId;
+}
+
+function isLegit(cardId) {
+  try {
+    return !!localStorage.getItem(getLegitKey(cardId));
+  } catch(e) { return false; }
+}
+
+function toggleLegit(cardId, btn) {
+  try {
+    const key = getLegitKey(cardId);
+    if (localStorage.getItem(key)) {
+      localStorage.removeItem(key);
+      btn.classList.remove('legit-active');
+    } else {
+      localStorage.setItem(key, '1');
+      btn.classList.add('legit-active');
+    }
+    const counter = btn.querySelector('.legit-count');
+    const base = parseInt(btn.dataset.base || '0', 10);
+    const active = btn.classList.contains('legit-active');
+    if (counter) counter.textContent = active ? base + 1 : base;
+  } catch(e) {}
+}
+window.toggleLegit = toggleLegit;
+
+function buildFeedItems() {
+  const items = [];
+  const nodeList = Object.values(ASDB.nodes);
+
+  // Historical posts: nodes with bio/description and era/year data
+  const historicalCandidates = nodeList.filter(n =>
+    (n.bio || n.description || n.history) &&
+    (n.era || n.years || n.founded || n.born)
+  ).slice(0, 40);
+
+  // Pick a good spread
+  const selected = [];
+  const seen = new Set();
+  for (const n of historicalCandidates) {
+    if (selected.length >= 20) break;
+    if (seen.has(n.id)) continue;
+    seen.add(n.id);
+    selected.push(n);
+  }
+
+  for (const n of selected) {
+    const text = n.bio || n.description || n.history || '';
+    const dateStr = n.era || n.years || n.founded || (n.born ? 'Born ' + n.born : '');
+    const excerpt = text.length > 220 ? text.slice(0, 220).trim() + '...' : text;
+    // Find connected node pills
+    const pills = (n.connections || []).slice(0, 4).map(c => {
+      const t = ASDB.nodes[c.id];
+      if (!t) return '';
+      return `<span class="feed-pill" data-feed-pill="${c.id}">${t.name}</span>`;
+    }).filter(Boolean);
+
+    const baseCount = Math.floor(Math.random() * 80) + 5;
+    const cardId = 'hist-' + n.id;
+    items.push({
+      id: cardId,
+      type: 'historical',
+      sport: (n.sport || [])[0] || '',
+      date: dateStr,
+      title: n.name,
+      body: excerpt,
+      nodeId: n.id,
+      pills,
+      baseCount,
+    });
+  }
+
+  // Activity posts (simulated)
+  const activityTemplates = [
+    { title: 'Profile Claimed', body: 'A profile in our database was recently claimed and verified by the athlete.', sport: 'surf' },
+    { title: 'New Connection Mapped', body: 'A mentor-student connection was added between two athletes in the network.', sport: 'skate' },
+    { title: 'Contest Result Verified', body: 'A historical contest result from the 1990s was verified and added to the record.', sport: 'snow' },
+    { title: 'Lineage Card Shared', body: 'An athlete shared their lineage card, tracing a 3-degree connection to a surf legend.', sport: 'surf' },
+    { title: 'Brand Profile Updated', body: 'A brand updated their team rider roster for the current season.', sport: 'skate' },
+  ];
+
+  const activityDates = ['2 hours ago', 'Yesterday', '3 days ago', '1 week ago', '2 weeks ago'];
+
+  activityTemplates.forEach((tpl, i) => {
+    items.push({
+      id: 'act-' + i,
+      type: 'activity',
+      sport: tpl.sport,
+      date: activityDates[i],
+      title: tpl.title,
+      body: tpl.body,
+      nodeId: null,
+      pills: [],
+      baseCount: Math.floor(Math.random() * 30) + 2,
+    });
+  });
+
+  return items;
+}
+
+let _feedItems = null;
+let _feedFilter = 'all';
+
+function renderFeedCard(item) {
+  const legit = isLegit(item.id);
+  const pillsHTML = item.pills.length
+    ? `<div class="feed-pills">${item.pills.join('')}</div>`
+    : '';
+  const viewLink = item.nodeId
+    ? `<a class="feed-card-source" href="#profile/${item.nodeId}" onclick="navigateTo('${item.nodeId}');return false;">View Profile &rarr;</a>`
+    : '';
+
+  return `
+    <div class="feed-card feed-${item.type}" data-feed-id="${item.id}" data-feed-sport="${item.sport}">
+      <div class="feed-card-date">${item.date}</div>
+      <div class="feed-card-type">${item.type === 'historical' ? 'Historical' : 'Activity'}</div>
+      <div class="feed-card-title">${item.title}</div>
+      <div class="feed-card-body">${linkifyText(item.body, item.nodeId || '')}</div>
+      ${pillsHTML}
+      <div class="feed-card-footer">
+        <button class="legit-drop-btn${legit ? ' legit-active' : ''}" data-base="${item.baseCount}" onclick="toggleLegit('${item.id}', this)" title="Legit Drop">
+          <span class="legit-icon">&#10003;</span>
+          <span>Legit Drop</span>
+          <span class="legit-count">${legit ? item.baseCount + 1 : item.baseCount}</span>
+        </button>
+        ${viewLink}
+      </div>
+    </div>
+  `;
+}
+
+function renderFeed(filter) {
+  filter = filter || _feedFilter || 'all';
+  _feedFilter = filter;
+
+  if (!_feedItems) _feedItems = buildFeedItems();
+
+  let items = _feedItems;
+  if (filter === 'historical') items = items.filter(i => i.type === 'historical');
+  else if (filter === 'activity') items = items.filter(i => i.type === 'activity');
+  else if (filter !== 'all') items = items.filter(i => i.sport === filter);
+
+  const sportFilters = ['surf', 'skate', 'snow', 'mtb', 'moto', 'bmx'];
+  const filterBtns = [
+    { key: 'all',        label: 'All' },
+    { key: 'historical', label: 'Historical' },
+    { key: 'activity',   label: 'Activity' },
+    ...sportFilters.map(s => ({ key: s, label: sportLabel(s) })),
+  ].map(f => `<button class="feed-filter-btn${_feedFilter === f.key ? ' active' : ''}" onclick="renderFeed('${f.key}')">${f.label}</button>`).join('');
+
+  const cardsHTML = items.length
+    ? items.map(renderFeedCard).join('')
+    : '<div class="feed-empty">No items in this filter yet.</div>';
+
+  feedView.innerHTML = `
+    <div class="feed-page">
+      <div class="feed-header">
+        <h1>Legacy Feed</h1>
+        <p class="feed-header-sub">Historical moments, connections, and activity from across the ASDB.</p>
+        <div class="feed-filters">${filterBtns}</div>
+      </div>
+      <div class="feed-list">${cardsHTML}</div>
+    </div>
+  `;
+
+  // Pill click navigation
+  feedView.querySelectorAll('.feed-pill[data-feed-pill]').forEach(pill => {
+    pill.addEventListener('click', () => navigateTo(pill.dataset.feedPill));
+  });
+}
+
+function navigateFeed(addToHistory) {
+  if (addToHistory !== false) {
+    if (State.historyIdx < State.history.length - 1) {
+      State.history = State.history.slice(0, State.historyIdx + 1);
+    }
+    if (State.history[State.historyIdx] !== 'feed') {
+      State.history.push('feed');
+      State.historyIdx = State.history.length - 1;
+    }
+    window.location.hash = '#feed';
+  }
+
+  homeView.style.display    = 'none';
+  homeView.classList.add('hidden');
+  profileView.style.display = 'none';
+  filterView.style.display  = 'none';
+  searchView.style.display  = 'none';
+  legalView.style.display   = 'none';
+  profileView.classList.remove('visible');
+
+  feedView.style.display = 'block';
+  feedView.classList.add('feed-active');
+
+  breadcrumbBar.classList.add('visible');
+  updateBreadcrumb();
+  updateNavButtons();
+
+  renderFeed(_feedFilter);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.navigateFeed = navigateFeed;
+
 
 // ── HASH ROUTING ─────────────────────────────────────────────
 function handleHashChange() {
@@ -2071,6 +2509,12 @@ function handleHashChange() {
     return;
   }
 
+  // Feed route
+  if (hash === '#feed') {
+    navigateFeed(false);
+    return;
+  }
+
   showHome();
 }
 
@@ -2081,6 +2525,8 @@ function showHome() {
   filterView.style.display  = 'none';
   searchView.style.display  = 'none';
   legalView.style.display   = 'none';
+  feedView.style.display    = 'none';
+  feedView.classList.remove('feed-active');
   profileView.classList.remove('visible');
   breadcrumbBar.classList.remove('visible');
   updateNavButtons();
@@ -2220,6 +2666,8 @@ function renderLegal(tab = 'overview') {
   profileView.style.display = 'none';
   filterView.style.display  = 'none';
   searchView.style.display  = 'none';
+  feedView.style.display    = 'none';
+  feedView.classList.remove('feed-active');
   lv.style.display          = 'block';
   homeView.classList.add('hidden');
   window.scrollTo({ top: 0, behavior: 'smooth' });
