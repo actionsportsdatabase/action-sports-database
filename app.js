@@ -30,6 +30,23 @@ const State = {
 // ── SPORT / TYPE META ────────────────────────────────────────
 const SPORT_ICONS = {
   surf:'🏄', skate:'🛹', snow:'🏔', mtb:'🚵', moto:'🏍', bmx:'🚲',
+  // Board sports
+  wakeboard:'🚤', wakeskate:'🚤', waterski:'🎿', 'waterski-slalom':'🎿', 'waterski-trick':'🎿',
+  sandboard:'🏜', mountainboard:'⛰', longboard:'🛹', bodyboard:'🌊', skimboard:'🌊',
+  kitesurf:'🪁', windsurf:'🌬', kiteboard:'🪁',
+  // Air / vertical
+  skydive:'🪂', base:'🪂', wingsuit:'🪂', cliffdive:'🤿', paraglide:'🪂', speedfly:'🪂',
+  // Climb
+  climb:'🧗', 'sport-climb':'🧗', boulder:'🧗', 'free-climb':'🧗', 'rock-climb':'🧗', 'ice-climb':'🧗',
+  // Urban / street
+  parkour:'🏃', freerun:'🏃', inline:'⛸', scooter:'🛵', 'street-luge':'🛝',
+  // Water
+  kayak:'🛶', canoe:'🛶', raft:'🛶', jetski:'🏄',
+  // Winter alt
+  snowmobile:'🏔', iceclimb:'🧊',
+  // Other
+  breaking:'💃', 'adventure-race':'🏕', climb3x3:'🏀', paintball:'🎯',
+  // Display types
   film:'🎬', photo:'📸', music:'🎵', brand:'🏷', location:'📍',
   org:'🏛', athlete:'🏅', person:'👤',
 };
@@ -146,7 +163,27 @@ function sportLabel(sport) {
   const map = {
     surf:'Surf', skate:'Skate', snow:'Snow/Ski', mtb:'MTB',
     moto:'Moto/SX', bmx:'BMX', film:'Film', photo:'Photo',
-    music:'Music', brand:'Brand', location:'Location', org:'Org'
+    music:'Music', brand:'Brand', location:'Location', org:'Org',
+    // Board water
+    wakeboard:'Wakeboarding', wakeskate:'Wakeskating',
+    waterski:'Water Ski', 'waterski-slalom':'Water Ski Slalom', 'waterski-trick':'Water Ski Trick',
+    bodyboard:'Bodyboarding', skimboard:'Skimboarding',
+    sandboard:'Sandboarding', mountainboard:'Mountainboarding', longboard:'Longboarding',
+    kitesurf:'Kitesurfing', kiteboard:'Kiteboarding', windsurf:'Windsurfing',
+    // Air
+    skydive:'Skydiving', base:'BASE Jumping', wingsuit:'Wingsuit', cliffdive:'Cliff Diving',
+    paraglide:'Paragliding', speedfly:'Speedflying',
+    // Climb
+    climb:'Climbing', 'sport-climb':'Sport Climbing', boulder:'Bouldering',
+    'free-climb':'Free Climbing', 'rock-climb':'Rock Climbing', 'ice-climb':'Ice Climbing',
+    // Urban
+    parkour:'Parkour', freerun:'Freerunning', inline:'Aggressive Inline',
+    scooter:'Freestyle Scooter', 'street-luge':'Street Luge',
+    // Water
+    kayak:'Whitewater Kayak', canoe:'Whitewater Canoe', raft:'Rafting', jetski:'Jet Ski',
+    // Other
+    snowmobile:'Snowmobile', iceclimb:'Ice Climbing',
+    breaking:'Breaking', 'adventure-race':'Adventure Racing',
   };
   return map[sport] || sport;
 }
@@ -199,14 +236,38 @@ function eraMatchesFilter(node, era) {
   return prefixes.some(p => nodeEra.includes(p));
 }
 
+// Sport groups: tab key → array of sport values that match
+const SPORT_GROUPS = {
+  all:      null, // handled separately
+  surf:     ['surf','bodyboard','skimboard','windsurf','kitesurf','kiteboard','jetski'],
+  skate:    ['skate','longboard','inline','scooter','street-luge'],
+  snow:     ['snow','snowmobile','iceclimb'],
+  mtb:      ['mtb','mountainboard','sandboard'],
+  moto:     ['moto'],
+  bmx:      ['bmx'],
+  wake:     ['wakeboard','wakeskate','waterski','waterski-slalom','waterski-trick'],
+  climb:    ['climb','sport-climb','boulder','free-climb','rock-climb','ice-climb'],
+  air:      ['skydive','base','wingsuit','cliffdive','paraglide','speedfly'],
+  parkour:  ['parkour','freerun'],
+  breaking: ['breaking'],
+  film:     [],
+  music:    [],
+  brand:    [],
+  location: [],
+};
+
 function sportMatchesFilter(node, sport) {
   if (sport === 'all') return true;
-  if (node.sport && node.sport.includes(sport)) return true;
-  if (sport === 'film' && (node.type === 'media' || node.role === 'Filmmaker' || node.role === 'Videographer')) return true;
-  if (sport === 'music' && node.type === 'music') return true;
-  if (sport === 'brand' && node.type === 'brand') return true;
-  if (sport === 'location' && node.type === 'location') return true;
-  return false;
+  if (sport === 'film') return (node.type === 'media' || node.role === 'Filmmaker' || node.role === 'Videographer');
+  if (sport === 'music') return node.type === 'music';
+  if (sport === 'brand') return node.type === 'brand';
+  if (sport === 'location') return node.type === 'location';
+  const group = SPORT_GROUPS[sport];
+  if (group) {
+    return node.sport && node.sport.some(s => group.includes(s));
+  }
+  // Direct match fallback
+  return node.sport && node.sport.includes(sport);
 }
 
 function locationMatchesFilter(node, loc) {
@@ -513,7 +574,9 @@ function renderGrid() {
     all:'All Entries', surf:'Surf', skate:'Skateboarding',
     snow:'Snow & Ski', mtb:'Mountain Biking', moto:'Moto & Supercross',
     bmx:'BMX', film:'Filmmakers & Media', music:'Music',
-    brand:'Brands', location:'Locations & Spots'
+    brand:'Brands', location:'Locations & Spots',
+    wake:'Wake Sports', climb:'Climbing', air:'Air Sports',
+    parkour:'Parkour & Freerunning', breaking:'Breaking',
   };
   browseTitle.textContent = sportTitleMap[State.currentSport] || 'Browse';
 
