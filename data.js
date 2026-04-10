@@ -22,7 +22,7 @@ ASDB.nodes = {
     connections:[
       {id:'greg-arnette', rel:'Mentor & close family friend — founder of Arnette Optics'},
       {id:'mike-cruickshank', rel:'Gotcha team manager'},
-      {id:'rob-machado', rel:'Shared Gotcha sponsorship era; photo connection at Inlet Charley\'s'},
+      {id:'rob-machado', rel:'Shared Gotcha sponsorship era; Rob did autograph signings at Inlet Charley\'s'},
       {id:'charlie-baldwin', rel:'Godfather — CB Surfboards shaper, Inlet Charley\'s owner'},
       {id:'geiselman-family', rel:'Grew up in the same NSB surf community — acquaintances'},
       {id:'gotcha', rel:'Sponsor (1990s)'},
@@ -32,7 +32,7 @@ ASDB.nodes = {
       {id:'rip-curl', rel:'Sponsor'},
       {id:'lost-surfboards', rel:'Sponsor'},
       {id:'cb-surfboards', rel:'Sponsor/shaper'},
-      {id:'inlet-charleys', rel:'Local sponsor/shop — Rob Machado photo connection'},
+      {id:'inlet-charleys', rel:'Local sponsor/shop — hosted Rob Machado autograph signings'},
       {id:'stone-edge-skatepark', rel:'Skate sponsor/home park'},
       {id:'nsb-inlet', rel:'Home break — grew up surfing here'},
       {id:'smyrna-surfari-club', rel:'Member'},
@@ -135,7 +135,7 @@ ASDB.nodes = {
     nick:'"C.B."',
     born:'New Smyrna Beach, FL', birthplace:'New Smyrna Beach, FL',
     era:'1968–present', status:'pre-populated',
-    bio:'Born and raised in New Smyrna Beach, Florida. Charlie "C.B." Baldwin rode his first surfboard at 13 and entered his first contest two years later. He won the Florida State Surfing Championship in 1968 and the East Coast Surfing Championship in 1971. After that win he turned pro, eventually winning two more East Coast titles and two U.S. Surfing Championships in a nearly 20-year professional career. In 1972 he rode for David Nuhiwa (Dyno) Surfboards in California. He retired from the tour in 1990, then returned in 1996 — this time competing alongside his daughters Lindsay and Marcie. In 1980, Charlie started a beachside hotdog wagon on Flagler Ave in NSB, running surf contests from the top of it. That wagon became Inlet Charley\'s Surf Shop at 510 Flagler Ave. He sold the shop in 2004 (it became a Rip Curl store) but continued shaping under the CB Surfboards name. He has shaped over 20,000 boards and distributed them up and down the East Coast. Also owns New Smyrna Beach Motors, the long-time family car business started by his father. Charlie shaped boards for Adam Wright and was a cornerstone of the NSB surf community. His daughter Marcie Baldwin now chairs the Smyrna Surfari Club.',
+    bio:'Born and raised in New Smyrna Beach, Florida. Charlie "C.B." Baldwin rode his first surfboard at 13 and entered his first contest two years later. He won the Florida State Surfing Championship in 1968 and the East Coast Surfing Championship in 1971. After that win he turned pro, eventually winning two more East Coast titles and two U.S. Surfing Championships in a nearly 20-year professional career. In 1972 he rode for David Nuhiwa (Dyno) Surfboards in California. He retired from the tour in 1990, then returned in 1996 — this time competing alongside his daughters Lindsay and Marcie. In 1980, Charlie started a beachside hotdog wagon on Flagler Ave in NSB, running surf contests from the top of it. That wagon became Inlet Charley\'s Surf Shop at 510 Flagler Ave. He sold the shop in 2004; Rip Curl took over the lease at 510 Flagler Ave. Charlie continued shaping under the CB Surfboards name. He has shaped over 20,000 boards and distributed them up and down the East Coast. Also owns New Smyrna Beach Motors, the long-time family car business started by his father. Charlie is the godfather of Adam Wright and a cornerstone of the NSB surf community. His daughter Marcie Baldwin now chairs the Smyrna Surfari Club.',
     achievements:[
       'Florida State Surfing Championship — 1968',
       'East Coast Surfing Championships — 1971',
@@ -148,8 +148,10 @@ ASDB.nodes = {
       'East Coast Surfing Hall of Fame (eastcoastsurfinghalloffame.org)',
       'International Surfboard Builders Hall of Fame (isbhof.com)',
       'Surf Splendor Podcast — Feb 2026',
+      'Daytona Beach News-Journal — November 14, 1996 (Newspapers.com) — 4th place, Senior Men, ESA Sunrise Surf Fall Classic',
+      'Flagler Palm Coast News-Tribune — November 16, 1996 (Newspapers.com)',
     ],
-    children: ['Lindsay Baldwin', 'Marcie Baldwin'],
+    children: ['Lindsay Baldwin', 'Marcie Baldwin'],  // see: lindsay-baldwin, marcie-baldwin
     spouse: ['Jennifer Baldwin'],
     connections:[
       {id:'cb-surfboards', rel:'Founder — 20,000+ boards shaped'},
@@ -158,6 +160,8 @@ ASDB.nodes = {
       {id:'adam-wright', rel:'Godfather — shaped boards, local sponsor, NSB surf community'},
       {id:'nsb-inlet', rel:'Home break — born and raised here'},
       {id:'smyrna-surfari-club', rel:'Pillar of the club — daughter Marcie now chairs'},
+      {id:'lindsay-baldwin', rel:'Daughter — competitive surfer'},
+      {id:'marcie-baldwin', rel:'Daughter — Chair of Smyrna Surfari Club'},
       {id:'esa', rel:'East Coast surf competition community'},
     ],
   },
@@ -170,7 +174,7 @@ ASDB.nodes = {
     birthplace:'New Smyrna Beach, FL',
     nationality:'🇺🇸',
     spouse: ['Charlie Baldwin'],
-    children: ['Lindsay Baldwin', 'Marcie Baldwin'],
+    children: ['Lindsay Baldwin', 'Marcie Baldwin'],  // see: lindsay-baldwin, marcie-baldwin
     bio:"Wife of Charlie Baldwin and co-founder of Inlet Charley\'s Surf Shop — the legendary surf shop that anchored the New Smyrna Beach surf community from 1980 to 2004. Jennifer was instrumental in building the shop from a beachside hotdog wagon on Flagler Ave into the East Coast\'s premier surf retail destination. A pillar of the NSB surfing family, mother of competitive surfers Lindsay and Marcie Baldwin.",
     connections:[
       {id:'charlie-baldwin', rel:'Husband — co-founded Inlet Charley\'s together'},
@@ -406,7 +410,7 @@ ASDB.nodes = {
     foundedIn:'New Smyrna Beach, FL', headquarters:'New Smyrna Beach, FL',
     peakEra:'1980s–present',
     status:'Active', status2:'pre-populated',
-    bio:'One of the East Coast\'s most respected surfboard brands, founded by New Smyrna Beach legend Charlie "C.B." Baldwin. Charlie won the Florida State Surfing Championship (1968), the East Coast Surfing Championships (1971), and two U.S. Surfing Championships over a nearly 20-year pro career. He turned professional in 1972 on sponsorship from California manufacturers and rode for David Nuhiwa (Dyno) Surfboards. After retiring from touring in 1990, he returned to compete again in 1996, this time alongside his daughters Lindsay and Marcie. Charlie started CB Surfboards and eventually opened Inlet Charley\'s in 1980 as a beachside hotdog wagon on Flagler Ave in NSB, growing it into the region\'s anchor surf shop. He sold Inlet Charley\'s in 2004 (it became a Rip Curl store) but continued shaping under the CB name. Over 20,000 boards shaped and distributed up and down the East Coast. Inducted into the East Coast Surfing Hall of Fame (2000) and the International Surfboard Builders Hall of Fame (2022). Charlie shaped boards for Adam Wright and served as a core local sponsor.',
+    bio:'One of the East Coast\'s most respected surfboard brands, founded by New Smyrna Beach legend Charlie "C.B." Baldwin. Charlie won the Florida State Surfing Championship (1968), the East Coast Surfing Championships (1971), and two U.S. Surfing Championships over a nearly 20-year pro career. He turned professional in 1972 on sponsorship from California manufacturers and rode for David Nuhiwa (Dyno) Surfboards. After retiring from touring in 1990, he returned to compete again in 1996, this time alongside his daughters Lindsay and Marcie. Charlie started CB Surfboards and eventually opened Inlet Charley\'s in 1980 as a beachside hotdog wagon on Flagler Ave in NSB, growing it into the region\'s anchor surf shop. He sold Inlet Charley\'s in 2004; Rip Curl took over the lease on the Flagler Ave location. Charlie continued shaping under the CB name. Over 20,000 boards shaped and distributed up and down the East Coast. Inducted into the East Coast Surfing Hall of Fame (2000) and the International Surfboard Builders Hall of Fame (2022). Charlie shaped boards for Adam Wright and served as a core local sponsor.',
     keyPeople:[
       {name:'Charlie Baldwin', role:'Founder, master shaper — ISBHOF 2022'},
       {name:'Jennifer Baldwin', role:'Co-founder — wife, built Inlet Charley\'s alongside Charlie'},
@@ -436,7 +440,7 @@ ASDB.nodes = {
     address:'510 Flagler Ave, New Smyrna Beach, FL 32169',
     peakEra:'1980s–2004',
     status:'Closed', yearsActive:'1980–2004', status2:'pre-populated',
-    bio:'NSB\'s anchor surf shop and the heartbeat of East Coast surfing for over two decades. Charlie Baldwin started it in 1980 as a beachside hotdog wagon — literally selling hotdogs from a wagon on Flagler Ave while also running surf contests on top of the wagon. It grew into a full surf shop at 510 Flagler Ave, stocking CB Surfboards and acting as the region\'s primary sponsor of local competitions. Inlet Charley\'s sponsored local surfers, organized regional contests, and was the hub that connected the NSB surf scene to the wider world. Rob Machado visited the shop and was photographed there alongside Adam Wright — a connection only possible through the shop\'s role as a crossroads for the surf world. Charlie Baldwin sold Inlet Charley\'s in 2004; it was rebranded as a Rip Curl store. The property at 510 Flagler Ave eventually closed entirely (listed as closed on Yelp, March 2026). The legacy lives on through CB Surfboards.',
+    bio:'NSB\'s anchor surf shop and the heartbeat of East Coast surfing for over two decades. Charlie Baldwin started it in 1980 as a beachside hotdog wagon — literally selling hotdogs from a wagon on Flagler Ave while also running surf contests on top of the wagon. It grew into a full surf shop at 510 Flagler Ave, stocking CB Surfboards and acting as the region\'s primary sponsor of local competitions. Inlet Charley\'s sponsored local surfers, organized regional contests, and was the hub that connected the NSB surf scene to the wider world. Rob Machado did autograph signings at Inlet Charley\'s — one of many world-tour pros who passed through the shop during its peak years as a community hub. Charlie Baldwin sold Inlet Charley\'s in 2004; Rip Curl took over the lease on the 510 Flagler Ave location, operating it as a Rip Curl store before it eventually closed. The property at 510 Flagler Ave eventually closed entirely (listed as closed on Yelp, March 2026). The legacy lives on through CB Surfboards.',
     keyPeople:[
       {name:'Charlie Baldwin', role:'Founder — sold in 2004'},
       {name:'Jennifer Baldwin', role:'Co-founder — wife, built the shop alongside Charlie'},
@@ -458,7 +462,7 @@ ASDB.nodes = {
       {id:'cb-surfboards', rel:'Primary stockist of CB Surfboards'},
       {id:'nsb-inlet', rel:'Located steps from the inlet at 510 Flagler Ave'},
       {id:'smyrna-surfari-club', rel:'Community anchor — club meets nearby'},
-      {id:'rip-curl', rel:'Became a Rip Curl store after 2004 sale'},
+      {id:'rip-curl', rel:'Took over the lease at 510 Flagler Ave after Charlie sold in 2004 — operated as Rip Curl store until closure'},
     ],
   },
 
@@ -1182,7 +1186,7 @@ ASDB.nodes = {
     nationality:'🇺🇸', sport:['surf'],
     discipline:'CT / Longboard / Freesurfer',
     stance:'Regular', era:'1990s–2010s', status:'pre-populated',
-    bio:'Rob Machado is the defining smooth stylist of 1990s professional surfing — a surfer whose fluid, effortless approach to the wave influenced an entire generation of surfers more interested in art than aggression. Born and raised in Cardiff-by-the-Sea, CA, Machado burst onto the scene through Taylor Steele\'s landmark film Momentum (1992), which established his image as the counter to Slater\'s raw power: style, feel, and the long, flowing hack. He reached WSL #2 in the world in 1995. Managed by Mike Cruickshank at Gotcha from 1990–1997, he then moved to Billabong for over a decade. After leaving the CT he became one of surfing\'s most respected freesurfers, globe-trotting and making environmental films. He was photographed at Inlet Charley\'s in NSB alongside Adam Wright, connecting the Gotcha team to the East Coast.',
+    bio:'Rob Machado is the defining smooth stylist of 1990s professional surfing — a surfer whose fluid, effortless approach to the wave influenced an entire generation of surfers more interested in art than aggression. Born and raised in Cardiff-by-the-Sea, CA, Machado burst onto the scene through Taylor Steele\'s landmark film Momentum (1992), which established his image as the counter to Slater\'s raw power: style, feel, and the long, flowing hack. He reached WSL #2 in the world in 1995. Managed by Mike Cruickshank at Gotcha from 1990–1997, he then moved to Billabong for over a decade. After leaving the CT he became one of surfing\'s most respected freesurfers, globe-trotting and making environmental films. He did autograph signings at Inlet Charley\'s in NSB — one of the East Coast surf shops that hosted Gotcha team riders during the brand\'s peak years.',
     sponsors:['Gotcha 1990–1997','Billabong 1997–2010','Channel Islands (Al Merrick boards)','Oakley','FCS','Futures Fins'],
     competitions:['WSL #2 World Ranking — 1995','Pipe Masters finalist multiple years','Surfabout and multiple CT events 1992–2007'],
     achievements:['WSL World No. 2 — 1995','Momentum (1992) — defined aesthetic of a generation of surfers','Inducted into Surfing Walk of Fame, Huntington Beach'],
@@ -1311,6 +1315,9 @@ ASDB.nodes = {
       {id:'vans-triple-crown', rel:'North Shore competition circuit'},
     ],
     media:['Countless surf media coverage — Surfer Magazine, Surfing Magazine, Tracks'],
+    sources:[
+      'Florida Today — September 7, 1992 (Newspapers.com) — age 11, NKF Pro-Am Labor Day Festival, Cocoa Beach',
+    ],
   },
 
   'damien-hobgood': {
@@ -2608,6 +2615,8 @@ ASDB.nodes = {
     id:'frieda-zamba',
     type:'athlete',
     name:'Frieda Zamba',
+    birthplace:'Flagler Beach, FL',
+    born:'March 25, 1966',
     status:'pre-populated',
     sport:['surf'],
     era:'1980s–1990s',
@@ -19632,7 +19641,7 @@ ASDB.nodes = {
     exSpouse: ['Gina Geiselman'],
     era: '1980s-present',
     status: 'pre-populated',
-    bio: "Born in the Bahamas, Greg Geiselman walked away from a full-ride competitive swimming scholarship after surfing consumed him. He competed as a professional surfer on the East Coast circuit before transitioning entirely to shaping — founding Orion Surfboards in New Smyrna Beach in 1985. For four decades he has been one of the most respected shapers on the East Coast. Greg was among the first Florida shapers to operate a CNC shaping machine, raising the bar for board precision and consistency across the region. He shapes personally for his sons Eric Geiselman and Evan Geiselman. Former husband of Gina Geiselman, mother of Eric and Evan. The two are divorced.",
+    bio: "Born in the Bahamas, Greg Geiselman walked away from a full-ride competitive swimming scholarship after surfing consumed him. He competed as a professional surfer on the East Coast circuit before transitioning entirely to shaping — founding Orion Surfboards in New Smyrna Beach in 1985. A 1989 Tampa Tribune contest recap confirms he ranked 3rd in the state on the Florida ASP East Coast circuit that year, with prize money placing him 22nd nationally on the Florida ranking. For four decades he has been one of the most respected shapers on the East Coast. Greg was among the first Florida shapers to operate a CNC shaping machine, raising the bar for board precision and consistency across the region. He shapes personally for his sons Eric Geiselman and Evan Geiselman. Former husband of Gina Geiselman, mother of Eric and Evan. The two are divorced.",
     connections: [
       {id: 'orion-surfboards', rel: 'Founder & head shaper — 1985'},
       {id: 'eric-geiselman', rel: 'Son — shapes all his boards'},
@@ -19783,8 +19792,362 @@ ASDB.nodes = {
       {id: 'esa', rel: 'Competed on the ESA East Coast circuit'},
     ],
   },
-};
 
+// ── NEW NODES FROM NEWSPAPER CLIPPINGS ──────────────────────────────────────
+// Sources: Newspapers.com archive — Florida Today, Daytona Beach News-Journal,
+// Tampa Tribune, Orlando Sentinel, Naples Daily News, Florida Times-Union,
+// Flagler Palm Coast News-Tribune (1982–2008)
+
+  'rich-rudolph': {
+    id:'rich-rudolph', type:'athlete', name:'Rich Rudolph',
+    born:'c. 1963', birthplace:'Cocoa Beach, FL',
+    nationality:'🇺🇸', sport:['surf'],
+    discipline:'Shortboard / CT / ASP East Coast / Competitor',
+    stance:'Regular', era:'1980s–1990s', status:'pre-populated',
+    bio:"Rich Rudolph is one of the most consequential East Coast surfers of the 1980s — and arguably the most underrecognized. He grew up in Cocoa Beach and didn't begin surfing seriously until he was 16, when he got hit by a wave and something clicked. What followed was one of the most dominant competitive runs in East Coast surfing history. He won 17 straight Eastern Surfing Association contests over the 1986–87 season, and became the first Florida surfer to win the Bud U.S. Open at Virginia Beach. That same run lifted him to a WQS ranking of 74th in the world in 1986 — briefly on the edge of the CT. His approach to judging panels was tactical: he knew that as a Florida surfer he had to surf visibly better than the other competitors just to earn equivalent scores, so he engineered his surfing around what judges could not ignore. Quote: 'You surf the East Coast circuit to keep your roots, and the California circuit to make money.' After stepping back from full-time touring he worked at his mother's travel agency in Cocoa Beach. His career is documented in the Florida Today and the ESA record books.",
+    achievements:[
+      'First Florida surfer to win the Bud U.S. Open (Virginia Beach, 1985)',
+      '17 consecutive ESA contest wins, 1986–87 season',
+      'WQS ranking: 74th in the world, 1986',
+      'ESA Championship — Cape Hatteras, NC',
+      'Dominated Central Florida ESA district for multiple seasons',
+    ],
+    hometown:'Cocoa Beach, FL',
+    sources:[
+      'Florida Today — September 22, 1989 (Newspapers.com)',
+      'Florida Today — August 22, 1987 (Newspapers.com)',
+    ],
+    connections:[
+      {id:'cocoa-beach-pier', rel:'Home pier — Cocoa Beach competitive scene'},
+      {id:'esa', rel:'ESA champion — dominated 1986-87'},
+      {id:'kelly-slater', rel:'Same Cocoa Beach district — contemporaries'},
+      {id:'sebastian-inlet', rel:'Key contest site'},
+    ],
+  },
+
+  'todd-holland': {
+    id:'todd-holland', type:'athlete', name:'Todd Holland',
+    born:'c. 1969', birthplace:'Cocoa Beach, FL',
+    nationality:'🇺🇸', sport:['surf'],
+    discipline:'Shortboard / ASP World Tour / CT',
+    stance:'Regular', era:'1980s–2000s', status:'pre-populated',
+    bio:"Todd Holland is the great could-have-been of East Coast surfing. A Cocoa Beach High School graduate (class of 1987), Holland was one of the most naturally gifted East Coast surfers of his generation. By the time he was a high school senior he had already signed a contract with Ocean Pacific (OP) worth $36,000 — a serious professional contract in 1987 dollars. He competed on the ASP World Tour in 1987, heading to his 4th tour event in Brazil, when the sponsorship fell through. He beat Mark Occhilupo in 1989 and finished 27th in the ASP rankings that year. What stopped him: he didn't have the financial support most international tour competitors had. He went through financial difficulties including a bankruptcy filing and spent five years working at his mother's travel agency in Cocoa Beach. He eventually settled back into the Space Coast life, raised his daughter Chaise (from his first marriage), and by 2008 was still surfing competitively at Shepard Park. A 2008 Florida Today profile found him at peace: 'I'm a lot older now, but I'm working to get back into it again.' His story is that of dozens of talented East Coast surfers who nearly made it to the top but couldn't bridge the financial gap between elite amateur and sustainable professional.",
+    achievements:[
+      'ASP World Tour competitor, 1987–1989',
+      'Contracted by Ocean Pacific (OP) — $36,000 (1987)',
+      'Beat Mark Occhilupo (1989)',
+      'Finished 27th on ASP rankings, 1989',
+      'Top seed at multiple East Coast ASP Pro-Am events',
+      'Quarterfinalist at Aloe Up Cup, Cocoa Beach (1989)',
+    ],
+    hometown:'Cocoa Beach, FL',
+    sources:[
+      'Florida Today — March 19, 2008 (Newspapers.com)',
+      'Tampa Tribune — June 28, 1989 (Newspapers.com)',
+      'Orlando Sentinel — April 13, 1990 (Newspapers.com)',
+    ],
+    connections:[
+      {id:'cocoa-beach-pier', rel:'Home break — Cocoa Beach competitive base'},
+      {id:'esa', rel:'ESA competitive member'},
+      {id:'kelly-slater', rel:'Same era, same district — Cocoa Beach'},
+      {id:'aloe-up-cup', rel:'Competitor — quarterfinalist 1989'},
+    ],
+  },
+
+  'ron-hope': {
+    id:'ron-hope', type:'athlete', name:'Ron Hope',
+    born:'c. 1970', birthplace:'Central Florida (NSB/Ormond Beach area)',
+    nationality:'🇺🇸', sport:['surf'],
+    discipline:'Amateur / Semi-Pro / ESA',
+    stance:'Regular', era:'1980s–1990s', status:'pre-populated',
+    bio:"Ron Hope was ranked No. 1 in the 18–24 men's division for the North Central Florida ESA district in 1987, and qualified to represent his district at the ESA Championship at Cape Hatteras, NC. Sponsored by surfboard manufacturer Randy Richenberg — who built him a high-tech composite board made of Styrofoam, carbon fiber cloth, and epoxy resin, lighter than the average competition board. Hope was a tactically smart surfer who understood the judge's eye: he competed in small waves (2-foot) at the Aloe Up Cup but acknowledged that Hawaii and bigger waves were the next step. His family and neighbors — including Harriet Hickox — were supporters of his surfing. He was described by Russ Atwell, ESA director, as 'a totally unknown surfer outside of Central Florida' who had nonetheless earned the top ranking in his district through consistent performance.",
+    achievements:[
+      "Ranked No. 1 in 18–24 men's division, North Central Florida ESA district (1987)",
+      'ESA Championship qualifier — Cape Hatteras, NC (1987)',
+      'Sponsored by Randy Richenberg (composite surfboards)',
+    ],
+    hometown:'Central Florida (NSB area)',
+    sources:[
+      'Daytona Beach News-Journal — June 17, 1988 (Newspapers.com)',
+    ],
+    connections:[
+      {id:'esa', rel:'ESA district champion — North Central Florida'},
+      {id:'nsb-inlet', rel:'Home region — Central Florida surf community'},
+    ],
+  },
+
+  'charley-hajek': {
+    id:'charley-hajek', type:'person', name:'Charley Hajek',
+    role:'Surf Coach / ASP Judge / Surf Industry',
+    nationality:'🇺🇸', sport:['surf'],
+    era:'1990s–present', status:'pre-populated',
+    bio:"St. Augustine-based surf coach who worked at Aqua East Surf Shop and coached junior amateur surfers on the East Coast circuit. As a young man, Charley Hajek babysat Kelly Slater and his brother Sean when they were children in Cocoa Beach — a detail confirmed in a 1992 Florida Times-Union interview. By 1992, he was being paid by the ASP (Association of Surfing Professionals) to travel to Rincon, Puerto Rico to judge a professional contest, alongside his amateur coaching work. A well-connected figure in the Florida surf community bridging the Cocoa Beach Slater generation and the St. Augustine scene.",
+    hometown:'St. Augustine, FL',
+    sources:[
+      'Florida Times-Union — October 24, 1992 (Newspapers.com)',
+    ],
+    connections:[
+      {id:'kelly-slater', rel:'Babysat Kelly Slater as a child — Cocoa Beach'},
+      {id:'aqua-east', rel:'Worked at Aqua East Surf Shop, St. Augustine'},
+      {id:'esa', rel:'ASP-certified judge, East Coast circuit'},
+    ],
+  },
+
+  'aqua-east': {
+    id:'aqua-east', type:'brand', name:'Aqua East Surf Shop',
+    sport:['surf'], founded:'c. 1980s',
+    foundedIn:'St. Augustine, FL',
+    headquarters:'St. Augustine, FL',
+    status:'Active', era:'1980s–present', status2:'pre-populated',
+    bio:"One of Florida's premier East Coast surf shops, based in St. Augustine. Aqua East has been a hub for North Florida surfing for decades, sponsoring local competitors and serving as a center for the St. Augustine surf community. Charley Hajek coached from here in the early 1990s.",
+    sources:[
+      'Florida Times-Union — October 24, 1992 (Newspapers.com)',
+    ],
+    connections:[
+      {id:'charley-hajek', rel:'Surf coach based here, early 1990s'},
+      {id:'esa', rel:'Community hub for East Coast competitive surfing'},
+    ],
+  },
+
+  'jack-poling': {
+    id:'jack-poling', type:'person', name:'Jack Poling',
+    role:'Filmmaker / Surf Filmmaker',
+    born:'c. 1954', birthplace:'Melbourne Beach, FL',
+    nationality:'🇺🇸', sport:['surf'],
+    era:'1980s', status:'pre-populated',
+    bio:"Melbourne Beach, Florida filmmaker who co-created Surf Attack (1982) with his brother Clark Poling — one of the first surf films to document East Coast surfers at a serious level. The brothers used Sebastian Inlet as their primary filming location and traveled to the Bahamas, the Virgin Islands, and other locations to capture East Coast surfers competing against international talent. The film premiered at the Quality Inn Convention Center in Cocoa Beach (Spring 1982). Jack was 28 at the time of the 1982 feature.",
+    sources:['Florida Today — April 9, 1982 (Newspapers.com)'],
+    connections:[
+      {id:'clark-poling', rel:'Co-filmmaker — Surf Attack (1982)'},
+      {id:'surf-attack', rel:'Co-director/producer'},
+      {id:'sebastian-inlet', rel:'Primary filming location'},
+    ],
+  },
+
+  'clark-poling': {
+    id:'clark-poling', type:'person', name:'Clark Poling',
+    role:'Filmmaker / Surf Filmmaker / Photographer',
+    born:'c. 1957', birthplace:'Melbourne Beach, FL',
+    nationality:'🇺🇸', sport:['surf'],
+    era:'1980s', status:'pre-populated',
+    bio:"Melbourne Beach, Florida filmmaker and surf photographer who co-created Surf Attack (1982) with his brother Jack Poling. Clark handled much of the underwater photography and in-water filming. Age 25 at the time of the 1982 premiere. The brothers' film featured local East Coast champions including Matt Kechele, Johnny Frosh, and Charley Baldwin — making the case that East Coasters had emerged as surfers on a world level.",
+    sources:['Florida Today — April 9, 1982 (Newspapers.com)'],
+    connections:[
+      {id:'jack-poling', rel:'Co-filmmaker — Surf Attack (1982)'},
+      {id:'surf-attack', rel:'Co-director/photographer'},
+      {id:'sebastian-inlet', rel:'Primary filming location'},
+      {id:'charlie-baldwin', rel:'Subject — featured in Surf Attack'},
+    ],
+  },
+
+  'surf-attack': {
+    id:'surf-attack', type:'media', name:'Surf Attack',
+    mediaType:'surf film', year:'1982',
+    director:'Jack Poling, Clark Poling',
+    sport:['surf'], era:'1980s', status:'pre-populated',
+    bio:"Surf Attack (1982) is one of the earliest surf films to document East Coast surfers seriously. Directed by Melbourne Beach brothers Jack and Clark Poling, the film premiered at the Quality Inn Convention Center in Cocoa Beach in April 1982. It was shot primarily at Sebastian Inlet, Florida, as well as in the Bahamas and the Virgin Islands. Featured subjects included local East Coast champions Matt Kechele, Johnny Frosh, and Charley Baldwin. The film's central argument — made as a quote from Clark Poling — was: 'In the film, we show these surfers in the best waves, including the pipeline in Hawaii, and other places where people wouldn't expect East Coasters to go out and ride. We're going to show the world that East Coasters have emerged as surfers on a level with anybody else.' The Poling brothers went broke making it. The film is an important artifact of pre-internet East Coast surf culture.",
+    sources:['Florida Today — April 9, 1982 (Newspapers.com)'],
+    connections:[
+      {id:'jack-poling', rel:'Director/producer'},
+      {id:'clark-poling', rel:'Director/photographer'},
+      {id:'sebastian-inlet', rel:'Primary filming location'},
+      {id:'charlie-baldwin', rel:'Featured surfer'},
+      {id:'pipeline', rel:'Featured location — proving East Coasters at Pipe'},
+    ],
+  },
+
+  'aloe-up-cup': {
+    id:'aloe-up-cup', type:'event', name:'Aloe Up Cup of Surfing',
+    sport:['surf'], founded:'1988',
+    foundedIn:'Cocoa Beach, FL',
+    era:'1988–1990s', status:'pre-populated',
+    bio:"The Aloe Up Cup of Surfing was a significant ASP World Tour event held at Cocoa Beach, Florida. Launched in 1988, by its second year (1989) it had become a nine-day festival event that attracted top international professional surfers. The 1989 event drew world champion Damien Hardman and Barton Lynch from Australia, as well as Hawaiian winner John Shimooka, who took first place. Todd Holland of Cocoa Beach was a top seed who reached the quarterfinals. Prize money: $5,000 for first place. The event was co-organized by event promoter Dave Marshall and sponsored by Aloe Up suncare products.",
+    location:'Cocoa Beach, FL',
+    sources:[
+      'Tampa Tribune — June 28, 1989 (Newspapers.com)',
+      'Orlando Sentinel — April 13, 1990 (Newspapers.com)',
+    ],
+    connections:[
+      {id:'cocoa-beach-pier', rel:'Event location'},
+      {id:'todd-holland', rel:'Top seed — quarterfinalist 1989'},
+      {id:'damien-hardman', rel:'Competitor — World Champion'},
+    ],
+  },
+
+  'easter-surfing-festival': {
+    id:'easter-surfing-festival', type:'event', name:'Easter Surfing Festival',
+    sport:['surf'], founded:'c. 1964',
+    foundedIn:'Cocoa Beach / Canaveral Pier, FL',
+    era:'1960s–present', status:'pre-populated',
+    bio:"The Easter Surfing Festival is one of the longest-running surf contests in the United States, held annually at Cocoa Beach / Canaveral Pier since approximately 1964. By 1985 it was in its 21st year; by 1990, the 26th Annual Dr. Pepper Easter Surfing Festival drew more than 350 competitors and was described as 'probably the premier event for amateurs in the country.' The event has rotated between Canaveral Pier and Cocoa Beach Pier over its history. The 1990 edition was sponsored by Dr. Pepper and organized by event promoter Frank Pezzullo with co-organizer John Shimooka. Prize money reached $10,000 total by 1990. Notable winners include John Shimooka (1989, 1990), with Floridians and East Coast surfers competing against international talent from Australia and Hawaii.",
+    location:'Cocoa Beach Pier / Canaveral Pier, FL',
+    sources:[
+      'Orlando Sentinel — April 13, 1990 (Newspapers.com)',
+      'Florida Today — April 7, 1985 (Newspapers.com)',
+    ],
+    connections:[
+      {id:'cocoa-beach-pier', rel:'Primary event location'},
+      {id:'sebastian-inlet', rel:'Adjacent surf community'},
+      {id:'esa', rel:'ESA-sanctioned qualifier'},
+    ],
+  },
+
+  'nkf-pro-am': {
+    id:'nkf-pro-am', type:'event', name:'NKF Pro-Am Labor Day Surfing Festival',
+    sport:['surf'], founded:'c. 1985',
+    foundedIn:'Cocoa Beach, FL',
+    era:'1985–1990s', status:'pre-populated',
+    bio:"The National Kidney Foundation Pro-Am Labor Day Surfing Festival was a significant annual charity surf event held at Cocoa Beach Pier over Labor Day weekend. The 1992 edition featured local standouts C.J. Hobgood (age 11, Satellite Beach) and Randy Hamilton (Cocoa Beach) alongside regional competitors. Organized by the National Kidney Foundation, the event combined professional and amateur divisions and featured live bands and demonstrations. The event helped introduce young East Coast surfers like C.J. Hobgood to the competitive format — Hobgood was 11 years old at the 1992 edition and already drawing attention for his competitive instincts.",
+    location:'Cocoa Beach Pier, FL',
+    sources:[
+      'Florida Today — September 7, 1992 (Newspapers.com)',
+    ],
+    connections:[
+      {id:'cocoa-beach-pier', rel:'Event location'},
+      {id:'cj-hobgood', rel:'Featured competitor — 1992 (age 11)'},
+      {id:'esa', rel:'East Coast surf community event'},
+    ],
+  },
+
+  'esa-sunrise-surf-fall-classic': {
+    id:'esa-sunrise-surf-fall-classic', type:'event', name:'ESA Sunrise Surf Fall Classic',
+    sport:['surf'], founded:'c. 1988',
+    foundedIn:'Ormond Beach / Daytona Beach, FL',
+    era:'1988–present', status:'pre-populated',
+    bio:"The Eastern Surfing Association's Sunrise Surf Fall Classic is an annual multi-division amateur surf contest held each fall in the Ormond Beach/Daytona Beach area — typically at the Granada approach in Ormond Beach. By 1996 it was in its eighth season. The contest draws competitors from the ESA Florida district across all age groups from Menehune through Senior Men and Women. The 1996 edition results show a strong field: Charley Baldwin competed in Senior Men; Lindsey Baldwin placed 2nd in Girls; Dane Hoskins won Menehune. Marilyn Austin served as the ESA Wave Writer/regional reporter who covered the event for multiple Florida newspapers.",
+    location:'Ormond Beach / Granada approach, FL',
+    sources:[
+      'Daytona Beach News-Journal — November 14, 1996 (Newspapers.com)',
+      'Flagler Palm Coast News-Tribune — November 16, 1996 (Newspapers.com)',
+    ],
+    connections:[
+      {id:'esa', rel:'ESA-organized event — Florida district'},
+      {id:'charlie-baldwin', rel:'Competitor — Senior Men division, 1996'},
+      {id:'nsb-inlet', rel:'Florida district connection'},
+    ],
+  },
+
+  'mitch-varnes': {
+    id:'mitch-varnes', type:'person', name:'Mitch Varnes',
+    role:'ESA District Director / Surf Administrator',
+    nationality:'🇺🇸', sport:['surf'],
+    era:'1980s–2000s', status:'pre-populated',
+    bio:"Long-serving Central Florida ESA district director and surf administrator. Mitch Varnes was described as 'past district director' in a 1987 Florida Today feature on the start of the Space Coast surfing season, where he oversaw the Central Florida ESA district that included Cocoa Beach competitors like Kelly Slater, Sean Slater, and Rich Rudolph. By 2007 he was still a recognized figure in the Central Florida surf contest world — referenced in connection with the NSSA East Coast Championships at Sebastian Inlet.",
+    hometown:'Brevard County / Space Coast, FL',
+    sources:[
+      'Florida Today — August 22, 1987 (Newspapers.com)',
+      'Florida Today — April 16, 2007 (Newspapers.com)',
+    ],
+    connections:[
+      {id:'esa', rel:'Central Florida ESA district director'},
+      {id:'kelly-slater', rel:'Administered district where Slater competed'},
+      {id:'sebastian-inlet', rel:'District contest site'},
+      {id:'cocoa-beach-pier', rel:'District hub'},
+    ],
+  },
+
+  'randy-hamilton': {
+    id:'randy-hamilton', type:'athlete', name:'Randy Hamilton',
+    born:'c. 1960', birthplace:'Cocoa Beach, FL',
+    nationality:'🇺🇸', sport:['surf'],
+    discipline:'Competitive Surf / Surfski',
+    stance:'Regular', era:'1980s–1990s', status:'pre-populated',
+    bio:"Cocoa Beach competitive surfer and surfski paddler. Randy Hamilton was noted in the 1992 NKF Pro-Am Labor Day Festival as a local champion in the surfski division, placing well against Central Florida competition. A Space Coast surf community fixture through the late 1980s and 1990s.",
+    hometown:'Cocoa Beach, FL',
+    sources:['Florida Today — September 7, 1992 (Newspapers.com)'],
+    connections:[
+      {id:'cocoa-beach-pier', rel:'Home break'},
+      {id:'esa', rel:'ESA district competitor'},
+    ],
+  },
+
+  'damien-hardman': {
+    id:'damien-hardman', type:'athlete', name:'Damien Hardman',
+    born:'March 12, 1965', birthplace:'Narrabeen, NSW, Australia',
+    nationality:'🇦🇺', sport:['surf'],
+    discipline:'CT / World Tour',
+    stance:'Regular', era:'1980s–1990s', status:'pre-populated',
+    bio:"Two-time ASP World Champion (1987, 1991) from Narrabeen, Australia. One of the most technically precise CT surfers of his era. Won back-to-back titles in different surf conditions, demonstrating remarkable adaptability. Competed at the Aloe Up Cup in Cocoa Beach, Florida in 1989.",
+    achievements:[
+      'ASP World Champion — 1987',
+      'ASP World Champion — 1991',
+    ],
+    sources:['Tampa Tribune — June 28, 1989 (Newspapers.com)'],
+    connections:[
+      {id:'aloe-up-cup', rel:'Competitor — 1989'},
+      {id:'cocoa-beach-pier', rel:'Contest venue — Aloe Up Cup'},
+    ],
+  },
+
+  'marilyn-austin': {
+    id:'marilyn-austin', type:'person', name:'Marilyn Austin',
+    role:'Surf Journalist / ESA Wave Writer / Regional Director',
+    nationality:'🇺🇸', sport:['surf'],
+    era:'1990s–present', status:'pre-populated',
+    bio:"Marilyn Austin served as the ESA regional director and 'Wave Writer' — the Eastern Surfing Association's official correspondent for the Florida/Southeast region. She covered ESA contests for multiple Florida newspapers through the 1990s, including the Daytona Beach News-Journal and the Flagler Palm Coast News-Tribune. She competed as an amateur surfer (placed 2nd in Women at the 1996 ESA Sunrise Surf Fall Classic) while simultaneously reporting on and administering East Coast competitive surfing. An important behind-the-scenes figure in Florida surfing documentation.",
+    hometown:'Florida (Volusia/Flagler area)',
+    achievements:[
+      '2nd place — Women\'s division, ESA Sunrise Surf Fall Classic, 1996',
+      'ESA Wave Writer — official regional surf journalist, Florida/Southeast',
+    ],
+    sources:[
+      'Daytona Beach News-Journal — November 14, 1996 (Newspapers.com)',
+      'Flagler Palm Coast News-Tribune — November 16, 1996 (Newspapers.com)',
+    ],
+    connections:[
+      {id:'esa', rel:'ESA Wave Writer — official regional correspondent & administrator'},
+      {id:'esa-sunrise-surf-fall-classic', rel:'Covered and competed'},
+      {id:'nsb-inlet', rel:'Florida surf community'},
+    ],
+  },
+
+
+
+
+  'lindsay-baldwin': {
+    id:'lindsay-baldwin', type:'athlete', name:'Lindsay Baldwin',
+    role:'Competitive Surfer / NSB Local',
+    nationality:'🇺🇸', sport:['surf'],
+    birthplace:'New Smyrna Beach, FL',
+    era:'1990s–2000s', status:'pre-populated',
+    parents:['Charlie Baldwin', 'Jennifer Baldwin'],
+    siblings:['Marcie Baldwin'],
+    bio:"Daughter of NSB surf legend Charlie Baldwin and Jennifer Baldwin. Competitive surfer who competed alongside her father and sister Marcie on the East Coast amateur circuit. A 1996 Florida newspaper account confirmed she placed 2nd in the Girls division at the ESA Sunrise Surf Fall Classic — competing at the same event where her father placed 4th in Senior Men. Part of one of NSB's most important multigenerational surf families.",
+    sources:['Daytona Beach News-Journal — November 14, 1996 (Newspapers.com)'],
+    connections:[
+      {id:'charlie-baldwin', rel:'Father — NSB surf legend, master shaper'},
+      {id:'jennifer-baldwin', rel:'Mother — co-founder of Inlet Charley\'s'},
+      {id:'marcie-baldwin', rel:'Sister'},
+      {id:'nsb-inlet', rel:'Home break — grew up surfing here'},
+      {id:'esa', rel:'Competed on the East Coast amateur circuit'},
+      {id:'esa-sunrise-surf-fall-classic', rel:'Competed — 2nd place Girls division, 1996'},
+      {id:'inlet-charleys', rel:'Family shop'},
+      {id:'cb-surfboards', rel:'Family brand'},
+    ],
+  },
+
+  'marcie-baldwin': {
+    id:'marcie-baldwin', type:'athlete', name:'Marcie Baldwin',
+    role:'Competitive Surfer / Smyrna Surfari Club Chair',
+    nationality:'🇺🇸', sport:['surf'],
+    birthplace:'New Smyrna Beach, FL',
+    era:'1990s–present', status:'pre-populated',
+    parents:['Charlie Baldwin', 'Jennifer Baldwin'],
+    siblings:['Lindsay Baldwin'],
+    bio:"Daughter of NSB surf legend Charlie Baldwin and Jennifer Baldwin. Competitive surfer who competed alongside her father and sister on the East Coast amateur circuit through the 1990s. Now serves as Chair of the Smyrna Surfari Club — one of the oldest surf clubs on the East Coast — carrying forward the family\'s multigenerational commitment to the NSB surf community.",
+    connections:[
+      {id:'charlie-baldwin', rel:'Father — NSB surf legend, master shaper'},
+      {id:'jennifer-baldwin', rel:'Mother — co-founder of Inlet Charley\'s'},
+      {id:'lindsay-baldwin', rel:'Sister'},
+      {id:'nsb-inlet', rel:'Home break — grew up surfing here'},
+      {id:'smyrna-surfari-club', rel:'Chair — carries family legacy forward'},
+      {id:'esa', rel:'Competed on the East Coast amateur circuit'},
+      {id:'inlet-charleys', rel:'Family shop'},
+      {id:'cb-surfboards', rel:'Family brand'},
+    ],
+  },
+
+};
 // ── RELATIONSHIPS INDEX ── for fast lookup
 ASDB.getNode = (id) => ASDB.nodes[id];
 ASDB.getConnections = (id) => {
