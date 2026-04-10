@@ -155,6 +155,9 @@
     <!-- ── SEARCH VIEW ─────────────────────────────────────── -->
     <section id="search-view" aria-label="Search results" style="display:none"></section>
 
+    <!-- ── LEGAL / DATA POLICY VIEW ──────────────────────────── -->
+    <section id="legal-view" aria-label="Data Policy and Legal" style="display:none"></section>
+
   </div>
 </main>
 
@@ -166,7 +169,13 @@
         <span class="logo-text">AS<span>DB</span></span>
       </div>
       <div class="footer-copy">
-        Action Sports Database™ — MVP v0.1 | Data aggregated from public sources including WSL, ISA, X Games, Wikipedia, Transworld, Surfing Magazine, Thrasher, ESPN, and other publicly available records. All athlete profiles are pre-populated from public data. To update or remove your information, use the "Claim this profile" link on your profile page.
+        Action Sports Database™ — MVP v0.1 | Data aggregated from public sources. All profiles are pre-populated from publicly available records.
+        <span class="footer-links">
+          <a href="#legal" onclick="navigateLegal();return false;">Data Policy &amp; Legal</a>
+          <a href="#legal/sources" onclick="navigateLegal('sources');return false;">Sources</a>
+          <a href="#legal/copyright" onclick="navigateLegal('copyright');return false;">Copyright</a>
+          <a href="#legal/claim" onclick="navigateLegal('claim');return false;">Claim Your Profile</a>
+        </span>
       </div>
     </div>
   </div>
