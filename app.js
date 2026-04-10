@@ -1414,6 +1414,34 @@ function renderOverviewTab(node) {
     `, id, 'Quick Facts');
   }
 
+  // ── SOCIAL MEDIA LINKS ──
+  if (node.social) {
+    const socialLinks = [];
+    const platforms = {
+      instagram: { icon: '📸', label: 'Instagram', url: h => `https://instagram.com/${h}` },
+      twitter:   { icon: '𝕏', label: 'X / Twitter', url: h => `https://x.com/${h}` },
+      tiktok:    { icon: '🎵', label: 'TikTok', url: h => `https://tiktok.com/@${h}` },
+      youtube:   { icon: '▶', label: 'YouTube', url: h => `https://youtube.com/${h}` },
+      facebook:  { icon: '👤', label: 'Facebook', url: h => `https://facebook.com/${h}` },
+      website:   { icon: '🌐', label: 'Website', url: h => h.startsWith('http') ? h : `https://${h}` },
+    };
+    for (const [key, cfg] of Object.entries(platforms)) {
+      if (node.social[key]) {
+        const handle = node.social[key];
+        const href = cfg.url(handle);
+        socialLinks.push(`<a href="${href}" target="_blank" rel="noopener" class="social-link">${cfg.icon} ${cfg.label}: @${handle}</a>`);
+      }
+    }
+    if (socialLinks.length) {
+      html += `
+        <div class="profile-section">
+          <h3>Social Media</h3>
+          <div class="social-links">${socialLinks.join('')}</div>
+        </div>
+      `;
+    }
+  }
+
   // Sponsors — each links to brand profile if it exists
   if (node.sponsors && node.sponsors.length) {
     html += flagSection(`
