@@ -640,6 +640,17 @@ body { overflow-x: hidden; min-width: 0; }
 .info-label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 2px; }
 .info-value { font-size: var(--text-sm); font-weight: 500; color: var(--text); }
 
+/* Social Media Links */
+.social-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.social-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 20px;
+  font-size: var(--text-sm); font-weight: 500;
+  background: var(--surface-2); color: var(--accent-1);
+  text-decoration: none; transition: background 0.2s, color 0.2s;
+}
+.social-link:hover { background: var(--accent-1); color: var(--bg); }
+
 /* Connection chips — clickable nodes */
 .conn-chips {
   display: flex;
