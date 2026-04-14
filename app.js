@@ -222,6 +222,104 @@ function isDefunctNode(node) {
   return s === 'defunct' || s === 'closed' || s.startsWith('defunct');
 }
 
+// ── SEO / OG / STRUCTURED DATA ─────────────────────────────
+const ASDB_BASE_URL = 'https://actionsportsdatabase.github.io/action-sports-database/';
+const ASDB_OG_IMAGE = ASDB_BASE_URL + 'og-image.png';
+
+function setMeta(selector, attr, value) {
+  const el = document.querySelector(selector);
+  if (el) el.setAttribute(attr, value || '');
+}
+
+function updateSEO(node) {
+  if (!node) return;
+  const sportNames = (node.sport || []).map(sportLabel).join(' / ');
+  const titleStr   = node.name + (sportNames ? ' \u2014 ' + sportNames : '') + ' | ASDB';
+  const bioRaw     = (node.bio || '').replace(/<[^>]+>/g, '');
+  const desc160    = bioRaw.slice(0, 160).trim();
+  const desc200    = bioRaw.slice(0, 200).trim();
+  const profileURL = ASDB_BASE_URL + '#profile/' + node.id;
+  const keywords   = [node.name, sportNames, node.hometown || node.birthplace || '', node.discipline || ''].filter(Boolean).join(', ');
+
+  // Basic
+  document.title = titleStr;
+  setMeta('meta[name="description"]', 'content', desc160);
+  setMeta('meta[name="keywords"]', 'content', keywords);
+
+  // OG
+  setMeta('meta[property="og:title"]', 'content', titleStr);
+  setMeta('meta[property="og:description"]', 'content', desc200);
+  setMeta('meta[property="og:url"]', 'content', profileURL);
+  setMeta('meta[property="og:image"]', 'content', ASDB_OG_IMAGE);
+
+  // Twitter
+  setMeta('meta[name="twitter:title"]', 'content', titleStr);
+  setMeta('meta[name="twitter:description"]', 'content', desc200);
+  setMeta('meta[name="twitter:image"]', 'content', ASDB_OG_IMAGE);
+
+  // Canonical
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.rel = 'canonical';
+    document.head.appendChild(canonical);
+  }
+  canonical.href = profileURL;
+
+  updateStructuredData(node);
+}
+
+function resetSEO() {
+  document.title = 'ASDB \u2014 Action Sports Database';
+  const defaultDesc = 'The Wikipedia of action sports. Athletes, brands, locations, filmmakers, music and culture \u2014 all connected.';
+  setMeta('meta[name="description"]', 'content', defaultDesc);
+  setMeta('meta[name="keywords"]', 'content', 'action sports, surfing, skateboarding, athletes, database');
+  setMeta('meta[property="og:title"]', 'content', 'ASDB \u2014 Action Sports Database');
+  setMeta('meta[property="og:description"]', 'content', defaultDesc);
+  setMeta('meta[property="og:url"]', 'content', ASDB_BASE_URL);
+  setMeta('meta[name="twitter:title"]', 'content', 'ASDB \u2014 Action Sports Database');
+  setMeta('meta[name="twitter:description"]', 'content', 'The Wikipedia of action sports.');
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.href = ASDB_BASE_URL;
+  removeStructuredData();
+}
+
+function updateStructuredData(node) {
+  removeStructuredData();
+  if (!node) return;
+
+  const useOrg = (node.type === 'org' || node.type === 'brand');
+  const bioRaw = (node.bio || '').replace(/<[^>]+>/g, '');
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': useOrg ? 'Organization' : 'Person',
+    'name': node.name,
+    'description': bioRaw.slice(0, 300).trim() || undefined,
+    'url': ASDB_BASE_URL + '#profile/' + node.id,
+  };
+
+  if (!useOrg) {
+    if (node.born)        ld['birthDate']     = node.born;
+    if (node.nationality) ld['nationality']    = node.nationality.replace(/[^\w\s,]/g, '').trim();
+    const hometown = node.hometown || node.birthplace;
+    if (hometown) ld['homeLocation'] = { '@type': 'Place', 'name': hometown };
+  } else {
+    if (node.founded) ld['foundingDate'] = node.founded;
+    if (node.hometown || node.country) ld['location'] = { '@type': 'Place', 'name': node.hometown || node.country };
+  }
+
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.id   = 'asdb-ld-json';
+  script.textContent = JSON.stringify(ld, (k, v) => v === undefined ? undefined : v, 2);
+  document.head.appendChild(script);
+}
+
+function removeStructuredData() {
+  const existing = document.getElementById('asdb-ld-json');
+  if (existing) existing.remove();
+}
+
 // ── FILTER MATCHING ───────────────────────────────────────────
 function eraMatchesFilter(node, era) {
   if (era === 'all') return true;
@@ -1008,6 +1106,8 @@ function renderProfile(id) {
     return;
   }
 
+  updateSEO(node);
+
   const isDefunct = isDefunctNode(node);
   const isClaimed = node.claimed === true;
   const sports    = node.sport || [];
@@ -1073,6 +1173,16 @@ function renderProfile(id) {
             <h1>${node.name}${node.nick ? ` <span style="color:var(--text-muted);font-size:0.6em;font-weight:500">"${node.nick}"</span>` : ''}</h1>
             <div class="profile-tagline">${nodeSubtitle(node) || (node.role || node.type.charAt(0).toUpperCase() + node.type.slice(1))}</div>
             <div class="profile-chips">${headerChips}</div>
+            <div class="profile-actions-row">
+              <button class="profile-action-btn" id="btn-share-profile" aria-label="Share profile" title="Share this profile">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="13" cy="2.5" r="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="8" r="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="13" cy="13.5" r="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 7L11.5 3.5M4.5 9L11.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                Share
+              </button>
+              <button class="profile-action-btn" id="btn-embed-profile" aria-label="Embed profile" title="Embed this profile">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 4L1 8L5 12M11 4L15 8L11 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Embed
+              </button>
+            </div>
           </div>
         </div>
 
@@ -1119,6 +1229,18 @@ function renderProfile(id) {
   profileView.querySelectorAll('.also-viewed-item[data-id]').forEach(item => {
     item.addEventListener('click', () => navigateTo(item.dataset.id));
   });
+
+  // Share button
+  const shareBtn = document.getElementById('btn-share-profile');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', () => handleProfileShare(node));
+  }
+
+  // Embed button
+  const embedBtn = document.getElementById('btn-embed-profile');
+  if (embedBtn) {
+    embedBtn.addEventListener('click', () => showEmbedModal(node));
+  }
 }
 
 // ── FLAG / DISPUTE SYSTEM ──────────────────────────────────
@@ -2562,6 +2684,7 @@ function showHome() {
   profileView.classList.remove('visible');
   breadcrumbBar.classList.remove('visible');
   updateNavButtons();
+  resetSEO();
 }
 
 // ── LEGAL PAGE ──────────────────────────────────────────────
@@ -2710,6 +2833,102 @@ window.navigateLegal = function(tab = 'overview') {
 };
 
 // ── INIT ─────────────────────────────────────────────────────
+
+// ── SHARE + EMBED FUNCTIONALITY ───────────────────────────────────────
+function showToast(msg, duration) {
+  var existing = document.getElementById('asdb-toast');
+  if (existing) existing.remove();
+  var toast = document.createElement('div');
+  toast.id = 'asdb-toast';
+  toast.textContent = msg;
+  toast.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#e8500a;color:#fff;padding:0.65rem 1.4rem;border-radius:8px;font-size:0.875rem;font-family:Satoshi,system-ui,sans-serif;font-weight:600;z-index:99999;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,0.4);';
+  document.body.appendChild(toast);
+  setTimeout(function() { if (toast.parentNode) toast.remove(); }, duration || 2500);
+}
+
+function handleProfileShare(node) {
+  if (!node) return;
+  var url = ASDB_BASE_URL + '#profile/' + node.id;
+  var bioRaw = (node.bio || '').replace(/<[^>]+>/g, '');
+  var excerpt = bioRaw.slice(0, 120).trim();
+  if (navigator.share) {
+    navigator.share({
+      title: node.name + ' | ASDB',
+      text: excerpt,
+      url: url,
+    }).catch(function() {});
+  } else {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function() {
+        showToast('Link copied!');
+      }).catch(function() {
+        fallbackCopy(url);
+      });
+    } else {
+      fallbackCopy(url);
+    }
+  }
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); showToast('Link copied!'); } catch(e) {}
+  ta.remove();
+}
+
+function showEmbedModal(node) {
+  if (!node) return;
+  var embedSrc = ASDB_BASE_URL + 'embed.html?id=' + node.id;
+  var iframeCode = '<iframe src="' + embedSrc + '" width="400" height="200" frameborder="0" style="border-radius:12px;overflow:hidden;"></iframe>';
+
+  var existing = document.getElementById('asdb-embed-modal');
+  if (existing) existing.remove();
+
+  var overlay = document.createElement('div');
+  overlay.id = 'asdb-embed-modal';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:99990;background:rgba(0,0,0,0.75);display:flex;align-items:center;justify-content:center;padding:1rem;';
+
+  var nodeName = node.name || '';
+  // Build inner HTML safely (no template literals with nested quotes issues)
+  overlay.innerHTML =
+    '<div style="background:#1a1714;border:1px solid #2c2822;border-radius:16px;padding:2rem;max-width:540px;width:100%;position:relative;font-family:Satoshi,system-ui,sans-serif;">' +
+      '<button onclick="var m=document.getElementById(\'asdb-embed-modal\');if(m)m.remove();" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:#7a736a;cursor:pointer;font-size:1.25rem;line-height:1;">&times;</button>' +
+      '<h3 style="margin:0 0 0.5rem;color:#f0ede8;font-family:Clash Display,system-ui,sans-serif;font-size:1.1rem;">Embed Profile Widget</h3>' +
+      '<p style="margin:0 0 1rem;color:#7a736a;font-size:0.85rem;">Copy and paste this code to embed <strong style="color:#f0ede8;">' + nodeName + '</strong>s profile card on any website.</p>' +
+      '<textarea id="embed-code-area" readonly style="width:100%;box-sizing:border-box;background:#0e0c09;border:1px solid #2c2822;border-radius:8px;color:#b8b0a8;font-family:monospace;font-size:0.78rem;padding:0.75rem;resize:vertical;min-height:80px;outline:none;">' + iframeCode + '</textarea>' +
+      '<div style="margin-top:0.75rem;display:flex;gap:0.5rem;">' +
+        '<button id="embed-copy-btn" style="flex:1;padding:0.65rem 1rem;background:#e8500a;color:#fff;border:none;border-radius:8px;font-size:0.875rem;font-weight:700;font-family:inherit;cursor:pointer;">Copy Code</button>' +
+        '<a href="' + embedSrc + '" target="_blank" style="padding:0.65rem 1rem;background:#2c2822;color:#f0ede8;border:none;border-radius:8px;font-size:0.875rem;font-weight:600;font-family:inherit;cursor:pointer;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;">Preview &rarr;</a>' +
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(overlay);
+
+  document.getElementById('embed-copy-btn').addEventListener('click', function() {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(iframeCode).then(function() {
+        showToast('Embed code copied!');
+      }).catch(function() {
+        var ta = document.getElementById('embed-code-area');
+        if (ta) { ta.select(); document.execCommand('copy'); }
+        showToast('Embed code copied!');
+      });
+    } else {
+      var ta = document.getElementById('embed-code-area');
+      if (ta) { ta.select(); document.execCommand('copy'); }
+      showToast('Embed code copied!');
+    }
+  });
+
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) overlay.remove();
+  });
+}
+
 function init() {
   setupTheme();
   renderGrid();
