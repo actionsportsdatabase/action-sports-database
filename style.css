@@ -2054,3 +2054,47 @@ a.subgroup-chip:hover { border-color: var(--accent-2); color: var(--accent-2); }
 [data-theme="light"] .flag-toast {
   background: #1a1a1a;
 }
+
+/* ── PROFILE ACTION BUTTONS (Share / Embed) ──────────────────── */
+.profile-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.profile-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.375rem 0.75rem;
+  background: var(--bg-card, #1a1714);
+  border: 1px solid var(--border, #2c2822);
+  border-radius: 6px;
+  color: var(--text-muted, #7a736a);
+  font-family: var(--font-body, 'Satoshi', system-ui, sans-serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.profile-action-btn:hover {
+  border-color: var(--accent, #e8500a);
+  color: var(--accent, #e8500a);
+  background: rgba(232, 80, 10, 0.06);
+}
+
+[data-theme="light"] .profile-action-btn {
+  background: #f5f3f0;
+  border-color: #d8d0c8;
+  color: #6a635a;
+}
+
+[data-theme="light"] .profile-action-btn:hover {
+  border-color: #e8500a;
+  color: #e8500a;
+  background: rgba(232, 80, 10, 0.06);
+}
