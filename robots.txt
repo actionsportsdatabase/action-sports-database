@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://actionsportsdatabase.github.io/action-sports-database/sitemap.xml
