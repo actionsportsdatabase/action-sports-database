@@ -2098,3 +2098,186 @@ a.subgroup-chip:hover { border-color: var(--accent-2); color: var(--accent-2); }
   color: #e8500a;
   background: rgba(232, 80, 10, 0.06);
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   ACHIEVEMENT BADGES
+   ═══════════════════════════════════════════════════════════════════ */
+.achievement-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  font-family: 'Satoshi', system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  transition: transform 0.15s ease;
+  cursor: default;
+}
+.badge:hover {
+  transform: translateY(-1px);
+}
+.badge-icon {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+.badge-label {
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .badge-label {
+    display: none;
+  }
+  .badge {
+    padding: 0.35rem 0.55rem;
+  }
+  .badge-icon {
+    font-size: 1rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RELATED PROFILES CAROUSEL
+   ═══════════════════════════════════════════════════════════════════ */
+.related-carousel-wrap {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.related-carousel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.related-carousel-header h3 {
+  font-family: 'Clash Display', system-ui, sans-serif;
+  font-size: 1.35rem;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.related-carousel-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+.rc-nav-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+.rc-nav-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.related-carousel {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0.25rem 0 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+.related-carousel::-webkit-scrollbar {
+  height: 6px;
+}
+.related-carousel::-webkit-scrollbar-track {
+  background: transparent;
+}
+.related-carousel::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+.related-card {
+  flex: 0 0 240px;
+  scroll-snap-align: start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+}
+.related-card:hover,
+.related-card:focus {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  outline: none;
+}
+.related-card-avatar {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Clash Display', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.related-card-body {
+  flex: 1;
+  min-width: 0;
+}
+.related-card-name {
+  font-family: 'Clash Display', system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.related-card-meta {
+  font-family: 'Satoshi', system-ui, sans-serif;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.related-card-badges {
+  display: flex;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+.mini-badge {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .related-card {
+    flex: 0 0 200px;
+  }
+  .related-carousel-header h3 {
+    font-size: 1.15rem;
+  }
+}
