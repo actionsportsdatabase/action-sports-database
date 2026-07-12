@@ -5363,3 +5363,488 @@ function enhanceConnectionsTab() {
   });
 }
 window.enhanceConnectionsTab = enhanceConnectionsTab;
+
+
+// ═══════════════════════════════════════════════════════════════
+// PHASE 3 — BRAND VIEW DASHBOARD + (mock) STRIPE MONETIZATION
+// ═══════════════════════════════════════════════════════════════
+
+// ── Subscription store (localStorage) ─────────────────────────
+const SubStore = {
+  KEY: 'asdb_subs_v1',
+  _cache: null,
+  _load() {
+    if (this._cache) return this._cache;
+    try { this._cache = JSON.parse(localStorage.getItem(this.KEY) || '{}'); }
+    catch(e) { this._cache = {}; }
+    return this._cache;
+  },
+  _persist() { try { localStorage.setItem(this.KEY, JSON.stringify(this._cache)); } catch(e) {} },
+  get(nodeId) { return this._load()[nodeId] || null; },
+  isPremium(nodeId) {
+    const s = this.get(nodeId);
+    return !!(s && s.plan && s.status === 'active' && s.expiresAt > Date.now());
+  },
+  subscribe(nodeId, plan) {
+    this._load();
+    const now = Date.now();
+    const durations = { basic: 30*86400000, pro: 30*86400000, elite: 30*86400000 };
+    this._cache[nodeId] = {
+      plan,
+      status: 'active',
+      startedAt: now,
+      expiresAt: now + (durations[plan] || 30*86400000),
+      last4: '4242',
+    };
+    this._persist();
+  },
+  cancel(nodeId) {
+    this._load();
+    if (this._cache[nodeId]) {
+      this._cache[nodeId].status = 'canceled';
+      this._persist();
+    }
+  },
+};
+window.SubStore = SubStore;
+
+// ── Deterministic pseudo-random for simulated analytics ───────
+function _seedRand(seed) {
+  // xorshift32 seeded by hash of string
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i++) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  let s = h >>> 0;
+  return () => {
+    s ^= s << 13; s ^= s >>> 17; s ^= s << 5;
+    return ((s >>> 0) % 100000) / 100000;
+  };
+}
+
+// Generate simulated analytics for a node — deterministic per node
+function generateBrandAnalytics(nodeId) {
+  const node = ASDB.nodes[nodeId];
+  if (!node) return null;
+  const rng = _seedRand(nodeId);
+  const isPremium = SubStore.isPremium(nodeId);
+
+  // Base traffic influenced by node "importance"
+  const achievCount = (node.achievements || []).length;
+  const connCount = (node.connections || []).length;
+  const verifiedBoost = node.verified ? 3 : 1;
+  const claimedBoost = node.claimed ? 2 : 1;
+
+  const baseDaily = Math.max(5, Math.floor((achievCount * 2 + connCount + 10) * verifiedBoost * claimedBoost * (0.5 + rng())));
+
+  // Last 30 days trend
+  const days = [];
+  for (let i = 29; i >= 0; i--) {
+    const variance = 0.6 + rng() * 0.8;
+    const isWeekend = ((new Date(Date.now() - i*86400000)).getDay() % 6 === 0);
+    const weekendBoost = isWeekend ? 1.35 : 1;
+    days.push({
+      date: new Date(Date.now() - i*86400000).toISOString().slice(0,10),
+      views: Math.floor(baseDaily * variance * weekendBoost),
+    });
+  }
+
+  const totalViews = days.reduce((s,d) => s + d.views, 0);
+  const uniqueVisitors = Math.floor(totalViews * 0.62);
+
+  // Top referrers (simulated)
+  const referrerPool = ['Instagram', 'Direct search', 'Wikipedia', 'Reddit /r/surfing', 'YouTube', 'Google', 'Twitter/X', 'ASDB Home', 'Related profile', 'Six Degrees'];
+  const referrers = referrerPool.map(r => ({ source: r, views: Math.floor(rng() * totalViews * 0.25) }))
+    .sort((a,b) => b.views - a.views).slice(0, 6);
+
+  // Brand watchers (simulated) — only visible if premium
+  const brandPool = ['Rip Curl', 'Vans', 'Red Bull', 'Monster Energy', 'Quiksilver', 'Volcom', 'Billabong', 'Hurley', 'O\'Neill', 'GoPro', 'Element', 'Independent Trucks', 'Thrasher', 'ESPN', 'Complex', 'Barstool Sports'];
+  const brands = brandPool
+    .filter(() => rng() > 0.55)
+    .map(b => ({
+      name: b,
+      views: Math.floor(rng() * 40 + 5),
+      lastVisit: `${Math.floor(rng() * 14 + 1)}d ago`,
+      hot: rng() > 0.7,
+    }))
+    .sort((a,b) => b.views - a.views)
+    .slice(0, isPremium ? 12 : 3);
+
+  // Geographic breakdown
+  const geoPool = ['United States', 'Australia', 'Brazil', 'Japan', 'France', 'Portugal', 'Indonesia', 'South Africa', 'Peru', 'Spain', 'UK', 'Costa Rica'];
+  const geos = geoPool.map(g => ({ country: g, views: Math.floor(rng() * totalViews * 0.15) }))
+    .sort((a,b) => b.views - a.views).slice(0, 8);
+
+  return {
+    isPremium,
+    totalViews,
+    uniqueVisitors,
+    dailyViews: days,
+    trend: days.slice(-7).reduce((s,d) => s+d.views, 0) - days.slice(-14,-7).reduce((s,d) => s+d.views, 0),
+    referrers,
+    brands,
+    geos,
+    followers: Math.floor(baseDaily * 8 + rng() * 200),
+    endorsements: Math.floor(achievCount * (1 + rng()) + rng() * 15),
+  };
+}
+window.generateBrandAnalytics = generateBrandAnalytics;
+
+// ── Open Brand View Dashboard modal ───────────────────────────
+function openBrandDashboard(nodeId) {
+  const node = ASDB.nodes[nodeId];
+  if (!node) return;
+  const stats = generateBrandAnalytics(nodeId);
+  const isPremium = stats.isPremium;
+
+  const modal = _ensureBrandModal();
+  const body = modal.querySelector('.brand-dashboard-body');
+
+  // Compute chart bars (max-normalized)
+  const maxDay = Math.max(...stats.dailyViews.map(d => d.views));
+  const chartHTML = stats.dailyViews.map(d => {
+    const h = Math.max(2, Math.floor(d.views / maxDay * 100));
+    return `<div class="brand-bar" style="height:${h}%" title="${d.date}: ${d.views} views"></div>`;
+  }).join('');
+
+  const trendPct = stats.trend >= 0
+    ? `<span class="brand-trend up">↑ +${stats.trend} vs previous 7d</span>`
+    : `<span class="brand-trend down">↓ ${stats.trend} vs previous 7d</span>`;
+
+  // Brand watchers (locked for non-premium)
+  const brandsListHTML = stats.brands.map((b, i) => {
+    const locked = !isPremium && i >= 3;
+    return `
+      <div class="brand-watcher ${locked ? 'locked' : ''}">
+        <div class="brand-watcher-name">${b.hot ? '🔥 ' : ''}${locked ? '🔒 ' + '•'.repeat(6) : escapeHtml(b.name)}</div>
+        <div class="brand-watcher-meta">${locked ? '••• views · locked' : `${b.views} views · ${b.lastVisit}`}</div>
+      </div>`;
+  }).join('');
+
+  const referrersHTML = stats.referrers.map(r => {
+    const pct = Math.floor((r.views / stats.totalViews) * 100);
+    return `
+      <div class="brand-ref-row">
+        <div class="brand-ref-name">${escapeHtml(r.source)}</div>
+        <div class="brand-ref-bar-wrap"><div class="brand-ref-bar" style="width:${pct}%"></div></div>
+        <div class="brand-ref-count">${r.views}</div>
+      </div>`;
+  }).join('');
+
+  const geoHTML = stats.geos.slice(0, isPremium ? 8 : 4).map(g => {
+    const pct = Math.floor((g.views / stats.totalViews) * 100);
+    return `<div class="brand-geo-row"><span>${escapeHtml(g.country)}</span><span>${g.views} · ${pct}%</span></div>`;
+  }).join('');
+
+  const upgradeHTML = !isPremium ? `
+    <div class="brand-upgrade">
+      <div class="brand-upgrade-icon">💎</div>
+      <div class="brand-upgrade-copy">
+        <div class="brand-upgrade-title">Unlock the full picture</div>
+        <div class="brand-upgrade-sub">See every brand watching your profile, 90-day analytics, referral deep-dive, and a monthly "who to reach out to" list.</div>
+      </div>
+      <button class="brand-upgrade-btn" onclick="openStripeModal('${nodeId}')">Go Premium →</button>
+    </div>` : `
+    <div class="brand-premium-active">
+      <span class="brand-premium-badge">💎 Premium active</span>
+      <span style="color:var(--text-muted);font-size:0.85rem;margin-left:auto">Renews in ${Math.ceil((SubStore.get(nodeId).expiresAt - Date.now())/86400000)} days</span>
+      <button class="admin-btn admin-btn-delete" style="margin-left:0.5rem" onclick="if(confirm('Cancel Premium subscription?')){SubStore.cancel('${nodeId}');closeBrandDashboard();openBrandDashboard('${nodeId}')}">Cancel</button>
+    </div>`;
+
+  body.innerHTML = `
+    <div class="brand-header">
+      <div>
+        <h2 style="margin:0">${escapeHtml(node.name)}</h2>
+        <p style="margin:2px 0 0;color:var(--text-muted);font-size:0.9rem">Brand View Dashboard · last 30 days</p>
+      </div>
+      ${!isPremium ? '<span class="brand-plan-badge free">Free tier</span>' : '<span class="brand-plan-badge premium">💎 Premium</span>'}
+    </div>
+
+    <div class="brand-kpis">
+      <div class="brand-kpi">
+        <div class="brand-kpi-label">Profile views (30d)</div>
+        <div class="brand-kpi-value">${stats.totalViews.toLocaleString()}</div>
+        <div class="brand-kpi-trend">${trendPct}</div>
+      </div>
+      <div class="brand-kpi">
+        <div class="brand-kpi-label">Unique visitors</div>
+        <div class="brand-kpi-value">${stats.uniqueVisitors.toLocaleString()}</div>
+      </div>
+      <div class="brand-kpi">
+        <div class="brand-kpi-label">Followers</div>
+        <div class="brand-kpi-value">${stats.followers.toLocaleString()}</div>
+      </div>
+      <div class="brand-kpi">
+        <div class="brand-kpi-label">Endorsements</div>
+        <div class="brand-kpi-value">${stats.endorsements}</div>
+      </div>
+    </div>
+
+    <div class="brand-section">
+      <div class="brand-section-head">
+        <h3>Views over the last 30 days</h3>
+      </div>
+      <div class="brand-chart">${chartHTML}</div>
+      <div class="brand-chart-labels">
+        <span>30d ago</span><span>15d</span><span>Today</span>
+      </div>
+    </div>
+
+    ${upgradeHTML}
+
+    <div class="brand-grid">
+      <div class="brand-section">
+        <div class="brand-section-head"><h3>Brands watching you</h3>${!isPremium ? '<span class="brand-locked-count">Showing 3 of ' + stats.brands.length + '</span>' : ''}</div>
+        <div class="brand-watchers-list">${brandsListHTML}</div>
+      </div>
+      <div class="brand-section">
+        <div class="brand-section-head"><h3>Traffic sources</h3></div>
+        <div class="brand-refs">${referrersHTML}</div>
+      </div>
+    </div>
+
+    <div class="brand-section">
+      <div class="brand-section-head"><h3>Where your visitors are</h3></div>
+      <div class="brand-geo">${geoHTML}</div>
+    </div>
+
+    <p class="brand-footnote">Analytics are simulated for demo. Real metrics come online once ASDB integrates with your claimed profile.</p>
+  `;
+  modal.style.display = 'flex';
+}
+window.openBrandDashboard = openBrandDashboard;
+
+function closeBrandDashboard() {
+  const m = document.getElementById('brand-modal');
+  if (m) m.style.display = 'none';
+}
+window.closeBrandDashboard = closeBrandDashboard;
+
+function _ensureBrandModal() {
+  let m = document.getElementById('brand-modal');
+  if (m) return m;
+  m = document.createElement('div');
+  m.id = 'brand-modal';
+  m.className = 'flag-modal-overlay';
+  m.style.display = 'none';
+  m.innerHTML = `
+    <div class="brand-dashboard-box">
+      <button class="flag-modal-close" onclick="closeBrandDashboard()" aria-label="Close">✕</button>
+      <div class="brand-dashboard-body"></div>
+    </div>
+  `;
+  m.addEventListener('click', (e) => { if (e.target === m) closeBrandDashboard(); });
+  document.body.appendChild(m);
+  return m;
+}
+
+// ── Mock Stripe checkout ──────────────────────────────────────
+const PLANS = {
+  basic: { name: 'Athlete', price: 9,  features: ['Full brand-watcher list', '90-day view history', 'Referral deep-dive'] },
+  pro:   { name: 'Pro',     price: 29, features: ['Everything in Athlete', '"Who to reach out to" list', 'Monthly PDF report', 'CSV export'] },
+  elite: { name: 'Elite',   price: 99, features: ['Everything in Pro', 'Priority claim verification', 'Sponsor-match intros', 'Dedicated account manager'] },
+};
+
+function openStripeModal(nodeId) {
+  closeBrandDashboard();
+  const modal = _ensureStripeModal();
+  const node = ASDB.nodes[nodeId];
+  modal.querySelector('.stripe-node-name').textContent = node ? node.name : '';
+  modal.dataset.nodeId = nodeId;
+  modal.style.display = 'flex';
+  // Reset to plan selection view
+  modal.querySelector('.stripe-step-plans').style.display = '';
+  modal.querySelector('.stripe-step-checkout').style.display = 'none';
+  modal.querySelector('.stripe-step-success').style.display = 'none';
+}
+window.openStripeModal = openStripeModal;
+
+function closeStripeModal() {
+  const m = document.getElementById('stripe-modal');
+  if (m) m.style.display = 'none';
+}
+window.closeStripeModal = closeStripeModal;
+
+function selectPlan(plan) {
+  const modal = document.getElementById('stripe-modal');
+  if (!modal) return;
+  modal.dataset.plan = plan;
+  const p = PLANS[plan];
+  modal.querySelector('.stripe-plan-name').textContent = p.name;
+  modal.querySelector('.stripe-plan-price').textContent = `$${p.price}`;
+  modal.querySelector('.stripe-step-plans').style.display = 'none';
+  modal.querySelector('.stripe-step-checkout').style.display = '';
+  modal.querySelector('.stripe-step-success').style.display = 'none';
+}
+window.selectPlan = selectPlan;
+
+function processPayment() {
+  const modal = document.getElementById('stripe-modal');
+  if (!modal) return;
+  const cardEl = modal.querySelector('#stripe-card-number');
+  const cvcEl = modal.querySelector('#stripe-cvc');
+  const expEl = modal.querySelector('#stripe-exp');
+  const emailEl = modal.querySelector('#stripe-email');
+
+  const card = (cardEl.value || '').replace(/\s/g,'');
+  const cvc = cvcEl.value || '';
+  const exp = expEl.value || '';
+  const email = emailEl.value || '';
+
+  if (card.length < 15) return showToast('Please enter a valid card number.');
+  if (cvc.length < 3) return showToast('Please enter a valid CVC.');
+  if (!/^\d{2}\/\d{2}$/.test(exp)) return showToast('Expiration must be MM/YY.');
+  if (!email.includes('@')) return showToast('Please enter a valid email.');
+
+  // Simulate processing
+  const btn = modal.querySelector('.stripe-pay-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="stripe-spinner"></span> Processing…';
+
+  setTimeout(() => {
+    const nodeId = modal.dataset.nodeId;
+    const plan = modal.dataset.plan;
+    SubStore.subscribe(nodeId, plan);
+    modal.querySelector('.stripe-step-checkout').style.display = 'none';
+    modal.querySelector('.stripe-step-success').style.display = '';
+    btn.disabled = false;
+    btn.innerHTML = 'Complete Payment';
+  }, 1400);
+}
+window.processPayment = processPayment;
+
+function finishCheckout() {
+  const modal = document.getElementById('stripe-modal');
+  const nodeId = modal.dataset.nodeId;
+  closeStripeModal();
+  showToast('💎 Premium activated — dashboard unlocked.');
+  setTimeout(() => openBrandDashboard(nodeId), 300);
+}
+window.finishCheckout = finishCheckout;
+
+function _ensureStripeModal() {
+  let m = document.getElementById('stripe-modal');
+  if (m) return m;
+  m = document.createElement('div');
+  m.id = 'stripe-modal';
+  m.className = 'flag-modal-overlay';
+  m.style.display = 'none';
+
+  const planCards = Object.entries(PLANS).map(([key, p], idx) => `
+    <div class="stripe-plan-card ${idx === 1 ? 'featured' : ''}" onclick="selectPlan('${key}')">
+      ${idx === 1 ? '<div class="stripe-plan-tag">Most popular</div>' : ''}
+      <div class="stripe-plan-title">${p.name}</div>
+      <div class="stripe-plan-cost">$${p.price}<span>/month</span></div>
+      <ul class="stripe-plan-features">
+        ${p.features.map(f => `<li>✓ ${f}</li>`).join('')}
+      </ul>
+      <button class="stripe-plan-cta">Select ${p.name}</button>
+    </div>
+  `).join('');
+
+  m.innerHTML = `
+    <div class="stripe-modal-box">
+      <button class="flag-modal-close" onclick="closeStripeModal()" aria-label="Close">✕</button>
+
+      <div class="stripe-step-plans">
+        <div class="stripe-header">
+          <div class="stripe-brand"><span class="stripe-logo">◈</span> ASDB Premium</div>
+          <div class="stripe-secure">🔒 Secure checkout</div>
+        </div>
+        <h2 style="margin:0 0 0.25rem">Upgrade <span class="stripe-node-name"></span></h2>
+        <p style="margin:0 0 1.25rem;color:var(--text-muted);font-size:0.9rem">Choose a plan. Cancel any time.</p>
+        <div class="stripe-plans-grid">${planCards}</div>
+        <p class="stripe-legal">Demo checkout — test card 4242 4242 4242 4242 works. No real charge occurs.</p>
+      </div>
+
+      <div class="stripe-step-checkout" style="display:none">
+        <div class="stripe-header">
+          <div class="stripe-brand"><span class="stripe-logo">◈</span> ASDB Premium</div>
+          <div class="stripe-secure">🔒 Secure checkout</div>
+        </div>
+        <div class="stripe-selected-plan">
+          <div>
+            <div class="stripe-plan-name" style="font-weight:700;font-size:1.15rem"></div>
+            <div style="color:var(--text-muted);font-size:0.85rem">Monthly subscription · cancel anytime</div>
+          </div>
+          <div class="stripe-plan-price" style="font-size:1.75rem;font-weight:700"></div>
+        </div>
+        <div class="stripe-form">
+          <label>Email</label>
+          <input id="stripe-email" type="email" placeholder="you@example.com" />
+          <label>Card number</label>
+          <input id="stripe-card-number" type="text" placeholder="4242 4242 4242 4242" maxlength="19" oninput="_formatCard(this)" />
+          <div class="stripe-row2">
+            <div>
+              <label>Expiration</label>
+              <input id="stripe-exp" type="text" placeholder="MM/YY" maxlength="5" oninput="_formatExp(this)" />
+            </div>
+            <div>
+              <label>CVC</label>
+              <input id="stripe-cvc" type="text" placeholder="123" maxlength="4" />
+            </div>
+          </div>
+        </div>
+        <button class="stripe-pay-btn" onclick="processPayment()">Complete Payment</button>
+        <p class="stripe-legal">Demo checkout — test card 4242 4242 4242 4242 works. No real charge occurs. Powered by Stripe (simulated).</p>
+      </div>
+
+      <div class="stripe-step-success" style="display:none">
+        <div class="stripe-success-icon">✓</div>
+        <h2 style="margin:0 0 0.5rem">Welcome to Premium</h2>
+        <p style="color:var(--text-muted);margin:0 0 1.5rem">Your dashboard is unlocked. Every brand watching your profile is now visible.</p>
+        <button class="stripe-pay-btn" onclick="finishCheckout()">Open my dashboard</button>
+      </div>
+    </div>
+  `;
+  m.addEventListener('click', (e) => { if (e.target === m) closeStripeModal(); });
+  document.body.appendChild(m);
+  return m;
+}
+
+window._formatCard = function(el) {
+  const digits = el.value.replace(/\D/g,'').slice(0, 16);
+  el.value = digits.replace(/(.{4})/g, '$1 ').trim();
+};
+window._formatExp = function(el) {
+  let d = el.value.replace(/\D/g,'').slice(0, 4);
+  if (d.length >= 3) d = d.slice(0,2) + '/' + d.slice(2);
+  el.value = d;
+};
+
+// ── Inject "Brand Dashboard" button on claimed profiles ────────
+function injectBrandDashboardButton(nodeId) {
+  const actions = document.querySelector('.v2-hero-actions');
+  if (!actions) return;
+  if (actions.querySelector('.v2-brand-btn')) return;
+  // Only show if profile is claimed
+  const node = ASDB.nodes[nodeId];
+  if (!node) return;
+  const claim = ClaimStore.getForNode(nodeId);
+  const isClaimed = node.claimed === true || (claim && claim.status === 'approved');
+  if (!isClaimed) return;
+  const btn = document.createElement('button');
+  btn.className = 'v2-action-btn ghost v2-brand-btn';
+  btn.title = 'View brand analytics for this profile';
+  const isPremium = SubStore.isPremium(nodeId);
+  btn.innerHTML = (isPremium ? '💎 ' : '📊 ') + 'Dashboard';
+  btn.onclick = () => openBrandDashboard(nodeId);
+  actions.appendChild(btn);
+}
+window.injectBrandDashboardButton = injectBrandDashboardButton;
+
+// Extend the profile-view mutation observer we set up in Phase 2
+(function() {
+  if (typeof MutationObserver === 'undefined') return;
+  const target = document.getElementById('profile-view');
+  if (!target) return;
+  const obs = new MutationObserver(() => {
+    const currentId = (window.location.hash.match(/^#profile\/(.+)$/) || [])[1];
+    if (currentId) {
+      clearTimeout(window._brandHook);
+      window._brandHook = setTimeout(() => injectBrandDashboardButton(currentId), 60);
+    }
+  });
+  obs.observe(target, { childList: true, subtree: true });
+})();
