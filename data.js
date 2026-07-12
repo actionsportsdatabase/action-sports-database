@@ -29637,16 +29637,51 @@ ASDB.nodes = {
     type: "athlete",
     name: "Shawnie Whitaker",
     sport: ['adaptive-surf'],
-    hometown: "Florida",
+    hometown: "New Smyrna Beach, FL",
     nationality: "American",
-    bio: "Adaptive surfer representing Florida and the USA at the ISA World Adaptive Surfing Championship. Survived a major car accident on December 16, 1999 as a teenager — was in a coma for 278 days and woke up missing his left leg. Doctors gave him a 10% chance to live and said he would never surf again. Got back on his board with a special waterproof prosthetic leg and now competes at the world level. Views his loss as a gain — December 16, 1999 was the best day of his life. Close friend of ASDB co-founders Adam Wright, Jennifer Waxman, and Jaime Giroux.",
+    bio: "Adaptive surfer representing Florida and the USA at the ISA World Adaptive Surfing Championship. Survived a major car accident on December 16, 1999 as a teenager — was in a coma for 278 days and woke up missing his left leg. Doctors gave him a 10% chance to live and said he would never surf again. Got back on his board with a special waterproof prosthetic leg and now competes at the world level. Views his loss as a gain — December 16, 1999 was the best day of his life. Known within the NSB surf community as the \"Kevin Bacon of action sports\" — seemingly connected to everyone across surfing, skating, adaptive sports, and the broader Florida scene. Close friend of ASDB co-founders Adam Wright, Jennifer Waxman, and Jaime Giroux.",
     discipline: "Adaptive Surf",
+    tags: ['NSB', 'ISA', 'adaptive', 'connector', 'kevin-bacon'],
     social: {instagram: "shawniewhitaker"},
     sources: ["Fox 5 Atlanta — Having one leg is no challenge for surfer who inspires others (Sept 2015)"],
     connections: [
-      {id: 'adam-wright', rel: 'Close Friend'},
-      {id: 'jennifer-waxman', rel: 'Close Friend'},
-      {id: 'jaime-giroux', rel: 'Close Friend'},
+      // Core Seed2Source / ASDB circle
+      {id: 'adam-wright', rel: 'Close friend & co-collaborator', type: 'friend'},
+      {id: 'jennifer-waxman', rel: 'Close friend', type: 'friend'},
+      {id: 'jaime-giroux', rel: 'Close friend', type: 'friend'},
+      // NSB surf family
+      {id: 'tom-wright', rel: 'NSB surf mentor — Wright family friend', type: 'mentor'},
+      {id: 'buddy-wright', rel: 'NSB local surf community', type: 'friend'},
+      {id: 'charlie-baldwin', rel: 'CB Surfboards — shaped adaptive-friendly boards', type: 'colleague'},
+      {id: 'lindsay-baldwin', rel: 'NSB community family friend', type: 'friend'},
+      {id: 'marcie-baldwin', rel: 'NSB community family friend', type: 'friend'},
+      // Smyrna Surfari Club
+      {id: 'smyrna-surfari-club', rel: 'Sponsor member & adaptive-surf ambassador', type: 'sponsored'},
+      {id: 'gordon-smith-nsb', rel: 'Surfari Club patron', type: 'friend'},
+      {id: 'jim-smith-nsb', rel: 'Surfari Club patron', type: 'friend'},
+      // NSB pro scene
+      {id: 'evan-geiselman', rel: 'NSB pro scene — mutual respect & shared lineup', type: 'colleague'},
+      {id: 'eric-geiselman', rel: 'NSB pro scene — shared lineup', type: 'colleague'},
+      {id: 'geiselman-family', rel: 'NSB Geiselman family friend', type: 'friend'},
+      {id: 'shea-lopez', rel: 'NSB pro scene — competed & trained alongside', type: 'colleague'},
+      {id: 'aaron-cormican', rel: 'NSB pro scene — Gorkin surf community', type: 'colleague'},
+      {id: 'noa-mizuno', rel: 'NSB / Hawaiian scene bridge', type: 'colleague'},
+      // Local NSB pillars
+      {id: 'mike-martin-proam', rel: 'Competed in Mike Martin Pro/Am', type: 'competed'},
+      {id: 'nsb-pro-am', rel: 'Adaptive division ambassador at NSB Pro/Am', type: 'competed'},
+      {id: 'stone-edge-skatepark', rel: 'Local skatepark supporter', type: 'friend'},
+      // Broader Florida surf
+      {id: 'cj-hobgood', rel: 'Florida pro-surf peer — mutual friend network', type: 'colleague'},
+      {id: 'lisa-andersen', rel: 'Florida surf legend — shared coastline & events', type: 'colleague'},
+      {id: 'greg-loehr', rel: 'Cocoa Beach shaper community', type: 'colleague'},
+      // Adaptive surf world & organizations
+      {id: 'isa', rel: 'ISA World Adaptive Championship competitor — Team USA', type: 'competed'},
+      // Family & founders touched by shared history
+      {id: 'bud-wright', rel: 'Wright family friend', type: 'family'},
+      {id: 'ehren-tresher', rel: 'NSB local surf community', type: 'friend'},
+      {id: 'devon-tresher', rel: 'NSB local surf community', type: 'friend'},
+      // Seed2Source affiliation (indirect through Adam/Jennifer)
+      {id: 'seed2source', rel: 'Ambassador of close-friend company — adaptive & community outreach', type: 'sponsored'},
     ],
   },
 
