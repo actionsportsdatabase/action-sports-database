@@ -5933,7 +5933,8 @@ window.injectBrandDashboardButton = injectBrandDashboardButton;
   sidebar.className = 'asdb-sidebar';
   sidebar.id = 'asdb-sidebar';
   sidebar.innerHTML = html;
-  document.body.insertBefore(sidebar, document.body.firstChild);
+  // Sidebar is a body child (positioned fixed), keep it OUTSIDE #asdb-root
+  document.body.appendChild(sidebar);
 
   // Active state — sync to current hash
   function syncActive() {
