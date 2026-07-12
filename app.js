@@ -1156,11 +1156,57 @@ function renderProfile(id) {
   const lineageTab     = renderLineageTab(node);
   const sidebar        = renderSidebar(node);
 
+  // Build per-node source list. Wikipedia is our baseline source — auto-generated for every profile.
+  // If the node has an explicit sources[] array, prepend those; otherwise use only the auto-list.
+  const wikiTitle = (node.name || '').replace(/\s+/g, '_');
+  const wikiURL = node.external && (node.external.wikipedia || node.external.wiki)
+    ? (node.external.wikipedia || node.external.wiki)
+    : `https://en.wikipedia.org/wiki/${encodeURIComponent(wikiTitle)}`;
+
+  const explicitSources = Array.isArray(node.sources) ? node.sources : [];
+  const autoSources = [
+    { url: wikiURL, title: `Wikipedia — ${node.name}`, type: 'CC BY-SA 4.0', note: 'baseline reference' },
+  ];
+  // Add athlete-specific auto-sources by sport
+  const sportKey = Array.isArray(node.sport) ? node.sport[0] : node.sport;
+  if (node.type === 'athlete' || node.type === 'person') {
+    if (sportKey === 'surf') autoSources.push({ url: `https://www.worldsurfleague.com/athletes?searchTerm=${encodeURIComponent(node.name || '')}`, title: 'World Surf League athlete search', type: 'governing body' });
+    if (sportKey === 'skate') autoSources.push({ url: `https://www.thrashermagazine.com/search-results/?q=${encodeURIComponent(node.name || '')}`, title: 'Thrasher Magazine search', type: 'trade publication' });
+    if (sportKey === 'snow') autoSources.push({ url: `https://www.espn.com/action/xgames/athletes`, title: 'X Games athlete roster', type: 'event archive' });
+    if (sportKey === 'moto' || sportKey === 'mx') autoSources.push({ url: `https://racerxonline.com/rider/search?q=${encodeURIComponent(node.name || '')}`, title: 'Racer X Online rider search', type: 'trade publication' });
+    if (sportKey === 'bmx') autoSources.push({ url: `https://www.usabmx.com/site/riderprofiles/search?name=${encodeURIComponent(node.name || '')}`, title: 'USA BMX rider profile search', type: 'governing body' });
+  }
+
+  const allSources = [...explicitSources, ...autoSources];
+  const sourceListHTML = `<ul class="profile-source-list">${allSources.map(s => {
+    if (typeof s === 'string') return `<li>${linkifyText(s, node.id)}</li>`;
+    if (s && s.url) {
+      let li = `<a href="${s.url}" target="_blank" rel="noopener">${s.title || s.url}</a>`;
+      if (s.type) li += ` — <em style="color:var(--text-muted)">${s.type}</em>`;
+      if (s.note) li += ` <span style="font-size:0.75rem;color:var(--text-muted)">(${s.note})</span>`;
+      if (s.accessed) li += ` <span style="font-size:0.75rem;color:var(--text-muted)">(accessed ${s.accessed})</span>`;
+      return `<li>${li}</li>`;
+    }
+    return `<li>${s && s.title || ''}</li>`;
+  }).join('')}</ul>
+  <p style="font-size:0.72rem;color:var(--text-muted);margin:0.35rem 0 0 0;font-style:italic">Wikipedia content used under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener" style="color:var(--accent)">CC BY-SA 4.0</a>. Article existence not guaranteed — broken links indicate the subject does not yet have a Wikipedia article.</p>`;
+
   const legalFooter = `
     <div class="profile-legal">
-      <strong>Data sources:</strong> WSL, ISA, X Games, Wikipedia, Thrasher Magazine, Surfing Magazine, Transworld Skateboarding, ESPN, Eastern Surf Magazine, public contest records, and other publicly available sources.
-      Data aggregated from public sources. To update, correct, or remove this profile, click "Claim this profile" above.
-      ${node.claimed ? '' : 'Profile has not been verified or claimed by the subject.'}
+      <div class="profile-legal-header"><strong>Sources &amp; Citations</strong></div>
+      ${sourceListHTML}
+      ${node.photoCredit ? `<div style="margin-top:0.6rem;padding-top:0.6rem;border-top:1px solid var(--border);font-size:0.8rem"><strong>Photo credit:</strong> ${node.photoCredit}${node.photoLicense ? ` — <span style="color:var(--text-muted)">${node.photoLicense}</span>` : ''}</div>` : ''}
+      <div class="profile-legal-actions">
+        <a href="#" onclick="reportProfileError('${node.id}');return false;" class="profile-legal-link">🚩 Report an error</a>
+        <a href="#" onclick="requestProfileRemoval('${node.id}');return false;" class="profile-legal-link">✖︎ Request removal</a>
+        <a href="#legal/dmca" onclick="navigateLegal('dmca');return false;" class="profile-legal-link">© DMCA takedown</a>
+        <a href="#legal/publicity" onclick="navigateLegal('publicity');return false;" class="profile-legal-link">Right of publicity</a>
+      </div>
+      <div class="profile-legal-notice">
+        Data aggregated from public sources under editorial fair use for reference and educational purposes.
+        ${node.claimed ? 'This profile is claimed and verified by the subject or their representative.' : 'Profile has not been claimed by the subject.'}
+        Any subject may request correction or removal at any time.
+      </div>
     </div>
   `;
 
@@ -1996,6 +2042,46 @@ function renderMediaTab(node) {
   let html = '';
   const id = node.id;
 
+  // Photo credit + license notice (for photographers / documentarians)
+  if (node.photoCredit || node.photoLicense) {
+    html += `
+      <div class="profile-section photo-credit-section">
+        <h3>Photo Credits &amp; License</h3>
+        ${node.photoCredit ? `<p><strong>Credit line:</strong> ${node.photoCredit}</p>` : ''}
+        ${node.photoLicense ? `<p><strong>License:</strong> ${node.photoLicense}</p>` : ''}
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem">Any republication of this photographer's work must include the credit line above.</p>
+      </div>
+    `;
+  }
+
+  // Documented by: if any photographer / documentarian has this node in their connections,
+  // show them as a "documented by" credit
+  const documentedBy = Object.values(ASDB.nodes).filter(n => {
+    if (!n) return false;
+    const role = (n.role || '').toLowerCase();
+    const isDocumentarian = /photograph|documentar|filmmak|historian|journalist/.test(role);
+    if (!isDocumentarian) return false;
+    return Array.isArray(n.connections) && n.connections.includes(id);
+  });
+  if (documentedBy.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Documented By <span class="loc-roster-count">${documentedBy.length}</span></h3>
+        <div class="loc-roster-grid">
+          ${documentedBy.map(n => `
+            <a class="loc-roster-card" href="#profile/${n.id}" onclick="navigateTo('${n.id}');return false;">
+              <div class="loc-roster-avatar">${initials(n.name)}</div>
+              <div class="loc-roster-body">
+                <div class="loc-roster-name">📷 ${n.name}</div>
+                <div class="loc-roster-meta">${n.role || 'Documentarian'}</div>
+              </div>
+            </a>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
   if (node.publications && node.publications.length) {
     html += `
       <div class="profile-section">
@@ -2386,6 +2472,89 @@ function updateThemeIcon(theme) {
 
 // ── CLAIM PROFILE MODAL ──────────────────────────────────────
 let _claimTargetId = null;
+
+// ── ERROR REPORTS & REMOVAL REQUESTS ─────────────────────────────
+function reportProfileError(id) {
+  const node = ASDB.nodes[id];
+  const url = ASDB_BASE_URL + '#profile/' + id;
+  const subject = encodeURIComponent(`Correction: ${node ? node.name : id}`);
+  const body = encodeURIComponent(
+    `Profile: ${node ? node.name : id}\n` +
+    `URL: ${url}\n\n` +
+    `What is incorrect:\n\n\n` +
+    `Correct information (if known):\n\n\n` +
+    `Source or citation supporting the correction:\n\n\n` +
+    `Your relationship to the subject (optional):\n\n`
+  );
+  const ghURL = `https://github.com/actionsportsdatabase/action-sports-database/issues/new?labels=correction&title=${subject}&body=${body}`;
+  const mailURL = `mailto:corrections@actionsportsdatabase.com?subject=${subject}&body=${body}`;
+  showCorrectionModal(node, ghURL, mailURL);
+}
+window.reportProfileError = reportProfileError;
+
+function requestProfileRemoval(id) {
+  const node = ASDB.nodes[id];
+  const url = ASDB_BASE_URL + '#profile/' + id;
+  const subject = encodeURIComponent(`Removal Request: ${node ? node.name : id}`);
+  const body = encodeURIComponent(
+    `Profile: ${node ? node.name : id}\n` +
+    `URL: ${url}\n\n` +
+    `I am requesting removal of this profile.\n\n` +
+    `Reason (optional):\n\n\n` +
+    `Verification of identity (any of: profile screenshot with hand-written note, government ID last 4 + name, verified social handle):\n\n\n` +
+    `Contact email:\n\n`
+  );
+  const ghURL = `https://github.com/actionsportsdatabase/action-sports-database/issues/new?labels=removal&title=${subject}&body=${body}`;
+  const mailURL = `mailto:privacy@actionsportsdatabase.com?subject=${subject}&body=${body}`;
+  showRemovalModal(node, ghURL, mailURL);
+}
+window.requestProfileRemoval = requestProfileRemoval;
+
+function showCorrectionModal(node, ghURL, mailURL) {
+  const existing = document.getElementById('asdb-legal-modal');
+  if (existing) existing.remove();
+  const overlay = document.createElement('div');
+  overlay.id = 'asdb-legal-modal';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:99990;background:rgba(0,0,0,0.75);display:flex;align-items:center;justify-content:center;padding:1rem;';
+  overlay.innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;max-width:520px;width:100%;padding:1.5rem;font-family:Satoshi,system-ui,sans-serif">
+      <h3 style="font-family:'Clash Display',sans-serif;margin:0 0 0.5rem 0">Report an Error</h3>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin:0 0 1rem 0">Profile: <strong style="color:var(--text)">${node ? node.name : ''}</strong></p>
+      <p style="font-size:0.85rem;line-height:1.5;margin:0 0 1rem 0">Choose how to send your correction. We respond within 2 business days and remove disputed content pending review — we don't defend, we investigate.</p>
+      <div style="display:flex;flex-direction:column;gap:0.5rem">
+        <a href="${ghURL}" target="_blank" rel="noopener" class="profile-action-btn" style="justify-content:center;text-align:center;text-decoration:none">Open GitHub Issue (public)</a>
+        <a href="${mailURL}" class="profile-action-btn" style="justify-content:center;text-align:center;text-decoration:none">Email corrections@ (private)</a>
+        <button class="profile-action-btn" style="justify-content:center" onclick="document.getElementById('asdb-legal-modal').remove()">Cancel</button>
+      </div>
+      <p style="font-size:0.75rem;color:var(--text-muted);margin:1rem 0 0 0">Full editorial &amp; corrections policy: <a href="#legal/editorial" onclick="navigateLegal('editorial');document.getElementById('asdb-legal-modal').remove();return false;" style="color:var(--accent)">Editorial Standards</a></p>
+    </div>
+  `;
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+}
+
+function showRemovalModal(node, ghURL, mailURL) {
+  const existing = document.getElementById('asdb-legal-modal');
+  if (existing) existing.remove();
+  const overlay = document.createElement('div');
+  overlay.id = 'asdb-legal-modal';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:99990;background:rgba(0,0,0,0.75);display:flex;align-items:center;justify-content:center;padding:1rem;';
+  overlay.innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;max-width:520px;width:100%;padding:1.5rem;font-family:Satoshi,system-ui,sans-serif">
+      <h3 style="font-family:'Clash Display',sans-serif;margin:0 0 0.5rem 0">Request Profile Removal</h3>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin:0 0 1rem 0">Profile: <strong style="color:var(--text)">${node ? node.name : ''}</strong></p>
+      <p style="font-size:0.85rem;line-height:1.5;margin:0 0 1rem 0">If this profile is about you or someone you legally represent, you may request removal at any time, for any reason, at no cost. We process removal requests within 5 business days after basic identity verification.</p>
+      <div style="display:flex;flex-direction:column;gap:0.5rem">
+        <a href="${mailURL}" class="profile-action-btn" style="justify-content:center;text-align:center;text-decoration:none;background:#c8300a;color:#fff;border-color:#c8300a">Email privacy@ (recommended — private)</a>
+        <a href="${ghURL}" target="_blank" rel="noopener" class="profile-action-btn" style="justify-content:center;text-align:center;text-decoration:none">Open GitHub Issue (public)</a>
+        <button class="profile-action-btn" style="justify-content:center" onclick="document.getElementById('asdb-legal-modal').remove()">Cancel</button>
+      </div>
+      <p style="font-size:0.75rem;color:var(--text-muted);margin:1rem 0 0 0">Full policy: <a href="#legal/publicity" onclick="navigateLegal('publicity');document.getElementById('asdb-legal-modal').remove();return false;" style="color:var(--accent)">Right of Publicity &amp; Removal</a></p>
+    </div>
+  `;
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+}
 
 function handleClaim(id) {
   _claimTargetId = id;
@@ -2875,10 +3044,18 @@ function showHome() {
 
 // ── LEGAL PAGE ──────────────────────────────────────────────
 const LEGAL_TABS = [
-  { id: 'overview',   label: 'Overview' },
-  { id: 'sources',    label: 'Sources' },
-  { id: 'copyright',  label: 'Copyright' },
-  { id: 'claim',      label: 'Claim Your Profile' },
+  { id: 'overview',    label: 'Overview' },
+  { id: 'sources',     label: 'Sources & Citations' },
+  { id: 'copyright',   label: 'Copyright / IP' },
+  { id: 'dmca',        label: 'DMCA Takedown' },
+  { id: 'photos',      label: 'Photo Attribution' },
+  { id: 'publicity',   label: 'Right of Publicity' },
+  { id: 'editorial',   label: 'Editorial Standards' },
+  { id: 'privacy',     label: 'Privacy Policy' },
+  { id: 'terms',       label: 'Terms of Use' },
+  { id: 'minors',      label: 'Minor Athletes' },
+  { id: 'claim',       label: 'Claim Your Profile' },
+  { id: 'correction',  label: 'Report an Error' },
 ];
 
 function renderLegalContent(tab) {
@@ -2971,6 +3148,293 @@ function renderLegalContent(tab) {
         </div>
         <h3>Contact</h3>
         <p>To claim, correct, or remove a profile: use the <strong>"Claim this profile"</strong> button on any profile page, or reach out directly through the Action Sports Database organization on GitHub.</p>
+      </div>
+    `;
+
+    case 'dmca': return `
+      <div class="legal-section">
+        <h2>DMCA Takedown Policy</h2>
+        <p>Action Sports Database respects the intellectual property rights of others and complies with the Digital Millennium Copyright Act ("DMCA"), 17 U.S.C. § 512. If you believe any material on our platform infringes your copyright, you may submit a takedown notice using the process below.</p>
+
+        <h3>Designated DMCA Agent</h3>
+        <div class="legal-policy-box">
+          <div class="policy-label">Send DMCA notices to:</div>
+          <p><strong>Action Sports Database — DMCA Agent</strong><br>
+          Email: <a href="mailto:dmca@actionsportsdatabase.com">dmca@actionsportsdatabase.com</a><br>
+          GitHub Issues: <a href="https://github.com/actionsportsdatabase/action-sports-database/issues/new?labels=dmca&template=dmca.md" target="_blank" rel="noopener">Open a DMCA takedown issue</a></p>
+        </div>
+
+        <h3>Required Contents of a Notice</h3>
+        <p>To be valid under the DMCA (17 U.S.C. § 512(c)(3)), your notice must include ALL of the following:</p>
+        <ol>
+          <li>A physical or electronic signature of the copyright owner (or authorized agent).</li>
+          <li>Identification of the copyrighted work claimed to have been infringed.</li>
+          <li>The exact URL(s) on ASDB where the material appears (e.g., <code>actionsportsdatabase.com/#profile/[id]</code>).</li>
+          <li>Your name, address, phone number, and email.</li>
+          <li>A statement, under penalty of perjury, that you have a good-faith belief the disputed use is not authorized by the copyright owner, its agent, or the law.</li>
+          <li>A statement that the information in the notice is accurate, and that you are the copyright owner or authorized to act on their behalf.</li>
+        </ol>
+
+        <h3>Our Response Timeline</h3>
+        <ul>
+          <li><strong>Acknowledgment:</strong> Within 2 business days of receipt.</li>
+          <li><strong>Action:</strong> If valid, disputed content is removed or disabled within 5 business days.</li>
+          <li><strong>Counter-notice:</strong> The party who posted the content will be notified and may submit a DMCA counter-notice under 17 U.S.C. § 512(g).</li>
+        </ul>
+
+        <h3>Repeat Infringers</h3>
+        <p>ASDB will terminate accounts of users who are repeat copyright infringers, consistent with the DMCA safe harbor provisions.</p>
+
+        <h3>Bad Faith Notices</h3>
+        <p>Under 17 U.S.C. § 512(f), any person who knowingly materially misrepresents that material is infringing may be liable for damages, including costs and attorneys' fees.</p>
+
+        <div class="legal-disclaimer">This DMCA process is our formal safe-harbor procedure. Please do not use it to report non-copyright issues (factual errors, minor athletes, right-of-publicity concerns) — those have their own dedicated processes (see Report an Error, Minor Athletes, Right of Publicity tabs).</div>
+      </div>
+    `;
+
+    case 'photos': return `
+      <div class="legal-section">
+        <h2>Photo Attribution &amp; Licensing</h2>
+        <p>ASDB does not host or reproduce copyrighted photographs without a license or explicit contributor grant. Where photographers have contributed their archives, we display work under their stated license and always with attribution.</p>
+
+        <h3>Attribution Requirements</h3>
+        <div class="legal-policy-box">
+          <div class="policy-label">Every photograph must credit the photographer</div>
+          <p>All photographs displayed on ASDB carry a visible credit line in the format: <strong>Photo © [Photographer Name]</strong>. Republication, download, or redistribution of any contributor photograph must preserve the original credit. Removing or altering credit is a violation of the contributor's terms and of applicable copyright law.</p>
+        </div>
+
+        <h3>Contributor Photographers</h3>
+        <p>The following photographers and archivists have contributed work to ASDB under attribution-required licensing. Their contributions preserve action-sports history and must always carry the credit line above.</p>
+        <ul>
+          <li><a href="#profile/patrick-altes" onclick="navigateTo('patrick-altes');return false;">J. Patrick Altes</a> — Daytona Beach / New Smyrna Beach 1980s East Coast surf archive. <em>Photo © J. Patrick Altes.</em> Open source with attribution required.</li>
+        </ul>
+        <p style="font-size:0.85rem;color:var(--text-muted)">Are you a photographer with an East Coast, surf, skate, BMX, moto, or snow archive you'd like preserved? Contact us to become a credited contributor.</p>
+
+        <h3>Sources We Reference But Do Not Reproduce</h3>
+        <ul>
+          <li>Magazine covers &amp; editorial photos from Surfer, Surfing, Thrasher, Transworld, ESM — referenced with citation; not reproduced in full.</li>
+          <li>Athlete social media images — linked; not downloaded or rehosted.</li>
+          <li>Broadcast stills (X Games, WSL) — linked to source; not rehosted.</li>
+        </ul>
+
+        <h3>Reporting an Unlicensed Photo</h3>
+        <p>If you are a photographer and believe any image on ASDB is used without your permission, use the <a href="#legal/dmca" onclick="navigateLegal('dmca');return false;">DMCA Takedown</a> process. We remove disputed images within 5 business days pending review.</p>
+      </div>
+    `;
+
+    case 'publicity': return `
+      <div class="legal-section">
+        <h2>Right of Publicity &amp; Athlete Likeness</h2>
+        <p>Action Sports Database documents public figures in action sports for reference, educational, and historical purposes. This work is protected by the First Amendment and long-standing precedent covering biographical databases (see <em>Zacchini v. Scripps-Howard</em>, <em>C.B.C. Distribution v. MLB Advanced Media</em>, and <em>Gionfriddo v. MLB</em>).</p>
+
+        <h3>What Right of Publicity Protects</h3>
+        <p>Right of publicity is a state-law right that protects individuals from unauthorized commercial exploitation of their name, image, or likeness ("NIL"). It generally does <strong>not</strong> prohibit:</p>
+        <ul>
+          <li>Reporting factual biographical information (birth date, hometown, competition results)</li>
+          <li>Documenting careers, achievements, and historical records</li>
+          <li>Editorial commentary on public performances and public statements</li>
+          <li>Non-commercial or newsworthy reference use of a person's name</li>
+        </ul>
+
+        <h3>Our Policy</h3>
+        <div class="legal-policy-box">
+          <div class="policy-label">No commercial exploitation of athlete NIL</div>
+          <p>ASDB does not sell athlete-branded merchandise, does not license athlete NIL to third parties, does not use athlete names or likenesses in advertising, and does not run paid advertising on athlete profile pages without their explicit written consent.</p>
+        </div>
+
+        <div class="legal-policy-box">
+          <div class="policy-label">Editorial &amp; historical use</div>
+          <p>All profiles are editorial biographical entries. Facts are sourced from public record. Photos are used only under license or attribution grant. Any athlete who wishes to control or remove their profile may do so via the <a href="#legal/claim" onclick="navigateLegal('claim');return false;">Claim Your Profile</a> process.</p>
+        </div>
+
+        <h3>Removal Requests</h3>
+        <p>Any subject of a profile may request removal for any reason, at any time, at no cost, by contacting <a href="mailto:privacy@actionsportsdatabase.com">privacy@actionsportsdatabase.com</a> or using the "Request Removal" button on any profile. We process removal requests within 5 business days.</p>
+
+        <div class="legal-disclaimer">This platform is a good-faith editorial reference. If you believe your right of publicity has been violated, contact us before pursuing other channels — we will remove or correct in good faith without requiring formal legal process.</div>
+      </div>
+    `;
+
+    case 'editorial': return `
+      <div class="legal-section">
+        <h2>Editorial Standards &amp; Corrections Policy</h2>
+        <p>ASDB is a reference platform. Our editorial standards exist to keep the database accurate, respectful, and legally defensible.</p>
+
+        <h3>Sourcing Standards</h3>
+        <ul>
+          <li><strong>Wikipedia baseline rule.</strong> If a fact is documented on an entity's Wikipedia page, it is considered public-record and eligible for inclusion in ASDB, subject to Wikipedia's CC BY-SA 4.0 attribution requirements (see below).</li>
+          <li><strong>Two-source rule for controversial claims.</strong> Any negative, disputed, or non-routine claim about a living person requires at least two independent sources, cited inline on the profile.</li>
+          <li><strong>No unverified cameos or associations.</strong> We do not fabricate athlete cameos in films, videos, or games. If we cannot verify a claim, we omit it rather than pad our data.</li>
+          <li><strong>Public sources only.</strong> We do not use private or leaked material, court-sealed records, or non-public personal data.</li>
+          <li><strong>Living subjects: opinion vs. fact.</strong> Editorial descriptions of living subjects avoid opinion statements presented as fact. Facts are sourced; commentary is clearly framed as commentary.</li>
+        </ul>
+
+        <h3>Wikipedia (CC BY-SA 4.0) Attribution</h3>
+        <div class="legal-policy-box">
+          <div class="policy-label">Wikipedia text is used under Creative Commons Attribution-ShareAlike 4.0</div>
+          <p>Where ASDB draws factual content or paraphrase from Wikipedia, we (1) link to the source Wikipedia article on the profile, (2) credit Wikipedia contributors in the source list, and (3) release ASDB paraphrases of Wikipedia-derived content under the same CC BY-SA 4.0 license.</p>
+          <p>Full license text: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">creativecommons.org/licenses/by-sa/4.0</a>. Wikipedia terms: <a href="https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use" target="_blank" rel="noopener">Wikimedia Terms of Use</a>.</p>
+        </div>
+
+        <h3>Defamation Guardrails</h3>
+        <ul>
+          <li>We do not publish accusations of criminal conduct, drug use, or personal misconduct unless drawn directly from public court records, verified journalism, or the subject's own public statements.</li>
+          <li>Any negative claim about a living person is cited to a primary source with a live URL.</li>
+          <li>Subjects can dispute any statement via the <a href="#legal/correction" onclick="navigateLegal('correction');return false;">Report an Error</a> flow; disputed statements are removed pending review, not defended.</li>
+        </ul>
+
+        <h3>Corrections</h3>
+        <p>We correct errors quickly and visibly. Every profile page includes a "Report an Error" button. Reported issues are triaged within 2 business days. Substantive factual changes are logged in the profile's edit history.</p>
+
+        <h3>Editorial Independence</h3>
+        <p>Sponsors, advertisers, brand partners, or claimed-profile subjects do not have editorial control over factual content. Sponsored content, when it exists, will be clearly labeled as such.</p>
+      </div>
+    `;
+
+    case 'privacy': return `
+      <div class="legal-section">
+        <h2>Privacy Policy</h2>
+        <p class="legal-sub">Effective July 2026</p>
+
+        <h3>What We Collect</h3>
+        <ul>
+          <li><strong>Public data about public figures.</strong> Athlete names, careers, and achievements from public sources. We do not collect private personal data about individuals.</li>
+          <li><strong>Account data (when accounts are enabled).</strong> If you create an account, we store your email address, display name, and (for claimed profiles) verification documents. Verification documents are used solely to verify identity and are deleted after verification unless required for legal purposes.</li>
+          <li><strong>Basic analytics.</strong> Anonymized page views and search terms to improve the platform. We do not sell analytics data.</li>
+        </ul>
+
+        <h3>What We Do Not Do</h3>
+        <ul>
+          <li>We do not sell user data.</li>
+          <li>We do not run third-party advertising trackers.</li>
+          <li>We do not use user data to train AI models.</li>
+          <li>We do not share verification documents with third parties.</li>
+        </ul>
+
+        <h3>Your Rights</h3>
+        <ul>
+          <li><strong>Access:</strong> Request a copy of any personal data we hold about you.</li>
+          <li><strong>Correction:</strong> Correct any inaccurate information.</li>
+          <li><strong>Deletion:</strong> Delete your account and associated data at any time.</li>
+          <li><strong>Profile removal:</strong> If a public-figure profile is about you, you may request removal even if you do not have an account.</li>
+        </ul>
+        <p>Contact: <a href="mailto:privacy@actionsportsdatabase.com">privacy@actionsportsdatabase.com</a></p>
+
+        <h3>Minor Athletes</h3>
+        <p>See the <a href="#legal/minors" onclick="navigateLegal('minors');return false;">Minor Athletes</a> tab for our policy on athletes under 18.</p>
+
+        <h3>Cookies</h3>
+        <p>ASDB uses only essential cookies for site functionality. We do not use tracking cookies or third-party ad cookies.</p>
+
+        <h3>Jurisdiction</h3>
+        <p>ASDB is operated from Florida, United States. Users outside the U.S. acknowledge that their data may be processed in the U.S. We honor GDPR data-subject rights and CCPA rights on request.</p>
+      </div>
+    `;
+
+    case 'terms': return `
+      <div class="legal-section">
+        <h2>Terms of Use</h2>
+        <p class="legal-sub">Effective July 2026</p>
+
+        <h3>Acceptance</h3>
+        <p>By accessing ASDB, you agree to these Terms of Use. If you do not agree, do not use the platform.</p>
+
+        <h3>Permitted Use</h3>
+        <ul>
+          <li>Personal, non-commercial reference and educational use.</li>
+          <li>Sharing links to profile pages, with attribution to Action Sports Database.</li>
+          <li>Embedding profile widgets (per our embed code) on personal or editorial websites.</li>
+        </ul>
+
+        <h3>Prohibited Use</h3>
+        <ul>
+          <li>Automated scraping, harvesting, or bulk downloading of the database without written permission.</li>
+          <li>Rehosting or republishing the database or substantial portions of it.</li>
+          <li>Using ASDB data to train commercial AI models without a license.</li>
+          <li>Attempting to identify, contact, or harass any subject of a profile in ways that would violate applicable law.</li>
+          <li>Submitting false claim, correction, or DMCA notices.</li>
+        </ul>
+
+        <h3>Content Ownership</h3>
+        <ul>
+          <li>Original ASDB editorial content, database structure, and code are © Action Sports Database.</li>
+          <li>Contributor photographs remain the property of the photographer under their stated license.</li>
+          <li>Facts (birth dates, results, hometowns) are not copyrightable and are public record.</li>
+        </ul>
+
+        <h3>Disclaimer of Warranties</h3>
+        <p>ASDB is provided "as is" without warranties of any kind. We do not guarantee the accuracy of any specific data point, though we correct errors promptly when reported.</p>
+
+        <h3>Limitation of Liability</h3>
+        <p>To the maximum extent permitted by law, Action Sports Database and its operators are not liable for indirect, incidental, or consequential damages arising from use of the platform.</p>
+
+        <h3>Governing Law</h3>
+        <p>These Terms are governed by the laws of the State of Florida, United States, without regard to conflict-of-law provisions.</p>
+
+        <h3>Changes</h3>
+        <p>We may update these Terms. Material changes will be noted on this page with a revised effective date.</p>
+      </div>
+    `;
+
+    case 'minors': return `
+      <div class="legal-section">
+        <h2>Minor Athlete Policy</h2>
+        <p>ASDB documents the history of action sports, which includes athletes who first competed as minors. We hold minors to a stricter privacy standard than adult public figures.</p>
+
+        <h3>What We Publish for Minors</h3>
+        <div class="legal-policy-box">
+          <div class="policy-label">Limited data set only</div>
+          <p>For any athlete identified as under 18, we publish only: first name and last initial (or nickname), sport, general region (state/country), and public competition results. We do not publish home addresses, school affiliations, private contact information, or photos without guardian consent.</p>
+        </div>
+
+        <h3>Guardian Verification</h3>
+        <p>Any minor athlete profile is flagged as <strong>"Minor Athlete — Profile Pending Guardian Verification."</strong> A parent or guardian can:</p>
+        <ul>
+          <li>Verify and approve the profile.</li>
+          <li>Request removal (honored immediately, no reason required).</li>
+          <li>Add supplemental information (results, sponsors, etc.).</li>
+          <li>Restrict the profile to competition results only.</li>
+        </ul>
+
+        <h3>COPPA Compliance</h3>
+        <p>ASDB does not knowingly collect personal information from users under 13. Account creation requires users to be 13 or older. If we learn that a user under 13 has created an account, we delete it immediately.</p>
+
+        <h3>Guardian Requests</h3>
+        <p>Guardian removal or restriction requests: <a href="mailto:minors@actionsportsdatabase.com">minors@actionsportsdatabase.com</a>. We process within 2 business days.</p>
+      </div>
+    `;
+
+    case 'correction': return `
+      <div class="legal-section">
+        <h2>Report an Error</h2>
+        <p>Found something wrong? We want to know. ASDB is a good-faith reference platform and we correct errors quickly and without argument.</p>
+
+        <h3>How to Report</h3>
+        <ul>
+          <li><strong>On any profile:</strong> Click the "Report an Error" button.</li>
+          <li><strong>By email:</strong> <a href="mailto:corrections@actionsportsdatabase.com">corrections@actionsportsdatabase.com</a></li>
+          <li><strong>By GitHub:</strong> <a href="https://github.com/actionsportsdatabase/action-sports-database/issues/new?labels=correction&template=correction.md" target="_blank" rel="noopener">Open a correction issue</a></li>
+        </ul>
+
+        <h3>What to Include</h3>
+        <ol>
+          <li>The profile URL (e.g., <code>actionsportsdatabase.com/#profile/[id]</code>).</li>
+          <li>The specific text or data point that is incorrect.</li>
+          <li>The correct information, if known.</li>
+          <li>A source or citation supporting the correction (if available).</li>
+          <li>Your relationship to the subject (self, family, teammate, sponsor, historian, etc.), if you're comfortable sharing.</li>
+        </ol>
+
+        <h3>Response Timeline</h3>
+        <ul>
+          <li><strong>Acknowledgment:</strong> Within 2 business days.</li>
+          <li><strong>Review:</strong> Within 5 business days.</li>
+          <li><strong>Correction:</strong> Applied immediately if the source is verifiable, or the disputed content is temporarily hidden pending review.</li>
+        </ul>
+
+        <h3>Disputed Content Policy</h3>
+        <p>When a subject or their representative disputes any statement, our default is to remove the disputed content pending verification — not to defend the original claim. We prefer erring on the side of removal over erring on the side of preserving a possibly-wrong claim about a real person.</p>
+
+        <div class="legal-disclaimer">Copyright issues: use the <a href="#legal/dmca" onclick="navigateLegal('dmca');return false;">DMCA</a> tab. Removal requests: use the <a href="#legal/claim" onclick="navigateLegal('claim');return false;">Claim Your Profile</a> tab. Right of publicity concerns: use the <a href="#legal/publicity" onclick="navigateLegal('publicity');return false;">Right of Publicity</a> tab.</div>
       </div>
     `;
 
