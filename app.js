@@ -5458,18 +5458,23 @@ function generateBrandAnalytics(nodeId) {
   const referrers = referrerPool.map(r => ({ source: r, views: Math.floor(rng() * totalViews * 0.25) }))
     .sort((a,b) => b.views - a.views).slice(0, 6);
 
-  // Brand watchers (simulated) — only visible if premium
-  const brandPool = ['Rip Curl', 'Vans', 'Red Bull', 'Monster Energy', 'Quiksilver', 'Volcom', 'Billabong', 'Hurley', 'O\'Neill', 'GoPro', 'Element', 'Independent Trucks', 'Thrasher', 'ESPN', 'Complex', 'Barstool Sports'];
+  // Brand watchers (simulated) — full pool always "exists"; premium unlocks the tail
+  const brandPool = ["Rip Curl", "Vans", "Red Bull", "Monster Energy", "Quiksilver", "Volcom", "Billabong", "Hurley", "O'Neill", "GoPro", "Element", "Independent Trucks", "Thrasher", "ESPN", "Complex", "Barstool Sports", "Nike SB", "Adidas Skateboarding", "Patagonia", "REI", "Salomon", "Burton", "Fox Racing", "Oakley", "Von Zipper"];
+  // Every athlete has 10-16 "watchers" in the underlying (simulated) data
   const brands = brandPool
-    .filter(() => rng() > 0.55)
     .map(b => ({
       name: b,
       views: Math.floor(rng() * 40 + 5),
       lastVisit: `${Math.floor(rng() * 14 + 1)}d ago`,
       hot: rng() > 0.7,
+      _rank: rng(),
     }))
-    .sort((a,b) => b.views - a.views)
-    .slice(0, isPremium ? 12 : 3);
+    .sort((a,b) => b._rank - a._rank)
+    .slice(0, 10 + Math.floor(rng() * 7));  // 10..16 total
+  brands.sort((a,b) => b.views - a.views);
+  const brandsTotal = brands.length;
+  const brandsVisible = isPremium ? brands : brands.slice(0, 3);
+  const brandsLocked = isPremium ? [] : brands.slice(3);
 
   // Geographic breakdown
   const geoPool = ['United States', 'Australia', 'Brazil', 'Japan', 'France', 'Portugal', 'Indonesia', 'South Africa', 'Peru', 'Spain', 'UK', 'Costa Rica'];
@@ -5484,6 +5489,9 @@ function generateBrandAnalytics(nodeId) {
     trend: days.slice(-7).reduce((s,d) => s+d.views, 0) - days.slice(-14,-7).reduce((s,d) => s+d.views, 0),
     referrers,
     brands,
+    brandsVisible,
+    brandsLocked,
+    brandsTotal,
     geos,
     followers: Math.floor(baseDaily * 8 + rng() * 200),
     endorsements: Math.floor(achievCount * (1 + rng()) + rng() * 15),
@@ -5512,15 +5520,18 @@ function openBrandDashboard(nodeId) {
     ? `<span class="brand-trend up">↑ +${stats.trend} vs previous 7d</span>`
     : `<span class="brand-trend down">↓ ${stats.trend} vs previous 7d</span>`;
 
-  // Brand watchers (locked for non-premium)
-  const brandsListHTML = stats.brands.map((b, i) => {
-    const locked = !isPremium && i >= 3;
-    return `
-      <div class="brand-watcher ${locked ? 'locked' : ''}">
-        <div class="brand-watcher-name">${b.hot ? '🔥 ' : ''}${locked ? '🔒 ' + '•'.repeat(6) : escapeHtml(b.name)}</div>
-        <div class="brand-watcher-meta">${locked ? '••• views · locked' : `${b.views} views · ${b.lastVisit}`}</div>
-      </div>`;
-  }).join('');
+  // Brand watchers list — visible first, then locked placeholders for non-premium
+  const visibleHTML = stats.brandsVisible.map(b => `
+      <div class="brand-watcher">
+        <div class="brand-watcher-name">${b.hot ? '🔥 ' : ''}${escapeHtml(b.name)}</div>
+        <div class="brand-watcher-meta">${b.views} views · ${b.lastVisit}</div>
+      </div>`).join('');
+  const lockedHTML = stats.brandsLocked.map(b => `
+      <div class="brand-watcher locked" onclick="openStripeModal('${nodeId}')">
+        <div class="brand-watcher-name">🔒 ${'•'.repeat(6 + Math.floor(b.views/10))}</div>
+        <div class="brand-watcher-meta">••• views · <span class="brand-unlock-link">Unlock</span></div>
+      </div>`).join('');
+  const brandsListHTML = visibleHTML + lockedHTML;
 
   const referrersHTML = stats.referrers.map(r => {
     const pct = Math.floor((r.views / stats.totalViews) * 100);
@@ -5595,7 +5606,7 @@ function openBrandDashboard(nodeId) {
 
     <div class="brand-grid">
       <div class="brand-section">
-        <div class="brand-section-head"><h3>Brands watching you</h3>${!isPremium ? '<span class="brand-locked-count">Showing 3 of ' + stats.brands.length + '</span>' : ''}</div>
+        <div class="brand-section-head"><h3>Brands watching you</h3>${!isPremium ? '<span class="brand-locked-count">Showing 3 of ' + stats.brandsTotal + '</span>' : '<span class="brand-locked-count">' + stats.brandsTotal + ' brands</span>'}</div>
         <div class="brand-watchers-list">${brandsListHTML}</div>
       </div>
       <div class="brand-section">
