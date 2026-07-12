@@ -5060,3 +5060,306 @@ window.adminImport = function() {
   };
   input.click();
 };
+
+
+// ═══════════════════════════════════════════════════════════════
+// PHASE 2 — CONNECTION GRAPH + SIX DEGREES OF SHAWNEE
+// ═══════════════════════════════════════════════════════════════
+
+// Classify a relationship string into a normalized type.
+// Precedence: explicit c.type wins, otherwise infer from c.rel text.
+const CONN_TYPES = ['family','mentor','coach','friend','colleague','competitor','sponsored','fan','filmed','photographed','media','sponsor','brand'];
+
+function classifyConnection(c) {
+  if (!c) return 'other';
+  if (typeof c === 'string') {
+    return _classifyRelText(c);
+  }
+  if (c.type && CONN_TYPES.includes(c.type)) return c.type;
+  return _classifyRelText(c.rel || '');
+}
+
+function _classifyRelText(rel) {
+  const r = (rel || '').toLowerCase();
+  if (/\b(father|mother|brother|sister|son|daughter|husband|wife|spouse|family|uncle|aunt|cousin|grand)\b/.test(r)) return 'family';
+  if (/\b(coach|coached|trained by|training)\b/.test(r)) return 'coach';
+  if (/\b(mentor|shaper|mentored|taught|shaped by|influenced)\b/.test(r)) return 'mentor';
+  if (/\b(sponsor|sponsored|brand deal|endorsement|team rider|team manager)\b/.test(r)) return 'sponsored';
+  if (/\b(rival|rivalry|competitor|competed|contest opponent)\b/.test(r)) return 'competitor';
+  if (/\b(friend|close friend|hang|childhood friend|godfather|godmother)\b/.test(r)) return 'friend';
+  if (/\b(filmed by|filmer|videographer|cinematographer)\b/.test(r)) return 'filmed';
+  if (/\b(photographed by|photographer|shot by)\b/.test(r)) return 'photographed';
+  if (/\b(journalist|written about|interviewed|editor|magazine)\b/.test(r)) return 'media';
+  if (/\b(band|music|scored|soundtrack)\b/.test(r)) return 'media';
+  if (/\b(founded|founder|co-founder|owner|ceo)\b/.test(r)) return 'colleague';
+  if (/\b(teammate|team|crew|colleague|collaborator|business partner|partner|worked with|worked together)\b/.test(r)) return 'colleague';
+  return 'other';
+}
+
+const CONN_TYPE_META = {
+  family:       { label: 'Family',       icon: '👨‍👩‍👧', color: '#e8500a' },
+  mentor:       { label: 'Mentor',       icon: '🌿', color: '#40e0a8' },
+  coach:        { label: 'Coach',        icon: '📣', color: '#7c8cff' },
+  friend:       { label: 'Friend',       icon: '🤝', color: '#ff9d5c' },
+  colleague:    { label: 'Colleague',    icon: '👥', color: '#ffc46b' },
+  competitor:   { label: 'Competitor',   icon: '⚔️', color: '#ff6b5c' },
+  sponsored:    { label: 'Sponsor',      icon: '💠', color: '#40c4e8' },
+  fan:          { label: 'Fan',          icon: '⭐', color: '#ffd166' },
+  filmed:       { label: 'Filmed by',    icon: '🎥', color: '#c8b6ff' },
+  photographed: { label: 'Photographed by', icon: '📸', color: '#f5a3c7' },
+  media:        { label: 'Media',        icon: '📰', color: '#a8dadc' },
+  other:        { label: 'Connection',   icon: '·',  color: '#b8ada0' },
+};
+
+// Build an undirected adjacency map: id -> Set(neighborId)
+// Also caches the reverse index (who links TO me).
+let _graphCache = null;
+function buildGraph() {
+  if (_graphCache) return _graphCache;
+  const adj = new Map();
+  const relMap = new Map(); // "a|b" -> best rel string (prefer explicit over inferred)
+  const addEdge = (a, b, rel, type) => {
+    if (!a || !b || a === b) return;
+    if (!adj.has(a)) adj.set(a, new Set());
+    if (!adj.has(b)) adj.set(b, new Set());
+    adj.get(a).add(b);
+    adj.get(b).add(a);
+    const key = a < b ? `${a}|${b}` : `${b}|${a}`;
+    if (!relMap.has(key)) relMap.set(key, { rel: rel || '', type: type || 'other', from: a });
+  };
+  const nodes = ASDB.nodes || {};
+  Object.entries(nodes).forEach(([id, node]) => {
+    if (!Array.isArray(node.connections)) return;
+    node.connections.forEach(c => {
+      if (!c) return;
+      let neighborId, rel, type;
+      if (typeof c === 'string') {
+        // Try to parse "<rel-verb> <name>" — best effort by matching name back to a node id
+        rel = c;
+        type = _classifyRelText(c);
+        // Attempt to find neighbor by scanning names
+        const lc = c.toLowerCase();
+        let match = null;
+        for (const [nid, nn] of Object.entries(nodes)) {
+          if (!nn.name) continue;
+          if (lc.includes(nn.name.toLowerCase())) { match = nid; break; }
+        }
+        neighborId = match;
+      } else if (typeof c === 'object' && c.id) {
+        neighborId = c.id;
+        rel = c.rel || '';
+        type = classifyConnection(c);
+      }
+      if (neighborId && nodes[neighborId]) {
+        addEdge(id, neighborId, rel, type);
+      }
+    });
+  });
+  _graphCache = { adj, relMap };
+  return _graphCache;
+}
+window.buildGraph = buildGraph;
+
+// BFS shortest path from startId to endId. Returns array of node ids or null.
+function findPath(startId, endId, maxDepth) {
+  if (!startId || !endId || startId === endId) return startId ? [startId] : null;
+  const { adj } = buildGraph();
+  if (!adj.has(startId) || !adj.has(endId)) return null;
+  const visited = new Set([startId]);
+  const parent = new Map();
+  const queue = [startId];
+  const cap = maxDepth || 8;
+  let depth = 0;
+  while (queue.length) {
+    const layerSize = queue.length;
+    depth++;
+    for (let i = 0; i < layerSize; i++) {
+      const cur = queue.shift();
+      const neighbors = adj.get(cur) || [];
+      for (const n of neighbors) {
+        if (visited.has(n)) continue;
+        visited.add(n);
+        parent.set(n, cur);
+        if (n === endId) {
+          // Reconstruct
+          const path = [endId];
+          let p = endId;
+          while (parent.has(p)) { p = parent.get(p); path.unshift(p); }
+          return path;
+        }
+        queue.push(n);
+      }
+    }
+    if (depth >= cap) break;
+  }
+  return null;
+}
+window.findPath = findPath;
+
+// Six Degrees UI
+function openSixDegrees(fromId) {
+  const startId = fromId;
+  const targetId = 'shawnee-whittaker';
+  if (!ASDB.nodes[targetId]) { showToast('Shawnee not in database.'); return; }
+  if (startId === targetId) { showToast("You're already Shawnee 🏄"); return; }
+
+  const path = findPath(startId, targetId, 8);
+  const modal = _ensureSixDegreesModal();
+  const body  = modal.querySelector('.sixdeg-body');
+  const startNode = ASDB.nodes[startId];
+  const targetNode = ASDB.nodes[targetId];
+
+  if (!path) {
+    body.innerHTML = `
+      <div class="sixdeg-nopath">
+        <div style="font-size:2.5rem;margin-bottom:0.5rem">🕳️</div>
+        <p><strong>${escapeHtml(startNode.name)}</strong> is not yet connected to ${escapeHtml(targetNode.name)} within 8 hops.</p>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-top:0.5rem">The action-sports world is smaller than this — add more connections to bridge the gap.</p>
+      </div>`;
+  } else {
+    const hops = path.length - 1;
+    const { relMap } = buildGraph();
+    let chainHTML = '';
+    for (let i = 0; i < path.length; i++) {
+      const node = ASDB.nodes[path[i]];
+      if (!node) continue;
+      const sports = Array.isArray(node.sport) ? node.sport : (node.sport ? [node.sport] : []);
+      const sport = sports[0];
+      const gradClass = sport ? `sport-${sport}` : (node.type === 'brand' ? 'type-brand' : (node.type === 'location' ? 'type-location' : ''));
+      const nodeHTML = `
+        <a class="sixdeg-node" href="#profile/${node.id}" onclick="closeSixDegrees()">
+          <div class="sixdeg-avatar ${gradClass}">${initials(node.name)}</div>
+          <div class="sixdeg-nodename">${escapeHtml(node.name)}</div>
+        </a>`;
+      chainHTML += nodeHTML;
+      if (i < path.length - 1) {
+        const a = path[i], b = path[i+1];
+        const key = a < b ? `${a}|${b}` : `${b}|${a}`;
+        const edge = relMap.get(key) || { rel: '', type: 'other' };
+        const meta = CONN_TYPE_META[edge.type] || CONN_TYPE_META.other;
+        const relLabel = edge.rel || meta.label;
+        chainHTML += `
+          <div class="sixdeg-edge">
+            <div class="sixdeg-arrow">→</div>
+            <div class="sixdeg-edge-label" style="border-color:${meta.color};color:${meta.color}">
+              <span class="sixdeg-edge-icon">${meta.icon}</span>
+              <span>${escapeHtml(relLabel.length > 60 ? relLabel.slice(0, 57) + '…' : relLabel)}</span>
+            </div>
+          </div>`;
+      }
+    }
+    body.innerHTML = `
+      <div class="sixdeg-summary">
+        <strong>${escapeHtml(startNode.name)}</strong> is <span class="sixdeg-hops">${hops} ${hops === 1 ? 'hop' : 'hops'}</span> from <strong>Shawnee</strong>
+        <span class="sixdeg-tag">Kevin Bacon of action sports</span>
+      </div>
+      <div class="sixdeg-chain">${chainHTML}</div>
+    `;
+  }
+  modal.style.display = 'flex';
+}
+window.openSixDegrees = openSixDegrees;
+
+function closeSixDegrees() {
+  const modal = document.getElementById('sixdeg-modal');
+  if (modal) modal.style.display = 'none';
+}
+window.closeSixDegrees = closeSixDegrees;
+
+function _ensureSixDegreesModal() {
+  let modal = document.getElementById('sixdeg-modal');
+  if (modal) return modal;
+  modal = document.createElement('div');
+  modal.id = 'sixdeg-modal';
+  modal.className = 'flag-modal-overlay';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.style.display = 'none';
+  modal.innerHTML = `
+    <div class="sixdeg-modal-box">
+      <button class="flag-modal-close" onclick="closeSixDegrees()" aria-label="Close">✕</button>
+      <div class="sixdeg-header">
+        <div class="sixdeg-icon">🕸️</div>
+        <div>
+          <h2 style="margin:0">Six Degrees of Shawnee</h2>
+          <p style="margin:2px 0 0;color:var(--text-muted);font-size:0.9rem">The Kevin Bacon of action sports</p>
+        </div>
+      </div>
+      <div class="sixdeg-body"></div>
+    </div>
+  `;
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeSixDegrees(); });
+  document.body.appendChild(modal);
+  return modal;
+}
+
+// Add Six Degrees button to profile hero — hook into buildV2Hero output post-render
+// We inject a button next to the existing action buttons via DOM once profile is rendered.
+function injectSixDegreesButton(nodeId) {
+  const actions = document.querySelector('.v2-hero-actions');
+  if (!actions) return;
+  if (actions.querySelector('.v2-sixdeg-btn')) return; // already injected
+  if (nodeId === 'shawnee-whittaker') return; // no self-degree
+  const btn = document.createElement('button');
+  btn.className = 'v2-action-btn ghost v2-sixdeg-btn';
+  btn.title = 'How is this profile connected to Shawnee, the Kevin Bacon of action sports?';
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><circle cx="6" cy="12" r="2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="6" r="2" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="12" r="2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="18" r="2" stroke="currentColor" stroke-width="2"/><path d="M7 11l4-4M13 6l4 4M17 13l-4 4M11 17l-4-4" stroke="currentColor" stroke-width="1.5"/></svg> 6° of Shawnee';
+  btn.onclick = () => openSixDegrees(nodeId);
+  actions.appendChild(btn);
+}
+window.injectSixDegreesButton = injectSixDegreesButton;
+
+// Hook: watch profile-view mutations to auto-inject button
+(function() {
+  if (typeof MutationObserver === 'undefined') return;
+  const target = document.getElementById('profile-view');
+  if (!target) return;
+  const obs = new MutationObserver(() => {
+    const currentId = (window.location.hash.match(/^#profile\/(.+)$/) || [])[1];
+    if (currentId) {
+      // Debounce
+      clearTimeout(window._sixdegHook);
+      window._sixdegHook = setTimeout(() => injectSixDegreesButton(currentId), 50);
+    }
+  });
+  obs.observe(target, { childList: true, subtree: true });
+})();
+
+// Enhance the profile Connections tab — group by type
+// We hook into the existing tab renderer's output after the fact
+function enhanceConnectionsTab() {
+  // Find the connections list container(s) on the current profile
+  const containers = document.querySelectorAll('#profile-view .connections-list, #profile-view [data-tab="connections"]');
+  if (!containers.length) return;
+  // Non-destructive: add a small type-filter toolbar above each container
+  containers.forEach(container => {
+    if (container.querySelector('.conn-typefilter')) return; // already enhanced
+    const cards = container.querySelectorAll('[data-conn-id], .conn-card, .connection-item');
+    if (!cards.length) return;
+    // Get types available
+    const typeSet = new Set();
+    cards.forEach(card => {
+      const t = card.dataset.connType || 'other';
+      typeSet.add(t);
+    });
+    if (typeSet.size <= 1) return;
+    const toolbar = document.createElement('div');
+    toolbar.className = 'conn-typefilter';
+    toolbar.innerHTML = `<button class="conn-tf active" data-t="all">All</button>` + Array.from(typeSet).map(t => {
+      const meta = CONN_TYPE_META[t] || CONN_TYPE_META.other;
+      return `<button class="conn-tf" data-t="${t}"><span>${meta.icon}</span> ${meta.label}</button>`;
+    }).join('');
+    container.parentNode.insertBefore(toolbar, container);
+    toolbar.addEventListener('click', (e) => {
+      const b = e.target.closest('.conn-tf'); if (!b) return;
+      toolbar.querySelectorAll('.conn-tf').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      const t = b.dataset.t;
+      cards.forEach(card => {
+        const ct = card.dataset.connType || 'other';
+        card.style.display = (t === 'all' || ct === t) ? '' : 'none';
+      });
+    });
+  });
+}
+window.enhanceConnectionsTab = enhanceConnectionsTab;
