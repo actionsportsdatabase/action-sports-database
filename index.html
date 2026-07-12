@@ -55,7 +55,7 @@
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="base.css" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="visual-v2.css?v=20260712c" />
+  <link rel="stylesheet" href="visual-v2.css?v=20260712d" />
 </head>
 <body>
 
@@ -259,6 +259,9 @@
     <!-- ── FEED VIEW ──────────────────────────────────────────── -->
     <section id="feed-view" aria-label="Legacy Feed" style="display:none"></section>
 
+    <!-- ── ADMIN DASHBOARD ─────────────────────────── -->
+    <section id="admin-view" aria-label="Admin Dashboard" style="display:none"></section>
+
   </div>
 </main>
 
@@ -276,6 +279,7 @@
           <a href="#legal/sources" onclick="navigateLegal('sources');return false;">Sources</a>
           <a href="#legal/copyright" onclick="navigateLegal('copyright');return false;">Copyright</a>
           <a href="#legal/claim" onclick="navigateLegal('claim');return false;">Claim Your Profile</a>
+          <a href="#admin" title="Admin dashboard">Admin</a>
         </span>
       </div>
     </div>
@@ -289,22 +293,62 @@
     <div class="claim-modal-icon">⚡</div>
     <h2 id="claim-modal-title">Claim This Profile</h2>
     <p class="claim-modal-sub">Claiming as: <strong id="claim-modal-name"></strong></p>
+
     <div class="claim-form">
-      <label for="claim-instagram">Instagram Handle</label>
-      <input id="claim-instagram" type="text" placeholder="@yourhandle" autocomplete="off" />
+      <div class="claim-row-2">
+        <div>
+          <label for="claim-fullname">Your Full Legal Name <span class="req">*</span></label>
+          <input id="claim-fullname" type="text" placeholder="First Last" autocomplete="off" />
+        </div>
+        <div>
+          <label for="claim-email">Contact Email <span class="req">*</span></label>
+          <input id="claim-email" type="email" placeholder="you@example.com" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="claim-row-2">
+        <div>
+          <label for="claim-relation">Relationship <span class="req">*</span></label>
+          <select id="claim-relation">
+            <option value="self">This is me</option>
+            <option value="guardian">Parent / Legal guardian</option>
+            <option value="management">Manager / Agent / Team</option>
+            <option value="family">Immediate family (deceased subject)</option>
+            <option value="brand">Brand representative</option>
+          </select>
+        </div>
+        <div>
+          <label for="claim-instagram">Instagram Handle</label>
+          <input id="claim-instagram" type="text" placeholder="@yourhandle" autocomplete="off" />
+        </div>
+      </div>
+
       <label for="claim-hometown">Hometown</label>
       <input id="claim-hometown" type="text" placeholder="City, State / Country" autocomplete="off" />
+
       <label for="claim-sponsors">Current Sponsors</label>
       <input id="claim-sponsors" type="text" placeholder="e.g., Rip Curl, Lost Surfboards" autocomplete="off" />
+
+      <label for="claim-evidence">Verification Evidence <span class="req">*</span></label>
+      <textarea id="claim-evidence" rows="3" placeholder="Links to your official site, verified social, press mentions, or a DM screenshot URL. The more, the faster we verify."></textarea>
+
+      <label for="claim-notes">Anything else? (optional)</label>
+      <textarea id="claim-notes" rows="2" placeholder="Corrections to your profile, missing achievements, etc."></textarea>
+
+      <label class="claim-check">
+        <input id="claim-agree" type="checkbox" />
+        <span>I confirm this claim is accurate and that I have the authority to represent this profile. False claims may result in permanent removal.</span>
+      </label>
     </div>
+
     <div class="claim-unlocks">
       <div class="claim-unlock-title">What this unlocks</div>
       <div class="claim-unlock-item">🏆 <span><strong>Your Results Timeline</strong> — All your contest history in one place</span></div>
       <div class="claim-unlock-item">🌿 <span><strong>Your Lineage Card</strong> — See how you connect to legends</span></div>
       <div class="claim-unlock-item">👁 <span><strong>Brand View Dashboard</strong> — See who's watching your profile</span></div>
     </div>
-    <button class="claim-submit-btn" onclick="submitClaim()">Claim My Profile</button>
-    <p class="claim-legal-note">By claiming, you confirm this is your real identity. Data aggregated from public sources.</p>
+    <button class="claim-submit-btn" onclick="submitClaim()">Submit Claim</button>
+    <p class="claim-legal-note">We typically verify within 48 hours. You'll get an email once approved.</p>
   </div>
 </div>
 
@@ -341,7 +385,7 @@
 
 <script src="firebase-config.js?v=20260712"></script>
 <script src="data.js?v=20260411"></script>
-<script src="app.js?v=20260712"></script>
+<script src="app.js?v=20260712d"></script>
 <script src="auth.js?v=20260712"></script>
 
 </div><!-- /#asdb-root -->
