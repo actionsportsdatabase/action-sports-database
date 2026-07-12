@@ -135,6 +135,7 @@ const searchDrop  = $('search-dropdown');
 const searchView  = $('search-view');
 const legalView   = $('legal-view');
 const feedView    = $('feed-view');
+const adminView   = $('admin-view');
 const breadcrumbBar   = $('breadcrumb-bar');
 const breadcrumbTrail = $('breadcrumb-trail');
 const btnBack     = $('btn-back');
@@ -1247,7 +1248,11 @@ function renderProfile(id) {
   updateSEO(node);
 
   const isDefunct = isDefunctNode(node);
-  const isClaimed = node.claimed === true;
+  // Check both static node.claimed AND live ClaimStore approval
+  const liveClaim = (typeof ClaimStore !== 'undefined') ? ClaimStore.getForNode(id) : null;
+  const isClaimed = node.claimed === true || (liveClaim && liveClaim.status === 'approved');
+  const claimPending = liveClaim && liveClaim.status === 'pending';
+  const ownerBadge = isClaimed ? '<span class="v2-owner-badge" title="Verified profile owner">Verified Owner</span>' : '';
   const sports    = node.sport || [];
 
   const avatarHTML = `<div class="profile-avatar" aria-hidden="true">${initials(node.name)}</div>`;
@@ -1264,12 +1269,25 @@ function renderProfile(id) {
     node.years      ? `<span class="tag">${node.years}</span>` : '',
   ].filter(Boolean).join('');
 
-  const claimBanner = !isClaimed ? `
+  const claimBanner = isClaimed
+    ? `
+    <div class="claim-banner" role="note" style="background:linear-gradient(135deg, rgba(64,224,168,0.12), rgba(0,184,148,0.08));border-color:rgba(64,224,168,0.35)">
+      <span class="claim-text">✓ <strong>Verified profile owner</strong>${liveClaim && liveClaim.fullname ? ` — managed by ${escapeHtml(liveClaim.fullname)}` : ''}. Content is edited and vetted by the athlete or their team.</span>
+    </div>
+  `
+    : claimPending
+    ? `
+    <div class="claim-banner" role="note" style="background:linear-gradient(135deg, rgba(255,193,7,0.10), rgba(255,150,0,0.06));border-color:rgba(255,193,7,0.30)">
+      <span class="claim-text">⏳ A claim is pending review for this profile (submitted ${_relTime(liveClaim.timestamp)}).</span>
+      <button class="claim-btn is-claimed" style="background:linear-gradient(135deg,#ffc107,#ff9500)!important">Pending Review</button>
+    </div>
+  `
+    : `
     <div class="claim-banner" role="note">
       <span class="claim-text">⚡ Is this you? Claim this profile to unlock your Results Timeline, Lineage Card, and Brand View Dashboard.</span>
       <button class="claim-btn" onclick="handleClaim('${id}')">Claim This Profile</button>
     </div>
-  ` : '';
+  `;
 
   const defunctNotice = isDefunct ? `
     <div class="defunct-notice" role="note">
@@ -2685,16 +2703,39 @@ function handleClaim(id) {
   const node = ASDB.nodes[id];
   if (!node) return;
 
+  // If already claimed, show status instead of the form
+  const existing = ClaimStore.getForNode(id);
+  if (existing && existing.status === 'approved') {
+    showToast(`✓ ${node.name} is already claimed and verified.`);
+    return;
+  }
+  if (existing && existing.status === 'pending') {
+    showToast(`Your claim for ${node.name} is pending review (submitted ${_relTime(existing.timestamp)}).`);
+    return;
+  }
+
   const modal = document.getElementById('claim-modal');
   const nameEl = document.getElementById('claim-modal-name');
   const hometownEl = document.getElementById('claim-hometown');
   const instaEl = document.getElementById('claim-instagram');
   const sponsorsEl = document.getElementById('claim-sponsors');
+  const fullnameEl = document.getElementById('claim-fullname');
+  const emailEl = document.getElementById('claim-email');
+  const relationEl = document.getElementById('claim-relation');
+  const evidenceEl = document.getElementById('claim-evidence');
+  const notesEl = document.getElementById('claim-notes');
+  const agreeEl = document.getElementById('claim-agree');
 
   if (nameEl) nameEl.textContent = node.name;
   if (hometownEl) hometownEl.value = node.birthplace || node.hometown || '';
   if (instaEl) instaEl.value = '';
-  if (sponsorsEl) sponsorsEl.value = '';
+  if (sponsorsEl) sponsorsEl.value = Array.isArray(node.sponsors) ? node.sponsors.join(', ') : '';
+  if (fullnameEl) fullnameEl.value = '';
+  if (emailEl) emailEl.value = '';
+  if (relationEl) relationEl.value = node.type === 'brand' ? 'brand' : 'self';
+  if (evidenceEl) evidenceEl.value = '';
+  if (notesEl) notesEl.value = '';
+  if (agreeEl) agreeEl.checked = false;
   if (modal) modal.style.display = 'flex';
 }
 window.handleClaim = handleClaim;
@@ -2708,16 +2749,146 @@ window.closeClaimModal = function() {
 window.submitClaim = function() {
   const id = _claimTargetId;
   if (!id) return;
-  const instagram = (document.getElementById('claim-instagram') || {}).value || '';
-  const hometown  = (document.getElementById('claim-hometown')  || {}).value || '';
-  const sponsors  = (document.getElementById('claim-sponsors')  || {}).value || '';
-  const claimData = { id, instagram, hometown, sponsors, timestamp: Date.now() };
-  try {
-    localStorage.setItem('asdb_claim_v1:' + id, JSON.stringify(claimData));
-  } catch(e) {}
+  const g = (el) => (document.getElementById(el) || {}).value || '';
+  const fullname  = g('claim-fullname').trim();
+  const email     = g('claim-email').trim();
+  const relation  = g('claim-relation');
+  const instagram = g('claim-instagram').trim();
+  const hometown  = g('claim-hometown').trim();
+  const sponsors  = g('claim-sponsors').trim();
+  const evidence  = g('claim-evidence').trim();
+  const notes     = g('claim-notes').trim();
+  const agree     = (document.getElementById('claim-agree') || {}).checked;
+
+  // Validation
+  if (!fullname) return showToast('Please enter your full name.');
+  if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return showToast('Please enter a valid email.');
+  if (!evidence) return showToast('Please add verification evidence (a link, handle, or press mention).');
+  if (!agree) return showToast('Please confirm the accuracy statement.');
+
+  const node = ASDB.nodes[id];
+  const claimData = {
+    id,
+    nodeId: id,
+    nodeName: node ? node.name : id,
+    nodeType: node ? node.type : 'unknown',
+    fullname, email, relation,
+    instagram, hometown, sponsors,
+    evidence, notes,
+    status: 'pending',
+    timestamp: Date.now(),
+    reviewedAt: null,
+    reviewedBy: null,
+  };
+  ClaimStore.save(claimData);
   closeClaimModal();
-  showToast("Claim submitted! We'll verify your identity within 48 hours.");
+  showToast(`✓ Claim submitted for ${claimData.nodeName}. Verification within 48 hours.`);
 };
+
+// Human-readable relative time ("2 hours ago")
+function _relTime(ts) {
+  const diff = Date.now() - ts;
+  const s = Math.floor(diff / 1000);
+  if (s < 60) return `${s}s ago`;
+  const m = Math.floor(s / 60);
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  const d = Math.floor(h / 24);
+  if (d < 30) return `${d}d ago`;
+  const mo = Math.floor(d / 30);
+  if (mo < 12) return `${mo}mo ago`;
+  return `${Math.floor(mo/12)}y ago`;
+}
+
+// ── CLAIM STORE (localStorage-backed) ────────────────────────
+const ClaimStore = {
+  KEY: 'asdb_claims_v2',
+  _cache: null,
+  _load() {
+    if (this._cache) return this._cache;
+    try {
+      const raw = localStorage.getItem(this.KEY);
+      this._cache = raw ? JSON.parse(raw) : {};
+    } catch(e) {
+      this._cache = {};
+    }
+    // Migrate legacy asdb_claim_v1:* keys
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith('asdb_claim_v1:')) {
+          const id = k.slice('asdb_claim_v1:'.length);
+          if (!this._cache[id]) {
+            try {
+              const legacy = JSON.parse(localStorage.getItem(k));
+              this._cache[id] = { ...legacy, id, nodeId: id, status: legacy.status || 'pending' };
+            } catch(e) {}
+          }
+        }
+      }
+    } catch(e) {}
+    return this._cache;
+  },
+  _persist() {
+    try { localStorage.setItem(this.KEY, JSON.stringify(this._cache)); } catch(e) {}
+  },
+  all() { return Object.values(this._load()); },
+  getForNode(nodeId) { return this._load()[nodeId] || null; },
+  save(claim) {
+    this._load();
+    this._cache[claim.id] = claim;
+    this._persist();
+  },
+  approve(nodeId) {
+    this._load();
+    if (this._cache[nodeId]) {
+      this._cache[nodeId].status = 'approved';
+      this._cache[nodeId].reviewedAt = Date.now();
+      this._cache[nodeId].reviewedBy = 'admin';
+      this._persist();
+    }
+  },
+  reject(nodeId, reason) {
+    this._load();
+    if (this._cache[nodeId]) {
+      this._cache[nodeId].status = 'rejected';
+      this._cache[nodeId].reviewedAt = Date.now();
+      this._cache[nodeId].reviewedBy = 'admin';
+      this._cache[nodeId].rejectReason = reason || '';
+      this._persist();
+    }
+  },
+  delete(nodeId) {
+    this._load();
+    delete this._cache[nodeId];
+    this._persist();
+  },
+  countBy(status) {
+    return this.all().filter(c => c.status === status).length;
+  },
+  seedDemoData() {
+    // For demo purposes, seed a couple of pending claims if empty
+    const all = this.all();
+    if (all.length > 0) return;
+    const demos = [
+      { nodeId: 'kelly-slater', fullname: 'Kelly Slater', email: 'kelly@ks-team.example', relation: 'management', evidence: 'Verified on https://kellyslater.com and Instagram @kellyslater', instagram: '@kellyslater', hometown: 'Cocoa Beach, FL', sponsors: 'Outerknown, Rip Curl (legacy), Purps' },
+      { nodeId: 'tony-hawk', fullname: 'Riley Hawk', email: 'riley@birdhouse.example', relation: 'family', evidence: 'Verified via Birdhouse Skateboards contact page', instagram: '@rileyhawk', hometown: 'San Diego, CA', sponsors: 'Birdhouse, Baker' },
+    ];
+    demos.forEach(d => {
+      if (!ASDB.nodes[d.nodeId]) return;
+      const node = ASDB.nodes[d.nodeId];
+      this._cache = this._load();
+      this._cache[d.nodeId] = {
+        id: d.nodeId, nodeId: d.nodeId, nodeName: node.name, nodeType: node.type,
+        ...d, notes: '', status: 'pending', timestamp: Date.now() - Math.floor(Math.random()*86400000*3),
+        reviewedAt: null, reviewedBy: null,
+      };
+    });
+    this._persist();
+  },
+};
+window.ClaimStore = ClaimStore;
 
 // Close claim modal on overlay click
 (function() {
@@ -3146,6 +3317,11 @@ function handleHashChange() {
     return;
   }
 
+  // Admin route
+  if (hash === '#admin' || hash.startsWith('#admin/')) {
+    if (typeof showAdmin === 'function') { showAdmin(hash.replace('#admin', '').replace(/^\//,'') || 'pending'); return; }
+  }
+
   showHome();
 }
 
@@ -3157,6 +3333,7 @@ function showHome() {
   searchView.style.display  = 'none';
   legalView.style.display   = 'none';
   feedView.style.display    = 'none';
+  if (adminView) adminView.style.display = 'none';
   feedView.classList.remove('feed-active');
   profileView.classList.remove('visible');
   breadcrumbBar.classList.remove('visible');
@@ -4644,3 +4821,242 @@ window.addEventListener('hashchange', function() {
     setTimeout(() => navigateMap(), 0);
   }
 })();
+
+
+// ═══════════════════════════════════════════════════════════════
+// ADMIN DASHBOARD  (client-side, localStorage-backed)
+// ═══════════════════════════════════════════════════════════════
+const RELATION_LABELS = {
+  self: "This is me",
+  guardian: "Parent / Guardian",
+  management: "Manager / Agent",
+  family: "Family",
+  brand: "Brand rep",
+};
+
+function showAdmin(tab) {
+  if (!adminView) return;
+  ClaimStore.seedDemoData(); // Only seeds if empty
+  homeView.style.display = 'none';
+  profileView.style.display = 'none';
+  filterView.style.display = 'none';
+  searchView.style.display = 'none';
+  legalView.style.display = 'none';
+  feedView.style.display = 'none';
+  adminView.style.display = '';
+  breadcrumbBar.classList.remove('visible');
+
+  const activeTab = tab || 'pending';
+  renderAdmin(activeTab);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.title = "Admin Dashboard — ASDB";
+}
+window.showAdmin = showAdmin;
+
+function renderAdmin(activeTab) {
+  const claims = ClaimStore.all();
+  const pending  = claims.filter(c => c.status === 'pending').sort((a,b) => b.timestamp - a.timestamp);
+  const approved = claims.filter(c => c.status === 'approved').sort((a,b) => (b.reviewedAt||0) - (a.reviewedAt||0));
+  const rejected = claims.filter(c => c.status === 'rejected').sort((a,b) => (b.reviewedAt||0) - (a.reviewedAt||0));
+
+  const buckets = { pending, approved, rejected };
+  const list = buckets[activeTab] || pending;
+
+  const bodyHTML = list.length === 0
+    ? `<div class="admin-empty">
+         <div style="font-size:2rem;margin-bottom:0.5rem">${activeTab === 'pending' ? '📭' : (activeTab === 'approved' ? '✅' : '🗑️')}</div>
+         <div>No ${activeTab} claims yet.</div>
+         ${activeTab === 'pending' ? '<div style="margin-top:0.5rem;font-size:0.85rem;">When users submit claims, they\'ll appear here for review.</div>' : ''}
+       </div>`
+    : list.map(renderClaimCard).join('');
+
+  adminView.innerHTML = `
+    <div class="admin-wrap">
+      <div class="admin-header">
+        <div>
+          <h1>Admin Dashboard</h1>
+          <div style="font-size:0.85rem;color:var(--text-muted);margin-top:2px;">Claim review · localStorage prototype</div>
+        </div>
+        <div class="admin-stats">
+          <div class="admin-stat"><strong>${pending.length}</strong>Pending</div>
+          <div class="admin-stat"><strong>${approved.length}</strong>Approved</div>
+          <div class="admin-stat"><strong>${rejected.length}</strong>Rejected</div>
+        </div>
+      </div>
+      <div class="admin-tabs">
+        <button class="admin-tab ${activeTab==='pending'?'active':''}"  onclick="renderAdmin('pending')">Pending (${pending.length})</button>
+        <button class="admin-tab ${activeTab==='approved'?'active':''}" onclick="renderAdmin('approved')">Approved (${approved.length})</button>
+        <button class="admin-tab ${activeTab==='rejected'?'active':''}" onclick="renderAdmin('rejected')">Rejected (${rejected.length})</button>
+        <div style="flex:1"></div>
+        <button class="admin-tab" onclick="adminExport()" title="Download all claims as JSON">⬇ Export</button>
+        <button class="admin-tab" onclick="adminImport()" title="Upload claims JSON">⬆ Import</button>
+      </div>
+      <div id="admin-list">${bodyHTML}</div>
+    </div>
+  `;
+}
+window.renderAdmin = renderAdmin;
+
+function renderClaimCard(claim) {
+  const nodeExists = !!ASDB.nodes[claim.nodeId];
+  const node = ASDB.nodes[claim.nodeId] || {};
+  const rel = RELATION_LABELS[claim.relation] || claim.relation || '—';
+  const submitted = _relTime(claim.timestamp);
+  const reviewed = claim.reviewedAt ? _relTime(claim.reviewedAt) : null;
+
+  const linkedName = nodeExists
+    ? `<a href="#profile/${escapeHtml(claim.nodeId)}" target="_blank" rel="noopener">${escapeHtml(claim.nodeName || claim.nodeId)}</a>`
+    : `${escapeHtml(claim.nodeName || claim.nodeId)} <span style="color:var(--text-muted);font-size:0.8rem">(not found)</span>`;
+
+  const fieldsHTML = [
+    ['Full Name', claim.fullname],
+    ['Email',     claim.email],
+    ['Relation',  rel],
+    ['Instagram', claim.instagram],
+    ['Hometown',  claim.hometown],
+    ['Sponsors',  claim.sponsors],
+  ].filter(([_,v]) => v && v.trim())
+   .map(([k,v]) => `<div class="claim-field"><div class="claim-field-label">${k}</div><div class="claim-field-value">${escapeHtml(v)}</div></div>`)
+   .join('');
+
+  const evidenceHTML = claim.evidence
+    ? `<div class="claim-field" style="grid-column:1/-1">
+         <div class="claim-field-label">Verification Evidence</div>
+         <div class="claim-field-value evidence">${_linkifyEvidence(claim.evidence)}</div>
+       </div>`
+    : '';
+
+  const notesHTML = claim.notes
+    ? `<div class="claim-field" style="grid-column:1/-1">
+         <div class="claim-field-label">Additional Notes</div>
+         <div class="claim-field-value">${escapeHtml(claim.notes)}</div>
+       </div>`
+    : '';
+
+  let actions = '';
+  if (claim.status === 'pending') {
+    actions = `
+      <div class="claim-actions">
+        <button class="admin-btn admin-btn-approve" onclick="adminApprove('${claim.nodeId}')">✓ Approve</button>
+        <button class="admin-btn admin-btn-reject"  onclick="adminReject('${claim.nodeId}')">✗ Reject</button>
+        ${nodeExists ? `<a class="admin-btn admin-btn-view" href="#profile/${claim.nodeId}" target="_blank" rel="noopener">View Profile ↗</a>` : ''}
+      </div>`;
+  } else {
+    const reviewedLabel = claim.status === 'approved' ? `Approved ${reviewed}` : `Rejected ${reviewed}${claim.rejectReason ? ` — ${escapeHtml(claim.rejectReason)}` : ''}`;
+    actions = `
+      <div class="claim-actions">
+        <div style="flex:1;color:var(--text-muted);font-size:0.85rem;padding:0.4rem 0;">${reviewedLabel}</div>
+        ${claim.status === 'rejected' ? `<button class="admin-btn admin-btn-approve" onclick="adminApprove('${claim.nodeId}')">↑ Approve instead</button>` : ''}
+        <button class="admin-btn admin-btn-delete" onclick="adminDelete('${claim.nodeId}')">Delete</button>
+      </div>`;
+  }
+
+  return `
+    <div class="claim-card">
+      <div class="claim-card-head">
+        <div>
+          <h3 class="claim-card-title">${linkedName}</h3>
+          <div class="claim-card-meta">${escapeHtml(claim.nodeType || 'unknown')} · submitted ${submitted}</div>
+        </div>
+        <span class="claim-status ${claim.status}">${claim.status}</span>
+      </div>
+      <div class="claim-fields">
+        ${fieldsHTML}
+        ${evidenceHTML}
+        ${notesHTML}
+      </div>
+      ${actions}
+    </div>
+  `;
+}
+
+function _linkifyEvidence(text) {
+  const escaped = escapeHtml(text);
+  return escaped.replace(/(https?:\/\/[^\s<]+)/g, (m) => `<a href="${m}" target="_blank" rel="noopener" style="color:var(--accent, #ff6b1a)">${m}</a>`);
+}
+
+// escapeHtml may already exist; add a safe fallback
+if (typeof window.escapeHtml !== 'function') {
+  window.escapeHtml = function(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  };
+}
+if (typeof escapeHtml !== 'function') { var escapeHtml = window.escapeHtml; }
+
+window.adminApprove = function(nodeId) {
+  const claim = ClaimStore.getForNode(nodeId);
+  if (!claim) return;
+  if (!confirm(`Approve claim from ${claim.fullname} for ${claim.nodeName}?\n\nThis will mark the profile as Verified Owner.`)) return;
+  ClaimStore.approve(nodeId);
+  showToast(`✓ Approved ${claim.nodeName}`);
+  renderAdmin(getActiveAdminTab());
+};
+
+window.adminReject = function(nodeId) {
+  const claim = ClaimStore.getForNode(nodeId);
+  if (!claim) return;
+  const reason = prompt(`Reject claim from ${claim.fullname} for ${claim.nodeName}?\n\nOptional reason (shown internally):`);
+  if (reason === null) return; // cancelled
+  ClaimStore.reject(nodeId, reason);
+  showToast(`Rejected claim for ${claim.nodeName}`);
+  renderAdmin(getActiveAdminTab());
+};
+
+window.adminDelete = function(nodeId) {
+  const claim = ClaimStore.getForNode(nodeId);
+  if (!claim) return;
+  if (!confirm(`Delete this claim record entirely?\n\n${claim.fullname} · ${claim.nodeName}\n\nThis cannot be undone.`)) return;
+  ClaimStore.delete(nodeId);
+  showToast('Claim deleted.');
+  renderAdmin(getActiveAdminTab());
+};
+
+function getActiveAdminTab() {
+  const active = document.querySelector('.admin-tab.active');
+  if (!active) return 'pending';
+  const t = active.textContent.toLowerCase();
+  if (t.startsWith('approved')) return 'approved';
+  if (t.startsWith('rejected')) return 'rejected';
+  return 'pending';
+}
+
+window.adminExport = function() {
+  const data = ClaimStore.all();
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `asdb-claims-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast(`⬇ Exported ${data.length} claims`);
+};
+
+window.adminImport = function() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'application/json';
+  input.onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const claims = JSON.parse(ev.target.result);
+        if (!Array.isArray(claims)) throw new Error('JSON must be an array');
+        claims.forEach(c => { if (c.nodeId) ClaimStore.save(c); });
+        showToast(`⬆ Imported ${claims.length} claims`);
+        renderAdmin(getActiveAdminTab());
+      } catch(err) {
+        showToast(`Import failed: ${err.message}`);
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+};
