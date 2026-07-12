@@ -137,6 +137,8 @@
           </svg>
           <span class="feed-nav-label">Feed</span>
         </button>
+        <!-- Auth slot (populated by auth.js — shows Sign in button OR user chip) -->
+        <div id="asdb-auth-slot" class="header-auth-slot"></div>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
           <svg id="icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M13.5 10.5A6 6 0 0 1 5.5 2.5a6 6 0 1 0 8 8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -326,8 +328,17 @@
   </div>
 </div>
 
+<!-- ── FIREBASE SDK (v10 compat build — loads globals) ────────── -->
+<!-- Loaded async; auth.js gracefully handles the case where Firebase is not yet ready -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+
+<script src="firebase-config.js?v=20260712"></script>
 <script src="data.js?v=20260411"></script>
-<script src="app.js?v=20260411"></script>
+<script src="app.js?v=20260712"></script>
+<script src="auth.js?v=20260712"></script>
 
 </div><!-- /#asdb-root -->
 </body>
