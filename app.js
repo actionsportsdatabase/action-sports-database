@@ -1690,11 +1690,186 @@ function renderOverviewTab(node) {
     `;
   }
 
+  // ── LOCATION ROSTER: everyone connected to this place ──
+  if (node.type === 'location' || node.type === 'place') {
+    html += renderLocationRoster(node);
+  }
+
+  // ── MEDIA ROSTER: playable characters / cast / cameos ──
+  if (node.type === 'media' || node.type === 'film' || node.type === 'publication') {
+    html += renderMediaRoster(node);
+  }
+
   if (!html) {
     html = `<p style="color:var(--text-muted);padding-top:var(--sp-4)">Overview information is being compiled. <a href="#" onclick="handleClaim('${node.id}');return false;" style="color:var(--accent)">Claim this profile</a> to add details.</p>`;
   }
 
   return html;
+}
+
+// ── LOCATION ROSTER: aggregate everyone tied to this place ──
+function renderLocationRoster(locNode) {
+  const locName = (locNode.name || '').toLowerCase();
+  const locId = locNode.id;
+  const nodes = Object.values(ASDB.nodes);
+
+  // Match if this location appears in birthplace, hometown, headquarters, foundedIn, basedIn, location, venue
+  const nameMatches = (val) => {
+    if (!val) return false;
+    const v = val.toLowerCase();
+    return v.includes(locName) || locName.includes(v);
+  };
+
+  const bornHere = [];
+  const basedHere = [];
+  const brandsHere = [];
+  const eventsHere = [];
+  const connectedHere = [];
+
+  for (const n of nodes) {
+    if (n.id === locId) continue;
+    let placed = false;
+
+    // Born / hometown
+    if (n.type === 'athlete' || n.type === 'person') {
+      if (nameMatches(n.birthplace) || nameMatches(n.hometown)) {
+        bornHere.push(n); placed = true;
+      } else if (nameMatches(n.basedIn) || nameMatches(n.residence) || nameMatches(n.location)) {
+        basedHere.push(n); placed = true;
+      }
+    }
+    // Brands / orgs
+    else if (n.type === 'brand' || n.type === 'org' || n.type === 'organization') {
+      if (nameMatches(n.headquarters) || nameMatches(n.foundedIn) || nameMatches(n.location)) {
+        brandsHere.push(n); placed = true;
+      }
+    }
+    // Events
+    else if (n.type === 'event') {
+      if (nameMatches(n.location) || nameMatches(n.venue)) {
+        eventsHere.push(n); placed = true;
+      }
+    }
+
+    // Connections graph: anyone who lists this place in their connections
+    if (!placed && Array.isArray(n.connections) && n.connections.includes(locId)) {
+      connectedHere.push(n);
+    }
+  }
+
+  // Sort each group: world-title holders first, then by name
+  const sortByPrestige = (a, b) => {
+    const ap = prestige(a);
+    const bp = prestige(b);
+    if (ap !== bp) return bp - ap;
+    return (a.name || '').localeCompare(b.name || '');
+  };
+  bornHere.sort(sortByPrestige);
+  basedHere.sort(sortByPrestige);
+  brandsHere.sort(sortByPrestige);
+  eventsHere.sort(sortByPrestige);
+  connectedHere.sort(sortByPrestige);
+
+  const totalPeople = bornHere.length + basedHere.length + brandsHere.length + eventsHere.length + connectedHere.length;
+  if (totalPeople === 0) return '';
+
+  const renderCardTile = (n) => `
+    <a class="loc-roster-card" href="#profile/${n.id}" onclick="navigateTo('${n.id}');return false;" title="View ${n.name}">
+      <div class="loc-roster-avatar">${initials(n.name)}</div>
+      <div class="loc-roster-body">
+        <div class="loc-roster-name">${sportIcon(n)} ${n.name}</div>
+        <div class="loc-roster-meta">${nodeSubtitle(n) || n.type}</div>
+      </div>
+    </a>
+  `;
+
+  const section = (title, list) => {
+    if (!list.length) return '';
+    return `
+      <div class="profile-section">
+        <h3>${title} <span class="loc-roster-count">${list.length}</span></h3>
+        <div class="loc-roster-grid">
+          ${list.map(renderCardTile).join('')}
+        </div>
+      </div>
+    `;
+  };
+
+  return [
+    section('Born or Raised Here', bornHere),
+    section('Based Here', basedHere),
+    section('Brands &amp; Orgs Here', brandsHere),
+    section('Events Held Here', eventsHere),
+    section('Also Connected', connectedHere.slice(0, 30)),
+  ].join('');
+}
+
+// ── MEDIA ROSTER: cast / playable characters / cameos ──
+function renderMediaRoster(mediaNode) {
+  const allIds = new Set([
+    ...(mediaNode.roster || []),
+    ...(mediaNode.cameos || []),
+    ...(mediaNode.cast || []),
+    ...(mediaNode.connections || []),
+  ]);
+  const athletes = [];
+  const others = [];
+  for (const id of allIds) {
+    const n = ASDB.nodes[id];
+    if (!n) continue;
+    if (n.type === 'athlete' || n.type === 'person') athletes.push(n);
+    else others.push(n);
+  }
+  if (!athletes.length && !others.length) return '';
+
+  athletes.sort((a, b) => prestige(b) - prestige(a) || (a.name || '').localeCompare(b.name || ''));
+  others.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
+  const tile = (n) => `
+    <a class="loc-roster-card" href="#profile/${n.id}" onclick="navigateTo('${n.id}');return false;">
+      <div class="loc-roster-avatar">${initials(n.name)}</div>
+      <div class="loc-roster-body">
+        <div class="loc-roster-name">${sportIcon(n)} ${n.name}</div>
+        <div class="loc-roster-meta">${nodeSubtitle(n) || n.type}</div>
+      </div>
+    </a>
+  `;
+
+  let html = '';
+  if (athletes.length) {
+    const label = (mediaNode.mediaType === 'video-game') ? 'Playable Roster' :
+                  (mediaNode.mediaType === 'music-video' || mediaNode.mediaType === 'film' || mediaNode.mediaType === 'tv-show') ? 'Cast &amp; Cameos' :
+                  'Featured Athletes';
+    html += `
+      <div class="profile-section">
+        <h3>${label} <span class="loc-roster-count">${athletes.length}</span></h3>
+        <div class="loc-roster-grid">${athletes.map(tile).join('')}</div>
+      </div>
+    `;
+  }
+  if (others.length) {
+    html += `
+      <div class="profile-section">
+        <h3>Also Connected <span class="loc-roster-count">${others.length}</span></h3>
+        <div class="loc-roster-grid">${others.map(tile).join('')}</div>
+      </div>
+    `;
+  }
+  return html;
+}
+
+// Prestige score for sorting: world titles, olympic golds, HOF, then by node importance
+function prestige(n) {
+  let score = 0;
+  const achievements = (n.achievements || []).join(' ').toLowerCase();
+  if (/world title|world champion|world championship/.test(achievements)) score += 100;
+  if (/olympic gold/.test(achievements)) score += 80;
+  if (/olympic (silver|bronze)/.test(achievements)) score += 60;
+  if (/x games gold|x games champion/.test(achievements)) score += 50;
+  if (/hall of fame|inducted/.test(achievements)) score += 40;
+  if (/pipe master|triple crown/.test(achievements)) score += 30;
+  if (n.connections) score += Math.min(n.connections.length, 20);
+  return score;
 }
 
 // ── CONNECTIONS TAB ──────────────────────────────────────────
