@@ -1364,10 +1364,11 @@ body {
   align-items: center;
   gap: 1rem;
   padding: 1.25rem;
-  background: linear-gradient(135deg, rgba(255,209,102,0.10), rgba(255,107,26,0.10));
-  border: 1px solid rgba(255,209,102,0.3);
+  background: linear-gradient(135deg, rgba(255,209,102,0.22), rgba(255,157,92,0.18));
+  border: 1px solid rgba(255,209,102,0.55);
   border-radius: 14px;
   margin-bottom: 1rem;
+  box-shadow: 0 0 24px rgba(255,209,102,0.08);
 }
 .brand-upgrade-icon {
   font-size: 2.5rem;
@@ -1434,7 +1435,23 @@ body {
   border: 1px solid var(--card-border);
   border-radius: 10px;
 }
-.brand-watcher.locked { opacity: 0.55; }
+.brand-watcher.locked {
+  opacity: 0.75;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-style: dashed;
+  background: rgba(255,209,102,0.04);
+}
+.brand-watcher.locked:hover {
+  opacity: 1;
+  border-color: rgba(255,209,102,0.6);
+  background: rgba(255,209,102,0.08);
+}
+.brand-unlock-link {
+  color: #ffd166;
+  font-weight: 600;
+  text-decoration: underline;
+}
 .brand-watcher-name {
   font-weight: 600;
   color: var(--text, #f5f0e8);
