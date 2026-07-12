@@ -87,14 +87,18 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: -0.01em;
 }
+/* Force all element text to Inter unless it's a code/mono context */
+.asdb-modern *:not(code):not(pre):not(kbd):not(.font-mono):not(.stripe-modal-box):not(.stripe-modal-box *) {
+  font-family: var(--font-sans) !important;
+}
 body { font-size: 15px; line-height: 1.5; }
 
 /* ───────── LAYOUT SHELL — persistent sidebar + main ───────── */
-body.asdb-modern {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  grid-template-rows: auto 1fr;
+body.asdb-modern { min-height: 100vh; }
+body.asdb-modern #asdb-root {
+  padding-left: 240px;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 /* Sidebar */
@@ -110,6 +114,7 @@ body.asdb-modern {
   gap: 0.25rem;
   z-index: 50;
   overflow-y: auto;
+  box-sizing: border-box;
 }
 .asdb-sidebar-logo {
   display: flex;
@@ -200,28 +205,43 @@ body.asdb-modern {
   border-top: 1px solid var(--border);
 }
 
-/* Main container shifts right */
-body.asdb-modern > header,
-body.asdb-modern > .container,
-body.asdb-modern > .breadcrumb-bar,
-body.asdb-modern > main,
-body.asdb-modern > footer {
-  margin-left: 240px;
-}
+/* Responsive: collapse sidebar on small screens */
 @media (max-width: 900px) {
-  body.asdb-modern { grid-template-columns: 1fr; }
+  body.asdb-modern #asdb-root { padding-left: 0; }
   .asdb-sidebar {
     transform: translateX(-100%);
     transition: transform 0.2s;
   }
   .asdb-sidebar.open { transform: translateX(0); }
-  body.asdb-modern > header,
-  body.asdb-modern > .container,
-  body.asdb-modern > .breadcrumb-bar,
-  body.asdb-modern > main,
-  body.asdb-modern > footer {
-    margin-left: 0;
-  }
+}
+
+/* Make the top header full-width within the new content column */
+body.asdb-modern #site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  width: 100%;
+}
+body.asdb-modern #site-header > .container,
+body.asdb-modern #breadcrumb-bar > .container,
+body.asdb-modern #site-footer > .container {
+  max-width: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+body.asdb-modern #app > .container {
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+/* Inner max-widths for readable content */
+#app > .container,
+#site-footer > .container {
+  max-width: 1400px !important;
+  margin: 0 auto !important;
 }
 
 /* ───────── TOP BAR ───────── */
@@ -237,6 +257,10 @@ header {
   height: 56px !important;
   padding: 0 1.5rem !important;
   gap: 1rem !important;
+  max-width: none !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
 }
 /* Hide the OLD top-bar logo — sidebar has it now */
 body.asdb-modern header .logo-mark { display: none !important; }
@@ -514,10 +538,8 @@ body.asdb-modern header .logo-mark { display: none !important; }
   border: 1px solid var(--border) !important;
   border-radius: var(--r-xl) !important;
   overflow: hidden !important;
-  margin: 1.5rem 1.5rem 1rem !important;
-  max-width: calc(1200px - 3rem);
-  margin-left: auto !important;
-  margin-right: auto !important;
+  margin: 1.5rem auto 1rem !important;
+  max-width: 1200px !important;
   box-shadow: none !important;
 }
 .v2-hero-cover {
