@@ -2772,3 +2772,68 @@ a.subgroup-chip:hover { border-color: var(--accent-2); color: var(--accent-2); }
 @media (max-width: 640px) {
   .loc-roster-grid { grid-template-columns: 1fr; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   LEGAL / SOURCES FOOTER ON EVERY PROFILE
+   ═══════════════════════════════════════════════════════════════════ */
+.profile-legal {
+  margin-top: 2rem;
+  padding: 1rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Satoshi', system-ui, sans-serif;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+.profile-legal-header {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 0.85rem;
+  color: var(--text);
+  margin-bottom: 0.45rem;
+  letter-spacing: 0.03em;
+}
+.profile-source-list {
+  list-style: disc;
+  margin: 0.35rem 0 0.75rem 1.1rem;
+  padding: 0;
+  font-size: 0.78rem;
+}
+.profile-source-list li { margin-bottom: 0.25rem; }
+.profile-source-list a { color: var(--accent); text-decoration: none; }
+.profile-source-list a:hover { text-decoration: underline; }
+.profile-legal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 0.75rem 0 0.6rem 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+.profile-legal-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.profile-legal-link:hover { text-decoration: underline; }
+.profile-legal-notice {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 0.55rem;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+.photo-credit-section {
+  background: rgba(232,80,10,0.08);
+  border-left: 3px solid var(--accent);
+  padding: 0.85rem 1rem;
+  border-radius: 6px;
+}
+.photo-credit-section h3 {
+  margin-top: 0;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
