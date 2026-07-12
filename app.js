@@ -5859,3 +5859,105 @@ window.injectBrandDashboardButton = injectBrandDashboardButton;
   });
   obs.observe(target, { childList: true, subtree: true });
 })();
+
+
+// ═══════════════════════════════════════════════════════════════
+// REDESIGN 2026 — Persistent left sidebar + modern shell
+// ═══════════════════════════════════════════════════════════════
+(function initModernShell() {
+  if (document.body.classList.contains('asdb-modern')) return;
+  document.body.classList.add('asdb-modern');
+
+  const nav = [
+    { label: 'Home',       href: '#',           icon: 'home',      group: 'Discover' },
+    { label: 'Athletes',   href: '#athletes',   icon: 'user',      group: 'Discover' },
+    { label: 'Brands',     href: '#brands',     icon: 'tag',       group: 'Discover' },
+    { label: 'Locations',  href: '#locations',  icon: 'pin',       group: 'Discover' },
+    { label: 'Feed',       href: '#feed',       icon: 'feed',      group: 'Discover' },
+    { label: 'Map',        href: '#map',        icon: 'map',       group: 'Discover' },
+    { label: 'On This Day',href: '#otd',        icon: 'calendar',  group: 'Discover' },
+    { label: 'My Profile', href: '#me',         icon: 'account',   group: 'You' },
+    { label: 'Following',  href: '#following',  icon: 'star',      group: 'You' },
+    { label: 'Admin',      href: '#admin',      icon: 'shield',    group: 'Admin' },
+  ];
+
+  const ICONS = {
+    home:     '<svg class="asdb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9v10a2 2 0 0 1-2 2h-4v-6h-6v6H5a2 2 0 0 1-2-2z"/></svg>',
+    user:     '<svg class="asdb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>',
+    tag:      '<svg class="asdb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 13.4L13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor"/></svg>',
+    pin:      '<svg class="asdb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-7.5-8-13a8 8 0 0 1 16 0c0 5.5-8 13-8 13z"/><circle cx="12" cy="9" r="3"/></svg>',
+    feed:     '<svg class="asdb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',
+    map:      '<svg class="asdb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3l6 3 6-3v15l-6 3-6-3-6 3V6l6-3z"/><path d="M9 3v15M15 6v15"/></svg>',
+    calendar: '<svg class="asdb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+    account:  '<svg class="asdb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>',
+    star:     '<svg class="asdb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+    shield:   '<svg class="asdb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4z"/></svg>',
+  };
+
+  const nodeCount = (typeof ASDB !== 'undefined' && ASDB.nodes) ? Object.keys(ASDB.nodes).length : 0;
+  const athleteCount = (typeof ASDB !== 'undefined' && ASDB.nodes)
+    ? Object.values(ASDB.nodes).filter(n => Array.isArray(n.sport) ? n.sport.length : n.sport).length : 0;
+  const brandCount = (typeof ASDB !== 'undefined' && ASDB.nodes)
+    ? Object.values(ASDB.nodes).filter(n => n.type === 'brand').length : 0;
+  const locCount = (typeof ASDB !== 'undefined' && ASDB.nodes)
+    ? Object.values(ASDB.nodes).filter(n => n.type === 'location').length : 0;
+  const counts = { '#athletes': athleteCount, '#brands': brandCount, '#locations': locCount };
+
+  // Group by group
+  const grouped = {};
+  nav.forEach(n => { (grouped[n.group] = grouped[n.group] || []).push(n); });
+
+  let html = `
+    <div class="asdb-sidebar-logo" onclick="location.hash='';location.reload()">
+      <div class="asdb-sidebar-logo-mark">A</div>
+      <div class="asdb-sidebar-logo-text">
+        ASDB
+        <span class="subdim">Action Sports DB</span>
+      </div>
+    </div>
+  `;
+  Object.entries(grouped).forEach(([group, items]) => {
+    html += `<div class="asdb-nav-group">${group}</div>`;
+    items.forEach(n => {
+      const count = counts[n.href] ? `<span class="asdb-nav-count">${count_fmt(counts[n.href])}</span>` : '';
+      html += `<a class="asdb-nav-link" href="${n.href}" data-hash="${n.href}">${ICONS[n.icon]}<span>${n.label}</span>${count}</a>`;
+    });
+  });
+  html += `
+    <div class="asdb-sidebar-footer">
+      <a class="asdb-nav-link" href="#about"><svg class="asdb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>About</span></a>
+    </div>
+  `;
+
+  const sidebar = document.createElement('aside');
+  sidebar.className = 'asdb-sidebar';
+  sidebar.id = 'asdb-sidebar';
+  sidebar.innerHTML = html;
+  document.body.insertBefore(sidebar, document.body.firstChild);
+
+  // Active state — sync to current hash
+  function syncActive() {
+    const h = location.hash || '#';
+    sidebar.querySelectorAll('.asdb-nav-link').forEach(a => {
+      const target = a.getAttribute('data-hash') || a.getAttribute('href') || '';
+      const isMatch = (target === '#' && (!location.hash || location.hash === '#'))
+        || (target !== '#' && h.startsWith(target));
+      a.classList.toggle('active', isMatch);
+    });
+  }
+  syncActive();
+  window.addEventListener('hashchange', syncActive);
+
+  // ⌘K to focus search
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      const s = document.querySelector('.search-input');
+      if (s) { e.preventDefault(); s.focus(); }
+    }
+  });
+
+  function count_fmt(n) {
+    if (n >= 1000) return (n/1000).toFixed(1).replace('.0','') + 'k';
+    return String(n);
+  }
+})();
