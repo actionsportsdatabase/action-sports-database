@@ -4536,7 +4536,7 @@ function renderOnThisDayWidget() {
   // If we have very few 'today' hits, add a "This year in history" section with milestone anniversaries
   const milestoneRows = [];
   if (rows.length < 5 && milestoneTotal > 0) {
-    yearFounded.slice(0, 4).forEach(({node, year, age}) => {
+    yearFounded.slice(0, 10).forEach(({node, year, age}) => {
       const sport = Array.isArray(node.sport) ? node.sport[0] : node.sport;
       const gradClass = sport ? `sport-${sport}` : (node.type === 'brand' ? 'type-brand' : (node.type === 'location' ? 'type-location' : ''));
       milestoneRows.push({
@@ -4549,7 +4549,7 @@ function renderOnThisDayWidget() {
         id: node.id,
       });
     });
-    yearBorn.slice(0, 3).forEach(({node, year, age}) => {
+    yearBorn.slice(0, 5).forEach(({node, year, age}) => {
       const sport = Array.isArray(node.sport) ? node.sport[0] : node.sport;
       const gradClass = sport ? `sport-${sport}` : '';
       milestoneRows.push({
@@ -4573,7 +4573,7 @@ function renderOnThisDayWidget() {
     ? summaryBits.join(' · ')
     : (milestoneRows.length ? `No matches on ${dateLabel} — milestone anniversaries this year:` : `A quiet day in action-sports history. Come back tomorrow.`);
 
-  const allRows = [...rows, ...milestoneRows].slice(0, 8);
+  const allRows = [...rows, ...milestoneRows].slice(0, 15);
 
   return `
     <article class="v2-feed-item otd-summary">
