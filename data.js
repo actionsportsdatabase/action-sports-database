@@ -44,8 +44,8 @@ ASDB.nodes = {
       {id:'seed2source', rel:'Co-founder'},
       {id:'mastermind-mushrooms', rel:'Co-founder'},
       {id:'action-sports-database', rel:'Co-founder — 20-year dream project'},
-      {id:'jennifer-waxman', rel:'ASDB Co-Founder — New Business Development'},
-      {id:'jaime-giroux', rel:'ASDB Co-Founder — IT'},
+      {id:'jennifer-waxman', rel:'Wife / Seed2Source Co-Founder / ASDB Co-Founder — New Business Development'},
+      {id:'jaime-giroux', rel:'Sister / ASDB Co-Founder — IT'},
       {id:'shawnee-whittaker', rel:'Close Friend'},
       {id:'smyrna-surfari-club', rel:'Member — family co-built the club'},
       {id:'wright-casey-law', rel:'Father\'s law firm — Tom Wright'},
@@ -29545,14 +29545,16 @@ ASDB.nodes = {
     type: "athlete",
     name: "Jaime Giroux",
     sport: ['parkour'],
+    gender: 'female',
+    pronouns: 'she/her',
     born: "July 15, 1976",
     hometown: "Lake County, FL",
-    bio: "Lake County, Florida Parkour Champion from 1976 to present day. Stunt double for Will Ferrell in the gymnastics scene in Old School. ASDB co-founder and head of IT. Undefeated and undisputed.",
+    bio: "Lake County, Florida Parkour Champion from 1976 to present day. Stunt double for Will Ferrell in the gymnastics scene in Old School. ASDB co-founder, co-admin, and head of IT. Sister of ASDB co-founder Adam Wright and sister-in-law of Jennifer Waxman. Undefeated and undisputed.",
     discipline: "Parkour",
     titles: ["Lake County FL Parkour Champion (1976-present)"],
     connections: [
-      {id: 'adam-wright', rel: 'ASDB Co-Founder'},
-      {id: 'jennifer-waxman', rel: 'ASDB Co-Founder / Close Friend'},
+      {id: 'adam-wright', rel: 'Brother / ASDB Co-Founder'},
+      {id: 'jennifer-waxman', rel: 'Sister-in-law / ASDB Co-Founder'},
       {id: 'shawnee-whittaker', rel: 'Close Friend'},
     ],
   },
@@ -29563,12 +29565,14 @@ ASDB.nodes = {
     type: "athlete",
     name: "Jennifer Waxman",
     sport: ['skate'],
+    gender: 'female',
+    pronouns: 'she/her',
     hometown: "Florida",
-    bio: "At the time the youngest female skater and model for UGP Skate Company. ASDB co-founder and head of New Business Development. Sister of semi-professional skateboarder Marty Waxman.",
+    bio: "At the time the youngest female skater and model for UGP Skate Company. ASDB co-founder and head of New Business Development. Wife of ASDB co-founder Adam Wright and co-founder with him of Seed2Source. Sister of semi-professional skateboarder Marty Waxman. Sister-in-law of ASDB co-founder Jaime Giroux.",
     discipline: "Skateboard",
     connections: [
-      {id: 'adam-wright', rel: 'ASDB Co-Founder'},
-      {id: 'jaime-giroux', rel: 'ASDB Co-Founder / Close Friend'},
+      {id: 'adam-wright', rel: 'Husband / ASDB Co-Founder / Seed2Source Co-Founder'},
+      {id: 'jaime-giroux', rel: 'Sister-in-law / ASDB Co-Founder'},
       {id: 'marty-waxman', rel: 'Brother'},
       {id: 'shawnee-whittaker', rel: 'Close Friend'},
     ],
@@ -41615,6 +41619,689 @@ ASDB.nodes = {
   ],
   status: 'pre-populated'
 },
+
+
+  // ═══════════════════════════════════════════════════════
+  // BRAND NODES — Missing brands mentioned in bios (batch 1)
+  // ═══════════════════════════════════════════════════════
+// ── UGP / Underground Products (Jennifer Waxman's sponsor) ──
+  'ugp': {
+    id: "ugp",
+    type: "brand",
+    name: "UGP",
+    aka: ["Underground Products", "UGP Skate Company"],
+    category: "Skate / BMX / Streetwear",
+    founded: "circa 1990",
+    era: "1990s–2000s",
+    hometown: "USA",
+    bio: "UGP — Underground Products — was one of the defining street-culture apparel brands of the 1990s BMX and skateboarding scene. Known for bold graphic tees, sweatshirts, and hats featuring the iconic circle logo and three-silhouette tag. Sponsored a rotating cast of skaters and BMX riders throughout the era. The brand became legendary in Japanese vintage streetwear collector circles for its 90s output. Jennifer Waxman modeled for and rode for UGP in her teens, one of the youngest female team riders at the time.",
+    connections: [
+      {id: 'jennifer-waxman', rel: 'Team Rider / Model — one of the youngest female team riders'},
+    ],
+    sources: [
+      "UGP official shop — ugpshop.com",
+      "Underground Printing history — undergroundshirts.com",
+      "Japanese vintage streetwear archives (kanful, sportcom)",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Santa Cruz Skateboards (54 mentions) ──
+  'santa-cruz-skateboards': {
+    id: "santa-cruz-skateboards",
+    type: "brand",
+    name: "Santa Cruz Skateboards",
+    aka: ["Santa Cruz", "NHS Santa Cruz"],
+    category: "Skateboard Brand",
+    founded: "1973",
+    hometown: "Santa Cruz, California, USA",
+    parent: "NHS Inc.",
+    bio: "Founded in 1973 by Richard Novak, Doug Haut, and Jay Shuirman, Santa Cruz Skateboards is one of the oldest continuously operating skateboard brands in the world. Home to legendary team riders including Jeff Grosso, Steve Alba, Corey O'Brien, Jason Jessee, Eric Dressen, Salba, Jeff Kendall, and later Erik Ellington and Emmanuel Guzman. Owned by NHS Inc., which also owns OJ Wheels, Bronson Bearings, Independent Trucks (partnership), and Creature Skateboards. Known for iconic graphics by artists like Jim Phillips (Screaming Hand, Slasher). Distributed through NHS Fun Factory in Santa Cruz.",
+    connections: [
+      {id: 'independent-trucks', rel: 'Sister brand under NHS'},
+      {id: 'nhs-fun-factory', rel: 'Parent distribution'},
+    ],
+    sources: [
+      "Santa Cruz Skateboards official — santacruzskateboards.com",
+      "Wikipedia — Santa Cruz Skateboards",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Dogtown Skates (Z-Boys era) ──
+  'dogtown-skates': {
+    id: "dogtown-skates",
+    type: "brand",
+    name: "Dogtown Skates",
+    aka: ["Dogtown", "Dog Town"],
+    category: "Skateboard Brand",
+    founded: "1976",
+    hometown: "Venice / Santa Monica, California, USA",
+    bio: "Dogtown Skates was founded in 1976 by Jim Muir and Skip Engblom out of the Zephyr surf shop scene in Venice. The brand became the visual and cultural face of the Z-Boys era, with Wes Humpston's iconic hand-drawn graphics defining skate art for a generation. Home to Jay Adams and other early Zephyr Team riders. Immortalized by Stacy Peralta's documentary Dogtown and Z-Boys (2001) and the feature Lords of Dogtown (2005). Wes Humpston is credited as the pioneer of the modern skateboard graphic.",
+    connections: [
+      {id: 'zephyr-team', rel: 'Emerged from the Zephyr surf shop scene'},
+      {id: 'jay-adams', rel: 'Team rider'},
+      {id: 'jim-muir', rel: 'Co-founder'},
+      {id: 'stacy-peralta', rel: 'Zephyr Team member, documentary director'},
+    ],
+    sources: [
+      "Dogtown and Z-Boys (2001, Stacy Peralta)",
+      "Lords of Dogtown (2005)",
+      "Wikipedia — Dogtown",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Foundation Skateboards ──
+  'foundation-skateboards': {
+    id: "foundation-skateboards",
+    type: "brand",
+    name: "Foundation Skateboards",
+    aka: ["Foundation"],
+    category: "Skateboard Brand",
+    founded: "1989",
+    hometown: "California, USA",
+    bio: "Founded in 1989 by Tod Swank, Foundation is one of the longest-running independent skateboard brands. Known for its punk-rock ethos and consistent team of technically gifted skaters. Team has included Corey Duffel, Ethan Fowler, Daniel Lutheran, Nick Merlino, and many others. Sister brand to Tum Yeto distribution alongside Toy Machine, Zero, and Pig Wheels.",
+    connections: [
+      {id: 'tum-yeto', rel: 'Parent distribution — Tum Yeto'},
+    ],
+    sources: [
+      "Foundation Skateboards official — foundationskateboards.com",
+      "Wikipedia — Foundation Skateboards",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Baker Skateboards ──
+  'baker-skateboards': {
+    id: "baker-skateboards",
+    type: "brand",
+    name: "Baker Skateboards",
+    aka: ["Baker", "Baker Boys"],
+    category: "Skateboard Brand",
+    founded: "2000",
+    hometown: "California, USA",
+    bio: "Founded in 2000 by Andrew Reynolds along with Jim Greco, Baker Skateboards became the standard-bearer for irreverent, raw street skating culture in the 2000s. Iconic team riders include Andrew Reynolds, Bryan Herman, Erik Ellington, Terry Kennedy, Riley Hawk (son of Tony), Kader Sylla, Rowan Zorilla, and Jacopo Carozzi. Distributed with Deathwish, Shake Junt, and other brands under the Baker Boys Distribution umbrella (BBBD). The film Baker 3 (2005) is considered a defining street skate video.",
+    connections: [
+      {id: 'andrew-reynolds', rel: 'Founder / Team rider'},
+      {id: 'deathwish-skateboards', rel: 'Sister brand — Baker Boys Distribution'},
+    ],
+    sources: [
+      "Baker Skateboards official — bakerskateboards.com",
+      "Wikipedia — Baker Skateboards",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Lost / ...Lost / Mayhem ──
+  'lost-surfboards': {
+    id: "lost-surfboards",
+    type: "brand",
+    name: "...Lost Enterprises",
+    aka: ["Lost", "Lost Surfboards", "...Lost", "Mayhem"],
+    category: "Surfboard Brand / Surf Apparel",
+    founded: "1985",
+    hometown: "San Clemente, California, USA",
+    bio: "Founded by Matt \"Mayhem\" Biolos in 1985, ...Lost Enterprises became the shaper's shaper of the 90s and 2000s new-school shortboard revolution. Biolos shaped for Kolohe Andino, Chris Ward, Cory Lopez, Andy Irons (early), Ian Walsh, and countless CT/QS competitors. The company grew from a t-shirt hustle into a full surfboard, surfboard-blank (Lost Blanks), and apparel operation. Known for irreverent branding, the Sub-Driver / Puddle Jumper / Rocket / Rounded Nose Fish / Whiplash shape models, and dominant WSL rider representation.",
+    connections: [
+      {id: 'matt-biolos', rel: 'Founder / Head Shaper'},
+    ],
+    sources: [
+      "Lost Enterprises official — lostenterprises.com",
+      "Wikipedia — Matt Biolos",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Honda ──
+  'honda': {
+    id: "honda",
+    type: "brand",
+    name: "Honda",
+    aka: ["Honda Motor Company", "Honda Racing", "American Honda"],
+    category: "Motorcycle / Motocross / Supercross Manufacturer",
+    founded: "1948",
+    hometown: "Tokyo, Japan (American Honda: Torrance, California)",
+    bio: "Honda Motor Company, founded in 1948 by Soichiro Honda, has been one of the dominant forces in motocross and supercross since the 1970s. The Honda CR series (CR125, CR250) and its successor CRF (CRF250R, CRF450R) have won more AMA Motocross and Supercross championships than nearly any other brand. Factory team riders have included Marty Smith, Rick Johnson, Jean-Michel Bayle, Jeremy McGrath (Team Honda 1993–1996), Ricky Carmichael, Andrew Short, Trey Canard, Ken Roczen, and Chase Sexton.",
+    connections: [],
+    sources: [
+      "Honda official — honda.com",
+      "American Honda Motor Co. history",
+      "AMA Racing archives",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Yamaha ──
+  'yamaha': {
+    id: "yamaha",
+    type: "brand",
+    name: "Yamaha",
+    aka: ["Yamaha Motor Company", "Yamaha Racing", "Team Yamalube Star Racing"],
+    category: "Motorcycle / Motocross / Supercross Manufacturer",
+    founded: "1955",
+    hometown: "Iwata, Shizuoka, Japan",
+    bio: "Yamaha Motor Company, founded in 1955, produces the YZ125, YZ250, YZ250F, and YZ450F motocross platforms that have won multiple AMA championships. Factory team riders have included Bob Hannah (\"Hurricane\"), Broc Glover, Damon Bradshaw, Doug Henry, Jeremy McGrath (Team Yamaha 1997), Chad Reed, James \"Bubba\" Stewart, Justin Barcia, Cooper Webb, and Eli Tomac. Yamaha's blue plastics and tuning-fork logo are iconic in the sport.",
+    connections: [],
+    sources: [
+      "Yamaha Motor USA — yamahamotorsports.com",
+      "AMA Racing archives",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Kawasaki ──
+  'kawasaki': {
+    id: "kawasaki",
+    type: "brand",
+    name: "Kawasaki",
+    aka: ["Kawasaki Motors", "Team Green", "Monster Energy Kawasaki"],
+    category: "Motorcycle / Motocross / Supercross Manufacturer",
+    founded: "1896 (Kawasaki Heavy Industries) / 1966 (US motorcycle division)",
+    hometown: "Akashi, Hyogo, Japan (US: Foothill Ranch, California)",
+    bio: "Kawasaki's KX line (KX125, KX250, KX250F, KX450F) has been dominant in AMA racing since the 1970s. Team Green is the amateur development program that has produced nearly every American MX champion. Factory riders have included Jeff Ward, Jeff Emig, Ryan Villopoto (multi-time SX/MX champion), James Stewart, Eli Tomac (during factory years), and Jason Anderson. Kawasaki lime green is one of the most recognizable colors in motorsport.",
+    connections: [],
+    sources: [
+      "Kawasaki official — kawasaki.com",
+      "AMA Racing archives",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── KTM ──
+  'ktm': {
+    id: "ktm",
+    type: "brand",
+    name: "KTM",
+    aka: ["KTM Sportmotorcycle", "Red Bull KTM Factory Racing", "KTM AG"],
+    category: "Motorcycle / Motocross / Supercross / Enduro Manufacturer",
+    founded: "1934",
+    hometown: "Mattighofen, Austria",
+    bio: "KTM AG, founded in 1934, is Europe's largest motorcycle manufacturer and became the dominant force in AMA Supercross and Motocross starting in the 2010s. The 250 SX-F and 450 SX-F have won multiple championships under riders like Ryan Dungey (multi-time SX/MX champion), Marvin Musquin, Cooper Webb, Chase Sexton, and Aaron Plessinger. KTM also owns Husqvarna and GasGas, creating a Pierer Mobility Group juggernaut in off-road racing.",
+    connections: [
+      {id: 'husqvarna', rel: 'Sister brand under Pierer Mobility Group'},
+    ],
+    sources: [
+      "KTM official — ktm.com",
+      "Wikipedia — KTM",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Suzuki ──
+  'suzuki': {
+    id: "suzuki",
+    type: "brand",
+    name: "Suzuki",
+    aka: ["Suzuki Motor Corporation", "Team Suzuki", "Yoshimura Suzuki"],
+    category: "Motorcycle / Motocross / Supercross Manufacturer",
+    founded: "1909",
+    hometown: "Hamamatsu, Shizuoka, Japan",
+    bio: "Suzuki's RM (RM125, RM250) and RM-Z (RM-Z250, RM-Z450) motocross bikes have been racing in AMA since the 1970s. Notable factory riders include Roger DeCoster (5x World MX Champion, later team manager), Kent Howerton, Ricky Carmichael (RM-Z era on Suzuki, 2005–2007), James Stewart (Suzuki 2009–2011), Ryan Dungey (Suzuki 2007–2011), and Ken Roczen. Suzuki yellow with blue accents is a classic combination.",
+    connections: [],
+    sources: [
+      "Suzuki Motor USA — suzukicycles.com",
+      "AMA Racing archives",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Husqvarna ──
+  'husqvarna': {
+    id: "husqvarna",
+    type: "brand",
+    name: "Husqvarna",
+    aka: ["Husqvarna Motorcycles", "Husky", "Rockstar Husqvarna"],
+    category: "Motorcycle / Motocross / Supercross / Enduro Manufacturer",
+    founded: "1903",
+    hometown: "Mattighofen, Austria (originally Sweden)",
+    bio: "Husqvarna Motorcycles, one of the oldest motorcycle brands in the world (1903), is now owned by KTM's parent Pierer Mobility Group and shares platforms with KTM. The FC and TC series MX bikes (FC250, FC450, TC125, TC250) have won multiple AMA championships in the modern era. Notable riders include Jason Anderson (2018 SX Champion), Zach Osborne, Malcolm Stewart, and Christian Craig.",
+    connections: [
+      {id: 'ktm', rel: 'Sister brand under Pierer Mobility Group'},
+    ],
+    sources: [
+      "Husqvarna Motorcycles official — husqvarna-motorcycles.com",
+      "Wikipedia — Husqvarna Motorcycles",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Alva Skates ──
+  'alva-skates': {
+    id: "alva-skates",
+    type: "brand",
+    name: "Alva Skates",
+    aka: ["Alva", "Alva Skateboards"],
+    category: "Skateboard Brand",
+    founded: "1977",
+    hometown: "Venice, California, USA",
+    bio: "Founded by Zephyr Team legend Tony Alva in 1977, Alva Skates was one of the first athlete-owned skateboard companies. Team riders have included Chris Cook, Dave Duncan, Bill Danforth, John Gibson (\"Tex\"), and countless others across pool, vert, and street eras. The company remains under Tony Alva's direction and is a pillar of the Dogtown-Zephyr legacy.",
+    connections: [
+      {id: 'tony-alva', rel: 'Founder / Owner'},
+    ],
+    sources: [
+      "Alva Skates official — alvaskates.com",
+      "Wikipedia — Tony Alva",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Vision Skateboards ──
+  'vision-skateboards': {
+    id: "vision-skateboards",
+    type: "brand",
+    name: "Vision Skateboards",
+    aka: ["Vision", "Vision Street Wear"],
+    category: "Skateboard Brand / Streetwear",
+    founded: "1976",
+    hometown: "Costa Mesa, California, USA",
+    bio: "Vision Skateboards, founded by Brad Dorfman in 1976, was one of the biggest skateboard brands of the 1980s. Team riders included Mark \"Gator\" Rogowski, Mark Gonzales (his first sponsor), Tom Groholski, John Grigley, Neil Blender (briefly), and Christian Hosoi (before Hosoi Skates). The associated Vision Street Wear apparel line was a defining 80s brand. Blind Skateboards spun off from the Vision family via Steve Rocco.",
+    connections: [
+      {id: 'blind-skateboards', rel: 'Spinoff brand founded by Steve Rocco'},
+    ],
+    sources: [
+      "Wikipedia — Vision Skateboards",
+      "Skately Vision archive",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Plan B Skateboards ──
+  'plan-b-skateboards': {
+    id: "plan-b-skateboards",
+    type: "brand",
+    name: "Plan B Skateboards",
+    aka: ["Plan B"],
+    category: "Skateboard Brand",
+    founded: "1991",
+    hometown: "California, USA",
+    bio: "Plan B Skateboards, founded by Mike Ternasky in 1991, redefined technical street skating in the 90s with videos like Questionable (1992) and Virtual Reality (1993). Original team: Danny Way, Colin McKay, Rodney Mullen, Sean Sheffey, Rick Howard, Mike Carroll, Sal Barbier, Pat Duffy, Ryan Fabry, and Matt Hensley. After Ternasky's death in 1994, the brand went dormant until Danny Way and Colin McKay relaunched it in 2005. Modern team includes Torey Pudwill, Chris Joslin, and Felipe Gustavo.",
+    connections: [
+      {id: 'danny-way', rel: 'Original team rider / Co-owner (relaunch)'},
+    ],
+    sources: [
+      "Plan B official — planbskateboards.com",
+      "Wikipedia — Plan B Skateboards",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Blind Skateboards ──
+  'blind-skateboards': {
+    id: "blind-skateboards",
+    type: "brand",
+    name: "Blind Skateboards",
+    aka: ["Blind"],
+    category: "Skateboard Brand",
+    founded: "1989",
+    hometown: "California, USA",
+    bio: "Founded by Mark Gonzales and Steve Rocco in 1989 as a spinoff from Vision. The name \"Blind\" was a jab at \"Vision.\" Blind became a defining street-era brand with the Video Days (1991) film directed by Spike Jonze — featuring Mark Gonzales, Jason Lee, Guy Mariano, Rudy Johnson, and Jordan Richter. Later team riders: Ronnie Creager, Jani Laitiala, James Craig, Kevin Romar, Cody McEntire. Now owned by Dwindle Distribution.",
+    connections: [
+      {id: 'vision-skateboards', rel: 'Founded as a spinoff from Vision'},
+    ],
+    sources: [
+      "Blind Skateboards official — blindskateboards.com",
+      "Wikipedia — Blind Skateboards",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Chocolate Skateboards ──
+  'chocolate-skateboards': {
+    id: "chocolate-skateboards",
+    type: "brand",
+    name: "Chocolate Skateboards",
+    aka: ["Chocolate"],
+    category: "Skateboard Brand",
+    founded: "1994",
+    hometown: "Torrance, California, USA",
+    bio: "Founded in 1994 by Rick Howard, Mike Carroll, and Spike Jonze as a sister brand to Girl Skateboards under the Crailtap umbrella. Signature Evan Hecox artwork and mellow, jazz-influenced aesthetic. Team has included Chico Brenes, Gino Iannucci, Elissa Steamer, Kenny Anderson, Justin Eldridge, Vincent Alvarez, Chris Roberts, and Yonnie Cruz.",
+    connections: [
+      {id: 'girl-skateboards', rel: 'Sister brand under Crailtap / Girl Distribution'},
+    ],
+    sources: [
+      "Chocolate Skateboards — chocolateskateboards.com",
+      "Wikipedia — Chocolate Skateboards",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Girl Skateboards ──
+  'girl-skateboards': {
+    id: "girl-skateboards",
+    type: "brand",
+    name: "Girl Skateboards",
+    aka: ["Girl"],
+    category: "Skateboard Brand",
+    founded: "1993",
+    hometown: "Torrance, California, USA",
+    bio: "Girl Skateboards was founded in 1993 by Rick Howard, Mike Carroll, and Spike Jonze after departing Plan B. Together with sister brand Chocolate, it operates under Crailtap. Team has included Eric Koston, Guy Mariano, Rick Howard, Mike Carroll, Sean Malto, Cory Kennedy, Simon Bannerot, Griffin Gass, and Tyler Pacheco. Notable videos: Goldfish (1993), Mouse (1996), Yeah Right! (2003), Fully Flared (2007), Pretty Sweet (2012).",
+    connections: [
+      {id: 'chocolate-skateboards', rel: 'Sister brand under Crailtap'},
+      {id: 'lakai', rel: 'Girl-owned footwear brand'},
+    ],
+    sources: [
+      "Girl Skateboards — girlskateboards.com",
+      "Wikipedia — Girl Skateboards",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Real Skateboards ──
+  'real-skateboards': {
+    id: "real-skateboards",
+    type: "brand",
+    name: "Real Skateboards",
+    aka: ["Real"],
+    category: "Skateboard Brand",
+    founded: "1991",
+    hometown: "San Francisco, California, USA",
+    bio: "Founded in 1991 by Jim Thiebaud and Tommy Guerrero, Real Skateboards is a cornerstone of the Deluxe Distribution family alongside Anti Hero, Krooked, Spitfire, and Thunder. Team has included Mark Gonzales (briefly), Salman Agah, Keith Hufnagel, Peter Ramondetta, Chima Ferguson, Ishod Wair, Zion Wright, and Jack Fardell. Known for strong social/political messaging and the classic oval logo.",
+    connections: [
+      {id: 'anti-hero-skateboards', rel: 'Sister brand — Deluxe Distribution'},
+      {id: 'deluxe-distribution', rel: 'Parent distribution'},
+      {id: 'tommy-guerrero', rel: 'Co-founder'},
+    ],
+    sources: [
+      "Real Skateboards — realskateboards.com",
+      "Wikipedia — Real Skateboards",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Anti Hero Skateboards ──
+  'anti-hero-skateboards': {
+    id: "anti-hero-skateboards",
+    type: "brand",
+    name: "Anti Hero Skateboards",
+    aka: ["Anti Hero", "Antihero"],
+    category: "Skateboard Brand",
+    founded: "1995",
+    hometown: "San Francisco, California, USA",
+    bio: "Founded by Julien Stranger, John Cardiel, and Deluxe distribution in 1995. One of the rawest, punkest brands in skateboarding. Team has included Julien Stranger, John Cardiel (before his tragic accident), Tony Trujillo, Andrew Allen, Grant Taylor, Chris Pfanner, Frank Gerwer, Robbie Russo, and Chris Haslam. Notable videos: Tentacles of Destruction (1997), Not Another Transworld Video (2003), Anti Hero Videocheese (2019).",
+    connections: [
+      {id: 'real-skateboards', rel: 'Sister brand — Deluxe Distribution'},
+      {id: 'deluxe-distribution', rel: 'Parent distribution'},
+    ],
+    sources: [
+      "Anti Hero — antiheroskateboards.com",
+      "Wikipedia — Anti-Hero Skateboards",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Zero Skateboards ──
+  'zero-skateboards': {
+    id: "zero-skateboards",
+    type: "brand",
+    name: "Zero Skateboards",
+    aka: ["Zero"],
+    category: "Skateboard Brand",
+    founded: "1996",
+    hometown: "California, USA",
+    bio: "Founded in 1996 by Jamie Thomas after leaving Toy Machine. Zero built its identity around dark, aggressive graphics, hardcore music, and burly street skating. Team has included Chris Cole, Adrian Lopez, John Rattray, Tommy Sandoval, Dane Burman, James Brockman, Ben Raybourn, and Windsor James. Notable videos: Thrill of it All (1997), Misled Youth (1999), New Blood (2005), Strange World (2009).",
+    connections: [
+      {id: 'jamie-thomas', rel: 'Founder / Team rider'},
+    ],
+    sources: [
+      "Zero Skateboards — zeroskateboards.com",
+      "Wikipedia — Zero Skateboards",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Emerica ──
+  'emerica': {
+    id: "emerica",
+    type: "brand",
+    name: "Emerica",
+    aka: ["Emerica Footwear"],
+    category: "Skate Footwear",
+    founded: "1996",
+    hometown: "Lake Forest, California, USA",
+    parent: "Sole Technology",
+    bio: "Founded by Pierre André Senizergues in 1996 as part of Sole Technology (alongside Etnies, éS, and Altamont). Emerica has an iconic team including Andrew Reynolds, Ed Templeton, Heath Kirchart, Bryan Herman, Kevin \"Spanky\" Long, Leo Romero, Jerry Hsu, Braydon Szafranski, and Collin Provost. Notable videos: This Is Skateboarding (2003), Stay Gold (2010) — considered one of the greatest skate videos ever made.",
+    connections: [
+      {id: 'sole-technology', rel: 'Parent company'},
+    ],
+    sources: [
+      "Emerica — emerica.com",
+      "Wikipedia — Emerica",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Lakai Limited Footwear ──
+  'lakai': {
+    id: "lakai",
+    type: "brand",
+    name: "Lakai Limited Footwear",
+    aka: ["Lakai"],
+    category: "Skate Footwear",
+    founded: "1999",
+    hometown: "Torrance, California, USA",
+    bio: "Founded in 1999 by Mike Carroll and Rick Howard (Girl / Chocolate) as a skater-owned footwear alternative. Team has included Eric Koston, Guy Mariano, Marc Johnson, Mike Mo Capaldi, Rick Howard, Mike Carroll, Vincent Alvarez, Sebo Walker, Riley Hawk, and Simon Bannerot. Notable video: Fully Flared (2007) — the intro sequence with the Spike Jonze exploding-water footage is legendary.",
+    connections: [
+      {id: 'girl-skateboards', rel: 'Sister brand / Crailtap family'},
+    ],
+    sources: [
+      "Lakai — lakai.com",
+      "Wikipedia — Lakai Limited Footwear",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Deathwish Skateboards ──
+  'deathwish-skateboards': {
+    id: "deathwish-skateboards",
+    type: "brand",
+    name: "Deathwish Skateboards",
+    aka: ["Deathwish"],
+    category: "Skateboard Brand",
+    founded: "2007",
+    hometown: "California, USA",
+    bio: "Founded in 2007 by Jim Greco, Erik Ellington, and Andrew Reynolds as a sister brand to Baker under Baker Boys Distribution. Team has included Jim Greco, Erik Ellington, Lizard King, Antwuan Dixon, Slash, Neen Williams, Julian Davidson, Foy (Jamie Foy), Taylor Kirby, and Pedro Delfino. Iconic gothic aesthetic.",
+    connections: [
+      {id: 'baker-skateboards', rel: 'Sister brand — Baker Boys Distribution'},
+    ],
+    sources: [
+      "Deathwish — deathwishskateboards.com",
+      "Wikipedia — Deathwish Skateboards",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Zephyr Team ──
+  'zephyr-team': {
+    id: "zephyr-team",
+    type: "brand",
+    name: "Zephyr Competition Team",
+    aka: ["Z-Boys", "Zephyr", "Zephyr Surfboards / Skateboards", "Z-Flex"],
+    category: "Legendary Surf/Skate Team",
+    founded: "1975",
+    hometown: "Venice / Santa Monica, California, USA",
+    bio: "The Zephyr Competition Team (\"Z-Boys\") was the legendary early-70s Venice/Dogtown surf and skate team assembled by Jeff Ho, Skip Engblom, and Craig Stecyk out of the Zephyr Productions surf shop. Roster: Tony Alva, Jay Adams, Stacy Peralta, Bob Biniak, Nathan Pratt, Shogo Kubo, Jim Muir, Peggy Oki, Wentzle Ruml, Chris Cahill, Paul Constantineau, and Allen Sarlo. Their 1975 appearance at the Del Mar Nationals redefined skateboarding forever. Immortalized in Dogtown and Z-Boys (2001) and Lords of Dogtown (2005).",
+    connections: [
+      {id: 'dogtown-skates', rel: 'Emerged from same scene'},
+      {id: 'jay-adams', rel: 'Team rider'},
+      {id: 'tony-alva', rel: 'Team rider'},
+      {id: 'stacy-peralta', rel: 'Team rider'},
+    ],
+    sources: [
+      "Dogtown and Z-Boys (2001, Stacy Peralta)",
+      "Lords of Dogtown (2005)",
+      "Wikipedia — Z-Boys",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Independent Trucks ──
+  'independent-trucks': {
+    id: "independent-trucks",
+    type: "brand",
+    name: "Independent Trucks",
+    aka: ["Indy", "Independent", "Indy Trucks"],
+    category: "Skate Hardware — Trucks",
+    founded: "1978",
+    hometown: "Santa Cruz, California, USA",
+    parent: "NHS Inc. / Ermico Enterprises",
+    bio: "Founded in 1978 by Fausto Vitello and Richard Novak. The iconic Independent Truck cross logo is one of the most recognizable in skateboarding. Manufactured by Ermico Enterprises. \"Built to Grind\" is the brand's motto and the title of its 2004 documentary. Team is legendary and expansive — nearly every major skater has ridden Indys at some point.",
+    connections: [
+      {id: 'santa-cruz-skateboards', rel: 'Sister brand under NHS / Ermico'},
+      {id: 'thunder-trucks', rel: 'Rival brand — Deluxe Distribution'},
+    ],
+    sources: [
+      "Independent Trucks — independenttrucks.com",
+      "Wikipedia — Independent Truck Company",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Thunder Trucks ──
+  'thunder-trucks': {
+    id: "thunder-trucks",
+    type: "brand",
+    name: "Thunder Trucks",
+    aka: ["Thunder"],
+    category: "Skate Hardware — Trucks",
+    founded: "1986",
+    hometown: "San Francisco, California, USA",
+    parent: "Deluxe Distribution",
+    bio: "Thunder Trucks, founded in 1986, is part of Deluxe Distribution alongside Spitfire, Real, Anti-Hero, and Krooked. Known for the classic lightning bolt logo and Hi/Lo profile options. Riders include most of the Deluxe roster (Grant Taylor, Ishod Wair, Zion Wright, etc.).",
+    connections: [
+      {id: 'spitfire-wheels', rel: 'Sister brand — Deluxe Distribution'},
+      {id: 'deluxe-distribution', rel: 'Parent distribution'},
+    ],
+    sources: [
+      "Thunder Trucks — thundertrucks.com",
+      "Wikipedia — Deluxe Distribution",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Spitfire Wheels ──
+  'spitfire-wheels': {
+    id: "spitfire-wheels",
+    type: "brand",
+    name: "Spitfire Wheels",
+    aka: ["Spitfire", "Bighead"],
+    category: "Skate Hardware — Wheels",
+    founded: "1987",
+    hometown: "San Francisco, California, USA",
+    parent: "Deluxe Distribution",
+    bio: "Founded in 1987, Spitfire Wheels is Deluxe's flagship wheel brand. The Bighead / Fireball logo is iconic. Product lines include Formula Four (F4) urethane and the Classic. Team includes most of the Deluxe roster plus wheel-specific riders like Jamie Foy, Ishod Wair, Grant Taylor, and many more.",
+    connections: [
+      {id: 'thunder-trucks', rel: 'Sister brand — Deluxe Distribution'},
+      {id: 'deluxe-distribution', rel: 'Parent distribution'},
+    ],
+    sources: [
+      "Spitfire Wheels — spitfirewheels.com",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Element Skateboards ──
+  'element-skateboards': {
+    id: "element-skateboards",
+    type: "brand",
+    name: "Element Skateboards",
+    aka: ["Element"],
+    category: "Skateboard Brand / Apparel",
+    founded: "1992 (as Underworld Element)",
+    hometown: "Costa Mesa, California, USA",
+    bio: "Founded in 1992 by Johnny Schillereff. Element grew from a small skate brand into a global lifestyle/apparel operation with a nature-focused aesthetic. Team has included Bam Margera (2000s), Chad Tim Tim, Nyjah Huston, Mark Appleyard, Levi Brown, Evan Smith, Julian Davidson, Madars Apse, and Brandon Westgate. Owned by Boardriders (parent of Quiksilver, Roxy, Billabong).",
+    connections: [
+      {id: 'nyjah-huston', rel: 'Long-time team rider'},
+      {id: 'quiksilver', rel: 'Sister brand under Boardriders'},
+    ],
+    sources: [
+      "Element — elementbrand.com",
+      "Wikipedia — Element Skateboards",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Enjoi Skateboards ──
+  'enjoi-skateboards': {
+    id: "enjoi-skateboards",
+    type: "brand",
+    name: "Enjoi Skateboards",
+    aka: ["Enjoi"],
+    category: "Skateboard Brand",
+    founded: "2000",
+    hometown: "San Jose, California, USA",
+    bio: "Founded in 2000 by Marc Johnson and Rodney Mullen under Dwindle Distribution. Known for its irreverent panda mascot and humor-driven graphics. Team has included Marc Johnson, Louie Barletta, Jerry Hsu, Rodrigo TX, Caswell Berry, Cairo Foster, Zack Wallin, Ben Raemers, and Nestor Judkins.",
+    connections: [
+      {id: 'dwindle-distribution', rel: 'Parent distribution'},
+    ],
+    sources: [
+      "Enjoi — enjoico.com",
+      "Wikipedia — Enjoi",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Rusty Surfboards ──
+  'rusty-surfboards': {
+    id: "rusty-surfboards",
+    type: "brand",
+    name: "Rusty Surfboards",
+    aka: ["Rusty", "Rusty Preisendorfer"],
+    category: "Surfboard Brand / Apparel",
+    founded: "1985",
+    hometown: "San Diego, California, USA",
+    bio: "Founded by shaper Rusty Preisendorfer in 1985. One of the defining shortboard shaping labels of the 1990s. Iconic \"R-Dot\" logo. Team has included Occy (Mark Occhilupo), Taj Burrow, Damien Hardman, Barton Lynch, and Cory Lopez. The associated Rusty apparel line was one of the biggest surf-lifestyle brands of the 90s.",
+    connections: [
+      {id: 'mark-occhilupo', rel: 'Team rider / long-time Rusty ambassador'},
+    ],
+    sources: [
+      "Rusty Surfboards — rusty.com",
+      "Wikipedia — Rusty Preisendorfer",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Firewire Surfboards ──
+  'firewire-surfboards': {
+    id: "firewire-surfboards",
+    type: "brand",
+    name: "Firewire Surfboards",
+    aka: ["Firewire"],
+    category: "Surfboard Brand",
+    founded: "2005",
+    hometown: "Carlsbad, California, USA",
+    bio: "Founded in 2005, Firewire pioneered EPS/epoxy sandwich construction as a mainstream alternative to traditional polyurethane surfboards. Kelly Slater became a co-owner in 2010 and is one of the featured team shapers (Slater Designs), alongside Rob Machado, Dan Mann, Tomo (Daniel Thomson), and Nev Hyman. Known for models like the Sci-Fi, Cymatic, Seaside, and Machado's Seaside & Beyond.",
+    connections: [
+      {id: 'kelly-slater', rel: 'Co-owner / Team rider / Slater Designs shaper'},
+    ],
+    sources: [
+      "Firewire — firewiresurfboards.com",
+      "Wikipedia — Firewire Surfboards",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Deluxe Distribution ──
+  'deluxe-distribution': {
+    id: "deluxe-distribution",
+    type: "brand",
+    name: "Deluxe Distribution",
+    aka: ["DLX", "DLXSF"],
+    category: "Skate Distribution Company",
+    founded: "1988",
+    hometown: "San Francisco, California, USA",
+    bio: "Deluxe Distribution (DLX), founded by Fausto Vitello and Jim Thiebaud in 1988, is the parent company of Real Skateboards, Anti Hero, Krooked, Spitfire Wheels, and Thunder Trucks. Based in San Francisco. Represents one of the two dominant skate-brand families (alongside NHS in Santa Cruz).",
+    connections: [
+      {id: 'real-skateboards', rel: 'Owned brand'},
+      {id: 'anti-hero-skateboards', rel: 'Owned brand'},
+      {id: 'spitfire-wheels', rel: 'Owned brand'},
+      {id: 'thunder-trucks', rel: 'Owned brand'},
+    ],
+    sources: [
+      "Wikipedia — Deluxe Distribution",
+    ],
+    status: "pre-populated",
+  },
 
 };
 ASDB.getNode = (id) => ASDB.nodes[id];
