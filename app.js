@@ -1737,6 +1737,9 @@ function renderRecordTab(node) {
   let html = '';
   const id = node.id;
 
+  // Timeline (auto-generated from born/died/founded/achievements)
+  html += renderTimeline(node);
+
   if (node.competitions && node.competitions.length) {
     html += `
       <div class="profile-section">
@@ -3194,4 +3197,446 @@ function attachRelatedCarouselHandlers() {
       carousel.scrollBy({ left: dir * 320, behavior: 'smooth' });
     });
   });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// COMPARE VIEW — side-by-side two athletes/places/brands
+// Route: #compare/nodeId1/nodeId2
+// ═══════════════════════════════════════════════════════════════════
+
+function renderCompareView(id1, id2) {
+  const a = ASDB.nodes[id1];
+  const b = ASDB.nodes[id2];
+  if (!a || !b) {
+    return `<div class="empty-state"><h3>Compare</h3><p>One or both profiles not found.</p></div>`;
+  }
+
+  // Field rows
+  const rows = [
+    { label: 'Type', get: n => (n.type || '').charAt(0).toUpperCase() + (n.type || '').slice(1) },
+    { label: 'Sport(s)', get: n => (n.sport || []).map(s => `${SPORT_ICONS[s] || ''} ${sportLabel(s)}`).join(', ') },
+    { label: 'Role', get: n => n.role || '' },
+    { label: 'Born', get: n => n.born || '' },
+    { label: 'Hometown', get: n => n.birthplace || n.hometown || n.location || '' },
+    { label: 'Nationality', get: n => n.nationality || '' },
+    { label: 'Era', get: n => n.era || '' },
+    { label: 'Stance', get: n => n.stance || '' },
+    { label: 'Discipline', get: n => n.discipline || '' },
+    { label: 'Achievements', get: n => (n.achievements || []).slice(0, 5).map(x => `• ${x}`).join('<br>') },
+    { label: 'Sponsors', get: n => (n.sponsors || []).join(', ') },
+    { label: 'Connections', get: n => `${(n.connections || []).length}` },
+    { label: 'Badges', get: n => {
+        const badges = computeBadges(n);
+        return badges.length
+          ? badges.map(bd => `<span class="mini-badge" style="color:${bd.color}" title="${bd.label}">${bd.icon}</span>`).join(' ')
+          : '';
+      }
+    },
+  ].filter(r => r.get(a) || r.get(b));
+
+  // Shared connections
+  const aConns = new Set((a.connections || []).map(c => c.id));
+  const shared = (b.connections || [])
+    .filter(c => aConns.has(c.id))
+    .map(c => ASDB.nodes[c.id])
+    .filter(Boolean);
+
+  return `
+    <div class="compare-view">
+      <div class="compare-header">
+        <button class="back-btn" onclick="window.location.hash=''">← Back home</button>
+        <h1 class="compare-title">Compare</h1>
+        <div class="compare-vs">
+          <div class="compare-name-block" onclick="navigateTo('${a.id}')">
+            <div class="compare-avatar">${initials(a.name)}</div>
+            <div class="compare-name">${a.name}</div>
+            <div class="compare-subtitle">${nodeSubtitle(a) || a.type}</div>
+          </div>
+          <div class="compare-vs-x">VS</div>
+          <div class="compare-name-block" onclick="navigateTo('${b.id}')">
+            <div class="compare-avatar">${initials(b.name)}</div>
+            <div class="compare-name">${b.name}</div>
+            <div class="compare-subtitle">${nodeSubtitle(b) || b.type}</div>
+          </div>
+        </div>
+      </div>
+
+      <table class="compare-table">
+        <tbody>
+          ${rows.map(r => `
+            <tr>
+              <td class="compare-field-label">${r.label}</td>
+              <td class="compare-field-val">${r.get(a) || '<span style="color:var(--text-muted)">—</span>'}</td>
+              <td class="compare-field-val">${r.get(b) || '<span style="color:var(--text-muted)">—</span>'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+
+      ${shared.length ? `
+        <div class="compare-shared">
+          <h3>Shared Connections (${shared.length})</h3>
+          <div class="conn-chips">
+            ${shared.map(n => `
+              <div class="conn-chip" data-conn-id="${n.id}" role="button" tabindex="0">
+                <span class="conn-chip-avatar">${initials(n.name)}</span>
+                <div>
+                  <div class="conn-chip-name">${sportIcon(n)} ${n.name}</div>
+                  <div class="conn-chip-rel">${nodeSubtitle(n) || n.type}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+function navigateCompare(id1, id2) {
+  const container = document.getElementById('profile-view') || profileView;
+  if (!container) return;
+  showHome();
+  homeView.style.display = 'none';
+  profileView.style.display = '';
+  profileView.classList.add('visible');
+  profileView.innerHTML = renderCompareView(id1, id2);
+  window.location.hash = `compare/${id1}/${id2}`;
+  window.scrollTo({top:0, behavior:'smooth'});
+  // Wire chip clicks
+  profileView.querySelectorAll('.conn-chip[data-conn-id]').forEach(chip => {
+    chip.addEventListener('click', () => navigateTo(chip.dataset.connId));
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// TIMELINE VIEW — horizontal timeline of career/life
+// Renders inside the record tab when a node has dated events.
+// ═══════════════════════════════════════════════════════════════════
+
+function extractTimelineEvents(node) {
+  const events = [];
+
+  // Birth
+  if (node.born) {
+    const y = parseInt((node.born.match(/\d{4}/) || [])[0]);
+    if (y) events.push({ year: y, label: 'Born', detail: node.born, kind: 'life' });
+  }
+  if (node.died) {
+    const y = parseInt((node.died.match(/\d{4}/) || [])[0]);
+    if (y) events.push({ year: y, label: 'Died', detail: node.died, kind: 'life' });
+  }
+  if (node.founded) {
+    const y = parseInt((node.founded.toString().match(/\d{4}/) || [])[0]);
+    if (y) events.push({ year: y, label: 'Founded', detail: node.founded, kind: 'life' });
+  }
+  if (node.released) {
+    const y = parseInt(node.released.toString().match(/\d{4}/)?.[0] || node.released);
+    if (y) events.push({ year: y, label: 'Released', detail: node.released, kind: 'life' });
+  }
+
+  // Achievements — try to parse a year from each
+  (node.achievements || []).forEach(a => {
+    const yMatch = a.match(/(19|20)\d{2}/);
+    if (yMatch) {
+      events.push({ year: parseInt(yMatch[0]), label: a.replace(yMatch[0], '').trim(), detail: a, kind: 'achievement' });
+    }
+  });
+
+  // Competitions with date
+  (node.competitions || []).forEach(c => {
+    if (c.year) events.push({ year: c.year, label: c.event || c.name || 'Contest', detail: `${c.result || ''} ${c.event || ''}`.trim(), kind: 'contest' });
+  });
+
+  events.sort((a, b) => a.year - b.year);
+  return events;
+}
+
+function renderTimeline(node) {
+  const events = extractTimelineEvents(node);
+  if (events.length < 2) return '';
+
+  const minYear = events[0].year;
+  const maxYear = events[events.length - 1].year;
+  const span = Math.max(1, maxYear - minYear);
+
+  return `
+    <div class="timeline-section">
+      <h3>Timeline</h3>
+      <div class="timeline">
+        <div class="timeline-track">
+          <div class="timeline-axis"></div>
+          ${events.map((e, i) => {
+            const pct = ((e.year - minYear) / span) * 100;
+            const above = i % 2 === 0;
+            return `
+              <div class="timeline-event ${above ? 'above' : 'below'} kind-${e.kind}" style="left:${pct}%">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                  <div class="timeline-year">${e.year}</div>
+                  <div class="timeline-label">${escapeHtml(e.label)}</div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+        <div class="timeline-axis-labels">
+          <span>${minYear}</span>
+          <span>${maxYear}</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// MAP VIEW — places plotted on a schematic world map
+// Uses a simplified equirectangular projection with hand-coded region coords.
+// Route: #map
+// ═══════════════════════════════════════════════════════════════════
+
+const REGION_COORDS = {
+  // North America
+  'hawaii': [21.3, -157.8], 'oahu': [21.5, -158.0], 'north shore': [21.65, -158.05],
+  'california': [36.7, -119.4], 'huntington beach': [33.66, -118.0], 'san clemente': [33.42, -117.62],
+  'malibu': [34.0, -118.78], 'santa cruz': [36.97, -122.03], 'los angeles': [34.05, -118.24],
+  'san diego': [32.71, -117.16], 'trestles': [33.38, -117.59], 'mavericks': [37.49, -122.5],
+  'florida': [27.99, -81.76], 'new smyrna': [29.02, -80.93], 'cocoa beach': [28.32, -80.60],
+  'sebastian inlet': [27.86, -80.44], 'jacksonville': [30.33, -81.66],
+  'colorado': [39.55, -105.78], 'utah': [39.32, -111.09], 'oregon': [43.80, -120.55],
+  'washington': [47.75, -120.74], 'vermont': [44.55, -72.57], 'new york': [40.71, -74.0],
+  'texas': [31.05, -97.56], 'nevada': [38.80, -116.42],
+  'aspen': [39.19, -106.82], 'mammoth mountain': [37.63, -119.03], 'jackson hole': [43.58, -110.82],
+  'park city': [40.65, -111.50], 'whistler': [50.11, -122.95], 'mt. hood': [45.37, -121.70],
+  'baja': [26.99, -111.55], 'mexico': [23.63, -102.55], 'puerto escondido': [15.87, -97.07],
+  // Central & S. America
+  'costa rica': [9.75, -83.75], 'nicaragua': [12.87, -85.21], 'peru': [-9.19, -75.02],
+  'chile': [-35.68, -71.54], 'brazil': [-14.24, -51.93], 'rio de janeiro': [-22.91, -43.17],
+  'chicama': [-7.72, -79.44], 'pacasmayo': [-7.40, -79.57],
+  // Europe
+  'portugal': [39.40, -8.22], 'nazaré': [39.60, -9.07], 'ericeira': [38.96, -9.42],
+  'spain': [40.46, -3.75], 'mundaka': [43.41, -2.70], 'france': [46.23, 2.21],
+  'hossegor': [43.66, -1.45], 'chamonix': [45.92, 6.87], 'verbier': [46.09, 7.23],
+  'zermatt': [46.02, 7.75], 'italy': [41.87, 12.57], 'uk': [55.38, -3.44],
+  'ireland': [53.14, -7.69], 'netherlands': [52.13, 5.29], 'norway': [60.47, 8.47],
+  // Oceania
+  'australia': [-25.27, 133.78], 'gold coast': [-28.02, 153.40], 'snapper rocks': [-28.16, 153.55],
+  'bells beach': [-38.37, 144.28], 'margaret river': [-33.95, 115.07], 'byron bay': [-28.64, 153.62],
+  'sydney': [-33.86, 151.21], 'new zealand': [-40.90, 174.88],
+  // Asia / Africa
+  'japan': [36.20, 138.25], 'niseko': [42.85, 140.68], 'hakuba': [36.70, 137.83],
+  'indonesia': [-0.79, 113.92], 'bali': [-8.34, 115.09], 'uluwatu': [-8.83, 115.09],
+  'mentawais': [-1.85, 99.30], 'nias': [1.10, 97.80], 'lakey peak': [-8.90, 118.62],
+  'philippines': [12.88, 121.77], 'fiji': [-17.71, 178.07], 'cloudbreak': [-17.87, 177.19],
+  'tahiti': [-17.65, -149.42], 'teahupoo': [-17.86, -149.27],
+  'south africa': [-30.56, 22.94], 'j-bay': [-34.05, 24.91], 'jeffreys bay': [-34.05, 24.91],
+  'cape town': [-33.92, 18.42], 'morocco': [31.79, -7.09],
+  'canada': [56.13, -106.35], 'revelstoke': [51.00, -118.19], 'banff': [51.18, -115.57],
+};
+
+function getNodeCoords(node) {
+  const loc = ((node.location || node.birthplace || node.hometown || '') + '').toLowerCase();
+  if (!loc) return null;
+  // Try exact match first
+  for (const [key, coord] of Object.entries(REGION_COORDS)) {
+    if (loc.includes(key)) return coord;
+  }
+  return null;
+}
+
+function renderMapView() {
+  // Collect all placeable nodes: prefer type=place, fall back to any with location
+  const placed = [];
+  Object.values(ASDB.nodes).forEach(n => {
+    if (n.type !== 'place') return;
+    const c = getNodeCoords(n);
+    if (c) placed.push({ node: n, lat: c[0], lon: c[1] });
+  });
+
+  // Sport color map
+  const sportColors = { surf:'#00c8d8', skate:'#e8500a', snow:'#00a6b5', bmx:'#f06030', moto:'#ffb03a', mtb:'#8ac926', wake:'#0090ff', kite:'#ff5da2', climb:'#a06b3a', freedive:'#5b6cff', parkour:'#c04dff' };
+
+  const dots = placed.map(({node, lat, lon}) => {
+    // Equirectangular: x = (lon + 180) / 360 * 100%; y = (90 - lat) / 180 * 100%
+    const x = ((lon + 180) / 360) * 100;
+    const y = ((90 - lat) / 180) * 100;
+    const primary = (node.sport && node.sport[0]) || 'surf';
+    const color = sportColors[primary] || '#e8500a';
+    return `
+      <div class="map-dot" style="left:${x}%;top:${y}%;background:${color};box-shadow:0 0 12px ${color}88"
+           data-id="${node.id}" title="${escapeHtml(node.name)}" role="button" tabindex="0"></div>
+    `;
+  }).join('');
+
+  return `
+    <div class="map-view">
+      <div class="map-header">
+        <button class="back-btn" onclick="window.location.hash=''">← Back home</button>
+        <h1>Places Map</h1>
+        <p class="map-subtitle">${placed.length} action-sports locations plotted worldwide. Click any dot to explore.</p>
+      </div>
+      <div class="map-container">
+        <div class="map-canvas">
+          <svg class="map-background" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <!-- schematic continents (very simplified) -->
+            <path d="M 12,20 L 30,15 L 32,45 L 20,55 L 15,50 Z" fill="rgba(0,166,181,0.15)"/>
+            <path d="M 25,55 L 32,55 L 35,88 L 27,90 Z" fill="rgba(0,166,181,0.15)"/>
+            <path d="M 45,15 L 62,12 L 66,32 L 50,38 Z" fill="rgba(0,166,181,0.15)"/>
+            <path d="M 50,40 L 65,38 L 70,60 L 55,58 Z" fill="rgba(0,166,181,0.15)"/>
+            <path d="M 68,20 L 85,15 L 88,50 L 72,48 Z" fill="rgba(0,166,181,0.15)"/>
+            <path d="M 78,68 L 90,65 L 90,85 L 75,88 Z" fill="rgba(0,166,181,0.15)"/>
+          </svg>
+          ${dots}
+        </div>
+        <div class="map-legend">
+          ${Object.entries(sportColors).map(([sport, color]) => `
+            <span class="map-legend-item">
+              <span class="map-legend-dot" style="background:${color}"></span>
+              ${SPORT_ICONS[sport] || ''} ${sportLabel(sport)}
+            </span>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function navigateMap() {
+  showHome();
+  homeView.style.display = 'none';
+  profileView.style.display = '';
+  profileView.classList.add('visible');
+  profileView.innerHTML = renderMapView();
+  window.location.hash = 'map';
+  window.scrollTo({top:0, behavior:'smooth'});
+  profileView.querySelectorAll('.map-dot').forEach(dot => {
+    const id = dot.dataset.id;
+    dot.addEventListener('click', () => navigateTo(id));
+    dot.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigateTo(id); }});
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ON THIS DAY — homepage widget
+// Shows athletes born today + notable events on today's date.
+// ═══════════════════════════════════════════════════════════════════
+
+function getOnThisDayItems() {
+  const today = new Date();
+  const todayMonth = today.getMonth() + 1;
+  const todayDay = today.getDate();
+
+  const born = [];
+  Object.values(ASDB.nodes).forEach(n => {
+    if (!n.born) return;
+    // Try parsing formats like "July 12, 1985" or "1985-07-12"
+    const m1 = n.born.match(/^(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),?\s+(\d{4})$/i);
+    if (m1) {
+      const monthNames = ['january','february','march','april','may','june','july','august','september','october','november','december'];
+      const month = monthNames.indexOf(m1[1].toLowerCase()) + 1;
+      const day = parseInt(m1[2]);
+      if (month === todayMonth && day === todayDay) {
+        const year = parseInt(m1[3]);
+        born.push({ node: n, age: today.getFullYear() - year, year });
+      }
+      return;
+    }
+    const m2 = n.born.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (m2) {
+      const month = parseInt(m2[2]);
+      const day = parseInt(m2[3]);
+      if (month === todayMonth && day === todayDay) {
+        const year = parseInt(m2[1]);
+        born.push({ node: n, age: today.getFullYear() - year, year });
+      }
+    }
+  });
+
+  born.sort((a, b) => a.year - b.year);
+  return { born, dateLabel: today.toLocaleDateString('en-US', { month:'long', day:'numeric' }) };
+}
+
+function renderOnThisDayWidget() {
+  const { born, dateLabel } = getOnThisDayItems();
+  if (!born.length) return '';
+
+  return `
+    <section class="otd-widget">
+      <div class="otd-header">
+        <h2>On This Day — ${dateLabel}</h2>
+        <span class="otd-count">${born.length} born today</span>
+      </div>
+      <div class="otd-grid">
+        ${born.slice(0, 8).map(({node, age, year}) => `
+          <div class="otd-card" data-id="${node.id}" role="button" tabindex="0" aria-label="View ${node.name}">
+            <div class="otd-avatar">${initials(node.name)}</div>
+            <div class="otd-body">
+              <div class="otd-name">${sportIcon(node)} ${node.name}</div>
+              <div class="otd-meta">Born ${year} · ${age} today</div>
+              <div class="otd-role">${node.role || node.type}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `;
+}
+
+function attachOnThisDayHandlers() {
+  document.querySelectorAll('.otd-card[data-id]').forEach(card => {
+    card.addEventListener('click', () => navigateTo(card.dataset.id));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigateTo(card.dataset.id); }
+    });
+  });
+}
+
+// Auto-inject OTD widget on home render
+if (typeof showHome === 'function') {
+  const _origShowHome = showHome;
+  window.showHome = function() {
+    _origShowHome.apply(this, arguments);
+    // Try to inject OTD widget once
+    setTimeout(() => {
+      const homeContent = document.querySelector('#home-view .home-inner') || document.getElementById('home-view');
+      if (!homeContent) return;
+      // Only inject if not already there
+      if (homeContent.querySelector('.otd-widget')) return;
+      const otdHTML = renderOnThisDayWidget();
+      if (!otdHTML) return;
+      const wrap = document.createElement('div');
+      wrap.innerHTML = otdHTML;
+      const otdEl = wrap.firstElementChild;
+      // Insert before the grid (first child that is not a search bar)
+      const firstGrid = homeContent.querySelector('.grid') || homeContent.querySelector('.filter-chips-row');
+      if (firstGrid) {
+        homeContent.insertBefore(otdEl, firstGrid);
+      } else {
+        homeContent.appendChild(otdEl);
+      }
+      attachOnThisDayHandlers();
+    }, 50);
+  };
+}
+
+// Route handling extension for compare/map
+if (typeof handleHashChange === 'function') {
+  const _origHash = handleHashChange;
+  window.handleHashChange = function() {
+    const hash = window.location.hash;
+    const cm = hash.match(/^#compare\/([^/]+)\/([^/]+)$/);
+    if (cm) {
+      navigateCompare(cm[1], cm[2]);
+      return;
+    }
+    if (hash === '#map') {
+      navigateMap();
+      return;
+    }
+    return _origHash.apply(this, arguments);
+  };
 }
