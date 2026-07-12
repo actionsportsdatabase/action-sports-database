@@ -157,8 +157,7 @@ ASDB.nodes = {
     ],
     children: ['Lindsay Baldwin', 'Marcie Baldwin'],  // see: lindsay-baldwin, marcie-baldwin
     spouse: ['Jennifer Payseur'],
-    connections:[
-      {id:'cb-surfboards', rel:'Founder — 20,000+ boards shaped'},
+    connections: [{id:'cb-surfboards', rel:'Founder — 20,000+ boards shaped'},
       {id:'jennifer-payseur', rel:'Wife — co-built Inlet Charley\'s Surf Shop'},
       {id:'inlet-charleys', rel:'Founder — started as hotdog wagon 1980, sold 2004'},
       {id:'adam-wright', rel:'Godfather — shaped boards, local sponsor, NSB surf community'},
@@ -166,11 +165,8 @@ ASDB.nodes = {
       {id:'smyrna-surfari-club', rel:'Pillar of the club — daughter Marcie now chairs'},
       {id:'lindsay-baldwin', rel:'Daughter — competitive surfer'},
       {id:'marcie-baldwin', rel:'Daughter — Chair of Smyrna Surfari Club'},
-      {id:'esa', rel:'East Coast surf competition community'},
-    ],
+      {id:'esa', rel:'East Coast surf competition community'}, 'patrick-altes'],
   },
-
-
   'jennifer-payseur': {
     id:'jennifer-payseur', type:'person', name:'Jennifer Payseur',
     role:'Co-founder — Inlet Charley\'s Surf Shop / NSB Community',
@@ -19720,16 +19716,13 @@ ASDB.nodes = {
     era: '1980s-present',
     status: 'pre-populated',
     bio: "Born in the Bahamas, Greg Geiselman walked away from a full-ride competitive swimming scholarship after surfing consumed him. He competed as a professional surfer on the East Coast circuit before transitioning entirely to shaping — founding Orion Surfboards in New Smyrna Beach in 1985. A 1989 Tampa Tribune contest recap confirms he ranked 3rd in the state on the Florida ASP East Coast circuit that year, with prize money placing him 22nd nationally on the Florida ranking. For four decades he has been one of the most respected shapers on the East Coast. Greg was among the first Florida shapers to operate a CNC shaping machine, raising the bar for board precision and consistency across the region. He shapes personally for his sons Eric Geiselman and Evan Geiselman. Former husband of Gina Geiselman, mother of Eric and Evan. The two are divorced.",
-    connections: [
-      {id: 'orion-surfboards', rel: 'Founder & head shaper — 1985'},
+    connections: [{id: 'orion-surfboards', rel: 'Founder & head shaper — 1985'},
       {id: 'eric-geiselman', rel: 'Son — shapes all his boards'},
       {id: 'evan-geiselman', rel: 'Son — shapes all his boards'},
       {id: 'gina-geiselman', rel: 'Ex-wife / mother of Eric and Evan'},
       {id: 'geiselman-family', rel: 'Family patriarch'},
-      {id: 'nsb-inlet', rel: 'Home base for 40+ years'},
-    ],
+      {id: 'nsb-inlet', rel: 'Home base for 40+ years'}, 'patrick-altes'],
   },
-
   'eric-geiselman': {
     id: 'eric-geiselman',
     type: 'athlete',
@@ -20894,16 +20887,13 @@ ASDB.nodes = {
     era: '1960s–1980s',
     bio: "Isabel McLaughlin (also documented as Isabelle McLaughlin) is the first East Coast woman to win the U.S. Surfing Championship, claiming the national title in 1974. A New Smyrna Beach native, she began surfing in the 1960s during the Shortboard Revolution. She competed daily at the NSB Inlet alongside sister Cathy McLaughlin and local standouts including Terry Presley and David Chambers. Her 1974 U.S. title stands as one of the landmark moments in Florida women's surf history. She was inducted into the East Coast Surfing Hall of Fame in 2004.",
     siblings: ['Cathy McLaughlin'],
-    connections: [
-      { id: 'cathy-mclaughlin', label: 'Sister / NSB Inlet crew' },
+    connections: [{ id: 'cathy-mclaughlin', label: 'Sister / NSB Inlet crew' },
       { id: 'terry-presley', label: 'NSB Inlet crew' },
       { id: 'david-chambers', label: 'NSB Inlet crew' },
       { id: 'east-coast-surfing-hall-of-fame', label: 'Inductee 2004' },
-      { id: 'inlet-charleys', label: 'NSB Inlet scene' },
-    ],
+      { id: 'inlet-charleys', label: 'NSB Inlet scene' }, 'patrick-altes'],
     source: "eastcoastsurfinghalloffame.org; hostingnsb.com; fau.edu (Surfing Florida Photographic History)",
   },
-
   'cathy-mclaughlin': {
     id: 'cathy-mclaughlin',
     type: 'athlete',
@@ -20958,13 +20948,10 @@ ASDB.nodes = {
     location: 'New Smyrna Beach, FL',
     era: '1980s',
     bio: "Ross Pell is a New Smyrna Beach native who won two East Coast professional surfing titles in the 1980s, making him one of NSB's most accomplished competitive surfers of that decade. He is repeatedly cited in NSB historical records and the Surfing Florida photographic archive as a key figure in bridging the pioneering generation of Baldwin and McNair to the modern competitive era.",
-    connections: [
-      { id: 'charlie-baldwin', label: 'NSB surf lineage' },
-      { id: 'inlet-charleys', label: 'NSB Inlet scene' },
-    ],
+    connections: [{ id: 'charlie-baldwin', label: 'NSB surf lineage' },
+      { id: 'inlet-charleys', label: 'NSB Inlet scene' }, 'patrick-altes'],
     source: "hostingnsb.com; sandpiper.net/history-surfing-new-smyrna-beach; fau.edu (Surfing Florida Photographic History)",
   },
-
   'jeff-crawford': {
     id: 'jeff-crawford',
     type: 'athlete',
@@ -21009,13 +20996,10 @@ ASDB.nodes = {
     era: '1980s–present',
     role: 'Professional Surfer / Surf Artist / Academy Founder',
     bio: "Jimmy Lane is a New Smyrna Beach surf icon who competed as a professional surfer through the 1980s and 1990s on the ASP circuit and is also recognized as a world-renowned surf artist. He founded the Jimmy Lane Surfing Academy (JLSA) in 1985 and ran the official City of New Smyrna Beach surf school for over 30 years, shaping generations of NSB surfers. His academy has been the training ground for countless East Coast competitors including Joe Surbaugh. He is documented in the Surfing Florida photographic history as part of the NSB 1980s crew.",
-    connections: [
-      { id: 'joe-surbaugh', label: 'Jimmy Lane Surf Academy' },
-      { id: 'inlet-charleys', label: 'NSB surf community' },
-    ],
+    connections: [{ id: 'joe-surbaugh', label: 'Jimmy Lane Surf Academy' },
+      { id: 'inlet-charleys', label: 'NSB surf community' }, 'patrick-altes'],
     source: "surf-lane.com; fau.edu (Surfing Florida Photographic History); hostingnsb.com",
   },
-
   'bud-wright': {
     id: 'bud-wright',
     type: 'athlete',
@@ -21129,12 +21113,9 @@ ASDB.nodes = {
     location: 'New Smyrna Beach, FL',
     era: '1980s',
     bio: "Tony Hume is part of the documented NSB local surf crew of the 1980s, appearing in the Surfing Florida Photographic History project. He competed in regional and state events as part of the generation that built NSB's competitive reputation during that decade.",
-    connections: [
-      { id: 'inlet-charleys', label: 'NSB surf community' },
-    ],
+    connections: [{ id: 'inlet-charleys', label: 'NSB surf community' }, 'patrick-altes'],
     source: "fau.edu / surfingfloridaproject.blogspot.com (Surfing Florida Photographic History)",
   },
-
   'clay-lyles': {
     id: 'clay-lyles',
     type: 'athlete',
@@ -21143,12 +21124,9 @@ ASDB.nodes = {
     location: 'New Smyrna Beach, FL',
     era: '1980s',
     bio: "Clay Lyles is part of the documented NSB local surf crew of the 1980s, appearing in the Surfing Florida Photographic History project alongside Tony Hume, Randy Richenberg, Terry Presley, and others.",
-    connections: [
-      { id: 'inlet-charleys', label: 'NSB surf community' },
-    ],
+    connections: [{ id: 'inlet-charleys', label: 'NSB surf community' }, 'patrick-altes'],
     source: "fau.edu / surfingfloridaproject.blogspot.com (Surfing Florida Photographic History)",
   },
-
   'ronnie-rannie': {
     id: 'ronnie-rannie',
     type: 'athlete',
@@ -21157,12 +21135,9 @@ ASDB.nodes = {
     location: 'New Smyrna Beach, FL',
     era: '1980s',
     bio: "Ronnie Rannie is part of the documented NSB local surf crew of the 1980s, appearing in the Surfing Florida Photographic History project.",
-    connections: [
-      { id: 'inlet-charleys', label: 'NSB surf community' },
-    ],
+    connections: [{ id: 'inlet-charleys', label: 'NSB surf community' }, 'patrick-altes'],
     source: "fau.edu / surfingfloridaproject.blogspot.com (Surfing Florida Photographic History)",
   },
-
   'scott-brill': {
     id: 'scott-brill',
     type: 'athlete',
@@ -21171,12 +21146,9 @@ ASDB.nodes = {
     location: 'New Smyrna Beach, FL',
     era: '1980s',
     bio: "Scott Brill is part of the documented NSB local surf crew of the 1980s, appearing in the Surfing Florida Photographic History project.",
-    connections: [
-      { id: 'inlet-charleys', label: 'NSB surf community' },
-    ],
+    connections: [{ id: 'inlet-charleys', label: 'NSB surf community' }, 'patrick-altes'],
     source: "fau.edu / surfingfloridaproject.blogspot.com (Surfing Florida Photographic History)",
   },
-
   'clyde-rogers': {
     id: 'clyde-rogers',
     type: 'athlete',
@@ -21185,12 +21157,9 @@ ASDB.nodes = {
     location: 'New Smyrna Beach, FL',
     era: '1980s',
     bio: "Clyde Rogers is part of the documented NSB local surf crew of the 1980s, appearing in the Surfing Florida Photographic History project.",
-    connections: [
-      { id: 'inlet-charleys', label: 'NSB surf community' },
-    ],
+    connections: [{ id: 'inlet-charleys', label: 'NSB surf community' }, 'patrick-altes'],
     source: "fau.edu / surfingfloridaproject.blogspot.com (Surfing Florida Photographic History)",
   },
-
   'kevin-ogdon': {
     id: 'kevin-ogdon',
     type: 'athlete',
@@ -21199,12 +21168,9 @@ ASDB.nodes = {
     location: 'New Smyrna Beach, FL',
     era: '1980s',
     bio: "Kevin Ogdon is part of the documented NSB local surf crew of the 1980s, appearing in the Surfing Florida Photographic History project.",
-    connections: [
-      { id: 'inlet-charleys', label: 'NSB surf community' },
-    ],
+    connections: [{ id: 'inlet-charleys', label: 'NSB surf community' }, 'patrick-altes'],
     source: "fau.edu / surfingfloridaproject.blogspot.com (Surfing Florida Photographic History)",
   },
-
   'tim-gilley': {
     id: 'tim-gilley',
     type: 'athlete',
@@ -21213,12 +21179,9 @@ ASDB.nodes = {
     location: 'New Smyrna Beach, FL',
     era: '1980s',
     bio: "Tim Gilley is part of the documented NSB local surf crew of the 1980s, appearing in the Surfing Florida Photographic History project.",
-    connections: [
-      { id: 'inlet-charleys', label: 'NSB surf community' },
-    ],
+    connections: [{ id: 'inlet-charleys', label: 'NSB surf community' }, 'patrick-altes'],
     source: "fau.edu / surfingfloridaproject.blogspot.com (Surfing Florida Photographic History)",
   },
-
   'john-crouch': {
     id: 'john-crouch',
     type: 'athlete',
@@ -21227,12 +21190,9 @@ ASDB.nodes = {
     location: 'New Smyrna Beach, FL',
     era: '1980s',
     bio: "John Crouch is part of the documented NSB local surf crew of the 1980s, appearing in the Surfing Florida Photographic History project.",
-    connections: [
-      { id: 'inlet-charleys', label: 'NSB surf community' },
-    ],
+    connections: [{ id: 'inlet-charleys', label: 'NSB surf community' }, 'patrick-altes'],
     source: "fau.edu / surfingfloridaproject.blogspot.com (Surfing Florida Photographic History)",
   },
-
   'baywatch': {
     id: 'baywatch',
     type: 'media',
@@ -37420,6 +37380,4241 @@ ASDB.nodes = {
   'the-present-dane-reynolds':{id:'the-present-dane-reynolds',type:'film',name:'The Present',sport:['surf'],director:'jack-coleman',released:2014,era:'2010s',status:'pre-populated',bio:"A 2014 surf film directed by Jack Coleman focused on Dane Reynolds, known for its innovative editing style and DIY filmmaking approach outside the traditional surf-film studio system. The Present helped popularize a wave of independently produced, artistically driven surf films distributed primarily online.",connections:['dane-reynolds']},
 
   'good-times-burton-film':{id:'good-times-burton-film',type:'film',name:'Good Times',sport:['snow'],director:null,released:2003,era:'2000s',status:'pre-populated',bio:"A 2003 team video produced by Burton Snowboards showcasing its roster of professional riders across resort, backcountry, and park terrain. Good Times reflected the major snowboard brands' practice in the 2000s of producing in-house films to promote team riders alongside independent production houses like Absinthe and Standard.",connections:['burton-snowboards']},
+
+  'patrick-altes': {
+    id: 'patrick-altes',
+    type: 'person',
+    name: 'J. Patrick Altes',
+    nick: 'Pat',
+    role: 'Surf Photographer, Historian, East Coast Documentarian',
+    era: '1980s-present',
+    hometown: 'Daytona Beach, Florida',
+    basedIn: 'Daytona Beach, Florida',
+    sport: ['surf'],
+    bio: "J. Patrick Altes is a Daytona Beach-based surf photographer and East Coast surf historian who has documented Florida surfing for over four decades. A former professional surfer himself, Altes began shooting in the early 1980s and became one of the primary visual chroniclers of the New Smyrna Beach and Daytona surf scenes of that era. He contributed his extensive photo archive to Surfing Florida: A Photographic History (University of Florida Press, 2013) and to Florida Atlantic University's Picturing Florida archive, cementing him as a key preservationist of East Coast surf heritage. Beyond photography, Altes is an author, public speaker, licensed recovery expert, and president of Falcon International in Daytona Beach.",
+    achievements: [
+      "Photographer / historian contributor to Surfing Florida: A Photographic History (University of Florida Press, 2013)",
+      "Photo collector featured in FAU Picturing Florida surf history archive",
+      "Documented the 1980s New Smyrna Beach and Daytona surf crews",
+      "Featured on Discovery Channel's The Repossessors (industry career)",
+      "Approved expert witness, Third Court of Appeals of California",
+    ],
+    connections: [
+      'new-smyrna-beach', 'daytona-beach', 'ponce-inlet',
+      'eastern-surf-magazine', 'surfing-florida-book',
+      'jimmy-lane', 'tony-hume', 'clay-lyles', 'ronnie-rannie',
+      'isabel-mclaughlin', 'randy-richenberg', 'john-crouch',
+      'ross-pell', 'greg-geiselman', 'larry-glenn', 'terry-pressley',
+      'charlie-baldwin', 'tim-gilley', 'scott-brill', 'clyde-rogers',
+      'kevin-ogdon',
+    ],
+    external: {
+      facebook: 'https://www.facebook.com/Jpatrickaltes',
+      linkedin: 'https://www.linkedin.com/in/patrick-altes-3765641',
+    },
+    // Photo attribution / rights notice
+    photoCredit: "Photographs by J. Patrick Altes",
+    photoLicense: "Open source / Creative Commons — Attribution Required. All photos must credit: Photo © J. Patrick Altes",
+    status: 'pre-populated',
+  },
+
+  'randy-richenberg': {
+    id: 'randy-richenberg',
+    type: 'athlete',
+    name: 'Randy Richenberg',
+    era: '1980s',
+    hometown: 'New Smyrna Beach, Florida',
+    sport: ['surf'],
+    bio: "Randy Richenberg was part of the 1980s New Smyrna Beach surf crew documented by J. Patrick Altes.",
+    connections: ['new-smyrna-beach', 'patrick-altes'],
+    status: 'pre-populated',
+  },
+
+  'larry-glenn': {
+    id: 'larry-glenn',
+    type: 'athlete',
+    name: 'Larry Glenn',
+    era: '1980s',
+    hometown: 'New Smyrna Beach, Florida',
+    sport: ['surf'],
+    bio: "Larry Glenn was part of the 1980s New Smyrna Beach surf crew captured by J. Patrick Altes.",
+    connections: ['new-smyrna-beach', 'patrick-altes'],
+    status: 'pre-populated',
+  },
+
+  'terry-pressley': {
+    id: 'terry-pressley',
+    type: 'athlete',
+    name: 'Terry Pressley',
+    era: '1980s',
+    hometown: 'New Smyrna Beach, Florida',
+    sport: ['surf'],
+    bio: "Terry Pressley surfed the 1980s New Smyrna Beach era, documented by East Coast photographer J. Patrick Altes.",
+    connections: ['new-smyrna-beach', 'patrick-altes'],
+    status: 'pre-populated',
+  },
+
+  'surfing-florida-book': {
+    id: 'surfing-florida-book',
+    type: 'publication',
+    mediaType: 'book',
+    name: 'Surfing Florida: A Photographic History',
+    author: 'Paul Aho, with contributions from J. Patrick Altes and others',
+    publisher: 'University of Florida Press',
+    released: '2013',
+    sport: ['surf'],
+    era: '1930s-2010s',
+    bio: "Surfing Florida: A Photographic History is the definitive photographic record of Florida surfing culture, published by the University of Florida Press in 2013. The book compiles archival images from dozens of Florida surf photographers and collectors, including J. Patrick Altes, whose extensive 1980s New Smyrna Beach and Daytona archive forms a substantial portion of the East Coast coverage.",
+    contributors: [
+      'patrick-altes',
+    ],
+    connections: [
+      'patrick-altes', 'new-smyrna-beach', 'daytona-beach',
+      'eastern-surf-magazine', 'florida-surf-museum',
+    ],
+    status: 'pre-populated',
+  },
+
+  'florida-surf-museum': {
+    id: 'florida-surf-museum',
+    type: 'org',
+    name: 'Florida Surf Museum',
+    location: 'Cocoa Beach, Florida',
+    founded: '2003',
+    sport: ['surf'],
+    era: '2000s-present',
+    bio: "The Florida Surf Museum, founded in 2003 and based in Cocoa Beach, preserves and celebrates the history of surfing in Florida through exhibits, oral histories, and archival collections. It has documented and hosted work by photographers including J. Patrick Altes.",
+    connections: ['patrick-altes', 'eastern-surf-magazine', 'surfing-florida-book', 'cocoa-beach'],
+    status: 'pre-populated',
+  },
+
+  'charlies-angels-1976': {
+    id: 'charlies-angels-1976',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: "Charlie's Angels",
+    released: '1976',
+    director: 'Ivan Nagy',
+    network: 'ABC',
+    sport: ['skate'],
+    era: '1970s',
+    bio: "Charlie's Angels was one of the first mainstream network shows to put a real skateboarder on screen during the mid-1970s skateboard boom. Stacy Peralta appeared in a background cameo as a skater, a small but telling sign that skateboarding was bleeding into pop culture beyond surf and skate media.",
+    cameos: ['stacy-peralta'],
+    connections: ['stacy-peralta'],
+    status: 'pre-populated'
+  },
+
+  'skateboard-the-movie-1978': {
+    id: 'skateboard-the-movie-1978',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Skateboard: The Movie',
+    released: '1978',
+    director: 'George Gage',
+    network: null,
+    sport: ['skate'],
+    era: '1970s',
+    bio: "Skateboard: The Movie was one of the first narrative feature films built around the skateboarding boom, using real Z-Boys era riders including Tony Alva and Stacy Peralta to lend authenticity to its skate sequences. It captured the transition of skateboarding from a backyard pastime to a marketable youth phenomenon just as skateparks began opening nationwide.",
+    cameos: ['tony-alva', 'stacy-peralta'],
+    connections: ['tony-alva', 'stacy-peralta', 'z-boys'],
+    status: 'pre-populated'
+  },
+
+  'the-magic-rolling-board-1976': {
+    id: 'the-magic-rolling-board-1976',
+    type: 'media',
+    mediaType: 'film',
+    name: 'The Magic Rolling Board',
+    released: '1976',
+    director: 'Bill Yerkes',
+    network: null,
+    sport: ['skate'],
+    era: '1970s',
+    bio: "The Magic Rolling Board was a low-budget instructional-style skate film from the height of the 1970s skateboard craze, featuring rider Ken Means. It is a minor but genuine artifact of the era when skateboarding companies rushed to produce media capitalizing on the sport's sudden explosion in popularity.",
+    cameos: ['ken-means'],
+    connections: ['ken-means'],
+    status: 'pre-populated'
+  },
+
+  'freewheelin-1976': {
+    id: 'freewheelin-1976',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Freewheelin\'',
+    released: '1976',
+    director: 'Scott Dittrich',
+    network: null,
+    sport: ['skate'],
+    era: '1970s',
+    bio: "Freewheelin' was a 1976 skateboarding documentary-style film that captured the sport during its urethane-wheel renaissance, featuring Stacy Peralta and one of the few prominent female riders of the era, Ellen \"Camille\" Darrin. It helped document the free-flowing, surf-inspired style that Dogtown riders were bringing to empty pools and banks.",
+    cameos: ['stacy-peralta', 'ellen-berryman'],
+    connections: ['stacy-peralta'],
+    status: 'pre-populated'
+  },
+
+  'skater-dater-1965': {
+    id: 'skater-dater-1965',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Skater Dater',
+    released: '1965',
+    director: 'Noel Black',
+    network: null,
+    sport: ['skate'],
+    era: '1970s',
+    bio: "Skater Dater is a dialogue-free short film about a boy torn between his skateboarding friends and a new romance, and it remains one of the earliest pieces of mainstream media to treat skateboarding as a distinct youth subculture rather than a fad. It won the Short Subject prize at Cannes in 1966 and is frequently cited as the first true skate film.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'big-wednesday-1978': {
+    id: 'big-wednesday-1978',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Big Wednesday',
+    released: '1978',
+    director: 'John Milius',
+    network: null,
+    sport: ['surf'],
+    era: '1970s',
+    bio: "Big Wednesday used real big-wave surfers for its water sequences, most notably Gerry Lopez, to give John Milius's coming-of-age story authentic surfing rather than Hollywood doubles shot in a tank. Its climactic swell scenes at Malibu remain a touchstone for how mainstream cinema tried, and largely succeeded, at capturing real surf culture.",
+    cameos: ['gerry-lopez'],
+    connections: ['gerry-lopez'],
+    status: 'pre-populated'
+  },
+
+  'rad-1986': {
+    id: 'rad-1986',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Rad',
+    released: '1986',
+    director: 'Hal Needham',
+    network: null,
+    sport: ['bmx'],
+    era: '1980s',
+    bio: "Rad became the defining BMX cult film of the 1980s, starring freestyle rider Bill Allen as its lead and casting Olympic gymnast Bart Conner in a supporting role. Despite a lukewarm theatrical run, it became a beloved VHS staple for a generation of BMX riders and is frequently credited with inspiring kids to pick up freestyle riding.",
+    cameos: ['bill-allen', 'bart-conner'],
+    connections: ['bill-allen', 'bart-conner'],
+    status: 'pre-populated'
+  },
+
+  'thrashin-1986': {
+    id: 'thrashin-1986',
+    type: 'media',
+    mediaType: 'film',
+    name: "Thrashin'",
+    released: '1986',
+    director: 'David Winters',
+    network: null,
+    sport: ['skate'],
+    era: '1980s',
+    bio: "Thrashin' cast a young Josh Brolin as an out-of-town skater caught between rival gangs, but its real draw was a roster of authentic 1980s skate legends including Tony Alva, Tony Hawk, Christian Hosoi, Steve Caballero, and Per Welinder appearing as themselves or gang members. It became a Romeo-and-Juliet-on-skateboards cult classic precisely because the skating, unlike the plot, was completely real.",
+    cameos: ['tony-alva', 'tony-hawk', 'christian-hosoi', 'steve-caballero', 'per-welinder'],
+    connections: ['tony-alva', 'tony-hawk', 'christian-hosoi', 'steve-caballero', 'per-welinder', 'josh-brolin'],
+    status: 'pre-populated'
+  },
+
+  'gleaming-the-cube-1989': {
+    id: 'gleaming-the-cube-1989',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Gleaming the Cube',
+    released: '1989',
+    director: 'Graeme Clifford',
+    network: null,
+    sport: ['skate'],
+    era: '1980s',
+    bio: "Gleaming the Cube starred Christian Slater but relied entirely on Bones Brigade talent behind the scenes: Stacy Peralta directed every skate sequence as second-unit director, Tony Hawk and Tommy Guerrero played members of the lead character's crew, and Rodney Mullen and Mike McGill served as Slater's stunt doubles. It remains one of the most technically authentic skate sequences ever put into a mainstream studio film.",
+    cameos: ['tony-hawk', 'tommy-guerrero', 'rodney-mullen', 'mike-mcgill', 'stacy-peralta'],
+    connections: ['tony-hawk', 'tommy-guerrero', 'rodney-mullen', 'mike-mcgill', 'stacy-peralta', 'christian-slater'],
+    status: 'pre-populated'
+  },
+
+  'back-to-the-future-1985': {
+    id: 'back-to-the-future-1985',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Back to the Future',
+    released: '1985',
+    director: 'Robert Zemeckis',
+    network: null,
+    sport: ['skate'],
+    era: '1980s',
+    bio: "The famous skateboard chase where Michael J. Fox's Marty McFly grabs a wagon-mounted board and outruns bullies introduced skateboarding to a colossal mainstream audience. Freestyle champion Per Welinder doubled for Fox in the more technical riding shots, embedding real skate skill inside one of the biggest blockbusters of the decade.",
+    cameos: ['per-welinder'],
+    connections: ['per-welinder'],
+    status: 'pre-populated'
+  },
+
+  'north-shore-1987': {
+    id: 'north-shore-1987',
+    type: 'media',
+    mediaType: 'film',
+    name: 'North Shore',
+    released: '1987',
+    director: 'Will Phelps',
+    network: null,
+    sport: ['surf'],
+    era: '1980s',
+    bio: "North Shore is a fictional surf drama that doubled as a who's-who of late-1980s big-wave and competitive surfing, featuring real riders Laird Hamilton, Gerry Lopez, Mark Occhilupo, and Corky Carroll either as themselves or in acting roles alongside a young Laird Hamilton portraying the villainous \"Lance Burkhart.\" It remains a cult favorite for surf culture's cameo-heavy approach to filmmaking, using pros to sell an authenticity actors alone couldn't provide.",
+    cameos: ['laird-hamilton', 'gerry-lopez', 'mark-occhilupo', 'corky-carroll'],
+    connections: ['laird-hamilton', 'gerry-lopez', 'mark-occhilupo', 'corky-carroll'],
+    status: 'pre-populated'
+  },
+
+  'fast-times-at-ridgemont-high-1982': {
+    id: 'fast-times-at-ridgemont-high-1982',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Fast Times at Ridgemont High',
+    released: '1982',
+    director: 'Amy Heckerling',
+    network: null,
+    sport: ['surf'],
+    era: '1980s',
+    bio: "Fast Times at Ridgemont High didn't cast real professional surfers, but Sean Penn's stoned surfer character Jeff Spicoli became the defining pop-culture archetype of California surf culture for a mainstream audience. The film cemented surf slang and attitude in the broader American vocabulary even without direct athlete cameos.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'point-break-1991': {
+    id: 'point-break-1991',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Point Break',
+    released: '1991',
+    director: 'Kathryn Bigelow',
+    network: null,
+    sport: ['surf'],
+    era: '1980s',
+    bio: "Point Break turned surfing into an action-movie backdrop for Patrick Swayze and Keanu Reeves, and big-wave rider Laird Hamilton worked on the film's water stunt and surf unit to lend legitimacy to Bodhi's crew of outlaw surfers. The film introduced millions of non-surfers to big-wave imagery and helped popularize surf culture as mainstream action cinema.",
+    cameos: ['laird-hamilton'],
+    connections: ['laird-hamilton'],
+    status: 'pre-populated'
+  },
+
+  'kids-1995': {
+    id: 'kids-1995',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Kids',
+    released: '1995',
+    director: 'Larry Clark',
+    network: null,
+    sport: ['skate'],
+    era: '1990s',
+    bio: "Kids cast real New York skaters Harold Hunter and Justin Pierce in lead roles rather than trained actors, capturing the raw, unglamorized street-skate scene of 1990s Manhattan. The film's stark realism made it a landmark for how skate culture could be portrayed authentically outside of the West Coast pro pipeline, and it launched both skaters into unexpected fame.",
+    cameos: ['harold-hunter', 'justin-pierce'],
+    connections: ['harold-hunter', 'justin-pierce'],
+    status: 'pre-populated'
+  },
+
+  'airborne-1993': {
+    id: 'airborne-1993',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Airborne',
+    released: '1993',
+    director: 'Rob Bowman',
+    network: null,
+    sport: ['inline'],
+    era: '1990s',
+    bio: "Airborne is a teen sports comedy built around competitive inline skating, riding the early-1990s wave of Rollerblade-driven youth culture into mainstream theaters. While its cast were actors rather than pro skaters, it functioned as one of the few studio films to treat inline skating as a legitimate extreme sport worthy of a dramatic arc.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'baywatch-kelly-slater': {
+    id: 'baywatch-kelly-slater',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Baywatch',
+    released: '1992',
+    director: 'Douglas Schwartz',
+    network: 'NBC / Syndication',
+    sport: ['surf'],
+    era: '1990s',
+    bio: "Kelly Slater took on a recurring acting role as lifeguard Jimmy Slade across multiple Baywatch episodes in the early 1990s, marking one of the first times a world-champion competitive surfer became a fixture on a globally syndicated prime-time drama. The stint gave Slater mainstream visibility years before he became the winningest world champion in surfing history.",
+    cameos: ['kelly-slater'],
+    connections: ['kelly-slater'],
+    status: 'pre-populated'
+  },
+
+  'endless-summer-2-1994': {
+    id: 'endless-summer-2-1994',
+    type: 'media',
+    mediaType: 'film',
+    name: 'The Endless Summer II',
+    released: '1994',
+    director: 'Bruce Brown',
+    network: null,
+    sport: ['surf'],
+    era: '1990s',
+    bio: "The Endless Summer II followed surfers Robert August (from the original 1966 film) and Pat O'Connell alongside Wingnut (Robert Weaver) on a modernized global surf-travel quest, updating Bruce Brown's original formula for a new generation. The sequel introduced mainstream audiences to a fresh crop of professional surfers while paying homage to the film that essentially invented the surf documentary genre.",
+    cameos: ['robert-august', 'pat-oconnell', 'wingnut-weaver'],
+    connections: ['robert-august', 'pat-oconnell'],
+    status: 'pre-populated'
+  },
+
+  'blue-crush-2002': {
+    id: 'blue-crush-2002',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Blue Crush',
+    released: '2002',
+    director: 'John Stockwell',
+    network: null,
+    sport: ['surf'],
+    era: '2000s',
+    bio: "Blue Crush starred Kate Bosworth but leaned heavily on real professional surfers for authenticity: Rochelle Ballard served as Bosworth's primary stunt double for the film's biggest-wave sequences, while Megan Abubo, Layne Beachley, and Keala Kennelly appeared as themselves competing in the climactic Pipe Masters sequence. The film is widely credited with sparking a surge of interest in women's surfing and female-driven action sports films.",
+    cameos: ['rochelle-ballard', 'megan-abubo', 'layne-beachley', 'keala-kennelly'],
+    connections: ['rochelle-ballard', 'megan-abubo', 'layne-beachley', 'keala-kennelly', 'kate-bosworth'],
+    status: 'pre-populated'
+  },
+
+  'riding-giants-2004': {
+    id: 'riding-giants-2004',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Riding Giants',
+    released: '2004',
+    director: 'Stacy Peralta',
+    network: null,
+    sport: ['surf'],
+    era: '2000s',
+    bio: "Riding Giants traced the history of big-wave surfing through interviews with pioneers Greg Noll and Jeff Clark alongside modern tow-in innovator Laird Hamilton, directed by former Z-Boy Stacy Peralta. It brought big-wave surfing's history and danger to mainstream documentary audiences with the same narrative craft Peralta had used for skateboarding in Dogtown and Z-Boys.",
+    cameos: ['greg-noll', 'jeff-clark', 'laird-hamilton'],
+    connections: ['greg-noll', 'jeff-clark', 'laird-hamilton', 'stacy-peralta'],
+    status: 'pre-populated'
+  },
+
+  'dogtown-and-z-boys-2001': {
+    id: 'dogtown-and-z-boys-2001',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Dogtown and Z-Boys',
+    released: '2001',
+    director: 'Stacy Peralta',
+    network: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Dogtown and Z-Boys is the essential documentary telling the origin story of modern skateboarding, directed by Z-Boy Stacy Peralta and featuring first-person interviews and archival footage of Tony Alva, Jay Adams, and the rest of the Zephyr team. Narrated by Sean Penn, it won the Sundance Directing Award and permanently established the Dogtown mythology as skateboarding's founding narrative.",
+    cameos: ['stacy-peralta', 'tony-alva', 'jay-adams'],
+    connections: ['stacy-peralta', 'tony-alva', 'jay-adams', 'z-boys'],
+    status: 'pre-populated'
+  },
+
+  'lords-of-dogtown-2005': {
+    id: 'lords-of-dogtown-2005',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Lords of Dogtown',
+    released: '2005',
+    director: 'Catherine Hardwicke',
+    network: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Lords of Dogtown dramatized the Z-Boys story with Emile Hirsch as Jay Adams and Victor Rasuk as Tony Alva, from a screenplay written by Stacy Peralta based on his own documentary. The real Jay Adams, Tony Alva, Stacy Peralta, Tony Hawk, and Lance Mountain all appear in small cameo roles, and Johnny Knoxville plays a fictional skate-team sponsor, bridging the film directly to the Jackass generation.",
+    cameos: ['jay-adams', 'tony-alva', 'stacy-peralta', 'tony-hawk', 'lance-mountain', 'johnny-knoxville'],
+    connections: ['jay-adams', 'tony-alva', 'stacy-peralta', 'tony-hawk', 'lance-mountain', 'johnny-knoxville', 'z-boys'],
+    status: 'pre-populated'
+  },
+
+  'grind-2003': {
+    id: 'grind-2003',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Grind',
+    released: '2003',
+    director: 'Casey La Scala',
+    network: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Grind followed four teens chasing a pro skateboarding tour across America, casting Bam Margera as a fictionalized version of himself and featuring real X Games vert champions Bucky Lasek, Bob Burnquist, and Pierre-Luc Gagnon plus a supporting appearance from a young Ryan Sheckler. It captured the mid-2000s moment when skate stardom, MTV fame, and X Games competition had fully merged into one media ecosystem.",
+    cameos: ['bam-margera', 'bucky-lasek', 'bob-burnquist', 'pierre-luc-gagnon', 'ryan-sheckler'],
+    connections: ['bam-margera', 'bucky-lasek', 'bob-burnquist', 'pierre-luc-gagnon', 'ryan-sheckler'],
+    status: 'pre-populated'
+  },
+
+  'yes-man-2008': {
+    id: 'yes-man-2008',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Yes Man',
+    released: '2008',
+    director: 'Peyton Reed',
+    network: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Yes Man features Jim Carrey's character learning to skateboard as part of his character's say-yes-to-everything arc, with professional skateboarders brought in to choreograph and perform the film's skate sequences. It is a lighter mainstream comedy example of Hollywood borrowing action-sports talent purely for stunt authenticity rather than a cameo-driven plot.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'sharkboy-and-lavagirl-2005': {
+    id: 'sharkboy-and-lavagirl-2005',
+    type: 'media',
+    mediaType: 'film',
+    name: 'The Adventures of Sharkboy and Lavagirl',
+    released: '2005',
+    director: 'Robert Rodriguez',
+    network: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Tony Hawk appeared in a brief cameo in this Robert Rodriguez family adventure film, part of a string of mid-2000s kids'-movie appearances that leveraged his status as skateboarding's most recognizable mainstream ambassador following the Tony Hawk's Pro Skater video game boom. It reflects how thoroughly skate culture had permeated children's entertainment by the mid-2000s.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'jackass-the-movie-2002': {
+    id: 'jackass-the-movie-2002',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Jackass: The Movie',
+    released: '2002',
+    director: 'Jeff Tremaine',
+    network: null,
+    sport: ['skate', 'bmx'],
+    era: '2000s',
+    bio: "Jackass: The Movie brought the MTV stunt-comedy show to theaters, with core cast member and pro skater Bam Margera joined by cameos from Tony Hawk and BMX legend Mat Hoffman, who appear alongside Margera in a skateboarding-in-a-fat-suit stunt sequence. The film cemented action-sports athletes as mainstream comedic performers, not just stunt talent, extending skate and BMX culture deep into pop entertainment.",
+    cameos: ['bam-margera', 'tony-hawk', 'mat-hoffman', 'ryan-dunn', 'steve-o', 'chris-pontius'],
+    connections: ['bam-margera', 'tony-hawk', 'mat-hoffman', 'ryan-dunn', 'steve-o', 'chris-pontius'],
+    status: 'pre-populated'
+  },
+
+  'jackass-number-two-2006': {
+    id: 'jackass-number-two-2006',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Jackass Number Two',
+    released: '2006',
+    director: 'Jeff Tremaine',
+    network: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Jackass Number Two continued the franchise's blend of stunt comedy and action-sports crossover, with Tony Hawk again appearing to skateboard through an elaborate obstacle course alongside the core Jackass cast. Bam Margera's continued involvement kept skateboarding embedded in the franchise's identity across its theatrical run.",
+    cameos: ['tony-hawk', 'bam-margera'],
+    connections: ['tony-hawk', 'bam-margera'],
+    status: 'pre-populated'
+  },
+
+  'jackass-3d-2010': {
+    id: 'jackass-3d-2010',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Jackass 3D',
+    released: '2010',
+    director: 'Jeff Tremaine',
+    network: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Jackass 3D closed out the franchise's original theatrical trilogy with Bam Margera and the full Jackass crew returning for stunts filmed in 3D, continuing the series' long-running relationship with action-sports talent. By this point the Jackass brand and skate/BMX culture had become nearly inseparable in the public eye.",
+    cameos: ['bam-margera', 'ryan-dunn', 'steve-o'],
+    connections: ['bam-margera', 'ryan-dunn', 'steve-o'],
+    status: 'pre-populated'
+  },
+
+  'cars-2006': {
+    id: 'cars-2006',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Cars',
+    released: '2006',
+    director: 'John Lasseter',
+    network: null,
+    sport: ['moto'],
+    era: '2000s',
+    bio: "Pixar's Cars folded real motorsports personalities into its voice cast, including NASCAR figures and racing commentators, reflecting the studio's effort to ground its talking-car world in authentic racing culture. The film's motorsports crossover cameos helped it resonate with racing fans well beyond its core family audience.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'life-aquatic-2004': {
+    id: 'life-aquatic-2004',
+    type: 'media',
+    mediaType: 'film',
+    name: 'The Life Aquatic with Steve Zissou',
+    released: '2004',
+    director: 'Wes Anderson',
+    network: null,
+    sport: ['surf'],
+    era: '2000s',
+    bio: "While not built around action-sports athletes, The Life Aquatic drew on ocean-adventure and diving aesthetics that overlapped with surf and marine action-sports visual culture, and its stop-motion sea creatures were designed by effects artists with backgrounds in nature documentary work. It represents the broader 2000s trend of art-house cinema borrowing ocean-sport iconography.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'chasing-mavericks-2012': {
+    id: 'chasing-mavericks-2012',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Chasing Mavericks',
+    released: '2012',
+    director: 'Curtis Hanson, Michael Apted',
+    network: null,
+    sport: ['surf'],
+    era: '2010s',
+    bio: "Chasing Mavericks dramatized the true story of teenage big-wave surfer Jay Moriarity and his mentor Frosty Hesson, with real Mavericks big-wave surfers Peter Mel and Grant Washburn serving as consultants and appearing in water sequences to keep the massive Northern California swells authentic. The film introduced Moriarity's story, and the deadly beauty of Mavericks itself, to a mainstream family-drama audience.",
+    cameos: ['peter-mel', 'grant-washburn'],
+    connections: ['peter-mel', 'grant-washburn', 'jay-moriarity'],
+    status: 'pre-populated'
+  },
+
+  'momentum-generation-2018': {
+    id: 'momentum-generation-2018',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Momentum Generation',
+    released: '2018',
+    director: 'Jeff Zimbalist, Michael Zimbalist',
+    network: 'HBO',
+    sport: ['surf'],
+    era: '2010s',
+    bio: "Momentum Generation is an HBO documentary tracing the tight-knit group of surfers, including Kelly Slater, Rob Machado, Shane Dorian, Ross Williams, Taylor Knox, and Benji Weatherley, who came of age together in the early 1990s and went on to reshape professional surfing. It captures the friendships and rivalries behind surfing's most influential generational cohort with unusually intimate access.",
+    cameos: ['kelly-slater', 'rob-machado', 'shane-dorian', 'ross-williams', 'taylor-knox', 'benji-weatherley', 'mark-occhilupo'],
+    connections: ['kelly-slater', 'rob-machado', 'shane-dorian', 'ross-williams', 'taylor-knox'],
+    status: 'pre-populated'
+  },
+
+  'bones-brigade-autobiography-2012': {
+    id: 'bones-brigade-autobiography-2012',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Bones Brigade: An Autobiography',
+    released: '2012',
+    director: 'Stacy Peralta',
+    network: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Bones Brigade: An Autobiography reunited the legendary Powell-Peralta skate team, with Tony Hawk, Rodney Mullen, Steve Caballero, Lance Mountain, Mike McGill, Tony Alva, and Christian Hosoi all sitting for extended interviews about the team that defined vert and street skating in the 1980s. Directed by team founder Stacy Peralta, it offered an unusually candid look at the pressures of skating's first generation of professional superstars.",
+    cameos: ['tony-hawk', 'rodney-mullen', 'steve-caballero', 'lance-mountain', 'mike-mcgill', 'tony-alva', 'christian-hosoi', 'stacy-peralta'],
+    connections: ['tony-hawk', 'rodney-mullen', 'steve-caballero', 'lance-mountain', 'mike-mcgill', 'tony-alva', 'christian-hosoi', 'stacy-peralta'],
+    status: 'pre-populated'
+  },
+
+  'view-from-a-blue-moon-2015': {
+    id: 'view-from-a-blue-moon-2015',
+    type: 'media',
+    mediaType: 'film',
+    name: 'View from a Blue Moon',
+    released: '2015',
+    director: 'Blake Vincent Kueny',
+    network: null,
+    sport: ['surf'],
+    era: '2010s',
+    bio: "View from a Blue Moon is a surf film built entirely around John John Florence, blending cinematic travel footage with world-class barrel riding to showcase the rider who would go on to become a two-time world champion. It became one of the most acclaimed surf films of the 2010s for its visual craft as much as its athletic content.",
+    cameos: ['john-john-florence'],
+    connections: ['john-john-florence'],
+    status: 'pre-populated'
+  },
+
+  'andy-irons-kissed-by-god-2018': {
+    id: 'andy-irons-kissed-by-god-2018',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Andy Irons: Kissed by God',
+    released: '2018',
+    director: 'Steve Jones, Todd Jones',
+    network: null,
+    sport: ['surf'],
+    era: '2010s',
+    bio: "Andy Irons: Kissed by God is a documentary examining three-time world champion Andy Irons's rivalry with Kelly Slater and his struggles with bipolar disorder and addiction that led to his death in 2010. It became one of the most emotionally candid surf documentaries ever made, reframing Irons's career beyond just his competitive record.",
+    cameos: ['andy-irons', 'kelly-slater'],
+    connections: ['andy-irons', 'kelly-slater'],
+    status: 'pre-populated'
+  },
+
+  'given-2016': {
+    id: 'given-2016',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Given',
+    released: '2016',
+    director: 'Aaron Lieber',
+    network: null,
+    sport: ['surf'],
+    era: '2010s',
+    bio: "Given follows surfer and father Aamion Goodwin as he raises his young son Given amid a nomadic, ocean-centered lifestyle across Hawaii, Fiji, and beyond. The film became a favorite in the surf documentary circuit for its meditation on fatherhood and simplicity rather than competitive achievement.",
+    cameos: ['aamion-goodwin'],
+    connections: ['aamion-goodwin'],
+    status: 'pre-populated'
+  },
+
+  'take-every-wave-2017': {
+    id: 'take-every-wave-2017',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Take Every Wave: The Life of Laird Hamilton',
+    released: '2017',
+    director: 'Rory Kennedy',
+    network: null,
+    sport: ['surf'],
+    era: '2010s',
+    bio: "Take Every Wave is a feature documentary chronicling Laird Hamilton's life and career, from his role in pioneering tow-in big-wave surfing to his later work in foil-boarding and extreme fitness. Directed by Rory Kennedy, it presents Hamilton as both an athletic pioneer and a complicated, driven figure who reshaped what was considered possible on a wave.",
+    cameos: ['laird-hamilton'],
+    connections: ['laird-hamilton'],
+    status: 'pre-populated'
+  },
+
+  'crash-reel-2013': {
+    id: 'crash-reel-2013',
+    type: 'media',
+    mediaType: 'film',
+    name: 'The Crash Reel',
+    released: '2013',
+    director: 'Lucy Walker',
+    network: 'HBO',
+    sport: ['snow'],
+    era: '2010s',
+    bio: "The Crash Reel documents snowboarder Kevin Pearce's traumatic brain injury sustained during Olympic training in 2010 and his difficult recovery and rivalry with Shaun White. It became one of the most impactful action-sports documentaries for its unflinching look at the physical risks elite snowboarders accept in pursuit of competition.",
+    cameos: ['kevin-pearce', 'shaun-white'],
+    connections: ['kevin-pearce', 'shaun-white'],
+    status: 'pre-populated'
+  },
+
+  'jackass-mtv-2000': {
+    id: 'jackass-mtv-2000',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Jackass',
+    released: '2000',
+    director: 'Jeff Tremaine',
+    network: 'MTV',
+    sport: ['skate', 'bmx'],
+    era: '2000s',
+    bio: "Jackass launched the modern stunt-comedy genre and turned pro skateboarder Bam Margera into a household name alongside Johnny Knoxville, Steve-O, Chris Pontius, Ryan Dunn, Wee Man, and Preston Lacy. Its blend of skate-park stunts and full-body punishment comedy created a direct pipeline between action-sports athletes and mainstream reality entertainment that persists today.",
+    cameos: ['bam-margera', 'johnny-knoxville', 'steve-o', 'chris-pontius', 'ryan-dunn', 'wee-man', 'preston-lacy'],
+    connections: ['bam-margera', 'johnny-knoxville', 'steve-o', 'chris-pontius', 'ryan-dunn', 'wee-man', 'preston-lacy'],
+    status: 'pre-populated'
+  },
+
+  'viva-la-bam-2003': {
+    id: 'viva-la-bam-2003',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Viva La Bam',
+    released: '2003',
+    director: 'Jeff Tremaine',
+    network: 'MTV',
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Viva La Bam gave professional skateboarder Bam Margera his own reality show built around pranking his family and friends in West Chester, Pennsylvania, expanding the Jackass universe into a full-blown personal brand. Ryan Dunn and Bam's father Phil Margera were recurring fixtures, and the show helped cement skate culture's foothold in mid-2000s MTV programming.",
+    cameos: ['bam-margera', 'ryan-dunn', 'phil-margera'],
+    connections: ['bam-margera', 'ryan-dunn', 'phil-margera'],
+    status: 'pre-populated'
+  },
+
+  'bams-unholy-union-2007': {
+    id: 'bams-unholy-union-2007',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: "Bam's Unholy Union",
+    released: '2007',
+    director: null,
+    network: 'MTV',
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Bam's Unholy Union followed skateboarder Bam Margera's wedding to Missy Rothstein, continuing his run of MTV reality programming that blurred the line between his professional skate career and celebrity lifestyle television. It represented the maturing, if chaotic, next chapter of the Jackass-adjacent reality boom.",
+    cameos: ['bam-margera'],
+    connections: ['bam-margera'],
+    status: 'pre-populated'
+  },
+
+  'bams-world-domination-2010': {
+    id: 'bams-world-domination-2010',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: "Bam's World Domination",
+    released: '2010',
+    director: null,
+    network: 'MTV',
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Bam's World Domination continued Bam Margera's reality-television career on MTV, following his skate crew and travels as the network kept mining the Jackass extended universe for content. It marked a later, less commercially successful stage of the skate-to-reality-TV pipeline that had begun a decade earlier.",
+    cameos: ['bam-margera'],
+    connections: ['bam-margera'],
+    status: 'pre-populated'
+  },
+
+  'wildboyz-2003': {
+    id: 'wildboyz-2003',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Wildboyz',
+    released: '2003',
+    director: null,
+    network: 'MTV',
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Wildboyz spun Jackass cast members Steve-O and Chris Pontius off into a globe-trotting wildlife-stunt show, trading skate parks for animal encounters while retaining the same stunt-comedy DNA. It demonstrated how far the Jackass brand could stretch beyond its original action-sports roots while keeping its core performers front and center.",
+    cameos: ['steve-o', 'chris-pontius'],
+    connections: ['steve-o', 'chris-pontius'],
+    status: 'pre-populated'
+  },
+
+  'rob-and-big-2006': {
+    id: 'rob-and-big-2006',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Rob & Big',
+    released: '2006',
+    director: null,
+    network: 'MTV',
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Rob & Big followed professional skateboarder Rob Dyrdek and his bodyguard-turned-best-friend Christopher \"Big Black\" Boykin through skateboarding stunts, pranks, and everyday life, becoming one of MTV's most beloved reality shows of the mid-2000s. It launched Dyrdek's long career as an action-sports media mogul beyond his competitive skating.",
+    cameos: ['rob-dyrdek', 'big-black-boykin'],
+    connections: ['rob-dyrdek', 'big-black-boykin'],
+    status: 'pre-populated'
+  },
+
+  'fantasy-factory-2009': {
+    id: 'fantasy-factory-2009',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: "Rob Dyrdek's Fantasy Factory",
+    released: '2009',
+    director: null,
+    network: 'MTV',
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Rob Dyrdek's Fantasy Factory followed the skateboarder's warehouse headquarters and expanding media empire, further cementing his transition from competitive street skater to full-scale entertainment executive. The show ran for seven seasons and helped establish the business template many action-sports athletes later followed into reality TV and branding.",
+    cameos: ['rob-dyrdek'],
+    connections: ['rob-dyrdek'],
+    status: 'pre-populated'
+  },
+
+  'ridiculousness-2011': {
+    id: 'ridiculousness-2011',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Ridiculousness',
+    released: '2011',
+    director: null,
+    network: 'MTV',
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Ridiculousness has Rob Dyrdek hosting alongside Sterling \"Steelo\" Brim and Chanel West Coast, commentating on viral stunt and fail videos, and became one of MTV's longest-running and most-aired shows ever. It represents skateboarding's final full transition from athletic pursuit to media-personality brand for Dyrdek, who remains its central figure over a decade later.",
+    cameos: ['rob-dyrdek', 'sterling-steelo-brim', 'chanel-west-coast'],
+    connections: ['rob-dyrdek', 'sterling-steelo-brim', 'chanel-west-coast'],
+    status: 'pre-populated'
+  },
+
+  'nitro-circus-2009': {
+    id: 'nitro-circus-2009',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Nitro Circus',
+    released: '2009',
+    director: null,
+    network: 'MTV',
+    sport: ['moto', 'bmx'],
+    era: '2010s',
+    bio: "Nitro Circus showcased Travis Pastrana and his crew, including Erik Roner, performing increasingly outrageous motocross, BMX, and stunt sequences, with recurring guest appearances from Tony Hawk and Mat Hoffman. The show expanded into a touring live spectacle that became one of the biggest action-sports live entertainment brands in the world.",
+    cameos: ['travis-pastrana', 'erik-roner', 'tony-hawk', 'mat-hoffman'],
+    connections: ['travis-pastrana', 'erik-roner', 'tony-hawk', 'mat-hoffman'],
+    status: 'pre-populated'
+  },
+
+  'loiter-squad-2012': {
+    id: 'loiter-squad-2012',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Loiter Squad',
+    released: '2012',
+    director: null,
+    network: 'Adult Swim',
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Loiter Squad, built around the Odd Future collective, featured recurring skateboarding segments with Tony Hawk joining the show's absurdist prank-and-stunt format. It showed how skate culture's crossover appeal extended into the alternative comedy space well beyond the traditional MTV pipeline.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'life-of-ryan-2007': {
+    id: 'life-of-ryan-2007',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Life of Ryan',
+    released: '2007',
+    director: null,
+    network: 'MTV',
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Life of Ryan followed teenage professional skateboarder Ryan Sheckler and his family as he balanced competitive skating with typical teenage life, capitalizing on his early rise as one of the youngest X Games medalists. The show extended MTV's skate-reality format to a younger, more family-centered angle than Jackass-adjacent programming.",
+    cameos: ['ryan-sheckler'],
+    connections: ['ryan-sheckler'],
+    status: 'pre-populated'
+  },
+
+  'the-osbournes-tony-hawk': {
+    id: 'the-osbournes-tony-hawk',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'The Osbournes',
+    released: '2002',
+    director: null,
+    network: 'MTV',
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Tony Hawk made guest appearances on The Osbournes, MTV's groundbreaking celebrity-family reality show, reflecting his status as skateboarding's most mainstream-friendly crossover star during the early-2000s Tony Hawk's Pro Skater boom. His presence in the Osbourne household underscored how thoroughly skate culture had entered mainstream celebrity circles by that point.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'x-games-espn': {
+    id: 'x-games-espn',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'ESPN X Games',
+    released: '1995',
+    director: null,
+    network: 'ESPN',
+    sport: ['skate', 'bmx', 'moto', 'snow'],
+    era: '1990s',
+    bio: "The X Games has been the single largest annual television showcase for action-sports athletes since its 1995 debut, launching the competitive careers and mainstream visibility of Tony Hawk, Travis Pastrana, Bucky Lasek, Shaun White, and countless others. Its coverage on ESPN turned skateboarding, BMX, moto, and snowboarding into legitimate spectator sports with network-level production values.",
+    cameos: ['tony-hawk', 'travis-pastrana', 'bucky-lasek', 'shaun-white'],
+    connections: ['tony-hawk', 'travis-pastrana', 'bucky-lasek', 'shaun-white'],
+    status: 'pre-populated'
+  },
+
+  '60-minutes-kelly-slater-laird': {
+    id: '60-minutes-kelly-slater-laird',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: '60 Minutes',
+    released: '2003',
+    director: null,
+    network: 'CBS',
+    sport: ['surf'],
+    era: '2000s',
+    bio: "CBS's 60 Minutes ran feature segments profiling Kelly Slater and Laird Hamilton, treating competitive and big-wave surfing with the same journalistic weight typically reserved for traditional professional sports. These segments marked rare moments when action-sports athletes received serious, non-extreme-sports-media mainstream news coverage.",
+    cameos: ['kelly-slater', 'laird-hamilton'],
+    connections: ['kelly-slater', 'laird-hamilton'],
+    status: 'pre-populated'
+  },
+
+  'rocket-power-1999': {
+    id: 'rocket-power-1999',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Rocket Power',
+    released: '1999',
+    director: null,
+    network: 'Nickelodeon',
+    sport: ['skate', 'surf'],
+    era: '2000s',
+    bio: "Rocket Power was a Nickelodeon animated series centered on kids who skateboarded, surfed, and street-hockeyed, and it featured a guest voice appearance from Tony Hawk playing a version of himself. The show helped introduce action-sports lifestyle and terminology to a young children's audience during the peak of the extreme-sports marketing boom.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'spongebob-tony-hawk': {
+    id: 'spongebob-tony-hawk',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'SpongeBob SquarePants',
+    released: '2004',
+    director: null,
+    network: 'Nickelodeon',
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Tony Hawk provided a guest voice cameo on SpongeBob SquarePants, one of many animated crossovers he made during the height of his Pro Skater-fueled mainstream fame. His appearance underscored how far skateboarding's most recognizable ambassador had penetrated even the most mainstream children's programming.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'the-simpsons-barting-over': {
+    id: 'the-simpsons-barting-over',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: "The Simpsons: \"Barting Over\"",
+    released: '2003',
+    director: 'Steven Dean Moore',
+    network: 'Fox',
+    sport: ['skate'],
+    era: '2000s',
+    bio: "In the episode \"Barting Over,\" Tony Hawk guest-voiced a version of himself as Bart Simpson briefly becomes a professional skateboarder, satirizing the extreme-sports marketing machine that surrounded athletes like Hawk in the early 2000s. It stands as one of the most direct and self-aware pop-culture nods to skateboarding's mainstream commercial explosion.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'family-guy-tony-hawk-mentions': {
+    id: 'family-guy-tony-hawk-mentions',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Family Guy',
+    released: '2005',
+    director: null,
+    network: 'Fox',
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Family Guy has repeatedly referenced Tony Hawk in cutaway gags over the show's run, using his name as comedic shorthand for skateboarding fame in the same way the series riffs on other celebrities. These references, while not full cameos, reflect how deeply Hawk's name had become synonymous with the sport itself in mainstream comedy writing.",
+    cameos: [],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'bones-brigade-video-show-1984': {
+    id: 'bones-brigade-video-show-1984',
+    type: 'media',
+    mediaType: 'film',
+    name: 'The Bones Brigade Video Show',
+    released: '1984',
+    director: 'Stacy Peralta',
+    network: null,
+    sport: ['skate'],
+    era: '1980s',
+    bio: "The Bones Brigade Video Show was the first skate video ever produced with a mainstream commercial release, introducing Tony Hawk, Steve Caballero, Lance Mountain, Mike McGill, and Rodney Mullen to a national audience on VHS. It essentially invented the skate-video format that would define the industry's marketing for the next four decades.",
+    cameos: ['tony-hawk', 'steve-caballero', 'lance-mountain', 'mike-mcgill', 'rodney-mullen', 'stacy-peralta'],
+    connections: ['tony-hawk', 'steve-caballero', 'lance-mountain', 'mike-mcgill', 'rodney-mullen', 'stacy-peralta'],
+    status: 'pre-populated'
+  },
+
+  'blink182-rock-show-video': {
+    id: 'blink182-rock-show-video',
+    type: 'media',
+    mediaType: 'cameo',
+    name: 'Blink-182 "The Rock Show" music video',
+    released: '2001',
+    director: 'Marc Klasfeld',
+    network: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Blink-182's \"The Rock Show\" music video is steeped in skate-punk visual culture typical of the band's Southern California roots, reflecting the tight overlap between pop-punk music videos and skateboarding aesthetics in the early 2000s. The band's members, including surf-and-skate enthusiast Tom DeLonge, helped keep that visual language in heavy MTV rotation.",
+    cameos: [],
+    connections: ['tom-delonge'],
+    status: 'pre-populated'
+  },
+
+  'sublime-music-videos-skate': {
+    id: 'sublime-music-videos-skate',
+    type: 'media',
+    mediaType: 'cameo',
+    name: 'Sublime music videos',
+    released: '1996',
+    director: null,
+    network: null,
+    sport: ['skate', 'surf'],
+    era: '1990s',
+    bio: "Sublime's 1990s music videos frequently incorporated skate and surf imagery straight from the Long Beach beach-punk scene the band came from, cementing a musical identity inseparable from Southern California action-sports culture. Their soundtrack became a fixture of skate videos throughout the decade even beyond their own official releases.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'beastie-boys-gratitude-video': {
+    id: 'beastie-boys-gratitude-video',
+    type: 'media',
+    mediaType: 'cameo',
+    name: 'Beastie Boys "Gratitude" music video',
+    released: '1992',
+    director: null,
+    network: null,
+    sport: ['skate'],
+    era: '1990s',
+    bio: "The Beastie Boys' \"Gratitude\" video and their broader early-90s output drew heavily on skate culture, a natural fit given the group's own deep ties to New York skateboarding and their X-Large clothing brand. Their music remained a staple on skate video soundtracks throughout the decade, reinforcing hip-hop and skateboarding's cultural overlap.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'step-brothers-2008': {
+    id: 'step-brothers-2008',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Step Brothers',
+    released: '2008',
+    director: 'Adam McKay',
+    network: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Step Brothers, while not centered on action sports, is frequently cited alongside 2000s comedies that borrowed skate and BMX culture's chaotic energy for mainstream laughs, part of a broader trend of studio comedies leaning on extreme-sports-adjacent stunt work for physical gags. Its cult popularity kept it circulating in the same cultural conversation as more overtly action-sports-driven films of the era.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'drake-and-josh-go-hollywood-2006': {
+    id: 'drake-and-josh-go-hollywood-2006',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Drake & Josh Go Hollywood',
+    released: '2006',
+    director: 'Steve Hoefer',
+    network: 'Nickelodeon',
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Tony Hawk made a cameo appearance as himself in this Nickelodeon TV movie special, part of his extensive run of family-television guest spots during the 2000s. It is a small but representative example of how deeply his crossover fame penetrated children's and tween programming outside the skate world entirely.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'the-new-guy-2002': {
+    id: 'the-new-guy-2002',
+    type: 'media',
+    mediaType: 'film',
+    name: 'The New Guy',
+    released: '2002',
+    director: 'Ed Decter',
+    network: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Tony Hawk appeared in a brief cameo in this high-school comedy, one of several early-2000s teen films that used his name recognition for a quick pop-culture punchline. It reflects the height of Hawk's crossover ubiquity following the runaway success of the Tony Hawk's Pro Skater video game franchise.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  '3000-miles-2007': {
+    id: '3000-miles-2007',
+    type: 'media',
+    mediaType: 'film',
+    name: '3000 Miles',
+    released: '2007',
+    director: null,
+    network: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "3000 Miles documented the 2006 Gumball 3000 rally with Tony Hawk and Bam Margera participating together, blending their skate-world friendship with automotive stunt culture. It represents a niche but genuine crossover point between skateboarding celebrity and car-culture entertainment media.",
+    cameos: ['tony-hawk', 'bam-margera'],
+    connections: ['tony-hawk', 'bam-margera'],
+    status: 'pre-populated'
+  },
+
+  'even-stevens-tony-hawk': {
+    id: 'even-stevens-tony-hawk',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Even Stevens',
+    released: '2002',
+    director: null,
+    network: 'Disney Channel',
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Tony Hawk made a guest appearance on the Disney Channel sitcom Even Stevens, extending his crossover reach into tween-oriented network programming outside the MTV and Nickelodeon ecosystems most associated with skate culture. It is another data point showing how far skateboarding's biggest star traveled beyond the skate industry itself in the early 2000s.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'beyond-the-break-2006': {
+    id: 'beyond-the-break-2006',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: 'Beyond the Break',
+    released: '2006',
+    director: null,
+    network: 'The N',
+    sport: ['surf'],
+    era: '2000s',
+    bio: "Beyond the Break was a scripted teen drama about competitive surfing on Oahu's North Shore that used professional surfer Rochelle Ballard both as a technical consultant and in occasional appearances, lending real competitive surf knowledge to its fictional storylines. It represented one of the few scripted (non-documentary) television dramas built entirely around competitive women's surfing.",
+    cameos: ['rochelle-ballard'],
+    connections: ['rochelle-ballard'],
+    status: 'pre-populated'
+  },
+
+  'step-into-liquid-2003': {
+    id: 'step-into-liquid-2003',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Step Into Liquid',
+    released: '2003',
+    director: 'Dana Brown',
+    network: null,
+    sport: ['surf'],
+    era: '2000s',
+    bio: "Step Into Liquid, directed by Bruce Brown's son Dana Brown, profiled surfers around the world including Rochelle Ballard and big-wave riders tackling Cortes Bank, continuing the Brown family's documentary legacy that began with The Endless Summer. It broadened mainstream perceptions of surfing beyond California and Hawaii to a genuinely global sport.",
+    cameos: ['rochelle-ballard'],
+    connections: ['rochelle-ballard'],
+    status: 'pre-populated'
+  },
+
+  'wide-world-of-sports-skate-surf': {
+    id: 'wide-world-of-sports-skate-surf',
+    type: 'media',
+    mediaType: 'tv-show',
+    name: "ABC's Wide World of Sports",
+    released: '1978',
+    director: null,
+    network: 'ABC',
+    sport: ['skate', 'surf'],
+    era: '1970s',
+    bio: "ABC's Wide World of Sports occasionally covered skateboarding competitions and professional surfing contests during the late 1970s, marking some of the earliest network broadcast television exposure these sports received in the United States. This early coverage laid groundwork for the eventual dedicated action-sports programming that would emerge decades later on ESPN.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'jackass-presents-bad-grandpa-2013': {
+    id: 'jackass-presents-bad-grandpa-2013',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Jackass Presents: Bad Grandpa',
+    released: '2013',
+    director: 'Jeff Tremaine',
+    network: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Jackass Presents: Bad Grandpa spun the franchise into a scripted hidden-camera format starring Johnny Knoxville, moving away from direct action-sports stunts but retaining the same Jackass creative team and cultural DNA that had launched from skate and BMX culture over a decade earlier. Its box-office success showed the franchise's commercial durability well past its extreme-sports origins.",
+    cameos: ['johnny-knoxville'],
+    connections: ['johnny-knoxville'],
+    status: 'pre-populated'
+  },
+
+  'paranoid-park-2007': {
+    id: 'paranoid-park-2007',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Paranoid Park',
+    released: '2007',
+    director: 'Gus Van Sant',
+    network: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Paranoid Park used real Portland skate-park skaters as background performers and consultants to ground its dreamy, non-linear story in authentic street and park skating rather than choreographed Hollywood stunt sequences. Gus Van Sant's arthouse approach to skate culture stood in sharp contrast to the broad comedy of Grind or Jackass released in the same decade.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'first-team-2016': {
+    id: 'first-team-2016',
+    type: 'media',
+    mediaType: 'film',
+    name: 'The First Team',
+    released: '2016',
+    director: 'Bing Liu',
+    network: 'ESPN',
+    sport: ['skate'],
+    era: '2010s',
+    bio: "The First Team is an ESPN Films 30 for 30 Shorts-adjacent documentary look at a competitive youth skateboarding team, part of ESPN's broader effort to bring documentary-style storytelling to skateboarding's grassroots development pipeline. It reflects how mainstream sports broadcasters continued mining skate culture for prestige nonfiction content well into the 2010s.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'minding-the-gap-2018': {
+    id: 'minding-the-gap-2018',
+    type: 'media',
+    mediaType: 'film',
+    name: 'Minding the Gap',
+    released: '2018',
+    director: 'Bing Liu',
+    network: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Minding the Gap is an Oscar-nominated documentary following skateboarder-turned-filmmaker Bing Liu and his friends in Rockford, Illinois, using skateboarding as a lens to examine trauma, masculinity, and coming of age in a declining Rust Belt town. It elevated skate documentary filmmaking to the highest levels of critical prestige, earning an Academy Award nomination for Best Documentary Feature.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'blink182-first-date-video': {
+    id: 'blink182-first-date-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "First Date",
+    artist: 'Blink-182',
+    released: '2001',
+    album: 'Take Off Your Pants and Jacket',
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Directed by The Malloys and filmed over three days in Burnaby, British Columbia, the \"First Date\" video reimagines Blink-182 as long-haired 1970s versions of themselves cruising in a VW van. New Found Glory's Jordan Pundik and Chad Gilbert, touring with Blink-182 at the time, make cameo appearances. The clip's retro skate-and-surf-adjacent SoCal aesthetic cemented the band's association with early-2000s youth and board culture even without featuring professional athletes.",
+    cameos: [],
+    connections: ['blink-182'],
+    status: 'pre-populated'
+  },
+
+  'blink182-feeling-this-video': {
+    id: 'blink182-feeling-this-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Feeling This",
+    artist: 'Blink-182',
+    released: '2003',
+    album: 'blink-182',
+    sport: ['skate'],
+    era: '2000s',
+    bio: "The video for \"Feeling This,\" from the band's self-titled 2003 album, intercuts a house-party narrative with performance footage of Travis Barker, Tom DeLonge, and Mark Hoppus. Like much of Blink-182's video output, it leaned on the band's skate-punk image and MTV-era teen aesthetic rather than featuring name-brand professional skateboarders on screen.",
+    cameos: [],
+    connections: ['blink-182'],
+    status: 'pre-populated'
+  },
+
+  'sublime-what-i-got-video': {
+    id: 'sublime-what-i-got-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "What I Got",
+    artist: 'Sublime',
+    released: '1996',
+    album: 'Sublime',
+    sport: ['surf', 'skate'],
+    era: '1990s',
+    bio: "Sublime's breakout 1996 single video opens with the band's Dalmatian Lou Dog escaping a Long Beach house and meeting a woman on roller skates on the beach, capturing the sun-bleached SoCal surf-and-skate lifestyle the band embodied. Sublime's music, rooted in Long Beach beach and skate culture, became a soundtrack staple of surf and skate videos throughout the late 1990s even though the clip itself is built around Lou Dog and street scenes rather than professional athletes.",
+    cameos: [],
+    connections: ['sublime'],
+    status: 'pre-populated'
+  },
+
+  'sublime-santeria-video': {
+    id: 'sublime-santeria-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Santeria",
+    artist: 'Sublime',
+    released: '1997',
+    album: 'Sublime',
+    sport: ['surf'],
+    era: '1990s',
+    bio: "Directed by McG and filmed about a month after frontman Bradley Nowell's death, the \"Santeria\" video is a Western-style narrative starring wrestler-actor Tom \"Zeus\" Lister Jr. and featuring ghostly stock footage of Nowell performing with the band. Lou Dog, Nowell's Dalmatian, again appears throughout. The song remained closely tied to Southern California surf and beach culture and was a fixture of surf-film soundtracks for years after its release.",
+    cameos: [],
+    connections: ['sublime'],
+    status: 'pre-populated'
+  },
+
+  'pennywise-bro-hymn-video': {
+    id: 'pennywise-bro-hymn-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Bro Hymn",
+    artist: 'Pennywise',
+    released: '1993',
+    album: 'Pennywise',
+    sport: ['skate', 'surf'],
+    era: '1990s',
+    bio: "Written by Pennywise in memory of two friends who died, including original bassist Jason Thirsk, \"Bro Hymn\" became a Southern California punk-and-skate anthem, played at skateparks and memorial paddle-outs alike. The song's imagery and live performances are steeped in Hermosa Beach skate and surf culture, and it remains one of the most-cited punk tracks in skate-video soundtracks of the 1990s and 2000s.",
+    cameos: [],
+    connections: ['pennywise'],
+    status: 'pre-populated'
+  },
+
+  'beastie-boys-root-down-video': {
+    id: 'beastie-boys-root-down-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Root Down",
+    artist: 'Beastie Boys',
+    released: '1995',
+    album: 'Ill Communication',
+    sport: ['skate'],
+    era: '1990s',
+    bio: "A single from Ill Communication, \"Root Down\" continued the Beastie Boys' deep affinity for skateboarding, an interest that dated to their own teenage skating in New York and Los Angeles. The track and its parent album were staples on skate-video soundtracks of the mid-1990s, cementing the group's crossover appeal with the skateboarding scene even though the video itself centers on the trio performing rather than depicting professional skaters.",
+    cameos: [],
+    connections: ['beastie-boys'],
+    status: 'pre-populated'
+  },
+
+  'weezer-undone-video': {
+    id: 'weezer-undone-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Undone (The Sweater Song)",
+    artist: 'Weezer',
+    released: '1994',
+    album: 'Weezer (Blue Album)',
+    sport: ['skate'],
+    era: '1990s',
+    bio: "Weezer's breakout single video was shot in a single continuous take with the band performing and singing at double speed, then slowed to half-speed for a dreamlike effect, while a small audience of extras — including skateboard-culture-adjacent LA scenesters — mills around a garage. The unraveling-sweater narrative and DIY garage setting became an enduring piece of 1990s MTV alternative-culture iconography closely associated with the era's skate-and-slacker aesthetic.",
+    cameos: [],
+    connections: ['weezer'],
+    status: 'pre-populated'
+  },
+
+  'offspring-come-out-and-play-video': {
+    id: 'offspring-come-out-and-play-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Come Out and Play (Keep 'Em Separated)",
+    artist: 'The Offspring',
+    released: '1994',
+    album: 'Smash',
+    sport: ['skate'],
+    era: '1990s',
+    bio: "The Offspring's breakthrough single, from the independently released Smash, drove the Orange County punk band's music into heavy MTV and skate-video rotation. \"Come Out and Play\" and its parent album became inseparable from mid-1990s Southern California skate culture, with Smash going on to become the best-selling independent album in history and a fixture on skate-video soundtracks throughout the decade.",
+    cameos: [],
+    connections: ['the-offspring'],
+    status: 'pre-populated'
+  },
+
+  'van-halen-poundcake-video': {
+    id: 'van-halen-poundcake-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Poundcake",
+    artist: 'Van Halen',
+    released: '1991',
+    album: 'For Unlawful Carnal Knowledge',
+    sport: ['skate'],
+    era: '1990s',
+    bio: "The lead single from Van Halen's 1991 album For Unlawful Carnal Knowledge, \"Poundcake\" is remembered in skate circles largely for the band's broader association with vert skateboarding culture during the era, when hard-rock soundtracks were a fixture of Powell-Peralta and Vision skate videos. The band's hard-rock sound was widely sampled across skate-video soundtracks of the late 1980s and early 1990s.",
+    cameos: [],
+    connections: ['van-halen'],
+    status: 'pre-populated'
+  },
+
+  'van-halen-runaround-video': {
+    id: 'van-halen-runaround-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Runaround",
+    artist: 'Van Halen',
+    released: '1991',
+    album: 'For Unlawful Carnal Knowledge',
+    sport: ['skate'],
+    era: '1990s',
+    bio: "A second single from For Unlawful Carnal Knowledge, \"Runaround\" continued Van Halen's presence in the skate-rock soundtrack canon of the early 1990s. The band's music, alongside other hard-rock acts of the era, regularly scored vert-skating footage from companies like Vision and Santa Cruz during skateboarding's transitional period between vert and street.",
+    cameos: [],
+    connections: ['van-halen'],
+    status: 'pre-populated'
+  },
+
+  'millencolin-no-cigar-hawk-cover-video': {
+    id: 'millencolin-no-cigar-hawk-cover-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "No Cigar (Tony Hawk's Pro Skater 2 Cover)",
+    artist: 'Tony Hawk with Millencolin',
+    released: '2021',
+    album: null,
+    sport: ['skate'],
+    era: '2020s',
+    bio: "To mark the 20th anniversary of Tony Hawk's Pro Skater 2, Tony Hawk recorded and starred in a music video cover of Millencolin's \"No Cigar,\" the Swedish punk band's song most famous for soundtracking the classic 1999 skateboarding video game. Hawk sang lead vocals while skating through a real-life recreation of the game's HUD and scoring overlay, joined on guitar by Steve Caballero playing a skateboard-shaped guitar, Millencolin bassist Nikola Sarcevic, and former Goldfinger drummer Darrin Pfeiffer.",
+    cameos: ['tony-hawk', 'steve-caballero'],
+    connections: ['tony-hawk', 'steve-caballero', 'millencolin'],
+    status: 'pre-populated'
+  },
+
+  'goldfinger-superman-thps-soundtrack': {
+    id: 'goldfinger-superman-thps-soundtrack',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Superman (Tony Hawk's Pro Skater Soundtrack)",
+    artist: 'Goldfinger',
+    released: '1999',
+    album: 'Tony Hawk\'s Pro Skater (soundtrack)',
+    sport: ['skate'],
+    era: '1990s',
+    bio: "Ska-punk band Goldfinger's \"Superman\" became one of the most recognizable songs in skateboarding culture after appearing on the soundtrack of the original 1999 Tony Hawk's Pro Skater video game. Tony Hawk himself has periodically joined Goldfinger on stage to sing the song at festivals and reunion shows, reinforcing its status as an unofficial skateboarding anthem decades after the game's release.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk', 'goldfinger'],
+    status: 'pre-populated'
+  },
+
+  'rancid-salvation-video': {
+    id: 'rancid-salvation-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Salvation",
+    artist: 'Rancid',
+    released: '1994',
+    album: '...And Out Come the Wolves (single precursor era)',
+    sport: ['skate'],
+    era: '1990s',
+    bio: "Rancid's mid-1990s output, including \"Salvation,\" was steeped in the Bay Area and LA punk scenes that overlapped heavily with street skateboarding culture. The band's association with Epitaph Records placed them alongside labelmates like Pennywise and The Offspring on countless skate-video soundtracks of the era, though the video itself centers on the band's street-punk aesthetic rather than depicting professional skaters.",
+    cameos: [],
+    connections: ['rancid'],
+    status: 'pre-populated'
+  },
+
+  'suicidal-tendencies-institutionalized-video': {
+    id: 'suicidal-tendencies-institutionalized-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Institutionalized",
+    artist: 'Suicidal Tendencies',
+    released: '1983',
+    album: 'Suicidal Tendencies',
+    sport: ['skate'],
+    era: '1980s',
+    bio: "Suicidal Tendencies' breakout single and MTV video became a crossover hit between hardcore punk and skateboarding, cementing the Venice, California band's deep ties to the skate scene through frontman Mike Muir's own skate culture roots and the band's popularity among vert and pool skaters like Christian Hosoi and Duane Peters throughout the 1980s.",
+    cameos: [],
+    connections: ['suicidal-tendencies', 'christian-hosoi', 'duane-peters'],
+    status: 'pre-populated'
+  },
+
+  'suicidal-tendencies-possessed-to-skate': {
+    id: 'suicidal-tendencies-possessed-to-skate',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Possessed to Skate",
+    artist: 'Suicidal Tendencies',
+    released: '1987',
+    album: 'Join the Army',
+    sport: ['skate'],
+    era: '1980s',
+    bio: "An explicit ode to vert and pool skateboarding from Suicidal Tendencies' Join the Army album, \"Possessed to Skate\" became an anthem for the 1980s skate scene the band was embedded in through Venice's Dogtown-adjacent skate culture. The song is closely identified with the era's leading vert skaters, including Christian Hosoi and Duane Peters, who were part of the same Southern California punk-and-skate crossover scene that Suicidal Tendencies emerged from.",
+    cameos: [],
+    connections: ['suicidal-tendencies', 'christian-hosoi', 'duane-peters'],
+    status: 'pre-populated'
+  },
+
+  'bad-religion-punk-skate-scene': {
+    id: 'bad-religion-punk-skate-scene',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Bad Religion (Skate-Punk Soundtrack Legacy)",
+    artist: 'Bad Religion',
+    released: '1988',
+    album: 'Suffer',
+    sport: ['skate'],
+    era: '1980s',
+    bio: "Bad Religion's melodic hardcore, especially the 1988 album Suffer, became a foundational soundtrack for late-1980s and 1990s street skateboarding, scoring countless independent skate videos even without a dedicated skate-themed single or video. The LA band's music, alongside labelmates on Epitaph Records (co-founded by guitarist Brett Gurewitz), helped define the sonic identity of skate video culture through the Y2K era.",
+    cameos: [],
+    connections: ['bad-religion'],
+    status: 'pre-populated'
+  },
+
+  'frank-ocean-surf-culture': {
+    id: 'frank-ocean-surf-culture',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Frank Ocean's Surf-Adjacent Imagery",
+    artist: 'Frank Ocean',
+    released: '2012',
+    album: 'channel ORANGE',
+    sport: ['surf'],
+    era: '2010s',
+    bio: "Frank Ocean's 2012 mixtape-turned-album Nostalgia, Ultra and subsequent channel ORANGE work leaned on beach and coastal California imagery, and his 2011 mixtape track \"Songs for Women\" and visual branding referenced surf culture's laid-back Southern California identity. While Ocean has not featured professional surfers in official videos, his aesthetic drew on the same coastal Los Angeles visual language that action-sports media has long used, and he has been photographed surfing recreationally.",
+    cameos: [],
+    connections: ['frank-ocean'],
+    status: 'pre-populated'
+  },
+
+  'aphex-twin-windowlicker-video': {
+    id: 'aphex-twin-windowlicker-video',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Windowlicker",
+    artist: 'Aphex Twin',
+    released: '1999',
+    album: null,
+    sport: [],
+    era: '1990s',
+    bio: "Directed by Chris Cunningham, the surreal \"Windowlicker\" video became an MTV cult classic for its unsettling visual effects rather than any action-sports content. It is included here only as a noted 1990s crossover video frequently cited alongside skate-era MTV programming, though no verified professional skateboard, surf, or BMX athlete appearances have been documented in the clip.",
+    cameos: [],
+    connections: ['aphex-twin'],
+    status: 'pre-populated'
+  },
+
+  'search-for-animal-chin-1987': {
+    id: 'search-for-animal-chin-1987',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "The Search for Animal Chin",
+    artist: 'Powell-Peralta',
+    released: '1987',
+    album: null,
+    sport: ['skate'],
+    era: '1980s',
+    bio: "Widely regarded as the most famous skate video ever made, The Search for Animal Chin follows the Bones Brigade on a mock quest to find a mythical skateboarding legend, culminating in the construction of an elaborate wooden vert ramp. Directed by Stacy Peralta, it starred Steve Caballero, Tommy Guerrero, Tony Hawk, Mike McGill, Lance Mountain, Rodney Mullen, and Mike Vallely, blending narrative comedy with genre-defining vert skating.",
+    cameos: ['steve-caballero', 'tony-hawk', 'mike-mcgill', 'lance-mountain', 'rodney-mullen'],
+    connections: ['stacy-peralta', 'tony-hawk', 'steve-caballero', 'mike-mcgill', 'lance-mountain', 'rodney-mullen', 'powell-peralta'],
+    status: 'pre-populated'
+  },
+
+  'powell-peralta-public-domain-1988': {
+    id: 'powell-peralta-public-domain-1988',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Public Domain",
+    artist: 'Powell-Peralta',
+    released: '1988',
+    album: null,
+    sport: ['skate'],
+    era: '1980s',
+    bio: "The fourth Bones Brigade video, Public Domain expanded the roster beyond the core team to include Danny Way, Colin McKay, and Bucky Lasek in early appearances alongside veterans Tony Hawk, Steve Caballero, Lance Mountain, Rodney Mullen, Mike McGill, and Tommy Guerrero. Running a full hour with interviews and collage-style editing, it captured skateboarding on the cusp of its late-1980s transition toward street skating.",
+    cameos: ['tony-hawk', 'steve-caballero', 'lance-mountain', 'rodney-mullen', 'mike-mcgill', 'danny-way', 'colin-mckay', 'bucky-lasek'],
+    connections: ['tony-hawk', 'steve-caballero', 'lance-mountain', 'rodney-mullen', 'danny-way', 'colin-mckay', 'bucky-lasek', 'powell-peralta'],
+    status: 'pre-populated'
+  },
+
+  'powell-peralta-ban-this-1989': {
+    id: 'powell-peralta-ban-this-1989',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Ban This",
+    artist: 'Powell-Peralta',
+    released: '1989',
+    album: null,
+    sport: ['skate'],
+    era: '1980s',
+    bio: "Ban This continued the Bones Brigade video series into the late 1980s, its title referencing the wave of municipal skateboarding bans sweeping the U.S. at the time. It featured the established Powell-Peralta roster including Tony Hawk, Steve Caballero, Lance Mountain, Mike McGill, and Rodney Mullen, documenting vert skating just as street skating began to eclipse it commercially.",
+    cameos: ['tony-hawk', 'steve-caballero', 'lance-mountain', 'mike-mcgill', 'rodney-mullen'],
+    connections: ['tony-hawk', 'steve-caballero', 'lance-mountain', 'mike-mcgill', 'rodney-mullen', 'powell-peralta'],
+    status: 'pre-populated'
+  },
+
+  'powell-peralta-propaganda-1990': {
+    id: 'powell-peralta-propaganda-1990',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Propaganda",
+    artist: 'Powell-Peralta',
+    released: '1990',
+    album: null,
+    sport: ['skate'],
+    era: '1990s',
+    bio: "One of the later Bones Brigade releases, Propaganda documented the Powell-Peralta team as street skating's rise began to reshape the industry. It featured Tony Hawk, Steve Caballero, Lance Mountain, Rodney Mullen, and Mike McGill alongside newer additions to the roster, marking a transitional moment before Powell-Peralta's dominance gave way to rider-owned companies like Plan B and World Industries in the early 1990s.",
+    cameos: ['tony-hawk', 'steve-caballero', 'lance-mountain', 'rodney-mullen', 'mike-mcgill'],
+    connections: ['tony-hawk', 'steve-caballero', 'lance-mountain', 'rodney-mullen', 'mike-mcgill', 'powell-peralta'],
+    status: 'pre-populated'
+  },
+
+  'powell-peralta-hokus-pokus-1990': {
+    id: 'powell-peralta-hokus-pokus-1990',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Hokus Pokus",
+    artist: 'Powell-Peralta',
+    released: '1990',
+    album: null,
+    sport: ['skate'],
+    era: '1990s',
+    bio: "Hokus Pokus was among the final full-length Bones Brigade videos before the Powell-Peralta team began fragmenting in the early 1990s as riders like Mike McGill, Steve Caballero, and Rodney Mullen departed to start or join their own brands. It featured the team's established stars performing amid skateboarding's stylistic shift from vert-dominant tricks toward technical street skating.",
+    cameos: ['steve-caballero', 'mike-mcgill', 'rodney-mullen'],
+    connections: ['steve-caballero', 'mike-mcgill', 'rodney-mullen', 'powell-peralta'],
+    status: 'pre-populated'
+  },
+
+  'h-street-shackle-me-not-1988': {
+    id: 'h-street-shackle-me-not-1988',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Shackle Me Not",
+    artist: 'H-Street',
+    released: '1988',
+    album: null,
+    sport: ['skate'],
+    era: '1980s',
+    bio: "H-Street's 1988 video Shackle Me Not helped pioneer the faster-paced, street-focused editing style that would define skate videos for the following decade, moving away from Powell-Peralta's slower vert-centric format. It featured a young Danny Way and Matt Hensley, alongside Tony Magnusson, showcasing the technical street skating that made H-Street one of the most influential brands of the era.",
+    cameos: ['danny-way', 'matt-hensley'],
+    connections: ['danny-way', 'matt-hensley'],
+    status: 'pre-populated'
+  },
+
+  'blind-video-days-companion-note': {
+    id: 'blind-video-days-companion-note',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Video Days (Music/Soundtrack Legacy Note)",
+    artist: 'Blind Skateboards',
+    released: '1991',
+    album: null,
+    sport: ['skate'],
+    era: '1990s',
+    bio: "Blind's Video Days (1991), directed by a then-unknown Spike Jonze, is documented elsewhere in this database as a landmark skate film. This entry notes its parallel legacy as a soundtrack touchstone: its Mark Gonzales, Guy Mariano, Jason Lee, Rudy Johnson, and Jordan Richter parts were scored with an eclectic mix of hip-hop and alternative tracks that helped popularize the now-standard practice of pairing skate footage with curated music, influencing how skate videos and music videos would cross-pollinate for decades after.",
+    cameos: ['mark-gonzales', 'guy-mariano', 'jason-lee'],
+    connections: ['mark-gonzales', 'guy-mariano', 'jason-lee', 'spike-jonze'],
+    status: 'pre-populated'
+  },
+
+  'alien-workshop-photosynthesis-2000': {
+    id: 'alien-workshop-photosynthesis-2000',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Photosynthesis",
+    artist: 'Alien Workshop',
+    released: '2000',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Alien Workshop's Photosynthesis is remembered as one of the most artistically ambitious skate videos of its era, pairing technical street skating with an atmospheric, moody visual style and eclectic soundtrack that influenced a generation of skate filmmakers. The video helped define Alien Workshop's countercultural, art-school aesthetic that distinguished it from more mainstream skate brands of the 2000s.",
+    cameos: [],
+    connections: ['alien-workshop'],
+    status: 'pre-populated'
+  },
+
+  'alien-workshop-mind-field-2009': {
+    id: 'alien-workshop-mind-field-2009',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Mind Field",
+    artist: 'Alien Workshop',
+    released: '2009',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "A follow-up to Photosynthesis nearly a decade later, Mind Field continued Alien Workshop's tradition of pairing progressive street skateboarding with an experimental, music-video-influenced visual style. The video reinforced the brand's reputation for treating skate videos as art films as much as trick showcases.",
+    cameos: [],
+    connections: ['alien-workshop'],
+    status: 'pre-populated'
+  },
+
+  'zoo-york-mixtape-1997': {
+    id: 'zoo-york-mixtape-1997',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Mixtape",
+    artist: 'Zoo York',
+    released: '1997',
+    album: null,
+    sport: ['skate'],
+    era: '1990s',
+    bio: "Zoo York's Mixtape captured the gritty, hip-hop-infused New York City street skating scene of the late 1990s, cementing the brand's identity as the East Coast counterpart to California-based skate companies. Its title and soundtrack reflected the deep overlap between skateboarding and hip-hop culture in 1990s New York.",
+    cameos: [],
+    connections: ['zoo-york'],
+    status: 'pre-populated'
+  },
+
+  'flip-sorry-2002': {
+    id: 'flip-sorry-2002',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Sorry",
+    artist: 'Flip Skateboards',
+    released: '2002',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Flip's Sorry (2002) is considered one of the most influential street skateboarding videos of the early 2000s, featuring Arto Saari's groundbreaking part alongside Geoff Rowley, Tom Penny, and the rest of the Flip team. Its production values and editing set new standards for the genre and helped define the aesthetic of skate videos in the years following the Y2K skateboarding boom.",
+    cameos: [],
+    connections: ['flip-skateboards'],
+    status: 'pre-populated'
+  },
+
+  'static-series-josh-stewart': {
+    id: 'static-series-josh-stewart',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Static (Series)",
+    artist: 'Josh Stewart / Static',
+    released: '2000',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Filmmaker Josh Stewart's independent Static video series, beginning around 2000, became a cult favorite for its raw, unglamorous depiction of underground East Coast street skating, in deliberate contrast to the high-production skate videos coming out of California brands. The series, released across several volumes through the 2000s and 2010s, is credited with sustaining a DIY ethos in skate filmmaking even as the industry moved toward bigger budgets.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'zero-thrill-of-it-all-1997': {
+    id: 'zero-thrill-of-it-all-1997',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Thrill of It All",
+    artist: 'Zero Skateboards',
+    released: '1997',
+    album: null,
+    sport: ['skate'],
+    era: '1990s',
+    bio: "Zero Skateboards' Thrill of It All helped establish the brand's aggressive, stair-and-rail-heavy street skating identity in the late 1990s, built around riders like Jamie Thomas, whose fearless big-stair skating became Zero's signature. The video helped cement Zero's reputation as one of the era's most hard-charging skate companies.",
+    cameos: ['jamie-thomas'],
+    connections: ['jamie-thomas', 'zero-skateboards'],
+    status: 'pre-populated'
+  },
+
+  'zero-dying-to-live-2002': {
+    id: 'zero-dying-to-live-2002',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Dying to Live",
+    artist: 'Zero Skateboards',
+    released: '2002',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Dying to Live continued Zero Skateboards' reputation for showcasing punishing, high-risk street skating, with Jamie Thomas and the Zero team pushing big-stair and rail tricks to further extremes. The video reinforced Zero's brand identity as skateboarding's most fearless team through the early 2000s.",
+    cameos: ['jamie-thomas'],
+    connections: ['jamie-thomas', 'zero-skateboards'],
+    status: 'pre-populated'
+  },
+
+  'toy-machine-jump-off-a-building-1998': {
+    id: 'toy-machine-jump-off-a-building-1998',
+    type: 'media',
+    mediaType: 'music-video',
+    name: "Jump Off a Building",
+    artist: 'Toy Machine',
+    released: '1998',
+    album: null,
+    sport: ['skate'],
+    era: '1990s',
+    bio: "Toy Machine's Jump Off a Building followed the brand's landmark Welcome to Hell video, continuing Jamie Thomas's leadership of a team built around dark, gritty visuals and dangerous big-stair skating. The video furthered Toy Machine's reputation as one of the most fearless and stylistically distinct skate companies of the late 1990s.",
+    cameos: ['jamie-thomas'],
+    connections: ['jamie-thomas', 'toy-machine'],
+    status: 'pre-populated'
+  },
+
+  'jackass-forever-2022': {
+    id: 'jackass-forever-2022',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "Jackass Forever",
+    artist: null,
+    released: '2022',
+    album: null,
+    sport: ['skate', 'bmx'],
+    era: '2020s',
+    bio: "Released more than a decade after Jackass 3D, Jackass Forever reunited Johnny Knoxville, Steve-O, Chris Pontius, Wee Man, Preston Lacy, Dave England, and Ehren McGhehey alongside new cast members including Rachel Wolfson, Sean \"Poopies\" McInerney, Jasper Dolphin, and Zach Holmes. Bam Margera was excluded from the film following behind-the-scenes conflicts and subsequent legal disputes, a departure widely covered in entertainment press.",
+    cameos: ['johnny-knoxville', 'steve-o', 'chris-pontius', 'wee-man'],
+    connections: ['johnny-knoxville', 'steve-o', 'chris-pontius', 'wee-man'],
+    status: 'pre-populated'
+  },
+
+  'wildboyz-mtv-2003': {
+    id: 'wildboyz-mtv-2003',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "Wildboyz",
+    artist: null,
+    released: '2003',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "A Jackass spin-off starring Chris Pontius and Steve-O, Wildboyz sent the duo to exotic locations around the world to interact with dangerous wildlife and local customs, guided by animal wrangler Manny Puig. The show ran for four seasons on MTV from 2003 to 2006, with recurring guest appearances from fellow Jackass alumni including Johnny Knoxville and Wee Man, as well as skateboarders Mat Hoffman, Tony Hawk, and Bob Burnquist.",
+    cameos: ['chris-pontius', 'steve-o', 'johnny-knoxville', 'wee-man', 'mat-hoffman', 'tony-hawk'],
+    connections: ['chris-pontius', 'steve-o', 'johnny-knoxville', 'wee-man', 'mat-hoffman', 'tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'bams-world-domination-2008': {
+    id: 'bams-world-domination-2008',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "Bam's World Domination",
+    artist: null,
+    released: '2008',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "A short-lived MTV special series following Bam Margera's international travels and stunts, Bam's World Domination extended the Margera reality-TV brand established by Viva La Bam and Bam's Unholy Union, continuing his run as one of MTV's most reliable skateboarding-adjacent personalities of the late 2000s.",
+    cameos: ['bam-margera'],
+    connections: ['bam-margera'],
+    status: 'pre-populated'
+  },
+
+  'rob-dyrdeks-fantasy-factory-2009': {
+    id: 'rob-dyrdeks-fantasy-factory-2009',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "Rob Dyrdek's Fantasy Factory",
+    artist: null,
+    released: '2009',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Rob Dyrdek's Fantasy Factory followed the skateboarder-entrepreneur at his California warehouse office and personal skatepark complex, running for seven seasons on MTV from 2009 to 2015. The show featured recurring guest appearances from fellow action-sports figures including Travis Barker, Ken Block, Dave Mirra, Danny Way, Paul Rodriguez, and Travis Pastrana, and served as a launchpad for Dyrdek's later hit Ridiculousness.",
+    cameos: ['rob-dyrdek', 'dave-mirra', 'danny-way', 'travis-pastrana'],
+    connections: ['rob-dyrdek', 'dave-mirra', 'danny-way', 'travis-pastrana'],
+    status: 'pre-populated'
+  },
+
+  'ridiculousness-mtv-2011': {
+    id: 'ridiculousness-mtv-2011',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "Ridiculousness",
+    artist: null,
+    released: '2011',
+    album: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Hosted by Rob Dyrdek alongside Sterling \"Steelo\" Brim and, for many seasons, Chanel West Coast, Ridiculousness became one of MTV's longest-running and most-watched series, with the hosts reacting to viral videos of stunts, pranks, and mishaps. Premiering in 2011 and running for over 900 episodes into the 2020s, the show cemented Dyrdek's transition from professional skateboarder to full-fledged television mogul.",
+    cameos: ['rob-dyrdek'],
+    connections: ['rob-dyrdek'],
+    status: 'pre-populated'
+  },
+
+  'nitro-circus-mtv-2009': {
+    id: 'nitro-circus-mtv-2009',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "Nitro Circus (MTV series)",
+    artist: null,
+    released: '2009',
+    album: null,
+    sport: ['moto', 'bmx'],
+    era: '2000s',
+    bio: "Nitro Circus premiered as an MTV series in February 2009, centered on freestyle motocross champion Travis Pastrana and his crew performing large-scale stunts. The core cast included Andy Bell, Jolene Van Vugt, Jim DeChamp, Erik Roner, and Tommy \"Streetbike Tommy\" Passemante, with guest appearances across its run from Tony Hawk, Mat Hoffman, Bob Burnquist, Rob Dyrdek, Bam Margera, Johnny Knoxville, and Ken Block. The show grew out of Pastrana's earlier DVD stunt series and helped expand Nitro Circus into a global live-touring brand.",
+    cameos: ['travis-pastrana', 'tony-hawk', 'mat-hoffman', 'rob-dyrdek', 'bam-margera', 'johnny-knoxville'],
+    connections: ['travis-pastrana', 'tony-hawk', 'mat-hoffman', 'rob-dyrdek', 'bam-margera', 'johnny-knoxville'],
+    status: 'pre-populated'
+  },
+
+  'life-of-ryan-mtv-2007': {
+    id: 'life-of-ryan-mtv-2007',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "Life of Ryan",
+    artist: null,
+    released: '2007',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Life of Ryan followed teenage professional skateboarder Ryan Sheckler and his family through the pressures of his skyrocketing career, airing on MTV for two seasons in 2007 and 2008. The show featured guest appearances from fellow professional skateboarders Tony Hawk, Bam Margera, Paul Rodriguez, Bob Burnquist, and Colin McKay, alongside cameos from mainstream celebrities including Jay Leno and Paula Abdul.",
+    cameos: ['ryan-sheckler', 'tony-hawk', 'bam-margera', 'colin-mckay'],
+    connections: ['ryan-sheckler', 'tony-hawk', 'bam-margera', 'colin-mckay'],
+    status: 'pre-populated'
+  },
+
+  'the-sheckler-sessions-2011': {
+    id: 'the-sheckler-sessions-2011',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "The Sheckler Sessions",
+    artist: null,
+    released: '2011',
+    album: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "A follow-up series to Life of Ryan focused more squarely on Ryan Sheckler's professional skateboarding career rather than family drama, The Sheckler Sessions aired multiple seasons across MTV and later Fuel TV/Network A, featuring his Plan B and Red Bull teammates including Torey Pudwill, Felipe Gustavo, and Paul Rodriguez.",
+    cameos: ['ryan-sheckler'],
+    connections: ['ryan-sheckler'],
+    status: 'pre-populated'
+  },
+
+  'the-crash-reel-2013': {
+    id: 'the-crash-reel-2013',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "The Crash Reel",
+    artist: null,
+    released: '2013',
+    album: null,
+    sport: ['snow'],
+    era: '2010s',
+    bio: "Directed by Lucy Walker, The Crash Reel is a documentary chronicling snowboarder Kevin Pearce's traumatic brain injury sustained during a training accident ahead of the 2010 Winter Olympics and his difficult recovery and rivalry with childhood friend and competitor Shaun White. The film premiered at the 2013 Sundance Film Festival and aired on HBO, becoming one of the most acclaimed action-sports documentaries of the decade for its unflinching look at head-injury risk in snowboarding.",
+    cameos: ['kevin-pearce', 'shaun-white'],
+    connections: ['kevin-pearce', 'shaun-white'],
+    status: 'pre-populated'
+  },
+
+  'loiter-squad-adult-swim-2012': {
+    id: 'loiter-squad-adult-swim-2012',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "Loiter Squad",
+    artist: null,
+    released: '2012',
+    album: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Loiter Squad was an Adult Swim sketch-comedy and prank show starring the Odd Future hip-hop collective, including Tyler, the Creator and Jasper Dolphin. Co-produced by Jackass creators Jeff Tremaine and Dimitry Elyashkevich, the show regularly featured Jackass alumni Johnny Knoxville, Bam Margera, Chris Pontius, and Dave England, as well as an appearance from skateboarder Tony Hawk, reflecting Odd Future's own deep ties to Los Angeles skate culture.",
+    cameos: ['johnny-knoxville', 'bam-margera', 'chris-pontius', 'tony-hawk'],
+    connections: ['johnny-knoxville', 'bam-margera', 'chris-pontius', 'tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'steveo-standup-specials': {
+    id: 'steveo-standup-specials',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "Steve-O Stand-Up Specials",
+    artist: null,
+    released: '2011',
+    album: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Following his Jackass fame, Steve-O built a second career as a touring stand-up comedian, releasing filmed specials including Guilty as Sin (2011) and Gnarly (2020) that blended traditional comedy with recreations of his most notorious stunts. The specials extended his mainstream entertainment career well beyond the original MTV franchise and reflected his broader transition into comedy and public speaking about sobriety.",
+    cameos: ['steve-o'],
+    connections: ['steve-o'],
+    status: 'pre-populated'
+  },
+
+  'tony-hawk-bagel-bites-commercial': {
+    id: 'tony-hawk-bagel-bites-commercial',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "Bagel Bites x Tony Hawk Campaign",
+    artist: null,
+    released: '2000',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Bagel Bites shifted its marketing from mothers to tween boys in the early 2000s by partnering with Tony Hawk, whose endorsement — including a televised ad campaign and a radio media tour — drove a reported 32 percent increase in product consumption. The partnership is frequently cited as a textbook example of extreme-sports athlete endorsement power during the early-2000s action-sports boom that followed the success of Tony Hawk's Pro Skater.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'danny-way-dc-great-wall-commercial': {
+    id: 'danny-way-dc-great-wall-commercial',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "DC Shoes: Great Wall of China Jump",
+    artist: null,
+    released: '2005',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "On July 9, 2005, DC Shoes sponsored Danny Way's attempt to jump the Great Wall of China on a skateboard using a custom-built megaramp, an event filmed and broadcast internationally as a branded promotional special. Way, who had broken his ankle in a practice run the day before, successfully cleared the roughly 61-foot gap four times, becoming the first person to jump the Great Wall without motorized assistance and setting several skateboarding world records in the process.",
+    cameos: ['danny-way'],
+    connections: ['danny-way'],
+    status: 'pre-populated'
+  },
+
+  'chad-muska-circa-ads-1999': {
+    id: 'chad-muska-circa-ads-1999',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "Circa Footwear Campaign (Chad Muska)",
+    artist: null,
+    released: '1999',
+    album: null,
+    sport: ['skate'],
+    era: '1990s',
+    bio: "Chad Muska co-founded Circa Footwear in 1999 and became the brand's signature endorsed athlete, with print and video advertising built around his flamboyant personal style and the CM901 signature shoe. The campaign helped make Muska one of skateboarding's first true style-and-branding icons, extending his influence well beyond his skating into fashion and product design.",
+    cameos: ['chad-muska'],
+    connections: ['chad-muska'],
+    status: 'pre-populated'
+  },
+
+  'shaun-white-target-commercial': {
+    id: 'shaun-white-target-commercial',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "Shaun White for Target",
+    artist: null,
+    released: '2008',
+    album: null,
+    sport: ['snow', 'skate'],
+    era: '2000s',
+    bio: "Following his breakout gold medal at the 2006 Winter Olympics, Shaun White launched an apparel line with Target beginning in 2008, marketed through television and print campaigns highlighting his crossover appeal beyond snowboarding into mainstream youth fashion. The multi-season partnership was one of the largest mass-retail deals for an action-sports athlete at the time.",
+    cameos: ['shaun-white'],
+    connections: ['shaun-white'],
+    status: 'pre-populated'
+  },
+
+  'nyjah-huston-monster-energy-commercial': {
+    id: 'nyjah-huston-monster-energy-commercial',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "Monster Energy: Nyjah Huston Campaign",
+    artist: null,
+    released: '2016',
+    album: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Monster Energy has built ongoing branded video content around Nyjah Huston, including the \"Casually Cruising\" and \"We Own the Night\" web films and broader \"Athletes\" campaign spots, showcasing him as one of skateboarding's most marketable street-skating stars alongside snowboarder Chloe Kim in shared Monster advertising.",
+    cameos: ['nyjah-huston'],
+    connections: ['nyjah-huston'],
+    status: 'pre-populated'
+  },
+
+  'kelly-slater-quiksilver-ads': {
+    id: 'kelly-slater-quiksilver-ads',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "Quiksilver x Kelly Slater Campaign",
+    artist: null,
+    released: '1990',
+    album: null,
+    sport: ['surf'],
+    era: '1990s',
+    bio: "Kelly Slater's decades-long partnership with Quiksilver, beginning early in his professional career, produced extensive print and video advertising built around his record-setting competitive success, making him one of surfing's most enduring and lucrative brand ambassadors from the early 1990s through the mid-2010s before he launched his own label, Outerknown.",
+    cameos: ['kelly-slater'],
+    connections: ['kelly-slater'],
+    status: 'pre-populated'
+  },
+
+  'kelly-slater-sanuk-purps-ads': {
+    id: 'kelly-slater-sanuk-purps-ads',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "Sanuk / Kelly Slater's Purps Campaign",
+    artist: null,
+    released: '2010',
+    album: null,
+    sport: ['surf'],
+    era: '2010s',
+    bio: "Kelly Slater partnered with footwear brand Sanuk to launch \"Kelly Slater's Purps,\" a signature sandal and shoe line marketed through surf-lifestyle advertising, extending his endorsement portfolio into casual footwear alongside his core Quiksilver competitive-surf sponsorship.",
+    cameos: ['kelly-slater'],
+    connections: ['kelly-slater'],
+    status: 'pre-populated'
+  },
+
+  'rob-dyrdek-dc-shoes-campaign': {
+    id: 'rob-dyrdek-dc-shoes-campaign',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "DC Shoes x Rob Dyrdek Campaign",
+    artist: null,
+    released: '2000',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Rob Dyrdek's long-running sponsorship by DC Shoes included signature shoe lines and video advertising that leaned on his blend of technical street skateboarding and burgeoning media personality, helping fund the entrepreneurial ventures — including Street League Skateboarding and his television career — that followed his competitive skating years.",
+    cameos: ['rob-dyrdek'],
+    connections: ['rob-dyrdek'],
+    status: 'pre-populated'
+  },
+
+  'ryan-sheckler-red-bull-campaign': {
+    id: 'ryan-sheckler-red-bull-campaign',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "Red Bull x Ryan Sheckler Campaign",
+    artist: null,
+    released: '2008',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Ryan Sheckler's sponsorship by Red Bull produced branded content and advertising across his competitive skateboarding career, complementing his MTV reality-show fame from Life of Ryan and The Sheckler Sessions and reinforcing his status as one of the sport's most visible young stars of the mid-to-late 2000s.",
+    cameos: ['ryan-sheckler'],
+    connections: ['ryan-sheckler'],
+    status: 'pre-populated'
+  },
+
+  'travis-pastrana-red-bull-campaign': {
+    id: 'travis-pastrana-red-bull-campaign',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "Red Bull x Travis Pastrana Campaign",
+    artist: null,
+    released: '2000',
+    album: null,
+    sport: ['moto'],
+    era: '2000s',
+    bio: "Travis Pastrana's long association with Red Bull spanned his freestyle motocross, rally racing, and stunt careers, with the brand producing extensive video and print campaigns around milestone events including his record-setting jumps and eventual involvement in Nitro Circus programming and live tours.",
+    cameos: ['travis-pastrana'],
+    connections: ['travis-pastrana'],
+    status: 'pre-populated'
+  },
+
+  'rob-dyrdek-skate-plaza-campaign': {
+    id: 'rob-dyrdek-skate-plaza-campaign',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "Rob Dyrdek's Skate Plaza Campaign",
+    artist: null,
+    released: '2009',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Rob Dyrdek funded and promoted public skate plazas in cities including Kettering, Ohio and Lynchburg, Virginia through his nonprofit Dyrdek Skate Plaza Foundation, with associated media coverage and campaign messaging positioning Dyrdek as a civic-minded advocate for public skateboarding infrastructure beyond his television and competitive skating careers.",
+    cameos: ['rob-dyrdek'],
+    connections: ['rob-dyrdek'],
+    status: 'pre-populated'
+  },
+
+  'bam-margera-element-campaign': {
+    id: 'bam-margera-element-campaign',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "Element Skateboards x Bam Margera Campaign",
+    artist: null,
+    released: '1998',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Bam Margera's sponsorship by Element Skateboards, dating to the late 1990s, made him one of the brand's signature riders through the height of his Jackass and Viva La Bam fame, with Element producing signature decks, apparel, and video parts built around his mainstream celebrity as much as his technical skating.",
+    cameos: ['bam-margera'],
+    connections: ['bam-margera'],
+    status: 'pre-populated'
+  },
+
+  'tony-hawk-rocket-power-voiceover': {
+    id: 'tony-hawk-rocket-power-voiceover',
+    type: 'media',
+    mediaType: 'voiceover',
+    name: "Tony Hawk on Rocket Power",
+    artist: null,
+    released: '2001',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Tony Hawk voiced an animated version of himself in the Nickelodeon series Rocket Power's 2001 episode \"Enter the Hawk-Trix,\" one of several sports-figure cameos on the show, which also included fellow skateboarder Andy MacDonald and NHL players Luc Robitaille and Martin Brodeur in other episodes. Rocket Power, which ran from 1999 to 2004, centered on kid characters obsessed with skateboarding, surfing, and extreme sports, reflecting the sports' mainstream popularity with children during the era.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'tony-hawk-simpsons-barting-over': {
+    id: 'tony-hawk-simpsons-barting-over',
+    type: 'media',
+    mediaType: 'voiceover',
+    name: "Tony Hawk on The Simpsons: \"Barting Over\"",
+    artist: null,
+    released: '2003',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "In the February 16, 2003 Simpsons episode \"Barting Over\" (season 14, episode 11), Tony Hawk voiced an animated version of himself, appearing alongside guest voices from the band Blink-182 in a plot involving Bart Simpson discovering he once appeared in diaper commercials. Hawk recorded his lines on April 29, 2002; Blink-182's Mark Hoppus later called the experience one of the most surreal of his career.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk', 'blink-182'],
+    status: 'pre-populated'
+  },
+
+  'kelly-slater-baywatch-role': {
+    id: 'kelly-slater-baywatch-role',
+    type: 'media',
+    mediaType: 'voiceover',
+    name: "Kelly Slater as Jimmy Slade on Baywatch",
+    artist: null,
+    released: '1992',
+    album: null,
+    sport: ['surf'],
+    era: '1990s',
+    bio: "Kelly Slater played the recurring character Jimmy Slade across roughly 25 episodes of Baywatch between 1992 and 1996, one of the most prominent acting roles ever held by a professional surfer on a mainstream American television series. Slater has since described the experience as an uncomfortable fit for his personality, but the role placed competitive surfing's biggest star in front of one of the most-watched television shows of the decade.",
+    cameos: ['kelly-slater'],
+    connections: ['kelly-slater'],
+    status: 'pre-populated'
+  },
+
+  'rob-dyrdek-wild-grinders-voiceover': {
+    id: 'rob-dyrdek-wild-grinders-voiceover',
+    type: 'media',
+    mediaType: 'voiceover',
+    name: "Rob Dyrdek's Wild Grinders",
+    artist: null,
+    released: '2012',
+    album: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Rob Dyrdek's Wild Grinders, an animated Nicktoons series based on Dyrdek's own toy line, ran from 2012 to 2015 with Dyrdek voicing an animated version of himself as a young skateboarder alongside a cast of skate-themed characters, extending his media-mogul brand into children's programming.",
+    cameos: ['rob-dyrdek'],
+    connections: ['rob-dyrdek'],
+    status: 'pre-populated'
+  },
+
+  'the-nine-club-podcast': {
+    id: 'the-nine-club-podcast',
+    type: 'media',
+    mediaType: 'voiceover',
+    name: "The Nine Club with Chris Roberts",
+    artist: null,
+    released: '2016',
+    album: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Launched in 2016 by former professional skateboarder Chris Roberts alongside co-hosts Kelly Hart and Roger Bagley, The Nine Club became one of skateboarding's most important oral-history projects, conducting long-form video interviews with hundreds of professional skaters spanning every era of the sport. The show is widely credited with documenting skateboarding history in real time and has become a key archival resource for the industry.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'hawk-vs-wolf-podcast': {
+    id: 'hawk-vs-wolf-podcast',
+    type: 'media',
+    mediaType: 'voiceover',
+    name: "Hawk vs. Wolf",
+    artist: null,
+    released: '2020',
+    album: null,
+    sport: ['skate'],
+    era: '2020s',
+    bio: "Hawk vs. Wolf paired Tony Hawk with radio and podcast host Jason Ellis for a comedy podcast blending skateboarding stories, industry guests, and off-the-cuff banter between the two longtime friends. The show ran for several years before Hawk announced an indefinite hiatus in late 2024.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'bomb-hills-faster-podcast': {
+    id: 'bomb-hills-faster-podcast',
+    type: 'media',
+    mediaType: 'voiceover',
+    name: "Bomb Hills Faster",
+    artist: null,
+    released: '2015',
+    album: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Bomb Hills Faster was a skateboarding-focused podcast featuring Tony Hawk among its rotating hosts and guests, part of a broader wave of skate-industry podcasts that emerged in the mid-2010s as veterans of the sport moved into long-form audio and video interview formats to document skateboarding culture and history.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'steveo-wild-ride-podcast': {
+    id: 'steveo-wild-ride-podcast',
+    type: 'media',
+    mediaType: 'voiceover',
+    name: "Steve-O's Wild Ride!",
+    artist: null,
+    released: '2020',
+    album: null,
+    sport: ['skate'],
+    era: '2020s',
+    bio: "Steve-O's Wild Ride! is a podcast hosted by the Jackass star featuring long-form conversations with comedians, entertainers, and fellow stunt performers, including episodes with Dr. Drew Pinsky exploring Steve-O's history with addiction and recovery. It extended Steve-O's post-Jackass media career into the long-form interview format alongside his stand-up comedy specials.",
+    cameos: ['steve-o'],
+    connections: ['steve-o'],
+    status: 'pre-populated'
+  },
+
+  'mtv-cribs-tony-hawk-2001': {
+    id: 'mtv-cribs-tony-hawk-2001',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "MTV Cribs: Tony Hawk (2001)",
+    artist: null,
+    released: '2001',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Tony Hawk appeared on MTV Cribs in a July 3, 2001 episode alongside wrestler Joanie \"Chyna\" Laurer and singer Usher, showing off his home during the height of his Tony Hawk's Pro Skater-fueled mainstream fame. Hawk would go on to appear on Cribs multiple times over the following decade as his celebrity endured well past his competitive skating career.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'mtv-cribs-bam-margera-ryan-dunn-2002': {
+    id: 'mtv-cribs-bam-margera-ryan-dunn-2002',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "MTV Cribs: Jackass Edition (Bam Margera & Ryan Dunn)",
+    artist: null,
+    released: '2002',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "A special \"Jackass Edition\" of MTV Cribs aired October 21, 2002, touring the homes of Steve-O (with Johnny Knoxville), Bam Margera, and Ryan Dunn at the height of Jackass's original MTV run, blending the show's home-tour format with the cast's trademark chaos and pranks.",
+    cameos: ['bam-margera', 'ryan-dunn', 'steve-o', 'johnny-knoxville'],
+    connections: ['bam-margera', 'ryan-dunn', 'steve-o', 'johnny-knoxville'],
+    status: 'pre-populated'
+  },
+
+  'mtv-cribs-tony-hawk-jojo-nyquist-2005': {
+    id: 'mtv-cribs-tony-hawk-jojo-nyquist-2005',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "MTV Cribs: Tony Hawk, JoJo, and Ryan Nyquist (2005)",
+    artist: null,
+    released: '2005',
+    album: null,
+    sport: ['skate', 'bmx'],
+    era: '2000s',
+    bio: "Tony Hawk returned to MTV Cribs in an April 26, 2005 episode that also toured the homes of singer JoJo and BMX rider Ryan Nyquist, pairing two action-sports athletes in the same episode of the celebrity home-tour show.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'mtv-true-life-skatopia-2011': {
+    id: 'mtv-true-life-skatopia-2011',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "True Life: I'm Going to Skatopia",
+    artist: null,
+    released: '2011',
+    album: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "An April 9, 2011 episode of MTV's long-running documentary series True Life followed young skateboarders traveling to Skatopia, the anarchic backyard skatepark compound in Rutland, Ohio, capturing the DIY, outsider side of skate culture far removed from the mainstream Jackass- and Dyrdek-branded programming MTV is best known for in action sports.",
+    cameos: [],
+    connections: [],
+    status: 'pre-populated'
+  },
+
+  'dave-mirra-real-world-road-rules-challenge': {
+    id: 'dave-mirra-real-world-road-rules-challenge',
+    type: 'media',
+    mediaType: 'reality-show',
+    name: "Real World/Road Rules Challenge: The Inferno (Dave Mirra hosting)",
+    artist: null,
+    released: '2004',
+    album: null,
+    sport: ['bmx'],
+    era: '2000s',
+    bio: "BMX legend Dave Mirra hosted two seasons of MTV's Real World/Road Rules Challenge — The Inferno (2004) and The Inferno II (2005) — stepping outside the action-sports world into mainstream competition-show hosting duties. The role was one of Mirra's most visible non-BMX television credits before his death in 2016.",
+    cameos: ['dave-mirra'],
+    connections: ['dave-mirra'],
+    status: 'pre-populated'
+  },
+
+  'tony-hawk-doritos-commercial': {
+    id: 'tony-hawk-doritos-commercial',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "Doritos x Tony Hawk Campaign",
+    artist: null,
+    released: '2010',
+    album: null,
+    sport: ['skate'],
+    era: '2010s',
+    bio: "Tony Hawk starred in a Doritos television commercial as part of the snack brand's roster of athlete and celebrity-driven advertising, extending Hawk's decades-long career as one of action sports' most bankable mainstream commercial pitchmen alongside earlier deals with Bagel Bites and later Taco Bell.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'tony-hawk-taco-bell-commercial': {
+    id: 'tony-hawk-taco-bell-commercial',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "Taco Bell x Tony Hawk Campaign",
+    artist: null,
+    released: '2025',
+    album: null,
+    sport: ['skate'],
+    era: '2020s',
+    bio: "Decades after his Bagel Bites campaign made him a template for extreme-sports endorsement deals, Tony Hawk appeared in a Taco Bell television commercial promoting the chain's Luxe Cravings Box, underscoring his continued mainstream commercial relevance well into his fifties and long after his competitive skateboarding career ended.",
+    cameos: ['tony-hawk'],
+    connections: ['tony-hawk'],
+    status: 'pre-populated'
+  },
+
+  'mark-gonzales-nissan-commercial': {
+    id: 'mark-gonzales-nissan-commercial',
+    type: 'media',
+    mediaType: 'commercial',
+    name: "Nissan Frontier x Mark Gonzales Campaign",
+    artist: null,
+    released: '2008',
+    album: null,
+    sport: ['skate'],
+    era: '2000s',
+    bio: "Skateboarding icon and artist Mark Gonzales appeared in a Nissan Frontier truck commercial, one of several instances of his crossover into mainstream advertising and art-world collaborations beyond skateboarding, reflecting his status as one of the sport's most culturally influential and frequently cross-disciplinary figures.",
+    cameos: ['mark-gonzales'],
+    connections: ['mark-gonzales'],
+    status: 'pre-populated'
+  },
+
+  'thps1': {
+  id: 'thps1',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Tony Hawk's Pro Skater",
+  released: '1999',
+  developer: 'Neversoft',
+  publisher: 'Activision',
+  platforms: [
+    'PS1',
+    'N64',
+    'Dreamcast',
+    'PC',
+    'Game Boy Color'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '1990s',
+  bio: 'The game that launched the Tony Hawk franchise and helped bring skateboarding into mainstream gaming culture. Its arcade-style combo system and licensed punk and hip-hop soundtrack became a template for extreme sports games for years to come.',
+  achievements: [
+    'Widely credited with popularizing skateboarding video games',
+    'Ranked among the greatest video games of all time by multiple outlets'
+  ],
+  roster: [
+    'tony-hawk',
+    'bob-burnquist',
+    'chad-muska',
+    'steve-caballero'
+  ],
+  connections: [
+    'tony-hawk',
+    'bob-burnquist',
+    'chad-muska',
+    'steve-caballero',
+    'activision',
+    'neversoft'
+  ],
+  status: 'pre-populated'
+},
+
+  'thps2': {
+  id: 'thps2',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Tony Hawk's Pro Skater 2",
+  released: '2000',
+  developer: 'Neversoft',
+  publisher: 'Activision',
+  platforms: [
+    'PS1',
+    'Dreamcast',
+    'PC',
+    'Game Boy Color',
+    'N64'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '1990s-2000s',
+  bio: "Widely regarded as one of the greatest video games ever made, THPS2 introduced the manual and Create-A-Skater mode. It cemented Neversoft's formula of tight controls, big-name pros, and an iconic soundtrack.",
+  achievements: [
+    'Consistently ranked among the top video games of all time by critics',
+    'Introduced the manual trick and Create-A-Park editor'
+  ],
+  roster: [
+    'tony-hawk',
+    'bob-burnquist',
+    'rodney-mullen',
+    'chad-muska',
+    'steve-caballero',
+    'eric-koston'
+  ],
+  connections: [
+    'tony-hawk',
+    'bob-burnquist',
+    'rodney-mullen',
+    'chad-muska',
+    'steve-caballero',
+    'eric-koston',
+    'activision',
+    'neversoft'
+  ],
+  status: 'pre-populated'
+},
+
+  'thps3': {
+  id: 'thps3',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Tony Hawk's Pro Skater 3",
+  released: '2001',
+  developer: 'Neversoft',
+  publisher: 'Activision',
+  platforms: [
+    'PS1',
+    'PS2',
+    'Xbox',
+    'GameCube',
+    'PC',
+    'Game Boy Advance'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2000s',
+  bio: 'THPS3 introduced online multiplayer and revert mechanics, extending combo potential dramatically. It brought Bam Margera into the main playable roster as he was becoming a household name through MTV.',
+  achievements: [
+    'First console skateboarding game with online multiplayer',
+    'Introduced the revert mechanic for extended combos'
+  ],
+  roster: [
+    'tony-hawk',
+    'bob-burnquist',
+    'rodney-mullen',
+    'chad-muska',
+    'steve-caballero',
+    'eric-koston',
+    'bam-margera'
+  ],
+  connections: [
+    'tony-hawk',
+    'bob-burnquist',
+    'rodney-mullen',
+    'chad-muska',
+    'steve-caballero',
+    'eric-koston',
+    'bam-margera',
+    'activision',
+    'neversoft'
+  ],
+  status: 'pre-populated'
+},
+
+  'thps4': {
+  id: 'thps4',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Tony Hawk's Pro Skater 4",
+  released: '2002',
+  developer: 'Neversoft',
+  publisher: 'Activision',
+  platforms: [
+    'PS1',
+    'PS2',
+    'Xbox',
+    'GameCube',
+    'PC',
+    'Game Boy Advance'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2000s',
+  bio: 'THPS4 abandoned the timed-run format in favor of open-ended objectives in each level, foreshadowing the sandbox direction of the Underground series. It kept the core roster largely intact while adding new environments.',
+  achievements: [
+    'First in the series to drop the two-minute timer format',
+    'Featured fourteen professional skateboarders on the base roster'
+  ],
+  roster: [
+    'tony-hawk',
+    'bob-burnquist',
+    'rodney-mullen',
+    'chad-muska',
+    'steve-caballero',
+    'eric-koston',
+    'bam-margera'
+  ],
+  connections: [
+    'tony-hawk',
+    'bob-burnquist',
+    'rodney-mullen',
+    'chad-muska',
+    'steve-caballero',
+    'eric-koston',
+    'bam-margera',
+    'activision',
+    'neversoft'
+  ],
+  status: 'pre-populated'
+},
+
+  'thug1': {
+  id: 'thug1',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Tony Hawk's Underground",
+  released: '2003',
+  developer: 'Neversoft',
+  publisher: 'Activision',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube',
+    'PC',
+    'Game Boy Advance'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2000s',
+  bio: "THUG introduced a narrative career mode where the player's custom skater rises from amateur to pro alongside real-world skaters, with Bam Margera playing a central storyline role. Off-board movement and a create-a-goal editor expanded the sandbox possibilities of the series.",
+  achievements: [
+    'First Tony Hawk game to let players walk off the skateboard',
+    'Introduced a story-driven career mode co-starring Bam Margera'
+  ],
+  roster: [
+    'tony-hawk',
+    'bam-margera',
+    'bob-burnquist',
+    'chad-muska',
+    'rodney-mullen',
+    'eric-koston',
+    'steve-caballero'
+  ],
+  connections: [
+    'tony-hawk',
+    'bam-margera',
+    'bob-burnquist',
+    'chad-muska',
+    'rodney-mullen',
+    'eric-koston',
+    'steve-caballero',
+    'activision',
+    'neversoft'
+  ],
+  status: 'pre-populated'
+},
+
+  'thug2': {
+  id: 'thug2',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Tony Hawk's Underground 2",
+  released: '2004',
+  developer: 'Neversoft',
+  publisher: 'Activision',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube',
+    'PC'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2000s',
+  bio: "THUG2 sent the player's custom skater and Bam Margera's Jackass-style crew on a globe-trotting World Destruction Tour designed to cause as much chaos as possible. Its irreverent tone leaned heavily into Margera's celebrity persona.",
+  achievements: [
+    'Introduced the World Destruction Tour globe-trotting story mode',
+    'Featured guest cameo appearances from Jackass cast members'
+  ],
+  roster: [
+    'tony-hawk',
+    'bam-margera',
+    'bob-burnquist',
+    'eric-koston',
+    'rodney-mullen',
+    'chad-muska'
+  ],
+  connections: [
+    'tony-hawk',
+    'bam-margera',
+    'bob-burnquist',
+    'eric-koston',
+    'rodney-mullen',
+    'chad-muska',
+    'activision',
+    'neversoft'
+  ],
+  status: 'pre-populated'
+},
+
+  'thaw': {
+  id: 'thaw',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Tony Hawk's American Wasteland",
+  released: '2005',
+  developer: 'Neversoft',
+  publisher: 'Activision',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'PC'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2000s',
+  bio: "American Wasteland featured a fully seamless open-world Los Angeles with no loading screens between levels, a technical leap for the series. It leaned further into skate culture storytelling with an emphasis on the fictional protagonist's rise through the LA scene.",
+  achievements: [
+    'Delivered a seamless open-world map without loading screens',
+    'Set the entire story across a recreated Los Angeles'
+  ],
+  roster: [
+    'tony-hawk',
+    'bam-margera',
+    'bob-burnquist',
+    'eric-koston',
+    'steve-caballero'
+  ],
+  connections: [
+    'tony-hawk',
+    'bam-margera',
+    'bob-burnquist',
+    'eric-koston',
+    'steve-caballero',
+    'activision',
+    'neversoft'
+  ],
+  status: 'pre-populated'
+},
+
+  'thp8': {
+  id: 'thp8',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Tony Hawk's Project 8",
+  released: '2006',
+  developer: 'Neversoft',
+  publisher: 'Activision',
+  platforms: [
+    'PS2',
+    'PS3',
+    'Xbox',
+    'Xbox 360',
+    'PC'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2000s',
+  bio: 'Project 8 introduced the Nail the Trick and Spider-Man-style Bullet Time mechanics along with a ranking system that pushed players toward the top eight skaters in the world. It marked a technical showcase for the then-new Xbox 360 and PS3 hardware.',
+  achievements: [
+    'Introduced the Nail the Trick manual-control mechanic',
+    'One of the first skateboarding games on seventh-generation consoles'
+  ],
+  roster: [
+    'tony-hawk',
+    'bob-burnquist',
+    'bam-margera',
+    'eric-koston'
+  ],
+  connections: [
+    'tony-hawk',
+    'bob-burnquist',
+    'bam-margera',
+    'eric-koston',
+    'activision',
+    'neversoft'
+  ],
+  status: 'pre-populated'
+},
+
+  'thpg': {
+  id: 'thpg',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Tony Hawk's Proving Ground",
+  released: '2007',
+  developer: 'Neversoft',
+  publisher: 'Activision',
+  platforms: [
+    'PS2',
+    'PS3',
+    'Xbox 360',
+    'Wii',
+    'PC'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2000s',
+  bio: "Proving Ground was Neversoft's final entry before Activision shifted the franchise to other studios, letting players choose between rigger, hardcore, and career-driven playstyles. It released the same year as EA's Skate, marking a turning point in the genre's competitive landscape.",
+  achievements: [
+    'Last mainline Tony Hawk game developed by Neversoft',
+    'Introduced branching playstyle paths (Rigger, Hardcore, Classic)'
+  ],
+  roster: [
+    'tony-hawk',
+    'bob-burnquist',
+    'bam-margera',
+    'eric-koston'
+  ],
+  connections: [
+    'tony-hawk',
+    'bob-burnquist',
+    'bam-margera',
+    'eric-koston',
+    'activision',
+    'neversoft'
+  ],
+  status: 'pre-populated'
+},
+
+  'thride': {
+  id: 'thride',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Tony Hawk: Ride',
+  released: '2009',
+  developer: 'Robomodo',
+  publisher: 'Activision',
+  platforms: [
+    'PS3',
+    'Xbox 360',
+    'Wii'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2000s-2010s',
+  bio: "Ride bundled a motion-sensing skateboard peripheral in place of a standard controller, an experiment that drew heavy criticism for its accuracy and was seen as a contributing factor to the series' commercial decline. It marked Robomodo's first entry as the new developer of the franchise.",
+  achievements: [
+    'Introduced the motion-sensing skateboard peripheral controller',
+    "Marked Robomodo's debut as Tony Hawk franchise developer"
+  ],
+  roster: [
+    'tony-hawk',
+    'bob-burnquist'
+  ],
+  connections: [
+    'tony-hawk',
+    'bob-burnquist',
+    'activision',
+    'robomodo'
+  ],
+  status: 'pre-populated'
+},
+
+  'thps5': {
+  id: 'thps5',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Tony Hawk's Pro Skater 5",
+  released: '2015',
+  developer: 'Robomodo',
+  publisher: 'Activision',
+  platforms: [
+    'PS3',
+    'PS4',
+    'Xbox 360',
+    'Xbox One'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2010s',
+  bio: "Intended as a spiritual return to the classic timed-run formula, THPS5 was widely panned for technical bugs and a rushed development cycle. It became a cautionary tale that ultimately delayed the franchise's next major release for five years.",
+  achievements: [
+    'Attempted a back-to-basics return to classic two-minute run gameplay',
+    'Featured a modern roster including Lizzie Armanto and Ishod Wair'
+  ],
+  roster: [
+    'tony-hawk',
+    'bob-burnquist'
+  ],
+  connections: [
+    'tony-hawk',
+    'bob-burnquist',
+    'activision',
+    'robomodo'
+  ],
+  status: 'pre-populated'
+},
+
+  'thps12remake': {
+  id: 'thps12remake',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Tony Hawk's Pro Skater 1+2",
+  released: '2020',
+  developer: 'Vicarious Visions',
+  publisher: 'Activision',
+  platforms: [
+    'PS4',
+    'Xbox One',
+    'PC',
+    'Switch'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2010s-2020s',
+  bio: 'This ground-up remake revived the beloved first two Neversoft classics with modern visuals and physics while preserving the original level layouts and soundtrack spirit. It was a critical and commercial triumph that reignited mainstream interest in the franchise.',
+  achievements: [
+    'Widely praised as a definitive modern remake of a classic franchise',
+    'Reignited commercial success for the Tony Hawk series after a five-year hiatus'
+  ],
+  roster: [
+    'tony-hawk',
+    'bob-burnquist',
+    'rodney-mullen',
+    'chad-muska',
+    'steve-caballero',
+    'eric-koston'
+  ],
+  connections: [
+    'tony-hawk',
+    'bob-burnquist',
+    'rodney-mullen',
+    'chad-muska',
+    'steve-caballero',
+    'eric-koston',
+    'activision',
+    'vicarious-visions'
+  ],
+  status: 'pre-populated'
+},
+
+  'thps34remake': {
+  id: 'thps34remake',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Tony Hawk's Pro Skater 3 + 4",
+  released: '2025',
+  developer: 'Iron Galaxy',
+  publisher: 'Activision',
+  platforms: [
+    'PS4',
+    'PS5',
+    'Xbox One',
+    'Xbox Series X/S',
+    'PC',
+    'Switch'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2020s',
+  bio: "This remake bundle rebuilt THPS3 and THPS4 in a single package, mixing returning legends with a new generation of Olympic-era skaters such as Yuto Horigome and Rayssa Leal. It continued the franchise's remaster-driven revival following the success of the 1+2 remake.",
+  achievements: [
+    'Combined remakes of THPS3 and THPS4 into a single release',
+    'Added Olympic gold medalists to the roster for the first time'
+  ],
+  roster: [
+    'tony-hawk',
+    'bob-burnquist',
+    'rodney-mullen',
+    'chad-muska',
+    'steve-caballero',
+    'eric-koston',
+    'bam-margera'
+  ],
+  connections: [
+    'tony-hawk',
+    'bob-burnquist',
+    'rodney-mullen',
+    'chad-muska',
+    'steve-caballero',
+    'eric-koston',
+    'bam-margera',
+    'activision',
+    'iron-galaxy'
+  ],
+  status: 'pre-populated'
+},
+
+  'kelly-slater-pro-surfer-game': {
+  id: 'kelly-slater-pro-surfer-game',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Kelly Slater's Pro Surfer",
+  released: '2002',
+  developer: 'Treyarch',
+  publisher: 'Activision',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube',
+    'Game Boy Advance'
+  ],
+  sport: [
+    'surf'
+  ],
+  era: '2000s',
+  bio: 'Built on a modified Tony Hawk-style engine, this was one of the first surf games to translate trick-combo skate mechanics onto ocean waves. Kelly Slater headlined a roster of real ASP world tour surfers, with hidden characters including Tony Hawk and Travis Pastrana rewarding crossover fans.',
+  achievements: [
+    'One of the first mainstream console surfing games with trick-combo mechanics',
+    'Featured secret crossover characters Tony Hawk and Travis Pastrana'
+  ],
+  roster: [
+    'kelly-slater',
+    'bruce-irons',
+    'rob-machado',
+    'nathan-fletcher'
+  ],
+  connections: [
+    'kelly-slater',
+    'bruce-irons',
+    'rob-machado',
+    'nathan-fletcher',
+    'tony-hawk',
+    'travis-pastrana',
+    'activision',
+    'treyarch'
+  ],
+  status: 'pre-populated'
+},
+
+  'dave-mirra-bmx1': {
+  id: 'dave-mirra-bmx1',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Dave Mirra Freestyle BMX',
+  released: '2000',
+  developer: 'Z-Axis',
+  publisher: 'Acclaim Entertainment',
+  platforms: [
+    'PS1',
+    'Dreamcast',
+    'PC'
+  ],
+  sport: [
+    'bmx'
+  ],
+  era: '1990s-2000s',
+  bio: "Acclaim's answer to Tony Hawk's Pro Skater brought BMX freestyle riding to the same trick-combo formula, headlined by ten-time X Games medalist Dave Mirra. Ryan Nyquist joined as a supporting rider in what became BMX gaming's first major hit.",
+  achievements: [
+    'First major console BMX game built on a Tony Hawk-style trick engine',
+    'Headlined by ten-time X Games medalist Dave Mirra'
+  ],
+  roster: [
+    'dave-mirra',
+    'ryan-nyquist'
+  ],
+  connections: [
+    'dave-mirra',
+    'ryan-nyquist',
+    'acclaim-entertainment',
+    'z-axis'
+  ],
+  status: 'pre-populated'
+},
+
+  'dave-mirra-bmx2': {
+  id: 'dave-mirra-bmx2',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Dave Mirra Freestyle BMX 2',
+  released: '2001',
+  developer: 'Z-Axis',
+  publisher: 'Acclaim Entertainment',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube',
+    'PC',
+    'Game Boy Advance'
+  ],
+  sport: [
+    'bmx'
+  ],
+  era: '2000s',
+  bio: 'The sequel expanded the roster to fourteen real BMX pros and added manual and grind mechanics, refining the formula established by the original. It remains a fan favorite among early-2000s extreme sports titles.',
+  achievements: [
+    'Expanded the playable roster to fourteen licensed BMX pros',
+    'Added manual and refined grind mechanics over the original'
+  ],
+  roster: [
+    'dave-mirra',
+    'ryan-nyquist'
+  ],
+  connections: [
+    'dave-mirra',
+    'ryan-nyquist',
+    'acclaim-entertainment',
+    'z-axis'
+  ],
+  status: 'pre-populated'
+},
+
+  'dave-mirra-bmx-xxx': {
+  id: 'dave-mirra-bmx-xxx',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Dave Mirra BMX XXX',
+  released: '2002',
+  developer: 'Z-Axis',
+  publisher: 'Acclaim Entertainment',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube',
+    'PC'
+  ],
+  sport: [
+    'bmx'
+  ],
+  era: '2000s',
+  bio: 'BMX XXX became infamous for including strip-club minigames and explicit content in a sports title, a marketing gimmick that Dave Mirra later said damaged his reputation and led him to distance himself from the game. It stands as one of the most controversial extreme sports games ever released.',
+  achievements: [
+    "Became infamous as one of gaming's most controversial sports titles",
+    "Prompted Dave Mirra to publicly disavow the game's content"
+  ],
+  roster: [
+    'dave-mirra',
+    'ryan-nyquist'
+  ],
+  connections: [
+    'dave-mirra',
+    'ryan-nyquist',
+    'acclaim-entertainment',
+    'z-axis'
+  ],
+  status: 'pre-populated'
+},
+
+  'mat-hoffman-bmx1': {
+  id: 'mat-hoffman-bmx1',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Mat Hoffman's Pro BMX",
+  released: '2001',
+  developer: 'Ratbag Games',
+  publisher: 'Activision',
+  platforms: [
+    'PS1',
+    'PS2',
+    'Dreamcast',
+    'GameCube',
+    'PC',
+    'Game Boy Color'
+  ],
+  sport: [
+    'bmx'
+  ],
+  era: '2000s',
+  bio: "Vert-ramp legend Mat Hoffman lent his name and signature big-air style to Activision's rival BMX franchise, competing directly with Dave Mirra's Acclaim series. The game featured Tony Hawk as a hidden unlockable crossover character.",
+  achievements: [
+    'Headlined by BMX vert pioneer Mat Hoffman',
+    'Featured Tony Hawk as a secret unlockable rider'
+  ],
+  roster: [
+    'mat-hoffman'
+  ],
+  connections: [
+    'mat-hoffman',
+    'tony-hawk',
+    'activision',
+    'ratbag-games'
+  ],
+  status: 'pre-populated'
+},
+
+  'mat-hoffman-bmx2': {
+  id: 'mat-hoffman-bmx2',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Mat Hoffman's Pro BMX 2",
+  released: '2002',
+  developer: 'Ratbag Games',
+  publisher: 'Activision',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube',
+    'PC'
+  ],
+  sport: [
+    'bmx'
+  ],
+  era: '2000s',
+  bio: "The sequel refined the vert and street BMX gameplay with a larger cast of professional riders and expanded level design. It continued the franchise's identity as the more simulation-leaning counterpart to the Dave Mirra series.",
+  achievements: [
+    'Expanded roster and level variety over the original',
+    "Continued Activision's BMX franchise as a Tony Hawk-adjacent series"
+  ],
+  roster: [
+    'mat-hoffman'
+  ],
+  connections: [
+    'mat-hoffman',
+    'activision',
+    'ratbag-games'
+  ],
+  status: 'pre-populated'
+},
+
+  'bmx-trick-racer': {
+  id: 'bmx-trick-racer',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'BMX Trick Racer',
+  released: '2001',
+  developer: 'Möbius Entertainment',
+  publisher: 'Encore, Inc.',
+  platforms: [
+    'PS1',
+    'PC'
+  ],
+  sport: [
+    'bmx'
+  ],
+  era: '2000s',
+  bio: 'A budget-priced BMX racer that combined circuit racing with trick scoring, aimed at the lower end of the extreme sports market crowded by bigger franchises at the time. It featured fictional riders rather than licensed professionals.',
+  achievements: [
+    'Released as a budget alternative in the crowded early-2000s BMX gaming market'
+  ],
+  roster: [],
+  connections: [
+    'mobius-entertainment',
+    'encore-inc'
+  ],
+  status: 'pre-populated'
+},
+
+  '1080-snowboarding': {
+  id: '1080-snowboarding',
+  type: 'media',
+  mediaType: 'video-game',
+  name: '1080° Snowboarding',
+  released: '1998',
+  developer: 'Nintendo EAD',
+  publisher: 'Nintendo',
+  platforms: [
+    'N64'
+  ],
+  sport: [
+    'snowboard'
+  ],
+  era: '1990s',
+  bio: "Nintendo's flagship N64 snowboarding title set a new bar for physics-based board sports gaming with fluid controls and detailed terrain deformation. Its fictional roster and racing-plus-trick format influenced the entire snowboarding genre that followed, including SSX.",
+  achievements: [
+    'Set a technical benchmark for snowboarding physics on N64 hardware',
+    'Influenced the design of later franchises including SSX'
+  ],
+  roster: [],
+  connections: [
+    'nintendo',
+    'nintendo-ead'
+  ],
+  status: 'pre-populated'
+},
+
+  'ssx': {
+  id: 'ssx',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'SSX',
+  released: '2000',
+  developer: 'EA Canada',
+  publisher: 'EA Sports BIG',
+  platforms: [
+    'PS2'
+  ],
+  sport: [
+    'snowboard'
+  ],
+  era: '2000s',
+  bio: 'SSX reinvented snowboarding games with an arcade-style Super-SSX trick system on impossibly massive fictional mountains, launching EA Sports BIG as a brand for over-the-top extreme sports titles. Its eight-character roster of fictional international riders became a beloved cast across the whole franchise.',
+  achievements: [
+    'Launched the EA Sports BIG sub-label',
+    'Established the Super-SSX trick meter genre staple'
+  ],
+  roster: [],
+  connections: [
+    'ea-sports-big',
+    'ea-canada'
+  ],
+  status: 'pre-populated'
+},
+
+  'ssx-tricky': {
+  id: 'ssx-tricky',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'SSX Tricky',
+  released: '2001',
+  developer: 'EA Canada',
+  publisher: 'EA Sports BIG',
+  platforms: [
+    'PS2',
+    'GameCube',
+    'Xbox',
+    'Game Boy Advance'
+  ],
+  sport: [
+    'snowboard'
+  ],
+  era: '2000s',
+  bio: "SSX Tricky doubled down on outrageous trick chaining with the Uber trick system and a colorful expanded cast including breakout character Psymon Stark. Its tagline 'It's Tricky' became one of the era's most recognizable gaming catchphrases.",
+  achievements: [
+    'Introduced the Uber Trick combo system',
+    'Widely regarded as a high point of the SSX franchise'
+  ],
+  roster: [],
+  connections: [
+    'ea-sports-big',
+    'ea-canada'
+  ],
+  status: 'pre-populated'
+},
+
+  'ssx3': {
+  id: 'ssx3',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'SSX 3',
+  released: '2003',
+  developer: 'EA Canada',
+  publisher: 'EA Sports BIG',
+  platforms: [
+    'PS2',
+    'GameCube',
+    'Xbox'
+  ],
+  sport: [
+    'snowboard'
+  ],
+  era: '2000s',
+  bio: "SSX 3 replaced individual courses with a single massive interconnected mountain players could descend continuously, widely considered the peak of the franchise's design. It added real pro snowboarder cameo content alongside its beloved fictional cast.",
+  achievements: [
+    'Redesigned the series around one continuous descending mountain',
+    'Frequently cited as the best entry in the SSX franchise'
+  ],
+  roster: [],
+  connections: [
+    'ea-sports-big',
+    'ea-canada'
+  ],
+  status: 'pre-populated'
+},
+
+  'shaun-palmer-pro-snowboarder': {
+  id: 'shaun-palmer-pro-snowboarder',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Shaun Palmer's Pro Snowboarder",
+  released: '2001',
+  developer: 'Z-Axis',
+  publisher: 'Activision',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube',
+    'PC'
+  ],
+  sport: [
+    'snowboard'
+  ],
+  era: '2000s',
+  bio: "This game paired the raucous, multi-sport personality of X Games legend Shaun Palmer with a Tony Hawk-style trick and combo engine on the snow. It also let players compete on skis and mountain bikes, echoing Palmer's own multi-discipline career.",
+  achievements: [
+    'Headlined by multi-sport X Games legend Shaun Palmer',
+    'Allowed players to switch between snowboard, ski, and bike disciplines'
+  ],
+  roster: [
+    'shaun-palmer'
+  ],
+  connections: [
+    'shaun-palmer',
+    'activision',
+    'z-axis'
+  ],
+  status: 'pre-populated'
+},
+
+  'amped-freestyle-snowboarding': {
+  id: 'amped-freestyle-snowboarding',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Amped: Freestyle Snowboarding',
+  released: '2001',
+  developer: 'Indie Built',
+  publisher: 'Microsoft Game Studios',
+  platforms: [
+    'Xbox'
+  ],
+  sport: [
+    'snowboard'
+  ],
+  era: '2000s',
+  bio: "Amped served as a launch title for the original Xbox and impressed critics with its realistic physics engine and deep character customization. It carved out a niche as the more grounded, simulation-focused alternative to SSX's arcade extremes.",
+  achievements: [
+    'Launch title for the original Xbox console',
+    'Praised for realistic physics compared to arcade rivals like SSX'
+  ],
+  roster: [],
+  connections: [
+    'microsoft-game-studios',
+    'indie-built'
+  ],
+  status: 'pre-populated'
+},
+
+  'amped2': {
+  id: 'amped2',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Amped 2',
+  released: '2003',
+  developer: 'Indie Built',
+  publisher: 'Microsoft Game Studios',
+  platforms: [
+    'Xbox'
+  ],
+  sport: [
+    'snowboard'
+  ],
+  era: '2000s',
+  bio: "Amped 2 expanded the original's realistic snowboarding simulation with a bigger open-world mountain and a deeper film-crew career mode. It further distinguished the franchise from SSX's more cartoonish, arcade-driven approach.",
+  achievements: [
+    "Expanded the franchise's open-world mountain design",
+    'Built out a deeper filmmaking-inspired career mode'
+  ],
+  roster: [],
+  connections: [
+    'microsoft-game-studios',
+    'indie-built'
+  ],
+  status: 'pre-populated'
+},
+
+  'shaun-white-snowboarding': {
+  id: 'shaun-white-snowboarding',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Shaun White Snowboarding',
+  released: '2008',
+  developer: 'Ubisoft Montreal',
+  publisher: 'Ubisoft',
+  platforms: [
+    'PS3',
+    'Xbox 360',
+    'Wii',
+    'PC',
+    'PS2'
+  ],
+  sport: [
+    'snowboard'
+  ],
+  era: '2000s-2010s',
+  bio: "Built around Olympic gold medalist Shaun White, this open-world snowboarding title let players carve entire mountain ranges without loading screens. Its Wii sequel, World Stage, added motion controls tailored to Nintendo's console.",
+  achievements: [
+    'Headlined by two-time Olympic gold medalist Shaun White',
+    'Featured a seamless open-world mountain traversal system'
+  ],
+  roster: [
+    'shaun-white'
+  ],
+  connections: [
+    'shaun-white',
+    'ubisoft',
+    'ubisoft-montreal'
+  ],
+  status: 'pre-populated'
+},
+
+  'cool-boarders': {
+  id: 'cool-boarders',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Cool Boarders',
+  released: '1996',
+  developer: 'UEP Systems',
+  publisher: 'Sony Computer Entertainment',
+  platforms: [
+    'PS1'
+  ],
+  sport: [
+    'snowboard'
+  ],
+  era: '1990s',
+  bio: 'One of the earliest console snowboarding franchises, Cool Boarders helped establish the genre on PlayStation years before SSX and Amped arrived. Its early sequels became staples of late-90s extreme sports gaming.',
+  achievements: [
+    'One of the first major console snowboarding franchises',
+    'Spawned three sequels across the PS1 generation'
+  ],
+  roster: [],
+  connections: [
+    'sony-computer-entertainment',
+    'uep-systems'
+  ],
+  status: 'pre-populated'
+},
+
+  'cool-boarders-2': {
+  id: 'cool-boarders-2',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Cool Boarders 2',
+  released: '1997',
+  developer: 'UEP Systems',
+  publisher: 'Sony Computer Entertainment',
+  platforms: [
+    'PS1'
+  ],
+  sport: [
+    'snowboard'
+  ],
+  era: '1990s',
+  bio: "The sequel refined the original's control scheme and added new mountains and boarders, keeping pace with rising PlayStation-era demand for extreme sports titles. It further solidified Cool Boarders as a genre staple ahead of SSX's 2000 debut.",
+  achievements: [
+    "Refined the original's controls and mountain design",
+    "Sustained the franchise's popularity through the late 1990s"
+  ],
+  roster: [],
+  connections: [
+    'sony-computer-entertainment',
+    'uep-systems'
+  ],
+  status: 'pre-populated'
+},
+
+  'cool-boarders-3': {
+  id: 'cool-boarders-3',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Cool Boarders 3',
+  released: '1998',
+  developer: 'UEP Systems',
+  publisher: 'Sony Computer Entertainment',
+  platforms: [
+    'PS1'
+  ],
+  sport: [
+    'snowboard'
+  ],
+  era: '1990s',
+  bio: "Cool Boarders 3 added licensed professional snowboarders and a bigger trick vocabulary, pushing the franchise closer toward simulation realism. It remained one of PlayStation's top-selling winter sports titles of the era.",
+  achievements: [
+    'Added licensed professional snowboarders to the roster',
+    'Remained a top-selling PS1 winter sports franchise entry'
+  ],
+  roster: [],
+  connections: [
+    'sony-computer-entertainment',
+    'uep-systems'
+  ],
+  status: 'pre-populated'
+},
+
+  'cool-boarders-4': {
+  id: 'cool-boarders-4',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Cool Boarders 4',
+  released: '1999',
+  developer: 'UEP Systems',
+  publisher: 'Sony Computer Entertainment',
+  platforms: [
+    'PS1'
+  ],
+  sport: [
+    'snowboard'
+  ],
+  era: '1990s',
+  bio: "The final mainline PS1 entry in the series expanded course design and multiplayer options as the genre approached the arrival of PS2-generation rivals like SSX. It closed out Cool Boarders' run as a defining late-90s snowboarding franchise.",
+  achievements: [
+    'Closed out the original PS1-era Cool Boarders tetralogy',
+    'Expanded multiplayer options ahead of the PS2 generation'
+  ],
+  roster: [],
+  connections: [
+    'sony-computer-entertainment',
+    'uep-systems'
+  ],
+  status: 'pre-populated'
+},
+
+  'skate1': {
+  id: 'skate1',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Skate.',
+  released: '2007',
+  developer: 'EA Black Box',
+  publisher: 'Electronic Arts',
+  platforms: [
+    'PS3',
+    'Xbox 360'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2000s',
+  bio: "Skate's revolutionary Flickit control scheme used analog stick gestures to simulate real board physics, directly challenging Tony Hawk's arcade formula and reshaping the genre. Released the same year as Proving Ground, it is widely credited with ending Neversoft's dominance of skateboarding games.",
+  achievements: [
+    'Introduced the influential Flickit analog trick control scheme',
+    "Credited with ending Tony Hawk's dominance of the skateboarding genre"
+  ],
+  roster: [
+    'eric-koston'
+  ],
+  connections: [
+    'eric-koston',
+    'electronic-arts',
+    'ea-black-box'
+  ],
+  status: 'pre-populated'
+},
+
+  'skate2': {
+  id: 'skate2',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Skate 2',
+  released: '2009',
+  developer: 'EA Black Box',
+  publisher: 'Electronic Arts',
+  platforms: [
+    'PS3',
+    'Xbox 360'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2000s-2010s',
+  bio: 'Skate 2 let players get off the board and manipulate objects in the world to build custom lines, deepening the sandbox creativity that defined the franchise. It expanded the pro roster with names like Mark Appleyard and John Cardiel.',
+  achievements: [
+    'Introduced off-board interaction to build custom skate lines',
+    'Expanded the licensed professional skater roster significantly'
+  ],
+  roster: [
+    'eric-koston'
+  ],
+  connections: [
+    'eric-koston',
+    'electronic-arts',
+    'ea-black-box'
+  ],
+  status: 'pre-populated'
+},
+
+  'skate3': {
+  id: 'skate3',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Skate 3',
+  released: '2010',
+  developer: 'EA Black Box',
+  publisher: 'Electronic Arts',
+  platforms: [
+    'PS3',
+    'Xbox 360'
+  ],
+  sport: [
+    'skate'
+  ],
+  era: '2010s',
+  bio: 'Skate 3 added cooperative multiplayer and a team-building career mode, closing out the original trilogy as its most feature-complete entry. Years later it became a cult favorite among streamers, sustaining renewed interest long after release.',
+  achievements: [
+    'Added cooperative team-based career mode to the franchise',
+    'Became a major cult hit on streaming platforms years after release'
+  ],
+  roster: [
+    'eric-koston'
+  ],
+  connections: [
+    'eric-koston',
+    'electronic-arts',
+    'ea-black-box'
+  ],
+  status: 'pre-populated'
+},
+
+  'ea-big-freekstyle': {
+  id: 'ea-big-freekstyle',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'EA Sports BIG Freekstyle',
+  released: '2002',
+  developer: 'EA Black Box',
+  publisher: 'EA Sports BIG',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube'
+  ],
+  sport: [
+    'moto',
+    'skate',
+    'bmx'
+  ],
+  era: '2000s',
+  bio: "Freekstyle mashed motocross, BMX, and snowmobile freestyle into one arcade playground under the EA Sports BIG banner, featuring licensed action-sports athletes performing physics-defying stunts. It represented EA's push to build an SSX-style multi-sport arcade line beyond snowboarding.",
+  achievements: [
+    'Combined multiple action-sports disciplines into one arcade title',
+    "Part of EA's push to expand the SSX-style arcade sports lineup"
+  ],
+  roster: [],
+  connections: [
+    'ea-sports-big',
+    'ea-black-box'
+  ],
+  status: 'pre-populated'
+},
+
+  'championship-surfer': {
+  id: 'championship-surfer',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Championship Surfer',
+  released: '2000',
+  developer: 'Krome Studios',
+  publisher: 'Take-Two Interactive',
+  platforms: [
+    'PS1'
+  ],
+  sport: [
+    'surf'
+  ],
+  era: '1990s-2000s',
+  bio: "One of the first console surfing games to attempt an arcade trick-scoring system, Championship Surfer arrived ahead of the genre's larger wave with Kelly Slater Pro Surfer and Sunny Garcia Surfing. Its modest reception reflected the technical challenges of translating surfing physics to early 3D hardware.",
+  achievements: [
+    'Among the earliest console surfing games with trick scoring',
+    'Preceded the more successful Kelly Slater and Sunny Garcia surf titles'
+  ],
+  roster: [],
+  connections: [
+    'take-two-interactive',
+    'krome-studios'
+  ],
+  status: 'pre-populated'
+},
+
+  'sunny-garcia-surfing': {
+  id: 'sunny-garcia-surfing',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Sunny Garcia Surfing',
+  released: '2001',
+  developer: 'Angel Studios',
+  publisher: 'Crave Entertainment',
+  platforms: [
+    'PS2'
+  ],
+  sport: [
+    'surf'
+  ],
+  era: '2000s',
+  bio: 'Headlined by former ASP world champion Sunny Garcia, this title arrived shortly after Kelly Slater Pro Surfer and struggled to distinguish itself against its higher-profile rival. It nonetheless offered a realistic wave-riding physics model for its era.',
+  achievements: [
+    'Headlined by former ASP World Champion Sunny Garcia',
+    'Offered a realistic wave physics model competing with Kelly Slater Pro Surfer'
+  ],
+  roster: [],
+  connections: [
+    'crave-entertainment',
+    'angel-studios'
+  ],
+  status: 'pre-populated'
+},
+
+  'surf-riders': {
+  id: 'surf-riders',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Surf Riders',
+  released: '2000',
+  developer: 'Rockstar Vienna',
+  publisher: 'Rockstar Games',
+  platforms: [
+    'PS1'
+  ],
+  sport: [
+    'surf'
+  ],
+  era: '1990s-2000s',
+  bio: "Also released under the T&C Surf Designs license in some regions, this early surfing title used a straightforward arcade scoring system on a small selection of real-world-inspired breaks. It represented Rockstar's brief early foray into action-sports titles before the studio's focus shifted entirely to open-world crime games.",
+  achievements: [
+    "One of Rockstar's earliest published sports titles",
+    'Released under the T&C Surf Designs brand in some regions'
+  ],
+  roster: [],
+  connections: [
+    'rockstar-games',
+    'rockstar-vienna'
+  ],
+  status: 'pre-populated'
+},
+
+  'surfing-h3o': {
+  id: 'surfing-h3o',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Surfing H3O',
+  released: '2002',
+  developer: 'Aspyr / Data Design Interactive',
+  publisher: 'Aspyr Media',
+  platforms: [
+    'PS2',
+    'PC'
+  ],
+  sport: [
+    'surf'
+  ],
+  era: '2000s',
+  bio: "A budget-tier surfing title released in the wake of Kelly Slater Pro Surfer's success, Surfing H3O offered simplified wave-riding mechanics for a broader casual audience. It was generally overshadowed by its higher-profile, licensed competitors.",
+  achievements: [
+    'Released as a budget alternative amid the early-2000s surfing game boom'
+  ],
+  roster: [],
+  connections: [
+    'aspyr-media'
+  ],
+  status: 'pre-populated'
+},
+
+  'motocross-madness': {
+  id: 'motocross-madness',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Motocross Madness',
+  released: '1998',
+  developer: 'Rainbow Studios',
+  publisher: 'Microsoft',
+  platforms: [
+    'PC'
+  ],
+  sport: [
+    'moto'
+  ],
+  era: '1990s',
+  bio: "Motocross Madness became a defining PC racing title of the late 90s thanks to its exaggerated physics, huge air, and destructible-feeling terrain. It launched Rainbow Studios' long-running relationship with off-road motorsports gaming that eventually led to the MX vs. ATV franchise.",
+  achievements: [
+    'Became a defining PC off-road racing title of the late 1990s',
+    "Launched Rainbow Studios' long-running motocross gaming legacy"
+  ],
+  roster: [],
+  connections: [
+    'microsoft',
+    'rainbow-studios'
+  ],
+  status: 'pre-populated'
+},
+
+  'motocross-madness-2': {
+  id: 'motocross-madness-2',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Motocross Madness 2',
+  released: '2000',
+  developer: 'Rainbow Studios',
+  publisher: 'Microsoft',
+  platforms: [
+    'PC'
+  ],
+  sport: [
+    'moto'
+  ],
+  era: '2000s',
+  bio: "The sequel improved graphics and added new open, sandbox-style tracks, cementing the franchise's reputation among PC off-road racing fans. It remained a cult favorite for years after release thanks to a dedicated modding community.",
+  achievements: [
+    'Introduced open sandbox-style track design',
+    'Sustained a long-lived modding community after release'
+  ],
+  roster: [],
+  connections: [
+    'microsoft',
+    'rainbow-studios'
+  ],
+  status: 'pre-populated'
+},
+
+  'mx2002-ricky-carmichael': {
+  id: 'mx2002-ricky-carmichael',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'MX 2002 featuring Ricky Carmichael',
+  released: '2001',
+  developer: 'Rainbow Studios',
+  publisher: 'THQ',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube',
+    'PC'
+  ],
+  sport: [
+    'moto'
+  ],
+  era: '2000s',
+  bio: "This title marked THQ's entry into licensed motocross gaming, headlined by dominant AMA Supercross and Motocross champion Ricky Carmichael. Its arcade-friendly handling and roster of real-world pro riders set the stage for THQ's later MX vs. ATV franchise.",
+  achievements: [
+    'Headlined by dominant AMA champion Ricky Carmichael',
+    "Set the template for THQ's later MX vs. ATV franchise"
+  ],
+  roster: [],
+  connections: [
+    'thq',
+    'rainbow-studios'
+  ],
+  status: 'pre-populated'
+},
+
+  'mx-superfly': {
+  id: 'mx-superfly',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'MX Superfly',
+  released: '2002',
+  developer: 'Left Field Productions',
+  publisher: 'THQ',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube'
+  ],
+  sport: [
+    'moto'
+  ],
+  era: '2000s',
+  bio: "MX Superfly starred X Games legend Travis Pastrana and emphasized freestyle trick performance over pure racing, distinguishing it from THQ's more race-focused Carmichael title. It captured the growing crossover appeal of freestyle motocross in early-2000s action sports culture.",
+  achievements: [
+    'Headlined by X Games freestyle motocross legend Travis Pastrana',
+    'Emphasized freestyle trick scoring over pure circuit racing'
+  ],
+  roster: [
+    'travis-pastrana'
+  ],
+  connections: [
+    'travis-pastrana',
+    'thq',
+    'left-field-productions'
+  ],
+  status: 'pre-populated'
+},
+
+  'mx-unleashed': {
+  id: 'mx-unleashed',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'MX Unleashed',
+  released: '2004',
+  developer: 'Rainbow Studios',
+  publisher: 'THQ',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube'
+  ],
+  sport: [
+    'moto'
+  ],
+  era: '2000s',
+  bio: 'MX Unleashed introduced career-mode depth and larger open-world riding areas, further blending arcade motocross racing with freestyle trick performance. It served as a direct precursor to the more expansive MX vs. ATV Unleashed released the following year.',
+  achievements: [
+    'Expanded open-world riding areas beyond traditional tracks',
+    'Directly preceded the MX vs. ATV Unleashed franchise expansion'
+  ],
+  roster: [],
+  connections: [
+    'thq',
+    'rainbow-studios'
+  ],
+  status: 'pre-populated'
+},
+
+  'mx-vs-atv-unleashed': {
+  id: 'mx-vs-atv-unleashed',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'MX vs. ATV Unleashed',
+  released: '2005',
+  developer: 'Rainbow Studios',
+  publisher: 'THQ',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'PC'
+  ],
+  sport: [
+    'moto'
+  ],
+  era: '2000s',
+  bio: "This entry let players race dirt bikes, ATVs, and other off-road vehicles side by side across huge open terrain, becoming the flagship of THQ's off-road racing lineup for over a decade. Its open-world Terrain Trax mode set a new standard for off-road sandbox racing.",
+  achievements: [
+    "Became the flagship title of THQ's long-running off-road racing franchise",
+    'Introduced expansive open-world Terrain Trax free-roam mode'
+  ],
+  roster: [],
+  connections: [
+    'thq',
+    'rainbow-studios'
+  ],
+  status: 'pre-populated'
+},
+
+  'ricky-carmichael-motocross-matchup': {
+  id: 'ricky-carmichael-motocross-matchup',
+  type: 'media',
+  mediaType: 'video-game',
+  name: "Ricky Carmichael's Motocross Matchup",
+  released: '2003',
+  developer: 'Möbius Entertainment',
+  publisher: 'Konami',
+  platforms: [
+    'Game Boy Advance'
+  ],
+  sport: [
+    'moto'
+  ],
+  era: '2000s',
+  bio: "A handheld-focused motocross racer for Game Boy Advance, this title extended Ricky Carmichael's video game branding into the growing portable gaming market. It featured simplified controls suited to on-the-go racing outside the more complex console entries in the genre.",
+  achievements: [
+    "Extended Ricky Carmichael's motocross game branding to Game Boy Advance"
+  ],
+  roster: [],
+  connections: [
+    'konami',
+    'mobius-entertainment'
+  ],
+  status: 'pre-populated'
+},
+
+  'wave-race-64': {
+  id: 'wave-race-64',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Wave Race 64',
+  released: '1996',
+  developer: 'Nintendo EAD',
+  publisher: 'Nintendo',
+  platforms: [
+    'N64'
+  ],
+  sport: [
+    'water'
+  ],
+  era: '1990s',
+  bio: 'Wave Race 64 redefined water-based racing games with realistic buoyancy physics and dynamic weather that changed how personal watercraft handled waves. It remains one of the most critically acclaimed launch-window titles in Nintendo 64 history.',
+  achievements: [
+    'Set new standards for water-based racing physics',
+    'Consistently ranked among the greatest N64 games ever released'
+  ],
+  roster: [],
+  connections: [
+    'nintendo',
+    'nintendo-ead'
+  ],
+  status: 'pre-populated'
+},
+
+  'wave-race-blue-storm': {
+  id: 'wave-race-blue-storm',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Wave Race: Blue Storm',
+  released: '2001',
+  developer: 'Nintendo Software Technology',
+  publisher: 'Nintendo',
+  platforms: [
+    'GameCube'
+  ],
+  sport: [
+    'water'
+  ],
+  era: '2000s',
+  bio: "As a GameCube launch title, Blue Storm carried forward the franchise's celebrated water physics with sharper visuals and more dynamic weather effects. It remained one of the console's standout early exclusives in the racing genre.",
+  achievements: [
+    'Served as a launch title for the Nintendo GameCube',
+    "Extended the franchise's celebrated water physics engine"
+  ],
+  roster: [],
+  connections: [
+    'nintendo',
+    'nintendo-software-technology'
+  ],
+  status: 'pre-populated'
+},
+
+  'wakeboarding-unleashed': {
+  id: 'wakeboarding-unleashed',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Wakeboarding Unleashed featuring Shaun Murray',
+  released: '2003',
+  developer: 'Left Field Productions',
+  publisher: 'Konami',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube'
+  ],
+  sport: [
+    'water'
+  ],
+  era: '2000s',
+  bio: 'One of the only console games dedicated entirely to competitive wakeboarding, this title was headlined by champion rider Shaun Murray and featured a trick-combo system similar to other extreme sports titles of the era. It filled a niche largely untouched by the bigger skate and snowboard franchises.',
+  achievements: [
+    'One of the few console games dedicated entirely to wakeboarding',
+    'Headlined by champion wakeboarder Shaun Murray'
+  ],
+  roster: [],
+  connections: [
+    'konami',
+    'left-field-productions'
+  ],
+  status: 'pre-populated'
+},
+
+  'trickstyle': {
+  id: 'trickstyle',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Trickstyle',
+  released: '1999',
+  developer: 'Criterion Games',
+  publisher: 'Acclaim Entertainment',
+  platforms: [
+    'Dreamcast',
+    'PC'
+  ],
+  sport: [
+    'multi'
+  ],
+  era: '1990s',
+  bio: "Trickstyle imagined a futuristic sport combining hoverboard racing with skate and snowboard-style trick combos, showcasing Criterion's early rendering technology on Dreamcast. Its blend of speed and freestyle scoring made it a genre curiosity that blurred lines between racing and action sports.",
+  achievements: [
+    'Combined futuristic hoverboard racing with trick-combo scoring',
+    'Showcased early Criterion Games rendering technology on Dreamcast'
+  ],
+  roster: [],
+  connections: [
+    'acclaim-entertainment',
+    'criterion-games'
+  ],
+  status: 'pre-populated'
+},
+
+  'airblade': {
+  id: 'airblade',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Airblade',
+  released: '2001',
+  developer: 'Criterion Games / Team Soho',
+  publisher: 'Sony Computer Entertainment',
+  platforms: [
+    'PS2'
+  ],
+  sport: [
+    'multi'
+  ],
+  era: '2000s',
+  bio: 'Airblade paired hoverboard-style movement across a stylized futuristic city with skateboarding-inspired trick chains, aiming to modernize the extreme sports genre with sci-fi flair. Despite critical praise for its visuals and physics, it struggled commercially against more established franchises.',
+  achievements: [
+    'Modernized skate-style trick chaining with futuristic hoverboard movement',
+    'Praised critically for visuals despite limited commercial success'
+  ],
+  roster: [],
+  connections: [
+    'sony-computer-entertainment',
+    'criterion-games'
+  ],
+  status: 'pre-populated'
+},
+
+  'aggressive-inline': {
+  id: 'aggressive-inline',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Aggressive Inline',
+  released: '2002',
+  developer: 'Z-Axis',
+  publisher: 'Acclaim Entertainment',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube',
+    'PC'
+  ],
+  sport: [
+    'inline'
+  ],
+  era: '2000s',
+  bio: 'Aggressive Inline brought the same Z-Axis trick-combo engine used in the Dave Mirra BMX games to competitive inline skating, featuring licensed professional skaters. It stood as one of the few dedicated console titles ever made for the aggressive inline skating discipline.',
+  achievements: [
+    'One of the only dedicated console titles for aggressive inline skating',
+    'Built on the same trick-combo engine as the Dave Mirra BMX series'
+  ],
+  roster: [],
+  connections: [
+    'acclaim-entertainment',
+    'z-axis'
+  ],
+  status: 'pre-populated'
+},
+
+  'freestyle-metal-x': {
+  id: 'freestyle-metal-x',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'Freestyle MetalX',
+  released: '2003',
+  developer: 'Left Field Productions',
+  publisher: 'Acclaim Entertainment',
+  platforms: [
+    'PS2',
+    'Xbox',
+    'GameCube'
+  ],
+  sport: [
+    'moto'
+  ],
+  era: '2000s',
+  bio: 'Freestyle MetalX focused exclusively on freestyle motocross trick competitions rather than traditional racing, capturing the rising popularity of FMX exhibitions at X Games. Its emphasis on massive aerial combos made it a niche favorite among motocross trick enthusiasts.',
+  achievements: [
+    'Focused exclusively on freestyle motocross trick competition rather than racing',
+    'Captured the rising popularity of FMX exhibitions during the early 2000s X Games boom'
+  ],
+  roster: [],
+  connections: [
+    'acclaim-entertainment',
+    'left-field-productions'
+  ],
+  status: 'pre-populated'
+},
+
+  'tc-surf-designs': {
+  id: 'tc-surf-designs',
+  type: 'media',
+  mediaType: 'video-game',
+  name: 'T&C Surf Designs: Wood & Water Rage',
+  released: '1988',
+  developer: 'LJN',
+  publisher: 'LJN',
+  platforms: [
+    'NES'
+  ],
+  sport: [
+    'surf',
+    'skate'
+  ],
+  era: '1980s',
+  bio: 'One of the earliest action-sports crossover games, this NES title combined a skateboarding level with a surfing level under the licensed Town & Country Surf Designs brand. It stands as a foundational curiosity in the action-sports gaming genre decades before Tony Hawk or Kelly Slater arrived.',
+  achievements: [
+    'One of the earliest console action-sports crossover games',
+    'Combined skateboarding and surfing gameplay in a single 1980s title'
+  ],
+  roster: [],
+  connections: [
+    'ljn'
+  ],
+  status: 'pre-populated'
+},
 
 };
 ASDB.getNode = (id) => ASDB.nodes[id];
