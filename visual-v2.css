@@ -454,6 +454,9 @@ body {
   gap: 1.5rem;
   flex-wrap: wrap;
 }
+.v2-hero-name-row > div:first-child {
+  min-width: 240px;
+}
 
 .v2-hero-name {
   font-family: 'Clash Display', system-ui, sans-serif;
@@ -513,7 +516,10 @@ body {
   gap: 0.55rem;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 0.25rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--card-border);
+  width: 100%;
 }
 .v2-action-btn {
   padding: 0.55rem 1.1rem;
@@ -749,6 +755,6 @@ body {
   .v2-hero-name { font-size: 1.8rem; }
   .v2-hero-body { padding: 0 1.25rem 1.25rem; }
   .v2-hero-actions { width: 100%; }
-  .v2-action-btn { flex: 1; justify-content: center; }
+  .v2-action-btn { flex: 1; justify-content: center; min-width: 0; padding: 0.55rem 0.6rem; }
   .v2-feed { max-width: 100%; }
 }
