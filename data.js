@@ -33995,11 +33995,12 @@ ASDB.nodes = {
 
   'huey-mcmaster': {
     id: 'huey-mcmaster',
+    type: 'athlete',
     name: 'Huey McMaster',
     role: 'Surfer, Club Founder',
     era: '1960s',
     hometown: 'Burleigh Heads, Queensland, Australia',
-    sport: ['surfing'],
+    sport: ['surf'],
     bio: "Huey McMaster was the inaugural president of the Burleigh Boardriders Club, formed in 1965 to organize the growing community of surfers riding the point at Burleigh Heads on the Gold Coast. He presided over the club during its founding contest, the Burleigh Festival of Boards, held in August 1965.",
     achievements: ["Inaugural president of Burleigh Boardriders Club (1965)"],
     sponsors: [],
@@ -34009,11 +34010,12 @@ ASDB.nodes = {
 
   'brian-curtain': {
     id: 'brian-curtain',
+    type: 'athlete',
     name: 'Brian Curtain',
     role: 'Surfer',
     era: '1960s',
     hometown: 'Burleigh Heads, Queensland, Australia',
-    sport: ['surfing'],
+    sport: ['surf'],
     bio: "Brian Curtain was one of the original members of the Burleigh Boardriders Club when it formed in 1965, part of the early group of surfers who established the club culture at Burleigh Point on Australia's Gold Coast.",
     achievements: ["Founding member of Burleigh Boardriders Club (1965)"],
     sponsors: [],
@@ -34023,11 +34025,12 @@ ASDB.nodes = {
 
   'allan-sykes': {
     id: 'allan-sykes',
+    type: 'athlete',
     name: 'Allan Sykes',
     role: 'Surfer',
     era: '1960s',
     hometown: 'Burleigh Heads, Queensland, Australia',
-    sport: ['surfing'],
+    sport: ['surf'],
     bio: "Allan Sykes was among the original members of the Burleigh Boardriders Club at its 1965 formation, helping establish one of the Gold Coast's earliest organized surf clubs at Burleigh Point.",
     achievements: ["Founding member of Burleigh Boardriders Club (1965)"],
     sponsors: [],
@@ -34037,11 +34040,12 @@ ASDB.nodes = {
 
   'greg-saal': {
     id: 'greg-saal',
+    type: 'athlete',
     name: 'Greg Saal',
     role: 'Surfer',
     era: '1960s',
     hometown: 'Burleigh Heads, Queensland, Australia',
-    sport: ['surfing'],
+    sport: ['surf'],
     bio: "Greg Saal was an original member of the Burleigh Boardriders Club when it was established in 1965, part of the founding generation that shaped the surf culture of Burleigh Point on the Gold Coast.",
     achievements: ["Founding member of Burleigh Boardriders Club (1965)"],
     sponsors: [],
@@ -34051,11 +34055,12 @@ ASDB.nodes = {
 
   'archie-hoogervorst': {
     id: 'archie-hoogervorst',
+    type: 'athlete',
     name: 'Archie Hoogervorst',
     role: 'Surfer',
     era: '1960s',
     hometown: 'Burleigh Heads, Queensland, Australia',
-    sport: ['surfing'],
+    sport: ['surf'],
     bio: "Archie Hoogervorst, alongside his brother Billy, was among the original members of the Burleigh Boardriders Club founded in 1965, contributing to the early surf community at Burleigh Point on the Gold Coast.",
     achievements: ["Founding member of Burleigh Boardriders Club (1965)"],
     sponsors: [],
@@ -34065,11 +34070,12 @@ ASDB.nodes = {
 
   'billy-hoogervorst': {
     id: 'billy-hoogervorst',
+    type: 'athlete',
     name: 'Billy Hoogervorst',
     role: 'Surfer',
     era: '1960s',
     hometown: 'Burleigh Heads, Queensland, Australia',
-    sport: ['surfing'],
+    sport: ['surf'],
     bio: "Billy Hoogervorst, alongside his brother Archie, was among the original members of the Burleigh Boardriders Club founded in 1965, part of the pioneering group of surfers at Burleigh Point on the Gold Coast.",
     achievements: ["Founding member of Burleigh Boardriders Club (1965)"],
     sponsors: [],
@@ -34079,11 +34085,12 @@ ASDB.nodes = {
 
   'peter-harris-surfer': {
     id: 'peter-harris-surfer',
+    type: 'athlete',
     name: 'Peter Harris',
     role: 'Professional Surfer',
     era: '1970s-1980s',
     hometown: 'Burleigh Heads, Queensland, Australia',
-    sport: ['surfing'],
+    sport: ['surf'],
     bio: "Peter Harris grew up surfing Burleigh Point and was mentored in shaping by Michael Peterson and Dick Van Straalen during the 1970s. In 1980 he won the Stubbies Classic at Burleigh Heads, defeating Hawaiian power surfer Dane Kealoha in the final and becoming the first rookie to win a major international surfing event, cementing his status as the first Burleigh Boy to win a professional contest.",
     achievements: ["Winner, 1980 Stubbies Classic at Burleigh Heads (defeated Dane Kealoha)", "First rookie to win a major international surfing event"],
     sponsors: [],
@@ -34093,11 +34100,12 @@ ASDB.nodes = {
 
   'peter-roberts-surfer': {
     id: 'peter-roberts-surfer',
+    type: 'athlete',
     name: 'Peter Roberts',
     role: 'Surfer',
     era: '1970s',
     hometown: 'Burleigh Heads, Queensland, Australia',
-    sport: ['surfing'],
+    sport: ['surf'],
     bio: "Peter Roberts was a competitive surfer at Burleigh Point during the 1970s, notably winning a 1971 club contest against a young Wayne Bartholomew. Following his death, the Burleigh Boardriders Club established a memorial event first held in 1997 in his honor, later broadened to commemorate other departed surfers of the point.",
     achievements: ["Winner, 1971 Burleigh contest over Wayne Bartholomew", "Namesake of Burleigh Boardriders memorial event (est. 1997)"],
     sponsors: [],
