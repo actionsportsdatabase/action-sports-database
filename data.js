@@ -42303,6 +42303,104 @@ ASDB.nodes = {
     status: "pre-populated",
   },
 
+
+  // ═══════════════════════════════════════════════════════
+  // LOST & FOUND COLLECTION — archival surf photography ecosystem
+  // ═══════════════════════════════════════════════════════
+// ── Doug Walker ────────────────────────────────────────────────
+  'doug-walker': {
+    id: "doug-walker",
+    type: "person",
+    name: "Doug Walker",
+    role: "Film Editor / Archivist / Documentarian / Founder — The Lost & Found Collection",
+    hometown: "San Francisco, California, USA",
+    era: "2007–present",
+    bio: "San Francisco film editor and surf archivist. In the mid-2000s, Doug Walker discovered a box of ~30,000 lost 35mm slide negatives at the Rose Bowl Flea Market in Pasadena — the missing archive of Surfing Magazine's 1970s photography, sold off for $800. Between 2007 and 2010 he shuttled between the North Shore of Hawaii and his Bay Area home tracking down the surfers and photographers featured in the images, reuniting them with their own history. The project became The Lost & Found Collection, spawning the 2011 documentary Lost & Found, an ongoing archival print business (lxfound.com), the Facebook archive page (@Thelostandfoundcollection), and a series of gallery exhibitions and photo books. His approach — buying orphaned physical archives, doing shoe-leather identification of subjects, and giving credit back to the original photographers — is a model for archival surf-culture recovery work.",
+    connections: [
+      {id: 'lost-and-found-collection', rel: 'Founder'},
+      {id: 'lost-and-found-2011', rel: 'Director'},
+      {id: 'surfing-magazine', rel: 'Recovered the magazine\u2019s lost 1970s archive'},
+      {id: 'gerry-lopez', rel: 'Documentary subject'},
+      {id: 'bob-barbour', rel: 'Documentary subject — photographer'},
+    ],
+    sources: [
+      "7x7 Bay Area \u2014 \"SF Film Editor Brings 1970s Surf Culture to Life\" (2015)",
+      "The Lost & Found Collection \u2014 lxfound.com",
+      "Facebook \u2014 facebook.com/Thelostandfoundcollection",
+      "YouTube \u2014 The Lost & Found Collection interview (2015)",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── The Lost & Found Collection (organization/archive) ─────────
+  'lost-and-found-collection': {
+    id: "lost-and-found-collection",
+    type: "brand",
+    name: "The Lost & Found Collection",
+    aka: ["Lost & Found", "LxFound", "The Lost and Found Collection"],
+    category: "Surf Photography Archive / Print Publisher / Documentary Project",
+    founded: "circa 2007",
+    hometown: "San Francisco, California, USA",
+    website: "https://www.lxfound.com",
+    bio: "The Lost & Found Collection is a surf photography archive and print publisher founded by film editor Doug Walker after he acquired ~30,000 lost 1970s Surfing Magazine slide negatives for $800 at the Rose Bowl Flea Market. The collection documents the Golden Age of surfing \u2014 particularly North Shore Hawaii in the 1970s \u2014 featuring subjects like Gerry Lopez, Barry Kanaiaupuni, Jeff Hakman, Reno Abellira, and others, shot by original Surfing Magazine photographers including Bob Barbour, Steve Wilkings, Warren Bolster, and Jeff Divine. Prints are sold on premium archival matte paper at lxfound.com. The Facebook page (@Thelostandfoundcollection) serves as a public archive and community gathering point, with images regularly posted and identified through crowd-sourced input from the surf community.",
+    products: ["Archival matte prints", "Photo books", "Documentary film", "Gallery exhibitions"],
+    connections: [
+      {id: 'doug-walker', rel: 'Founder'},
+      {id: 'lost-and-found-2011', rel: 'Related documentary'},
+      {id: 'surfing-magazine', rel: 'Source of recovered 1970s archive'},
+    ],
+    sources: [
+      "The Lost & Found Collection \u2014 lxfound.com",
+      "7x7 Bay Area feature (2015)",
+      "Facebook page \u2014 facebook.com/Thelostandfoundcollection",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Lost & Found (2011 documentary) ────────────────────────────
+  'lost-and-found-2011': {
+    id: "lost-and-found-2011",
+    type: "media",
+    mediaType: "documentary",
+    name: "Lost & Found",
+    year: "2011",
+    director: "Doug Walker",
+    bio: "2011 documentary directed by Doug Walker, telling the story of the recovery of Surfing Magazine\u2019s lost 1970s archive and the multi-year process of reuniting the images with the surfers and photographers who created them. Features interviews with Gerry Lopez, photographer Bob Barbour, and other 1970s North Shore figures. Considered a standalone project that later grew into the ongoing Lost & Found Collection archive and print business.",
+    connections: [
+      {id: 'doug-walker', rel: 'Director'},
+      {id: 'lost-and-found-collection', rel: 'Origin project of the collection'},
+      {id: 'gerry-lopez', rel: 'Featured subject'},
+    ],
+    sources: [
+      "The Lost & Found Collection \u2014 lxfound.com",
+      "7x7 Bay Area feature (2015)",
+      "YouTube \u2014 The Lost & Found Collection interview (2015)",
+    ],
+    status: "pre-populated",
+  },
+
+  // ── Surfing Magazine (referenced by Lost & Found) ──────────────
+  'surfing-magazine': {
+    id: "surfing-magazine",
+    type: "brand",
+    name: "Surfing Magazine",
+    aka: ["SURFING", "Surfing Mag"],
+    category: "Surf Publication",
+    founded: "1964",
+    ceased: "2017",
+    hometown: "San Clemente, California, USA",
+    bio: "Founded in 1964, Surfing Magazine was one of the two major American surf publications alongside Surfer Magazine \u2014 the pair defined print surf journalism for over five decades. Known for aggressive, contest-forward coverage and a strong photography roster including Bob Barbour, Steve Wilkings, Warren Bolster, Jeff Divine (early), Tom Servais, and Scott Aichner. Ceased publication in 2017 when parent company Source Interlink shut it down, folding its remaining editorial into Surfer Magazine. A significant portion of its 1970s slide archive was famously lost, later recovered by Doug Walker at a Rose Bowl Flea Market and turned into The Lost & Found Collection.",
+    connections: [
+      {id: 'lost-and-found-collection', rel: 'Recovered 1970s archive became this collection'},
+      {id: 'surfer-magazine', rel: 'Rival / sister publication'},
+    ],
+    sources: [
+      "Wikipedia \u2014 Surfing (magazine)",
+      "Surfer Magazine 2017 shutdown coverage",
+    ],
+    status: "pre-populated",
+  },
+
 };
 ASDB.getNode = (id) => ASDB.nodes[id];
 ASDB.getConnections = (id) => {
