@@ -3229,12 +3229,16 @@ function renderHomeFeed() {
     time: 'live',
   });
 
-  // Render
+  // Render — with On This Day rows at the top
+  let otdHTML = '';
+  try { otdHTML = renderOnThisDayWidget(); } catch(e) { console.warn('OTD render failed', e); }
+
   const html = `
     <div class="v2-feed-header">
       <h2>What's happening on ASDB</h2>
       <p>Follow athletes, brands, and archives — see updates from the world you care about.</p>
     </div>
+    ${otdHTML}
     ${items.slice(0, 8).map(item => `
       <article class="v2-feed-item" ${item.id ? `onclick="navigateTo('${item.id}')"` : ''}>
         <div class="v2-feed-item-head">
@@ -4376,64 +4380,223 @@ function navigateMap() {
 // Shows athletes born today + notable events on today's date.
 // ═══════════════════════════════════════════════════════════════════
 
+// Parse a date string of common forms and return {month, day, year} or null
+function _parseDateMDY(s) {
+  if (!s || typeof s !== 'string') return null;
+  const monthNames = ['january','february','march','april','may','june','july','august','september','october','november','december'];
+  // "July 12, 1985"
+  const m1 = s.match(/^(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),?\s+(\d{4})/i);
+  if (m1) return { month: monthNames.indexOf(m1[1].toLowerCase())+1, day: parseInt(m1[2]), year: parseInt(m1[3]) };
+  // "1985-07-12"
+  const m2 = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (m2) return { month: parseInt(m2[2]), day: parseInt(m2[3]), year: parseInt(m2[1]) };
+  // "07/12/1985" or "7/12/1985"
+  const m3 = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if (m3) return { month: parseInt(m3[1]), day: parseInt(m3[2]), year: parseInt(m3[3]) };
+  // "12 July 1985"
+  const m4 = s.match(/^(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{4})/i);
+  if (m4) return { month: monthNames.indexOf(m4[2].toLowerCase())+1, day: parseInt(m4[1]), year: parseInt(m4[3]) };
+  return null;
+}
+
+// Extract a year (1900–2099) from a string OR number. Returns first 4-digit year found or null.
+function _extractYear(s) {
+  if (s == null) return null;
+  if (typeof s === 'number' && s >= 1900 && s <= 2099) return s;
+  const str = String(s);
+  const m = str.match(/(19\d{2}|20\d{2})/);
+  return m ? parseInt(m[1]) : null;
+}
+
 function getOnThisDayItems() {
   const today = new Date();
   const todayMonth = today.getMonth() + 1;
   const todayDay = today.getDate();
+  const currentYear = today.getFullYear();
 
   const born = [];
+  const founded = [];
+  const events = [];
+  // Year-only anniversaries (this year, 5-year multiples — for the "This year in history" strip)
+  const yearFounded = [];
+  const yearBorn = [];
+
   Object.values(ASDB.nodes).forEach(n => {
-    if (!n.born) return;
-    // Try parsing formats like "July 12, 1985" or "1985-07-12"
-    const m1 = n.born.match(/^(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),?\s+(\d{4})$/i);
-    if (m1) {
-      const monthNames = ['january','february','march','april','may','june','july','august','september','october','november','december'];
-      const month = monthNames.indexOf(m1[1].toLowerCase()) + 1;
-      const day = parseInt(m1[2]);
-      if (month === todayMonth && day === todayDay) {
-        const year = parseInt(m1[3]);
-        born.push({ node: n, age: today.getFullYear() - year, year });
-      }
-      return;
-    }
-    const m2 = n.born.match(/^(\d{4})-(\d{2})-(\d{2})/);
-    if (m2) {
-      const month = parseInt(m2[2]);
-      const day = parseInt(m2[3]);
-      if (month === todayMonth && day === todayDay) {
-        const year = parseInt(m2[1]);
-        born.push({ node: n, age: today.getFullYear() - year, year });
+    // Births
+    if (n.born) {
+      const d = _parseDateMDY(n.born);
+      if (d && d.month === todayMonth && d.day === todayDay) {
+        born.push({ node: n, year: d.year, age: currentYear - d.year });
+      } else if (!d) {
+        // year-only born — candidate for milestone-year anniversary
+        const y = _extractYear(n.born);
+        if (y) {
+          const age = currentYear - y;
+          if (age > 0 && age % 5 === 0 && age <= 100) {
+            yearBorn.push({ node: n, year: y, age });
+          }
+        }
       }
     }
+    // Foundings (brands / organizations / venues)
+    if (n.founded) {
+      const d = _parseDateMDY(n.founded);
+      if (d && d.month === todayMonth && d.day === todayDay) {
+        founded.push({ node: n, year: d.year, age: currentYear - d.year });
+      } else {
+        // year-only founded — candidate for milestone-year anniversary
+        const y = _extractYear(n.founded);
+        if (y) {
+          const age = currentYear - y;
+          if (age > 0 && age % 5 === 0 && age <= 100) {
+            yearFounded.push({ node: n, year: y, age });
+          }
+        }
+      }
+    }
+    // Events — mine node.achievements[] and node.events[] for full-date strings
+    const eventLists = [];
+    if (Array.isArray(n.achievements)) eventLists.push(...n.achievements);
+    if (Array.isArray(n.events)) eventLists.push(...n.events);
+    eventLists.forEach(ev => {
+      const evStr = typeof ev === 'string' ? ev : (ev && (ev.date || ev.desc || ev.title));
+      if (!evStr) return;
+      const d = _parseDateMDY(evStr);
+      if (d && d.month === todayMonth && d.day === todayDay) {
+        events.push({ node: n, year: d.year, age: currentYear - d.year, text: typeof ev === 'string' ? ev : (ev.desc || ev.title || ev.date) });
+      }
+    });
   });
 
   born.sort((a, b) => a.year - b.year);
-  return { born, dateLabel: today.toLocaleDateString('en-US', { month:'long', day:'numeric' }) };
+  founded.sort((a, b) => a.year - b.year);
+  events.sort((a, b) => b.year - a.year);
+  // Prefer bigger milestones first (50th > 25th > 10th)
+  yearFounded.sort((a, b) => b.age - a.age);
+  yearBorn.sort((a, b) => b.age - a.age);
+
+  return {
+    born, founded, events, yearFounded, yearBorn,
+    dateLabel: today.toLocaleDateString('en-US', { month:'long', day:'numeric' }),
+    currentYear
+  };
 }
 
 function renderOnThisDayWidget() {
-  const { born, dateLabel } = getOnThisDayItems();
-  if (!born.length) return '';
+  const { born, founded, events, yearFounded, yearBorn, dateLabel, currentYear } = getOnThisDayItems();
+  const total = born.length + founded.length + events.length;
+  const milestoneTotal = yearFounded.length + yearBorn.length;
+
+  // Build a list of feed-style rows to inject into the v2 feed. Merged & sorted by year.
+  const rows = [];
+  born.forEach(({node, year, age}) => {
+    const sport = Array.isArray(node.sport) ? node.sport[0] : node.sport;
+    const gradClass = sport ? `sport-${sport}` : '';
+    rows.push({
+      kind: 'born',
+      tag: 'born today',
+      year,
+      title: `🎂 <a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a> was born on this day in ${year}`,
+      body: `${node.role || (node.type || '')}${node.hometown ? ` · ${node.hometown}` : ''} · <strong>would be ${age} today</strong>`,
+      avatar: initials(node.name),
+      gradClass,
+      id: node.id,
+    });
+  });
+  founded.forEach(({node, year, age}) => {
+    const sport = Array.isArray(node.sport) ? node.sport[0] : node.sport;
+    const gradClass = sport ? `sport-${sport}` : (node.type === 'brand' ? 'type-brand' : (node.type === 'location' ? 'type-location' : ''));
+    rows.push({
+      kind: 'founded',
+      tag: 'founded today',
+      year,
+      title: `🎉 <a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a> was founded on this day in ${year}`,
+      body: `${node.tagline || node.role || (node.type || '')} · <strong>${age} ${age === 1 ? 'year' : 'years'} old today</strong>`,
+      avatar: initials(node.name),
+      gradClass,
+      id: node.id,
+    });
+  });
+  events.forEach(({node, year, age, text}) => {
+    const sport = Array.isArray(node.sport) ? node.sport[0] : node.sport;
+    const gradClass = sport ? `sport-${sport}` : '';
+    rows.push({
+      kind: 'event',
+      tag: 'anniversary',
+      year,
+      title: `🏆 On this day in ${year}: <a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a>`,
+      body: text,
+      avatar: initials(node.name),
+      gradClass,
+      id: node.id,
+    });
+  });
+  rows.sort((a, b) => b.year - a.year); // most recent first
+
+  // If we have very few 'today' hits, add a "This year in history" section with milestone anniversaries
+  const milestoneRows = [];
+  if (rows.length < 5 && milestoneTotal > 0) {
+    yearFounded.slice(0, 4).forEach(({node, year, age}) => {
+      const sport = Array.isArray(node.sport) ? node.sport[0] : node.sport;
+      const gradClass = sport ? `sport-${sport}` : (node.type === 'brand' ? 'type-brand' : (node.type === 'location' ? 'type-location' : ''));
+      milestoneRows.push({
+        tag: `${age}‑year anniversary`,
+        year,
+        title: `🎂 <a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a> turns ${age} this year`,
+        body: `Founded in ${year}${node.tagline ? ` — ${node.tagline}` : ''}`,
+        avatar: initials(node.name),
+        gradClass,
+        id: node.id,
+      });
+    });
+    yearBorn.slice(0, 3).forEach(({node, year, age}) => {
+      const sport = Array.isArray(node.sport) ? node.sport[0] : node.sport;
+      const gradClass = sport ? `sport-${sport}` : '';
+      milestoneRows.push({
+        tag: `${age}‑year milestone`,
+        year,
+        title: `🎂 <a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a> turns ${age} this year`,
+        body: `Born ${year}${node.role ? ` — ${node.role}` : ''}${node.hometown ? ` · ${node.hometown}` : ''}`,
+        avatar: initials(node.name),
+        gradClass,
+        id: node.id,
+      });
+    });
+  }
+
+  // Header + summary card (always shows, even on quiet days)
+  const summaryBits = [];
+  if (born.length)     summaryBits.push(`<strong>${born.length}</strong> born`);
+  if (founded.length)  summaryBits.push(`<strong>${founded.length}</strong> founded`);
+  if (events.length)   summaryBits.push(`<strong>${events.length}</strong> ${events.length === 1 ? 'anniversary' : 'anniversaries'}`);
+  const summaryLine = summaryBits.length
+    ? summaryBits.join(' · ')
+    : (milestoneRows.length ? `No matches on ${dateLabel} — milestone anniversaries this year:` : `A quiet day in action-sports history. Come back tomorrow.`);
+
+  const allRows = [...rows, ...milestoneRows].slice(0, 8);
 
   return `
-    <section class="otd-widget">
-      <div class="otd-header">
-        <h2>On This Day — ${dateLabel}</h2>
-        <span class="otd-count">${born.length} born today</span>
+    <article class="v2-feed-item otd-summary">
+      <div class="v2-feed-item-head">
+        <div class="v2-feed-item-avatar" style="background:linear-gradient(135deg,#ffd166 0%,#ef8c30 60%,#8a3f00 100%);">📅</div>
+        <div class="v2-feed-item-meta">
+          <p class="v2-feed-item-title">On this day — ${dateLabel}<span class="v2-feed-item-tag">daily</span></p>
+          <div class="v2-feed-item-time">${summaryLine}</div>
+        </div>
       </div>
-      <div class="otd-grid">
-        ${born.slice(0, 8).map(({node, age, year}) => `
-          <div class="otd-card" data-id="${node.id}" role="button" tabindex="0" aria-label="View ${node.name}">
-            <div class="otd-avatar">${initials(node.name)}</div>
-            <div class="otd-body">
-              <div class="otd-name">${sportIcon(node)} ${node.name}</div>
-              <div class="otd-meta">Born ${year} · ${age} today</div>
-              <div class="otd-role">${node.role || node.type}</div>
-            </div>
+    </article>
+    ${allRows.map(r => `
+      <article class="v2-feed-item otd-row" onclick="navigateTo('${r.id}')">
+        <div class="v2-feed-item-head">
+          <div class="v2-feed-item-avatar ${r.gradClass}">${r.avatar}</div>
+          <div class="v2-feed-item-meta">
+            <p class="v2-feed-item-title">${r.title}<span class="v2-feed-item-tag">${r.tag}</span></p>
+            <div class="v2-feed-item-time">${r.year}</div>
           </div>
-        `).join('')}
-      </div>
-    </section>
+        </div>
+        <div class="v2-feed-item-body">${r.body}</div>
+      </article>
+    `).join('')}
   `;
 }
 
@@ -4446,25 +4609,10 @@ function attachOnThisDayHandlers() {
   });
 }
 
-// Auto-inject OTD widget on home render
+// Auto-inject OTD widget — now integrated into the v2 home feed
 function injectOnThisDayWidget() {
-  setTimeout(() => {
-    const homeContent = document.querySelector('#home-view .home-inner') || document.getElementById('home-view');
-    if (!homeContent) return;
-    if (homeContent.querySelector('.otd-widget')) return;
-    const otdHTML = renderOnThisDayWidget();
-    if (!otdHTML) return;
-    const wrap = document.createElement('div');
-    wrap.innerHTML = otdHTML;
-    const otdEl = wrap.firstElementChild;
-    const firstGrid = homeContent.querySelector('.grid') || homeContent.querySelector('.filter-chips-row');
-    if (firstGrid) {
-      homeContent.insertBefore(otdEl, firstGrid);
-    } else {
-      homeContent.appendChild(otdEl);
-    }
-    attachOnThisDayHandlers();
-  }, 50);
+  // No-op: OTD is now rendered directly by renderHomeFeed() via prependOTDToFeed()
+  // Kept as a stub for backward compatibility with showHome() call.
 }
 window.injectOnThisDayWidget = injectOnThisDayWidget;
 // Also inject on initial load once DOM is ready
