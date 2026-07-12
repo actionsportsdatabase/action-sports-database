@@ -737,7 +737,7 @@ function renderCard(node) {
   const defunctTag = isDefunct ? `<span class="defunct-badge">Defunct</span>` : '';
 
   return `
-    <article class="node-card" data-id="${node.id}" tabindex="0" role="button" aria-label="View ${node.name} profile">
+    <article class="node-card" data-id="${node.id}" data-sport="${(Array.isArray(node.sport)?node.sport[0]:node.sport)||''}" data-type="${node.type||''}" tabindex="0" role="button" aria-label="View ${node.name} profile">
       <div class="card-avatar">
         ${initials(node.name)}
         <span class="card-avatar-icon">${sportIcon(node)}</span>
@@ -1099,6 +1099,144 @@ function updateBreadcrumb() {
 }
 
 // ── RENDER PROFILE PAGE ──────────────────────────────────────
+// ── V2 HERO ─────────────────────────────────────────────────
+// Facebook/Instagram-style cover banner + circular avatar + stats bar + actions
+function buildV2Hero(node, id, isClaimed, isDefunct) {
+  const sports = node.sport || [];
+  const primarySport = Array.isArray(sports) ? sports[0] : sports;
+  const type = node.type || 'person';
+
+  // Choose cover/avatar gradient class
+  let gradClass = '';
+  if (primarySport) gradClass = `sport-${primarySport}`;
+  else if (type === 'brand' || type === 'company') gradClass = 'type-brand';
+  else if (type === 'location' || type === 'venue') gradClass = 'type-location';
+  else if (type === 'media' || type === 'film') gradClass = 'type-film';
+  else if (type === 'music' || type === 'band') gradClass = 'type-music';
+
+  const ringClass = isClaimed ? 'claimed' : (node.verified ? 'verified' : '');
+
+  const verifiedCheck = (isClaimed || node.verified) ? `
+    <div class="v2-hero-verified-check" title="${isClaimed ? 'Claimed by owner' : 'Verified'}">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 2.6 3.5-.4.8 3.4 3 1.9-1.6 3.1 1.6 3.1-3 1.9-.8 3.4-3.5-.4L12 22l-2.4-2.6-3.5.4-.8-3.4-3-1.9L3.9 12 2.3 8.9l3-1.9L6.1 3.6l3.5.4L12 2z" fill="${isClaimed ? '#00b894' : '#e8500a'}"/><path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    </div>` : '';
+
+  const verifiedInlineBadge = (isClaimed || node.verified) ? `
+    <span class="v2-hero-verified-badge" title="${isClaimed ? 'Claimed by owner' : 'Verified'}">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 2.6 3.5-.4.8 3.4 3 1.9-1.6 3.1 1.6 3.1-3 1.9-.8 3.4-3.5-.4L12 22l-2.4-2.6-3.5.4-.8-3.4-3-1.9L3.9 12 2.3 8.9l3-1.9L6.1 3.6l3.5.4L12 2z" fill="currentColor"/><path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    </span>` : '';
+
+  // Compute connections count
+  const connCount = (node.connections && node.connections.length) || 0;
+
+  // Compute quick stats
+  const stats = [];
+  // Titles (achievements count for athletes)
+  if (Array.isArray(node.achievements) && node.achievements.length) {
+    stats.push(`<span class="v2-stat"><strong>${node.achievements.length}</strong> ${node.achievements.length === 1 ? 'title' : 'titles'}</span>`);
+  }
+  // Era
+  if (node.era) {
+    stats.push(`<span class="v2-stat">${node.era}</span>`);
+  }
+  // Location / nationality
+  if (node.hometown) stats.push(`<span class="v2-stat">📍 ${node.hometown}</span>`);
+  else if (node.location) stats.push(`<span class="v2-stat">📍 ${node.location}</span>`);
+  else if (node.nationality) stats.push(`<span class="v2-stat">${node.nationality}</span>`);
+  // Founded/born year (for brand vs person)
+  if (node.born) stats.push(`<span class="v2-stat">Born ${node.born}</span>`);
+  else if (node.founded) stats.push(`<span class="v2-stat">Est. ${node.founded}</span>`);
+  // Connections
+  stats.push(`<span class="v2-stat"><strong>${connCount}</strong> ${connCount === 1 ? 'connection' : 'connections'}</span>`);
+
+  const statsHTML = stats.join('<span class="v2-stat-divider">·</span>');
+
+  // Action buttons — Follow / Connect / Endorse + Share/Embed
+  const isPerson = (type === 'athlete' || type === 'person' || type === 'photographer' || type === 'filmer' || type === 'journalist');
+  const primaryLabel = isPerson ? 'Follow' : 'Follow';
+  const connectLabel = isPerson ? 'Connect' : 'Save';
+  const endorseLabel = isPerson ? 'Endorse' : 'Recommend';
+
+  const actionsHTML = `
+    <button class="v2-action-btn primary" onclick="handleFollow('${id}')" title="${primaryLabel} ${node.name}">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+      ${primaryLabel}
+    </button>
+    <button class="v2-action-btn secondary" onclick="handleConnect('${id}')" title="${connectLabel}">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
+      ${connectLabel}
+    </button>
+    <button class="v2-action-btn ghost" onclick="handleEndorse('${id}')" title="${endorseLabel}">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M7 10v11h10V10M4 10l8-7 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ${endorseLabel}
+    </button>
+    <button class="v2-action-btn ghost" id="btn-share-profile" title="Share this profile">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="18" cy="5" r="2.5" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.5" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="2.5" stroke="currentColor" stroke-width="2"/><path d="M8 11l8-5M8 13l8 5" stroke="currentColor" stroke-width="2"/></svg>
+      Share
+    </button>
+    <button class="v2-action-btn ghost" id="btn-embed-profile" title="Embed this profile">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Embed
+    </button>
+  `;
+
+  const tagline = nodeSubtitle(node) || (node.role || (type.charAt(0).toUpperCase() + type.slice(1)));
+
+  return `
+    <div class="v2-profile-hero">
+      <div class="v2-hero-cover ${gradClass}"></div>
+      <div class="v2-hero-body">
+        <div class="v2-hero-avatar-wrap ${ringClass}">
+          <div class="v2-hero-avatar ${gradClass}" aria-hidden="true">${initials(node.name)}</div>
+          ${verifiedCheck}
+        </div>
+        <div class="v2-hero-name-row">
+          <div style="min-width:0;flex:1;">
+            <h1 class="v2-hero-name">
+              ${node.name}
+              ${verifiedInlineBadge}
+              ${node.nick ? `<span style="color:var(--text-muted);font-size:0.55em;font-weight:500;letter-spacing:0">“${node.nick}”</span>` : ''}
+            </h1>
+            <p class="v2-hero-tagline">${tagline}</p>
+            <div class="v2-hero-stats">${statsHTML}</div>
+          </div>
+          <div class="v2-hero-actions">${actionsHTML}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Stub handlers for new actions (until Firebase Phase 2 wires real behavior)
+function handleFollow(id) {
+  if (window.ASDB_AUTH && window.ASDB_AUTH.getCurrentUser && window.ASDB_AUTH.getCurrentUser()) {
+    // TODO: persist follow to Firestore
+    alert('Following ' + (ASDB.nodes[id]?.name || id) + '. (Follow persistence coming in Phase 2.)');
+  } else if (window.ASDB_AUTH && window.ASDB_AUTH.openSignIn) {
+    window.ASDB_AUTH.openSignIn();
+  } else {
+    alert('Sign in to follow profiles. (Auth setup pending — see FIREBASE_SETUP.md)');
+  }
+}
+function handleConnect(id) {
+  if (window.ASDB_AUTH && window.ASDB_AUTH.getCurrentUser && window.ASDB_AUTH.getCurrentUser()) {
+    alert('Connection request sent to ' + (ASDB.nodes[id]?.name || id) + '. (Connection system coming in Phase 2.)');
+  } else if (window.ASDB_AUTH && window.ASDB_AUTH.openSignIn) {
+    window.ASDB_AUTH.openSignIn();
+  } else {
+    alert('Sign in to send connection requests.');
+  }
+}
+function handleEndorse(id) {
+  if (window.ASDB_AUTH && window.ASDB_AUTH.getCurrentUser && window.ASDB_AUTH.getCurrentUser()) {
+    alert('Endorsement recorded for ' + (ASDB.nodes[id]?.name || id) + '. (Endorsement system coming in Phase 2.)');
+  } else if (window.ASDB_AUTH && window.ASDB_AUTH.openSignIn) {
+    window.ASDB_AUTH.openSignIn();
+  } else {
+    alert('Sign in to endorse profiles.');
+  }
+}
+
 function renderProfile(id) {
   const node = ASDB.nodes[id];
   if (!node) {
@@ -1113,6 +1251,9 @@ function renderProfile(id) {
   const sports    = node.sport || [];
 
   const avatarHTML = `<div class="profile-avatar" aria-hidden="true">${initials(node.name)}</div>`;
+
+  // ── V2 HERO — Facebook/Instagram warm-social profile hero ──
+  const v2HeroHTML = buildV2Hero(node, id, isClaimed, isDefunct);
 
   const headerChips = [
     ...sports.map(s => `<span class="tag tag-${s}">${SPORT_ICONS[s] || ''} ${sportLabel(s)}</span>`),
@@ -1213,25 +1354,8 @@ function renderProfile(id) {
   profileView.innerHTML = `
     <div class="profile-layout">
       <div class="profile-main">
-        <div class="profile-header">
-          ${avatarHTML}
-          <div class="profile-headline">
-            <h1>${node.name}${node.nick ? ` <span style="color:var(--text-muted);font-size:0.6em;font-weight:500">"${node.nick}"</span>` : ''}</h1>
-            <div class="profile-tagline">${nodeSubtitle(node) || (node.role || node.type.charAt(0).toUpperCase() + node.type.slice(1))}</div>
-            <div class="profile-chips">${headerChips}</div>
-            ${renderBadges(node)}
-            <div class="profile-actions-row">
-              <button class="profile-action-btn" id="btn-share-profile" aria-label="Share profile" title="Share this profile">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="13" cy="2.5" r="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="8" r="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="13" cy="13.5" r="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 7L11.5 3.5M4.5 9L11.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                Share
-              </button>
-              <button class="profile-action-btn" id="btn-embed-profile" aria-label="Embed profile" title="Embed this profile">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 4L1 8L5 12M11 4L15 8L11 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Embed
-              </button>
-            </div>
-          </div>
-        </div>
+        ${v2HeroHTML}
+        <div class="profile-chips-row" style="margin:0 0 1rem 0;display:flex;gap:0.4rem;flex-wrap:wrap;">${headerChips}${renderBadges(node)}</div>
 
         ${claimBanner}
         ${defunctNotice}
@@ -3040,6 +3164,92 @@ function showHome() {
   resetSEO();
   // Inject On This Day widget if any athletes born today
   try { if (typeof injectOnThisDayWidget === 'function') injectOnThisDayWidget(); } catch(e) {}
+  // Render v2 feed at top of home
+  try { renderHomeFeed(); } catch(e) { console.warn('renderHomeFeed failed', e); }
+}
+
+// ── V2 HOME FEED ────────────────────────────────────────────
+// Facebook-style timeline: latest activity across the database.
+function renderHomeFeed() {
+  const feedEl = document.getElementById('home-feed');
+  if (!feedEl) return;
+
+  // Gather feed items from nodes
+  const items = [];
+  const nodeIds = Object.keys(ASDB.nodes);
+
+  // Latest additions — last 12 nodes with a `dateAdded` or fallback to end of nodes list
+  const withDates = nodeIds.filter(id => ASDB.nodes[id].dateAdded);
+  withDates.sort((a,b) => (ASDB.nodes[b].dateAdded || '').localeCompare(ASDB.nodes[a].dateAdded || ''));
+  const latestAdditions = withDates.length ? withDates.slice(0, 5) : nodeIds.slice(-5).reverse();
+
+  latestAdditions.forEach(id => {
+    const n = ASDB.nodes[id];
+    if (!n) return;
+    const sport = Array.isArray(n.sport) ? n.sport[0] : n.sport;
+    const gradClass = sport ? `sport-${sport}` : (n.type === 'brand' ? 'type-brand' : (n.type === 'location' ? 'type-location' : ''));
+    items.push({
+      type: 'new-profile',
+      id,
+      title: `New profile added: <a href="#profile/${id}" onclick="navigateTo('${id}');return false;">${n.name}</a>`,
+      tag: sport || n.type || 'profile',
+      body: (n.bio || n.tagline || nodeSubtitle(n) || '').slice(0, 180),
+      avatar: initials(n.name),
+      gradClass,
+      time: n.dateAdded || 'recently',
+    });
+  });
+
+  // Featured athlete / random "discover" cards
+  const featuredIds = ['kelly-slater', 'tony-hawk', 'shaun-white', 'travis-pastrana', 'gerry-lopez', 'doug-walker'].filter(x => ASDB.nodes[x]);
+  featuredIds.slice(0, 2).forEach(id => {
+    const n = ASDB.nodes[id];
+    const sport = Array.isArray(n.sport) ? n.sport[0] : n.sport;
+    const gradClass = sport ? `sport-${sport}` : '';
+    items.push({
+      type: 'featured',
+      id,
+      title: `Featured profile: <a href="#profile/${id}" onclick="navigateTo('${id}');return false;">${n.name}</a>`,
+      tag: 'featured',
+      body: (n.bio || n.tagline || '').slice(0, 200),
+      avatar: initials(n.name),
+      gradClass,
+      time: 'featured today',
+    });
+  });
+
+  // Total nodes stat card
+  items.unshift({
+    type: 'stat',
+    title: `🌊 The database is growing`,
+    tag: 'stat',
+    body: `<strong>${nodeIds.length.toLocaleString()}</strong> profiles across surf, skate, snow, moto, BMX, MTB, wake, climb, air, parkour, breaking, brands, locations, film and music — all connected.`,
+    avatar: 'AS',
+    gradClass: '',
+    time: 'live',
+  });
+
+  // Render
+  const html = `
+    <div class="v2-feed-header">
+      <h2>What's happening on ASDB</h2>
+      <p>Follow athletes, brands, and archives — see updates from the world you care about.</p>
+    </div>
+    ${items.slice(0, 8).map(item => `
+      <article class="v2-feed-item" ${item.id ? `onclick="navigateTo('${item.id}')"` : ''}>
+        <div class="v2-feed-item-head">
+          <div class="v2-feed-item-avatar ${item.gradClass}">${item.avatar}</div>
+          <div class="v2-feed-item-meta">
+            <p class="v2-feed-item-title">${item.title}<span class="v2-feed-item-tag">${item.tag}</span></p>
+            <div class="v2-feed-item-time">${item.time}</div>
+          </div>
+        </div>
+        ${item.body ? `<div class="v2-feed-item-body">${item.body}</div>` : ''}
+      </article>
+    `).join('')}
+  `;
+
+  feedEl.innerHTML = html;
 }
 
 // ── LEGAL PAGE ──────────────────────────────────────────────
