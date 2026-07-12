@@ -1173,6 +1173,7 @@ function renderProfile(id) {
             <h1>${node.name}${node.nick ? ` <span style="color:var(--text-muted);font-size:0.6em;font-weight:500">"${node.nick}"</span>` : ''}</h1>
             <div class="profile-tagline">${nodeSubtitle(node) || (node.role || node.type.charAt(0).toUpperCase() + node.type.slice(1))}</div>
             <div class="profile-chips">${headerChips}</div>
+            ${renderBadges(node)}
             <div class="profile-actions-row">
               <button class="profile-action-btn" id="btn-share-profile" aria-label="Share profile" title="Share this profile">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="13" cy="2.5" r="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="8" r="1.5" stroke="currentColor" stroke-width="1.5"/><circle cx="13" cy="13.5" r="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 7L11.5 3.5M4.5 9L11.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -1198,6 +1199,8 @@ function renderProfile(id) {
         <div id="tab-record"      class="tab-panel ${State.activeTab === 'record'      ? 'active' : ''}">${recordTab}</div>
         <div id="tab-media"       class="tab-panel ${State.activeTab === 'media'       ? 'active' : ''}">${mediaTab}</div>
         <div id="tab-lineage"     class="tab-panel ${State.activeTab === 'lineage'     ? 'active' : ''}">${lineageTab}</div>
+
+        ${renderRelatedCarousel(node)}
 
         ${legalFooter}
       </div>
@@ -1241,6 +1244,9 @@ function renderProfile(id) {
   if (embedBtn) {
     embedBtn.addEventListener('click', () => showEmbedModal(node));
   }
+
+  // Related carousel handlers
+  attachRelatedCarouselHandlers();
 }
 
 // ── FLAG / DISPUTE SYSTEM ──────────────────────────────────
@@ -2971,3 +2977,221 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+// ═══════════════════════════════════════════════════════════════════
+// RELATED PROFILES — Ancestry-style scored recommendations
+// ═══════════════════════════════════════════════════════════════════
+// Scores every other node by:
+//   +3 per shared connection
+//   +2 if same primary sport
+//   +2 if same era overlap
+//   +1 if same nationality/hometown region
+//   +1 if same type (person/place/brand/etc)
+// Returns top N ranked by score descending.
+
+function computeRelatedProfiles(node, limit = 12) {
+  if (!node || !ASDB.nodes) return [];
+
+  const myConnIds = new Set((node.connections || []).map(c => c.id));
+  const mySports = new Set(node.sport || []);
+  const myEra = parseEra(node.era);
+  const myHometown = (node.birthplace || node.hometown || '').toLowerCase();
+  const myType = node.type;
+
+  const scored = [];
+
+  Object.values(ASDB.nodes).forEach(other => {
+    if (other.id === node.id) return;
+
+    let score = 0;
+
+    // Shared connections — strongest signal
+    if (other.connections) {
+      other.connections.forEach(c => {
+        if (myConnIds.has(c.id)) score += 3;
+        if (c.id === node.id) score += 5; // direct back-link
+      });
+    }
+
+    // Direct connection from us to them
+    if (myConnIds.has(other.id)) score += 5;
+
+    // Shared sport
+    if (other.sport && other.sport.some(s => mySports.has(s))) score += 2;
+
+    // Era overlap
+    const otherEra = parseEra(other.era);
+    if (myEra && otherEra && erasOverlap(myEra, otherEra)) score += 2;
+
+    // Location overlap (partial string match on hometown/birthplace/location)
+    const otherLoc = (other.birthplace || other.hometown || other.location || '').toLowerCase();
+    if (myHometown && otherLoc) {
+      const myParts = myHometown.split(',').map(p => p.trim()).filter(p => p.length > 2);
+      if (myParts.some(p => otherLoc.includes(p))) score += 1;
+    }
+
+    // Same type
+    if (other.type === myType) score += 1;
+
+    if (score > 0) scored.push({ node: other, score });
+  });
+
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, limit).map(s => s.node);
+}
+
+function parseEra(era) {
+  if (!era) return null;
+  const m = era.match(/(\d{4})/g);
+  if (!m || m.length === 0) return null;
+  const start = parseInt(m[0]);
+  const end = m.length > 1 ? parseInt(m[1]) : (new Date().getFullYear());
+  return { start, end };
+}
+
+function erasOverlap(a, b) {
+  return a.start <= b.end && b.start <= a.end;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ACHIEVEMENT BADGES — visual signals of accomplishments
+// ═══════════════════════════════════════════════════════════════════
+// Detects specific accomplishments from node.achievements[] and renders
+// as color-coded badge chips. Icon-only on mobile, text on desktop.
+
+const BADGE_RULES = [
+  { key:'world-title', icon:'👑', label:'World Champion',
+    color:'#e8500a', bgColor:'rgba(232,80,10,0.15)',
+    match: /world (title|champion|championship)|wsl (title|champion)|ct (title|champion)/i },
+  { key:'olympic-gold', icon:'🥇', label:'Olympic Gold',
+    color:'#ffd700', bgColor:'rgba(255,215,0,0.15)',
+    match: /olympic gold|gold medal.{0,20}olympic|olympic.{0,20}gold/i },
+  { key:'olympic-silver', icon:'🥈', label:'Olympic Silver',
+    color:'#c0c0c0', bgColor:'rgba(192,192,192,0.15)',
+    match: /olympic silver|silver medal.{0,20}olympic/i },
+  { key:'olympic-bronze', icon:'🥉', label:'Olympic Bronze',
+    color:'#cd7f32', bgColor:'rgba(205,127,50,0.15)',
+    match: /olympic bronze|bronze medal.{0,20}olympic/i },
+  { key:'olympian', icon:'🏅', label:'Olympian',
+    color:'#00a6b5', bgColor:'rgba(0,166,181,0.15)',
+    match: /olympi(c|an)/i },
+  { key:'x-games-gold', icon:'❌🥇', label:'X Games Gold',
+    color:'#f06030', bgColor:'rgba(240,96,48,0.15)',
+    match: /x games gold|xgames gold|x-games gold/i },
+  { key:'x-games', icon:'❌', label:'X Games',
+    color:'#00c8d8', bgColor:'rgba(0,200,216,0.15)',
+    match: /x games|xgames|x-games/i },
+  { key:'hof', icon:'🏛️', label:'Hall of Fame',
+    color:'#c8a05a', bgColor:'rgba(200,160,90,0.15)',
+    match: /hall of fame|inducted|hof/i },
+  { key:'triple-crown', icon:'👑👑👑', label:'Triple Crown',
+    color:'#e8500a', bgColor:'rgba(232,80,10,0.15)',
+    match: /triple crown/i },
+  { key:'pipe-masters', icon:'🌊', label:'Pipe Master',
+    color:'#00a6b5', bgColor:'rgba(0,166,181,0.15)',
+    match: /pipeline masters|pipe masters/i },
+  { key:'big-wave', icon:'🌊', label:'Big Wave',
+    color:'#00c8d8', bgColor:'rgba(0,200,216,0.15)',
+    match: /big wave (title|award|xxl|challenge)/i },
+  { key:'sx-champ', icon:'🏆', label:'Supercross Champ',
+    color:'#e8500a', bgColor:'rgba(232,80,10,0.15)',
+    match: /supercross (champion|title|450)/i },
+  { key:'mx-champ', icon:'🏆', label:'Motocross Champ',
+    color:'#f06030', bgColor:'rgba(240,96,48,0.15)',
+    match: /(motocross|ama national) (champion|title|450)/i },
+];
+
+function computeBadges(node) {
+  if (!node.achievements || !node.achievements.length) return [];
+  const found = new Map();
+  const text = node.achievements.join(' | ');
+  BADGE_RULES.forEach(rule => {
+    if (rule.match.test(text) && !found.has(rule.key)) {
+      // Suppress general olympian if a medal badge is present
+      if (rule.key === 'olympian' && (found.has('olympic-gold') || found.has('olympic-silver') || found.has('olympic-bronze'))) return;
+      if (rule.key === 'x-games' && found.has('x-games-gold')) return;
+      found.set(rule.key, rule);
+    }
+  });
+  return Array.from(found.values());
+}
+
+function renderBadges(node) {
+  const badges = computeBadges(node);
+  if (!badges.length) return '';
+  return `
+    <div class="achievement-badges">
+      ${badges.map(b => `
+        <span class="badge" style="color:${b.color};background:${b.bgColor};border:1px solid ${b.color}55"
+              title="${b.label}">
+          <span class="badge-icon">${b.icon}</span>
+          <span class="badge-label">${b.label}</span>
+        </span>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RELATED PROFILES CAROUSEL — horizontal scroll of scored matches
+// ═══════════════════════════════════════════════════════════════════
+
+function renderRelatedCarousel(node) {
+  const related = computeRelatedProfiles(node, 12);
+  if (!related.length) return '';
+
+  return `
+    <div class="related-carousel-wrap">
+      <div class="related-carousel-header">
+        <h3>Related Profiles</h3>
+        <div class="related-carousel-nav">
+          <button class="rc-nav-btn" data-dir="left" aria-label="Scroll left">‹</button>
+          <button class="rc-nav-btn" data-dir="right" aria-label="Scroll right">›</button>
+        </div>
+      </div>
+      <div class="related-carousel" id="relatedCarousel">
+        ${related.map(n => {
+          const badges = computeBadges(n).slice(0, 2);
+          return `
+            <div class="related-card" data-id="${n.id}" role="button" tabindex="0" aria-label="View ${n.name}">
+              <div class="related-card-avatar">${initials(n.name)}</div>
+              <div class="related-card-body">
+                <div class="related-card-name">${sportIcon(n)} ${n.name}</div>
+                <div class="related-card-meta">${nodeSubtitle(n) || n.type}</div>
+                ${badges.length ? `<div class="related-card-badges">${badges.map(b => `<span class="mini-badge" title="${b.label}" style="color:${b.color}">${b.icon}</span>`).join('')}</div>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function attachRelatedCarouselHandlers() {
+  const carousel = document.getElementById('relatedCarousel');
+  if (!carousel) return;
+
+  // Card clicks
+  carousel.querySelectorAll('.related-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.id;
+      if (id) navigateTo(id);
+    });
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const id = card.dataset.id;
+        if (id) navigateTo(id);
+      }
+    });
+  });
+
+  // Nav buttons
+  document.querySelectorAll('.rc-nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const dir = btn.dataset.dir === 'left' ? -1 : 1;
+      carousel.scrollBy({ left: dir * 320, behavior: 'smooth' });
+    });
+  });
+}
