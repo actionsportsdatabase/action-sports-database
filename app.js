@@ -2694,6 +2694,8 @@ function showHome() {
   breadcrumbBar.classList.remove('visible');
   updateNavButtons();
   resetSEO();
+  // Inject On This Day widget if any athletes born today
+  try { if (typeof injectOnThisDayWidget === 'function') injectOnThisDayWidget(); } catch(e) {}
 }
 
 // ── LEGAL PAGE ──────────────────────────────────────────────
@@ -3596,47 +3598,52 @@ function attachOnThisDayHandlers() {
 }
 
 // Auto-inject OTD widget on home render
-if (typeof showHome === 'function') {
-  const _origShowHome = showHome;
-  window.showHome = function() {
-    _origShowHome.apply(this, arguments);
-    // Try to inject OTD widget once
-    setTimeout(() => {
-      const homeContent = document.querySelector('#home-view .home-inner') || document.getElementById('home-view');
-      if (!homeContent) return;
-      // Only inject if not already there
-      if (homeContent.querySelector('.otd-widget')) return;
-      const otdHTML = renderOnThisDayWidget();
-      if (!otdHTML) return;
-      const wrap = document.createElement('div');
-      wrap.innerHTML = otdHTML;
-      const otdEl = wrap.firstElementChild;
-      // Insert before the grid (first child that is not a search bar)
-      const firstGrid = homeContent.querySelector('.grid') || homeContent.querySelector('.filter-chips-row');
-      if (firstGrid) {
-        homeContent.insertBefore(otdEl, firstGrid);
-      } else {
-        homeContent.appendChild(otdEl);
-      }
-      attachOnThisDayHandlers();
-    }, 50);
-  };
+function injectOnThisDayWidget() {
+  setTimeout(() => {
+    const homeContent = document.querySelector('#home-view .home-inner') || document.getElementById('home-view');
+    if (!homeContent) return;
+    if (homeContent.querySelector('.otd-widget')) return;
+    const otdHTML = renderOnThisDayWidget();
+    if (!otdHTML) return;
+    const wrap = document.createElement('div');
+    wrap.innerHTML = otdHTML;
+    const otdEl = wrap.firstElementChild;
+    const firstGrid = homeContent.querySelector('.grid') || homeContent.querySelector('.filter-chips-row');
+    if (firstGrid) {
+      homeContent.insertBefore(otdEl, firstGrid);
+    } else {
+      homeContent.appendChild(otdEl);
+    }
+    attachOnThisDayHandlers();
+  }, 50);
+}
+window.injectOnThisDayWidget = injectOnThisDayWidget;
+// Also inject on initial load once DOM is ready
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  setTimeout(injectOnThisDayWidget, 200);
+} else {
+  document.addEventListener('DOMContentLoaded', () => setTimeout(injectOnThisDayWidget, 200));
 }
 
-// Route handling extension for compare/map
-if (typeof handleHashChange === 'function') {
-  const _origHash = handleHashChange;
-  window.handleHashChange = function() {
-    const hash = window.location.hash;
-    const cm = hash.match(/^#compare\/([^/]+)\/([^/]+)$/);
-    if (cm) {
-      navigateCompare(cm[1], cm[2]);
-      return;
-    }
-    if (hash === '#map') {
-      navigateMap();
-      return;
-    }
-    return _origHash.apply(this, arguments);
-  };
-}
+// Route handling extension for compare/map — attach a NEW hashchange listener
+// (the original handleHashChange is already attached as an event listener via addEventListener,
+// so a `window.handleHashChange = ...` reassignment would not intercept anything)
+window.addEventListener('hashchange', function() {
+  const hash = window.location.hash;
+  const cm = hash.match(/^#compare\/([^/]+)\/([^/]+)$/);
+  if (cm) {
+    navigateCompare(cm[1], cm[2]);
+  } else if (hash === '#map') {
+    navigateMap();
+  }
+});
+// Also check on initial page load in case the URL already has #map or #compare
+(function checkInitialRoute() {
+  const hash = window.location.hash;
+  const cm = hash.match(/^#compare\/([^/]+)\/([^/]+)$/);
+  if (cm) {
+    setTimeout(() => navigateCompare(cm[1], cm[2]), 0);
+  } else if (hash === '#map') {
+    setTimeout(() => navigateMap(), 0);
+  }
+})();
