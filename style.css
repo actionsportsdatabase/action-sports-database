@@ -2694,3 +2694,81 @@ a.subgroup-chip:hover { border-color: var(--accent-2); color: var(--accent-2); }
   background: var(--surface);
   border-color: var(--accent);
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   LOCATION / MEDIA ROSTER GRID (IMDB-style cast/roster)
+   ═══════════════════════════════════════════════════════════════════ */
+.loc-roster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+.loc-roster-card {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.55rem 0.7rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+  color: inherit;
+}
+.loc-roster-card:hover, .loc-roster-card:focus {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+  outline: none;
+  text-decoration: none;
+}
+.loc-roster-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Clash Display', system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  flex: 0 0 38px;
+}
+.loc-roster-body {
+  min-width: 0;
+  flex: 1;
+}
+.loc-roster-name {
+  font-family: 'Clash Display', system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.loc-roster-meta {
+  font-family: 'Satoshi', system-ui, sans-serif;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 0.1rem;
+}
+.loc-roster-count {
+  font-family: 'Satoshi', system-ui, sans-serif;
+  font-size: 0.7rem;
+  color: var(--accent);
+  background: rgba(232,80,10,0.15);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  margin-left: 0.5rem;
+  font-weight: 600;
+  vertical-align: middle;
+}
+@media (max-width: 640px) {
+  .loc-roster-grid { grid-template-columns: 1fr; }
+}
