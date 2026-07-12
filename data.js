@@ -59,6 +59,7 @@ ASDB.nodes = {
   },
 
   'duke-kahanamoku': {
+    verified: true,
     id:'duke-kahanamoku', type:'athlete', name:'Duke Kahanamoku',
     nick:'"The Father of Modern Surfing" / "The Duke" / "Ambassador of Aloha"',
     born:'August 24, 1890', birthplace:'Honolulu, Hawaii', died:'January 22, 1968',
@@ -1071,6 +1072,7 @@ ASDB.nodes = {
   // ── EXPANDED / REPLACEMENT ATHLETE NODES ─────────────────
 
   'kelly-slater': {
+    verified: true,
     id: 'kelly-slater',
     type: 'athlete',
     name: 'Kelly Slater',
@@ -1131,6 +1133,7 @@ ASDB.nodes = {
   },
 
   'tony-hawk': {
+    verified: true,
     id:'tony-hawk', type:'athlete', name:'Tony Hawk',
     nick:'"The Birdman"',
     born:'May 12, 1968', birthplace:'San Diego, CA',
@@ -1156,6 +1159,7 @@ ASDB.nodes = {
   },
 
   'laird-hamilton': {
+    verified: true,
     id:'laird-hamilton', type:'athlete', name:'Laird Hamilton',
     nick:'"The Godfather of Big Wave"',
     born:'March 2, 1964', birthplace:'San Francisco, CA',
@@ -1181,6 +1185,7 @@ ASDB.nodes = {
   },
 
   'greg-noll': {
+    verified: true,
     id:'greg-noll', type:'athlete', name:'Greg Noll',
     nick:'"Da Bull"',
     born:'February 11, 1937', birthplace:'Manhattan Beach, CA', died:null,
@@ -1203,6 +1208,7 @@ ASDB.nodes = {
   },
 
   'stacy-peralta': {
+    verified: true,
     id:'stacy-peralta', type:'athlete', name:'Stacy Peralta',
     nick:null,
     born:'October 15, 1957', birthplace:'Venice Beach, CA',
@@ -1228,6 +1234,7 @@ ASDB.nodes = {
   },
 
   'jay-adams': {
+    verified: true,
     id:'jay-adams', type:'athlete', name:'Jay Adams',
     nick:'"The Original"',
     born:'June 2, 1961', birthplace:'Venice Beach, CA', died:'August 15, 2014',
@@ -1279,6 +1286,7 @@ ASDB.nodes = {
   },
 
   'shaun-white': {
+    verified: true,
     id:'shaun-white', type:'athlete', name:'Shaun White',
     nick:'"The Flying Tomato"',
     born:'September 3, 1986', birthplace:'San Diego, CA',
@@ -1302,6 +1310,7 @@ ASDB.nodes = {
   },
 
   'travis-pastrana': {
+    verified: true,
     id:'travis-pastrana', type:'athlete', name:'Travis Pastrana',
     nick:'"199"',
     born:'October 8, 1983', birthplace:'Annapolis, MD',
@@ -2008,6 +2017,7 @@ ASDB.nodes = {
   },
 
   'nat-young': {
+    verified: true,
     id:'nat-young',
     type:'athlete',
     name:'Nat Young',
@@ -2276,6 +2286,7 @@ ASDB.nodes = {
   },
 
   'gerry-lopez': {
+    verified: true,
     id:'gerry-lopez',
     type:'athlete',
     name:'Gerry Lopez',
@@ -2359,6 +2370,7 @@ ASDB.nodes = {
   },
 
   'terry-fitzgerald': {
+    verified: true,
     id:'terry-fitzgerald',
     type:'athlete',
     name:'Terry Fitzgerald',
@@ -2507,6 +2519,7 @@ ASDB.nodes = {
   },
 
   'tom-carroll': {
+    verified: true,
     id:'tom-carroll',
     type:'athlete',
     name:'Tom Carroll',
@@ -2722,6 +2735,7 @@ ASDB.nodes = {
   },
 
   'mark-foo': {
+    verified: true,
     id:'mark-foo',
     type:'athlete',
     name:'Mark Foo',
@@ -2948,6 +2962,7 @@ ASDB.nodes = {
   },
 
   'mick-fanning': {
+    verified: true,
     id:'mick-fanning',
     type:'athlete',
     name:'Mick Fanning',
@@ -2962,6 +2977,7 @@ ASDB.nodes = {
   },
 
   'joel-parkinson': {
+    verified: true,
     id:'joel-parkinson',
     type:'athlete',
     name:'Joel Parkinson',
@@ -2976,6 +2992,7 @@ ASDB.nodes = {
   },
 
   'gabriel-medina': {
+    verified: true,
     id:'gabriel-medina',
     type:'athlete',
     name:'Gabriel Medina',
@@ -2989,6 +3006,7 @@ ASDB.nodes = {
   },
 
   'italo-ferreira': {
+    verified: true,
     id:'italo-ferreira',
     type:'athlete',
     name:'Italo Ferreira',
@@ -3002,6 +3020,7 @@ ASDB.nodes = {
   },
 
   'filipe-toledo': {
+    verified: true,
     id:'filipe-toledo',
     type:'athlete',
     name:'Filipe Toledo',
@@ -3160,6 +3179,7 @@ ASDB.nodes = {
   },
 
   'stephanie-gilmore': {
+    verified: true,
     id:'stephanie-gilmore',
     type:'athlete',
     name:'Stephanie Gilmore',
@@ -3173,6 +3193,7 @@ ASDB.nodes = {
   },
 
   'carissa-moore': {
+    verified: true,
     id:'carissa-moore',
     type:'athlete',
     name:'Carissa Moore',
@@ -3387,6 +3408,7 @@ ASDB.nodes = {
   },
 
   'jeff-clark': {
+    verified: true,
     id:'jeff-clark',
     type:'athlete',
     name:'Jeff Clark',
@@ -5936,6 +5958,7 @@ ASDB.nodes = {
   },
 
   'tony-alva': {
+    verified: true,
     id: 'tony-alva',
     type: 'athlete',
     name: 'Tony Alva',
@@ -6128,6 +6151,7 @@ ASDB.nodes = {
   },
 
   'rodney-mullen': {
+    verified: true,
     id:'rodney-mullen',
     type:'athlete',
     name:'Rodney Mullen',
@@ -6156,6 +6180,7 @@ ASDB.nodes = {
   },
 
   'lance-mountain': {
+    verified: true,
     id:'lance-mountain',
     type:'athlete',
     name:'Lance Mountain',
@@ -6339,6 +6364,7 @@ ASDB.nodes = {
   },
 
   'bob-burnquist': {
+    verified: true,
     id:'bob-burnquist',
     type:'athlete',
     name:'Bob Burnquist',
@@ -6520,6 +6546,7 @@ ASDB.nodes = {
   },
 
   'danny-way': {
+    verified: true,
     id:'danny-way',
     type:'athlete',
     name:'Danny Way',
@@ -6905,6 +6932,7 @@ ASDB.nodes = {
   },
 
   'nyjah-huston': {
+    verified: true,
     id:'nyjah-huston',
     type:'athlete',
     name:'Nyjah Huston',
@@ -10789,6 +10817,7 @@ ASDB.nodes = {
   },
 
   'chloe-kim': {
+    verified: true,
     id: 'chloe-kim',
     type: 'athlete',
     sport: ['snow'],
@@ -10828,6 +10857,7 @@ ASDB.nodes = {
   },
 
   'kelly-clark': {
+    verified: true,
     id: 'kelly-clark',
     type: 'athlete',
     sport: ['snow'],
@@ -11101,6 +11131,7 @@ ASDB.nodes = {
   },
 
   'ricky-carmichael': {
+    verified: true,
     id: 'ricky-carmichael',
     type: 'athlete',
     sport: ['moto'],
@@ -11127,6 +11158,7 @@ ASDB.nodes = {
   },
 
   'james-stewart': {
+    verified: true,
     id: 'james-stewart',
     type: 'athlete',
     sport: ['moto'],
@@ -11153,6 +11185,7 @@ ASDB.nodes = {
   },
 
   'ryan-dungey': {
+    verified: true,
     id: 'ryan-dungey',
     type: 'athlete',
     sport: ['moto'],
@@ -11361,6 +11394,7 @@ ASDB.nodes = {
   },
 
   'mat-hoffman': {
+    verified: true,
     id: 'mat-hoffman',
     type: 'athlete',
     sport: ['bmx'],
@@ -11491,6 +11525,7 @@ ASDB.nodes = {
   },
 
   'garrett-reynolds': {
+    verified: true,
     id: 'garrett-reynolds',
     type: 'athlete',
     sport: ['bmx'],
@@ -11712,6 +11747,7 @@ ASDB.nodes = {
   },
 
   'aaron-gwin': {
+    verified: true,
     id: 'aaron-gwin',
     type: 'athlete',
     sport: ['mtb'],
@@ -11738,6 +11774,7 @@ ASDB.nodes = {
   },
 
   'rachel-atherton': {
+    verified: true,
     id: 'rachel-atherton',
     type: 'athlete',
     sport: ['mtb'],
@@ -11777,6 +11814,7 @@ ASDB.nodes = {
   },
 
   'brandon-semenuk': {
+    verified: true,
     id: 'brandon-semenuk',
     type: 'athlete',
     sport: ['mtb'],
@@ -12369,6 +12407,7 @@ ASDB.nodes = {
   },
 
   'jamie-obrien': {
+    verified: true,
     id: 'jamie-obrien',
     type: 'athlete',
     name: 'Jamie O\'Brien',
@@ -16902,6 +16941,7 @@ ASDB.nodes = {
     stance: "Regular",
   },
   'jamie-anderson': {
+    verified: true,
     id: "jamie-anderson",
     type: "athlete",
     name: "Jamie Anderson",
@@ -26579,6 +26619,7 @@ ASDB.nodes = {
     sponsors: ["Red Bull"],
   },
   'alex-honnold': {
+    verified: true,
     id: 'alex-honnold',
     type: 'athlete',
     name: "Alex Honnold",
@@ -35111,6 +35152,7 @@ ASDB.nodes = {
   social:{instagram:'tommycaldwell1'},
 },
   'chris-sharma': {
+    verified: true,
   id:'chris-sharma', type:'person', name:'Chris Sharma',
   role:'Pro Rock Climber',
   sport:['climb'],
@@ -42309,6 +42351,7 @@ ASDB.nodes = {
   // ═══════════════════════════════════════════════════════
 // ── Doug Walker ────────────────────────────────────────────────
   'doug-walker': {
+    verified: true,
     id: "doug-walker",
     type: "person",
     name: "Doug Walker",
