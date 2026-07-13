@@ -210,9 +210,17 @@ function nodeSubtitle(node) {
     return [sports, era].filter(Boolean).join(' · ');
   }
   if (node.type === 'brand') {
-    const status = node.status === 'defunct' ? '⚠ Defunct' : 'Active';
-    const years  = node.years || '';
-    return [status, years].filter(Boolean).join(' · ');
+    const parts = [];
+    if (node.category) parts.push(node.category);
+    if (node.founded) parts.push('Founded ' + node.founded);
+    if (node.country) parts.push(node.country);
+    if (node.parent && node.parent !== 'Private' && node.parent !== 'private') parts.push('Owned by ' + node.parent);
+    if (!parts.length) {
+      const status = (node.statusText || node.status || '').toLowerCase().includes('defunct') ? '⚠ Defunct' : 'Active';
+      parts.push(status);
+      if (node.years) parts.push(node.years);
+    }
+    return parts.filter(Boolean).join(' · ');
   }
   if (node.type === 'location') {
     return [
@@ -225,6 +233,32 @@ function nodeSubtitle(node) {
   if (node.type === 'media')  return node.role || 'Media';
   if (node.type === 'music')  return node.genre || 'Music';
   return '';
+}
+
+// Compact brand-detail row shown inside profile hero (brands + orgs only)
+function renderBrandDetailRow(node) {
+  if (!node) return '';
+  const isBrandLike = node.type === 'brand' || node.type === 'org' || node.type === 'organization';
+  if (!isBrandLike) return '';
+  const items = [];
+  const push = (label, value, opts) => {
+    if (value == null || value === '') return;
+    const v = String(value);
+    const link = opts && opts.href ? `<a href="${opts.href}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:var(--text-muted);text-underline-offset:2px">${v}</a>` : v;
+    items.push(`<span style="display:inline-flex;align-items:baseline;gap:0.35em"><span style="color:var(--text-muted);text-transform:uppercase;font-size:0.68em;letter-spacing:0.06em">${label}</span><span style="color:var(--text)">${link}</span></span>`);
+  };
+  push('Founded', node.founded);
+  push('HQ', [node.region, node.country].filter(Boolean).join(', '));
+  push('Category', node.category);
+  push('Parent', node.parent);
+  if (node.website) {
+    const url = /^https?:/.test(node.website) ? node.website : 'https://' + node.website;
+    push('Site', node.website.replace(/^https?:\/\//,'').replace(/\/$/,''), { href: url });
+  }
+  if (node.statusText && !/^active$/i.test(node.statusText)) push('Status', node.statusText);
+  if (node.yearDefunct) push('Defunct', node.yearDefunct);
+  if (!items.length) return '';
+  return `<div class="asdb-brand-detail-row" style="display:flex;flex-wrap:wrap;gap:1rem 1.25rem;margin-top:0.6rem;font-size:0.82rem;line-height:1.4">${items.join('')}</div>`;
 }
 
 function isDefunctNode(node) {
@@ -1209,6 +1243,7 @@ function buildV2Hero(node, id, isClaimed, isDefunct) {
             </h1>
             <p class="v2-hero-tagline">${tagline}</p>
             <div class="v2-hero-stats">${statsHTML}</div>
+            ${renderBrandDetailRow(node)}
           </div>
           <div class="v2-hero-actions">${actionsHTML}</div>
         </div>
