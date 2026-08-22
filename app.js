@@ -2786,7 +2786,16 @@ function renderSidebar(node) {
     </div>
   ` : '';
 
-  return `${connWidget}${alsoViewedHTML}${claimWidget}`;
+  const memoryWidget = `
+    <div class="sidebar-widget memory-submit-widget">
+      <span class="memory-submit-eyebrow">Community archive</span>
+      <h4>Remember something about ${escapeHtml(node.name)}?</h4>
+      <p>A moment, video, photo, product or detail can unlock the next rabbit hole.</p>
+      <button class="memory-submit-button" type="button" onclick="openMemorySubmission('${node.id}')">+ Add a memory or video</button>
+    </div>
+  `;
+
+  return `${memoryWidget}${connWidget}${alsoViewedHTML}${claimWidget}`;
 }
 
 // ── SEARCH ───────────────────────────────────────────────────
@@ -3095,6 +3104,97 @@ function updateThemeIcon(theme) {
 let _claimTargetId = null;
 
 // ── ERROR REPORTS & REMOVAL REQUESTS ─────────────────────────────
+function openMemorySubmission(id) {
+  const node = ASDB.nodes[id];
+  if (!node) return;
+
+  document.getElementById('asdb-memory-modal')?.remove();
+  const overlay = document.createElement('div');
+  overlay.id = 'asdb-memory-modal';
+  overlay.className = 'memory-modal-overlay';
+  overlay.innerHTML = `
+    <div class="memory-modal" role="dialog" aria-modal="true" aria-labelledby="memory-modal-title">
+      <button class="memory-modal-close" type="button" aria-label="Close memory submission">×</button>
+      <span class="memory-submit-eyebrow">Help build the archive</span>
+      <h3 id="memory-modal-title">What do you remember about ${escapeHtml(node.name)}?</h3>
+      <p>Tell us the detail you never want lost. A rough year and a link help us research and connect it.</p>
+      <form id="memory-contribution-form">
+        <label for="memory-kind">What are you adding?</label>
+        <select id="memory-kind">
+          <option>Personal memory or story</option>
+          <option>Video or film appearance</option>
+          <option>Photo or magazine clipping</option>
+          <option>Product, gear or clothing</option>
+          <option>Event or contest result</option>
+          <option>Correction or missing fact</option>
+        </select>
+
+        <label for="memory-story">The memory or detail <span aria-hidden="true">*</span></label>
+        <textarea id="memory-story" rows="5" required placeholder="Example: I remember Brad wearing this jacket in a 1991 surf video..."></textarea>
+
+        <div class="memory-form-row">
+          <div>
+            <label for="memory-year">Year or era</label>
+            <input id="memory-year" type="text" placeholder="1991, late ’80s..." />
+          </div>
+          <div>
+            <label for="memory-link">Video, photo or source link</label>
+            <input id="memory-link" type="url" placeholder="https://..." />
+          </div>
+        </div>
+
+        <div class="memory-form-row">
+          <div>
+            <label for="memory-name">Your name <span>optional</span></label>
+            <input id="memory-name" type="text" autocomplete="name" />
+          </div>
+          <div>
+            <label for="memory-email">Your email <span>optional</span></label>
+            <input id="memory-email" type="email" autocomplete="email" />
+          </div>
+        </div>
+
+        <p class="memory-form-note">This opens a private email to ASDB so you can review it before sending. We research submissions before publishing them.</p>
+        <button class="memory-form-submit" type="submit">Send this memory to ASDB</button>
+      </form>
+    </div>
+  `;
+
+  const close = () => overlay.remove();
+  overlay.querySelector('.memory-modal-close').addEventListener('click', close);
+  overlay.addEventListener('click', event => { if (event.target === overlay) close(); });
+  overlay.querySelector('form').addEventListener('submit', event => {
+    event.preventDefault();
+    const kind = overlay.querySelector('#memory-kind').value;
+    const story = overlay.querySelector('#memory-story').value.trim();
+    const year = overlay.querySelector('#memory-year').value.trim();
+    const link = overlay.querySelector('#memory-link').value.trim();
+    const contributor = overlay.querySelector('#memory-name').value.trim();
+    const email = overlay.querySelector('#memory-email').value.trim();
+    if (!story) return;
+
+    const subject = encodeURIComponent(`Memory submission: ${node.name}`);
+    const body = encodeURIComponent(
+      `Profile: ${node.name}\n` +
+      `URL: ${ASDB_BASE_URL}#profile/${node.id}\n` +
+      `Submission type: ${kind}\n` +
+      `Year or era: ${year || 'Unknown'}\n` +
+      `Media/source link: ${link || 'None provided'}\n\n` +
+      `Memory or detail:\n${story}\n\n` +
+      `Contributor: ${contributor || 'Anonymous'}\n` +
+      `Contact email: ${email || 'Not provided'}\n`
+    );
+    trackInterest('memory-submit', node.id);
+    window.location.href = `mailto:corrections@actionsportsdatabase.com?subject=${subject}&body=${body}`;
+    showToast('Your email is ready—send it to add this memory.');
+    close();
+  });
+
+  document.body.appendChild(overlay);
+  overlay.querySelector('#memory-story').focus();
+}
+window.openMemorySubmission = openMemorySubmission;
+
 function reportProfileError(id) {
   const node = ASDB.nodes[id];
   const url = ASDB_BASE_URL + '#profile/' + id;
