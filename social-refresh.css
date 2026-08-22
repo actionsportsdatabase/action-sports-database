@@ -459,6 +459,33 @@ body {
   padding: 22px;
 }
 
+.directory-load-more {
+  padding: 22px 0 4px;
+  text-align: center;
+}
+
+.directory-load-more[hidden] {
+  display: none;
+}
+
+.directory-load-more button {
+  min-height: 46px;
+  padding: 0 24px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: 700 0.9rem/1 var(--font-body);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.directory-load-more button:hover,
+.directory-load-more button:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .browse-section .section-header {
   margin-bottom: 18px;
   padding-bottom: 16px;

@@ -28,6 +28,7 @@ const State = {
   currentSport:    'all',
   currentEra:      'all',
   currentLocation: 'all',
+  directoryLimit:  60,
   history:         [],       // navigation history stack
   historyIdx:      -1,       // current position in history
   currentNode:     null,     // currently displayed node id
@@ -109,6 +110,26 @@ const LOCATION_RULES = {
   australia: {
     terms: ['australia','au','aus','torquay','queensland','new south wales',
             'gold coast','bells beach','margaret river','bondi','sydney'],
+    locationNodes: [],
+  },
+  brazil: {
+    terms: ['brazil','brasil','rio de janeiro','sao paulo','são paulo','florianopolis','florianópolis'],
+    locationNodes: [],
+  },
+  japan: {
+    terms: ['japan','japanese','tokyo','osaka','chiba','hokkaido'],
+    locationNodes: [],
+  },
+  canada: {
+    terms: ['canada','canadian','british columbia','vancouver','whistler','quebec','ontario'],
+    locationNodes: ['whistler'],
+  },
+  'new-zealand': {
+    terms: ['new zealand','aotearoa','auckland','queenstown','raglan'],
+    locationNodes: [],
+  },
+  'south-africa': {
+    terms: ['south africa','cape town','durban','jeffreys bay','j-bay'],
     locationNodes: [],
   },
   'east-coast': {
@@ -395,7 +416,11 @@ const SPORT_GROUPS = {
   climb:    ['climb','sport-climb','boulder','free-climb','rock-climb','ice-climb'],
   air:      ['skydive','base','wingsuit','cliffdive','paraglide','speedfly'],
   parkour:  ['parkour','freerun'],
-  'adaptive-surf': ['adaptive-surf'],
+  adaptive:  ['adaptive-surf'],
+  bodyboard: ['bodyboard','skimboard'],
+  kite:      ['kitesurf','kiteboard','windsurf'],
+  paddle:    ['kayak','canoe','raft'],
+  street:    ['scooter','inline','street-luge','longboard'],
   breaking: ['breaking'],
   film:     [],
   music:    [],
@@ -405,6 +430,14 @@ const SPORT_GROUPS = {
 
 function sportMatchesFilter(node, sport) {
   if (sport === 'all') return true;
+  if (sport === 'adaptive') {
+    const discipline = `${node.discipline || ''} ${node.category || ''}`.toLowerCase();
+    return (node.sport || []).includes('adaptive-surf') || discipline.includes('adaptive');
+  }
+  if (sport === 'people') return node.type === 'athlete' || node.type === 'person';
+  if (sport === 'event') return node.type === 'event';
+  if (sport === 'org') return node.type === 'org' || node.type === 'organization';
+  if (sport === 'equipment') return node.type === 'equipment';
   if (sport === 'film') return (node.type === 'media' || node.role === 'Filmmaker' || node.role === 'Videographer');
   if (sport === 'music') return node.type === 'music';
   if (sport === 'brand') return node.type === 'brand';
@@ -724,11 +757,18 @@ function renderGrid() {
     brand:'Brands', location:'Locations & Spots',
     wake:'Wake Sports', climb:'Climbing', air:'Air Sports',
     parkour:'Parkour & Freerunning', breaking:'Breaking',
+    adaptive:'Adaptive Sports', bodyboard:'Bodyboard & Skimboard',
+    kite:'Kite & Windsurf', paddle:'Kayak, Canoe & Raft',
+    street:'Scooter, Inline & Longboard',
+    people:'Athletes & People', event:'Events & Competitions',
+    org:'Organizations', equipment:'Equipment',
   };
   browseTitle.textContent = sportTitleMap[State.currentSport] || 'Browse';
 
   if (filtered.length === 0) {
     nodeGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><h3>No entries found</h3><p>Try a different filter combination or <a href="#" onclick="resetFilters();return false;" style="color:var(--accent)">reset all filters</a>.</p></div>`;
+    const loadMoreWrap = document.getElementById('directory-load-more');
+    if (loadMoreWrap) loadMoreWrap.hidden = true;
     return;
   }
 
@@ -740,7 +780,20 @@ function renderGrid() {
     return (a.name || '').localeCompare(b.name || '');
   });
 
-  nodeGrid.innerHTML = filtered.map(node => renderCard(node)).join('');
+  const visible = filtered.slice(0, State.directoryLimit);
+  const remaining = Math.max(0, filtered.length - visible.length);
+  browseCount.textContent = remaining
+    ? `${filtered.length} entries · showing ${visible.length}`
+    : `${filtered.length} entries`;
+
+  nodeGrid.innerHTML = visible.map(node => renderCard(node)).join('');
+
+  const loadMoreWrap = document.getElementById('directory-load-more');
+  const loadMoreButton = document.getElementById('directory-load-more-btn');
+  if (loadMoreWrap && loadMoreButton) {
+    loadMoreWrap.hidden = remaining === 0;
+    loadMoreButton.textContent = `Show ${Math.min(60, remaining)} more (${remaining} remaining)`;
+  }
 
   nodeGrid.querySelectorAll('.node-card').forEach(card => {
     card.addEventListener('click', () => navigateTo(card.dataset.id));
@@ -750,10 +803,17 @@ function renderGrid() {
   });
 }
 
+function loadMoreDirectory() {
+  State.directoryLimit += 60;
+  renderGrid();
+}
+window.loadMoreDirectory = loadMoreDirectory;
+
 function resetFilters() {
   State.currentSport    = 'all';
   State.currentEra      = 'all';
   State.currentLocation = 'all';
+  State.directoryLimit  = 60;
   document.querySelectorAll('.sport-tab').forEach(b => {
     b.classList.toggle('active', b.dataset.sport === 'all');
     b.setAttribute('aria-selected', b.dataset.sport === 'all' ? 'true' : 'false');
@@ -2587,6 +2647,7 @@ function setupSportFilters() {
       btn.classList.add('active');
       btn.setAttribute('aria-selected', 'true');
       State.currentSport = btn.dataset.sport;
+      State.directoryLimit = 60;
       renderGrid();
     });
   });
@@ -2599,6 +2660,7 @@ function setupEraFilters() {
       document.querySelectorAll('.era-chip').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       State.currentEra = btn.dataset.era;
+      State.directoryLimit = 60;
       renderGrid();
     });
   });
@@ -2621,6 +2683,7 @@ function setupLocationFilters() {
               State.userLat = pos.coords.latitude;
               State.userLon = pos.coords.longitude;
               State.currentLocation = 'near-me';
+              State.directoryLimit = 60;
               btn.textContent = 'Near me';
               renderGrid();
             },
@@ -2628,15 +2691,18 @@ function setupLocationFilters() {
               btn.textContent = '📍 Near Me';
               // Fall back — show Florida / East Coast as default "near" set
               State.currentLocation = 'east-coast';
+              State.directoryLimit = 60;
               renderGrid();
             }
           );
         } else {
           State.currentLocation = 'near-me';
+          State.directoryLimit = 60;
           renderGrid();
         }
       } else {
         State.currentLocation = loc;
+        State.directoryLimit = 60;
         renderGrid();
       }
     });
