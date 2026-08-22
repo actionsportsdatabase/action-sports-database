@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <!-- ── PASSWORD GATE ────────────────────────────────────────── -->
   <style>
@@ -56,6 +56,7 @@
   <link rel="stylesheet" href="base.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="visual-v2.css?v=20260712h" />
+  <link rel="stylesheet" href="social-refresh.css?v=20260822a" />
 </head>
 <body>
 
@@ -177,69 +178,111 @@
     <!-- ── HOME VIEW ──────────────────────────────────────── -->
     <section id="home-view" aria-label="Homepage">
 
-      <!-- Hero -->
       <div class="home-hero">
-        <h1>The Wikipedia of<br><span>Action Sports</span></h1>
-        <p>Athletes, brands, locations, filmmakers, music and culture — all connected from Duke Kahanamoku to the present day.</p>
-
-        <!-- Sport filters -->
-        <div class="sport-filters" id="sport-filters" role="tablist" aria-label="Filter by sport">
-          <button class="sport-tab active" data-sport="all" role="tab" aria-selected="true">All</button>
-          <button class="sport-tab" data-sport="surf" role="tab" aria-selected="false">🏄 Surf</button>
-          <button class="sport-tab" data-sport="adaptive-surf" role="tab" aria-selected="false">♿ Adaptive</button>
-          <button class="sport-tab" data-sport="skate" role="tab" aria-selected="false">🛹 Skate</button>
-          <button class="sport-tab" data-sport="snow" role="tab" aria-selected="false">🏔 Snow</button>
-          <button class="sport-tab" data-sport="wake" role="tab" aria-selected="false">🚤 Wake</button>
-          <button class="sport-tab" data-sport="mtb" role="tab" aria-selected="false">🚵 MTB</button>
-          <button class="sport-tab" data-sport="moto" role="tab" aria-selected="false">🏍 Moto/SX</button>
-          <button class="sport-tab" data-sport="bmx" role="tab" aria-selected="false">🚲 BMX</button>
-          <button class="sport-tab" data-sport="climb" role="tab" aria-selected="false">🧗 Climb</button>
-          <button class="sport-tab" data-sport="air" role="tab" aria-selected="false">🪂 Air</button>
-          <button class="sport-tab" data-sport="parkour" role="tab" aria-selected="false">🏃 Parkour</button>
-          <button class="sport-tab" data-sport="breaking" role="tab" aria-selected="false">💃 Breaking</button>
-          <button class="sport-tab" data-sport="film" role="tab" aria-selected="false">🎬 Film</button>
-          <button class="sport-tab" data-sport="music" role="tab" aria-selected="false">🎵 Music</button>
-          <button class="sport-tab" data-sport="brand" role="tab" aria-selected="false">🏷 Brands</button>
-          <button class="sport-tab" data-sport="location" role="tab" aria-selected="false">📍 Locations</button>
+        <div class="hero-copy">
+          <span class="hero-kicker">The action sports network</span>
+          <h1>Discover the people behind the progression.</h1>
+          <p>Explore the athletes, brands, places, films and culture that shaped action sports—and see how every story connects.</p>
+          <div class="hero-actions">
+            <a class="hero-primary" href="#browse-directory">Explore the database</a>
+            <button class="hero-secondary" type="button" onclick="navigateMap()">View the map</button>
+          </div>
         </div>
-
-        <!-- Location filter -->
-        <div class="location-filters" id="location-filters" role="tablist" aria-label="Filter by location">
-          <button class="loc-tab active" data-location="all">🌍 All</button>
-          <button class="loc-tab" data-location="near-me">📍 Near Me</button>
-          <button class="loc-tab" data-location="wsl">🏆 WSL Circuit</button>
-          <button class="loc-tab" data-location="florida">🌊 Florida</button>
-          <button class="loc-tab" data-location="california">☀️ California</button>
-          <button class="loc-tab" data-location="hawaii">🌺 Hawaii</button>
-          <button class="loc-tab" data-location="australia">🦘 Australia</button>
-          <button class="loc-tab" data-location="east-coast">🗽 East Coast</button>
-          <button class="loc-tab" data-location="europe">🌍 Europe</button>
-        </div>
-
-        <!-- Era filter -->
-        <div class="era-timeline" id="era-filters" aria-label="Filter by era">
-          <button class="era-chip active" data-era="all">All Eras</button>
-          <button class="era-chip" data-era="1900s">1900s–1940s</button>
-          <button class="era-chip" data-era="1950s">1950s–1960s</button>
-          <button class="era-chip" data-era="1970s">1970s</button>
-          <button class="era-chip" data-era="1980s">1980s</button>
-          <button class="era-chip" data-era="1990s">1990s</button>
-          <button class="era-chip" data-era="2000s">2000s</button>
-          <button class="era-chip" data-era="2010s">2010s</button>
-          <button class="era-chip" data-era="2020s">2020s</button>
+        <div class="hero-proof" aria-label="Database statistics">
+          <div><strong>3,960</strong><span>profiles</span></div>
+          <div><strong>15+</strong><span>disciplines</span></div>
+          <div><strong>100+</strong><span>years of history</span></div>
         </div>
       </div>
 
-      <!-- Activity feed (populated by JS) -->
-      <div class="v2-feed" id="home-feed"></div>
+      <div class="home-social-layout">
+        <aside class="home-discovery" aria-label="Discover and filter">
+          <div class="network-card discovery-card">
+            <div class="card-heading">
+              <span class="card-eyebrow">Discover</span>
+              <h2>Explore ASDB</h2>
+            </div>
 
-      <!-- Browse grid (populated by JS) -->
-      <div class="browse-section">
-        <div class="section-header">
-          <span class="section-title" id="browse-title">Athletes &amp; People</span>
-          <span class="section-count" id="browse-count"></span>
+            <h3>Discipline</h3>
+            <div class="sport-filters" id="sport-filters" role="tablist" aria-label="Filter by sport">
+              <button class="sport-tab active" data-sport="all" role="tab" aria-selected="true">All disciplines</button>
+              <button class="sport-tab" data-sport="surf" role="tab" aria-selected="false">Surf</button>
+              <button class="sport-tab" data-sport="adaptive-surf" role="tab" aria-selected="false">Adaptive</button>
+              <button class="sport-tab" data-sport="skate" role="tab" aria-selected="false">Skate</button>
+              <button class="sport-tab" data-sport="snow" role="tab" aria-selected="false">Snow</button>
+              <button class="sport-tab" data-sport="wake" role="tab" aria-selected="false">Wake</button>
+              <button class="sport-tab" data-sport="mtb" role="tab" aria-selected="false">MTB</button>
+              <button class="sport-tab" data-sport="moto" role="tab" aria-selected="false">Moto / SX</button>
+              <button class="sport-tab" data-sport="bmx" role="tab" aria-selected="false">BMX</button>
+              <button class="sport-tab" data-sport="climb" role="tab" aria-selected="false">Climb</button>
+              <button class="sport-tab" data-sport="air" role="tab" aria-selected="false">Air</button>
+              <button class="sport-tab" data-sport="parkour" role="tab" aria-selected="false">Parkour</button>
+              <button class="sport-tab" data-sport="breaking" role="tab" aria-selected="false">Breaking</button>
+              <button class="sport-tab" data-sport="film" role="tab" aria-selected="false">Film</button>
+              <button class="sport-tab" data-sport="music" role="tab" aria-selected="false">Music</button>
+              <button class="sport-tab" data-sport="brand" role="tab" aria-selected="false">Brands</button>
+              <button class="sport-tab" data-sport="location" role="tab" aria-selected="false">Locations</button>
+            </div>
+
+            <h3>Location</h3>
+            <div class="location-filters" id="location-filters" role="tablist" aria-label="Filter by location">
+              <button class="loc-tab active" data-location="all">All locations</button>
+              <button class="loc-tab" data-location="near-me">Near me</button>
+              <button class="loc-tab" data-location="wsl">WSL circuit</button>
+              <button class="loc-tab" data-location="florida">Florida</button>
+              <button class="loc-tab" data-location="california">California</button>
+              <button class="loc-tab" data-location="hawaii">Hawaii</button>
+              <button class="loc-tab" data-location="australia">Australia</button>
+              <button class="loc-tab" data-location="east-coast">East Coast</button>
+              <button class="loc-tab" data-location="europe">Europe</button>
+            </div>
+
+            <h3>Era</h3>
+            <div class="era-timeline" id="era-filters" aria-label="Filter by era">
+              <button class="era-chip active" data-era="all">All eras</button>
+              <button class="era-chip" data-era="1900s">1900s–1940s</button>
+              <button class="era-chip" data-era="1950s">1950s–1960s</button>
+              <button class="era-chip" data-era="1970s">1970s</button>
+              <button class="era-chip" data-era="1980s">1980s</button>
+              <button class="era-chip" data-era="1990s">1990s</button>
+              <button class="era-chip" data-era="2000s">2000s</button>
+              <button class="era-chip" data-era="2010s">2010s</button>
+              <button class="era-chip" data-era="2020s">2020s</button>
+            </div>
+          </div>
+        </aside>
+
+        <div class="home-stream">
+          <div class="v2-feed" id="home-feed"></div>
+
+          <div class="browse-section" id="browse-directory">
+            <div class="section-header">
+              <div>
+                <span class="card-eyebrow">Directory</span>
+                <span class="section-title" id="browse-title">Athletes &amp; People</span>
+              </div>
+              <span class="section-count" id="browse-count"></span>
+            </div>
+            <div class="node-grid" id="node-grid"></div>
+          </div>
         </div>
-        <div class="node-grid" id="node-grid"></div>
+
+        <aside class="home-insights" aria-label="About the network">
+          <div class="network-card insight-card">
+            <span class="card-eyebrow">Inside ASDB</span>
+            <h2>A living map of action sports</h2>
+            <p>Move from an athlete to their sponsors, films, locations and influences without losing the story.</p>
+            <button type="button" onclick="navigateMap()">Explore connections</button>
+          </div>
+          <div class="network-card quick-links-card">
+            <span class="card-eyebrow">Popular paths</span>
+            <a href="#profile/kelly-slater">Kelly Slater</a>
+            <a href="#profile/tony-hawk">Tony Hawk</a>
+            <a href="#profile/red-bull">Red Bull</a>
+            <a href="#profile/pipeline">Pipeline</a>
+          </div>
+          <div class="network-note">Built for the athletes, brands and communities that keep action sports moving forward.</div>
+        </aside>
       </div>
 
     </section>

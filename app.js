@@ -2611,7 +2611,7 @@ function setupLocationFilters() {
               State.userLat = pos.coords.latitude;
               State.userLon = pos.coords.longitude;
               State.currentLocation = 'near-me';
-              btn.textContent = '📍 Near Me';
+              btn.textContent = 'Near me';
               renderGrid();
             },
             () => {
@@ -2635,8 +2635,8 @@ function setupLocationFilters() {
 
 // ── THEME TOGGLE ─────────────────────────────────────────────
 function setupTheme() {
-  document.documentElement.setAttribute('data-theme', 'dark');
-  updateThemeIcon('dark');
+  document.documentElement.setAttribute('data-theme', 'light');
+  updateThemeIcon('light');
 
   themeToggle.addEventListener('click', () => {
     const current = document.documentElement.getAttribute('data-theme');
@@ -3442,7 +3442,7 @@ function renderHomeFeed() {
   // Total nodes stat card
   items.unshift({
     type: 'stat',
-    title: `🌊 The database is growing`,
+    title: `The database is growing`,
     tag: 'stat',
     body: `<strong>${nodeIds.length.toLocaleString()}</strong> profiles across surf, skate, snow, moto, BMX, MTB, wake, climb, air, parkour, breaking, brands, locations, film and music — all connected.`,
     avatar: 'AS',
@@ -4717,7 +4717,7 @@ function renderOnThisDayWidget() {
       kind: 'born',
       tag: 'born today',
       year,
-      title: `🎂 <a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a> was born on this day in ${year}`,
+      title: `<a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a> was born on this day in ${year}`,
       body: `${node.role || (node.type || '')}${node.hometown ? ` · ${node.hometown}` : ''} · <strong>would be ${age} today</strong>`,
       avatar: initials(node.name),
       gradClass,
@@ -4731,7 +4731,7 @@ function renderOnThisDayWidget() {
       kind: 'founded',
       tag: 'founded today',
       year,
-      title: `🎉 <a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a> was founded on this day in ${year}`,
+      title: `<a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a> was founded on this day in ${year}`,
       body: `${node.tagline || node.role || (node.type || '')} · <strong>${age} ${age === 1 ? 'year' : 'years'} old today</strong>`,
       avatar: initials(node.name),
       gradClass,
@@ -4745,7 +4745,7 @@ function renderOnThisDayWidget() {
       kind: 'event',
       tag: 'anniversary',
       year,
-      title: `🏆 On this day in ${year}: <a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a>`,
+      title: `On this day in ${year}: <a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a>`,
       body: text,
       avatar: initials(node.name),
       gradClass,
@@ -4763,7 +4763,7 @@ function renderOnThisDayWidget() {
       milestoneRows.push({
         tag: `${age}‑year anniversary`,
         year,
-        title: `🎂 <a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a> turns ${age} this year`,
+        title: `<a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a> turns ${age} this year`,
         body: `Founded in ${year}${node.tagline ? ` — ${node.tagline}` : ''}`,
         avatar: initials(node.name),
         gradClass,
@@ -4776,7 +4776,7 @@ function renderOnThisDayWidget() {
       milestoneRows.push({
         tag: `${age}‑year milestone`,
         year,
-        title: `🎂 <a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a> turns ${age} this year`,
+        title: `<a href="#profile/${node.id}" onclick="navigateTo('${node.id}');return false;">${node.name}</a> turns ${age} this year`,
         body: `Born ${year}${node.role ? ` — ${node.role}` : ''}${node.hometown ? ` · ${node.hometown}` : ''}`,
         avatar: initials(node.name),
         gradClass,
@@ -4799,7 +4799,7 @@ function renderOnThisDayWidget() {
   return `
     <article class="v2-feed-item otd-summary">
       <div class="v2-feed-item-head">
-        <div class="v2-feed-item-avatar" style="background:linear-gradient(135deg,#ffd166 0%,#ef8c30 60%,#8a3f00 100%);">📅</div>
+        <div class="v2-feed-item-avatar" style="background:linear-gradient(135deg,#0a66c2 0%,#004182 100%);">AS</div>
         <div class="v2-feed-item-meta">
           <p class="v2-feed-item-title">On this day — ${dateLabel}<span class="v2-feed-item-tag">daily</span></p>
           <div class="v2-feed-item-time">${summaryLine}</div>
@@ -5903,5 +5903,3 @@ window.injectBrandDashboardButton = injectBrandDashboardButton;
   });
   obs.observe(target, { childList: true, subtree: true });
 })();
-
-
