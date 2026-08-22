@@ -113,7 +113,7 @@
           type="search"
           class="search-input"
           id="main-search"
-          placeholder="Search athletes, brands, spots, music…"
+          placeholder="Search 3,960 athletes, brands, places, films and more…"
           autocomplete="off"
           aria-label="Search database"
           aria-autocomplete="list"
@@ -124,20 +124,13 @@
 
       <!-- Actions -->
       <div class="header-actions">
-        <button class="feed-nav-btn" id="map-nav-btn" onclick="navigateMap()" aria-label="View Map" title="Places Map">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6c0 3 4.5 8.5 4.5 8.5S12.5 9 12.5 6c0-2.5-2-4.5-4.5-4.5z" stroke="currentColor" stroke-width="1.4"/>
-            <circle cx="8" cy="6" r="1.5" fill="currentColor"/>
-          </svg>
-          <span class="feed-nav-label">Map</span>
-        </button>
-        <button class="feed-nav-btn" id="feed-nav-btn" onclick="navigateFeed()" aria-label="View Legacy Feed" title="Legacy Feed">
+        <button class="feed-nav-btn" id="feed-nav-btn" onclick="navigateFeed()" aria-label="View updates" title="Updates">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <rect x="1" y="2" width="14" height="2.5" rx="1.25" fill="currentColor" opacity="0.8"/>
             <rect x="1" y="6.75" width="10" height="2.5" rx="1.25" fill="currentColor" opacity="0.8"/>
             <rect x="1" y="11.5" width="12" height="2.5" rx="1.25" fill="currentColor" opacity="0.8"/>
           </svg>
-          <span class="feed-nav-label">Feed</span>
+          <span class="feed-nav-label">Updates</span>
         </button>
         <!-- Auth slot (populated by auth.js — shows Sign in button OR user chip) -->
         <div id="asdb-auth-slot" class="header-auth-slot"></div>
@@ -178,20 +171,32 @@
     <!-- ── HOME VIEW ──────────────────────────────────────── -->
     <section id="home-view" aria-label="Homepage">
 
-      <div class="home-hero">
-        <div class="hero-copy">
-          <span class="hero-kicker">The action sports network</span>
-          <h1>Discover the people behind the progression.</h1>
-          <p>Explore the athletes, brands, places, films and culture that shaped action sports—and see how every story connects.</p>
-          <div class="hero-actions">
-            <a class="hero-primary" href="#browse-directory">Explore the database</a>
-            <button class="hero-secondary" type="button" onclick="navigateMap()">View the map</button>
+      <div class="home-entry">
+        <div class="entry-heading">
+          <div>
+            <span class="card-eyebrow">Action Sports Database</span>
+            <h1>Start exploring.</h1>
           </div>
+          <p>Search above, or jump into a discipline.</p>
         </div>
-        <div class="hero-proof" aria-label="Database statistics">
-          <div><strong>3,960</strong><span>profiles</span></div>
-          <div><strong>15+</strong><span>disciplines</span></div>
-          <div><strong>100+</strong><span>years of history</span></div>
+        <div class="sport-filters" id="sport-filters" role="tablist" aria-label="Filter by sport">
+          <button class="sport-tab active" data-sport="all" role="tab" aria-selected="true">All</button>
+          <button class="sport-tab" data-sport="surf" role="tab" aria-selected="false">Surf</button>
+          <button class="sport-tab" data-sport="adaptive-surf" role="tab" aria-selected="false">Adaptive</button>
+          <button class="sport-tab" data-sport="skate" role="tab" aria-selected="false">Skate</button>
+          <button class="sport-tab" data-sport="snow" role="tab" aria-selected="false">Snow</button>
+          <button class="sport-tab" data-sport="wake" role="tab" aria-selected="false">Wake</button>
+          <button class="sport-tab" data-sport="mtb" role="tab" aria-selected="false">MTB</button>
+          <button class="sport-tab" data-sport="moto" role="tab" aria-selected="false">Moto / SX</button>
+          <button class="sport-tab" data-sport="bmx" role="tab" aria-selected="false">BMX</button>
+          <button class="sport-tab" data-sport="climb" role="tab" aria-selected="false">Climb</button>
+          <button class="sport-tab" data-sport="air" role="tab" aria-selected="false">Air</button>
+          <button class="sport-tab" data-sport="parkour" role="tab" aria-selected="false">Parkour</button>
+          <button class="sport-tab" data-sport="breaking" role="tab" aria-selected="false">Breaking</button>
+          <button class="sport-tab" data-sport="film" role="tab" aria-selected="false">Film</button>
+          <button class="sport-tab" data-sport="music" role="tab" aria-selected="false">Music</button>
+          <button class="sport-tab" data-sport="brand" role="tab" aria-selected="false">Brands</button>
+          <button class="sport-tab" data-sport="location" role="tab" aria-selected="false">Locations</button>
         </div>
       </div>
 
@@ -199,29 +204,8 @@
         <aside class="home-discovery" aria-label="Discover and filter">
           <div class="network-card discovery-card">
             <div class="card-heading">
-              <span class="card-eyebrow">Discover</span>
-              <h2>Explore ASDB</h2>
-            </div>
-
-            <h3>Discipline</h3>
-            <div class="sport-filters" id="sport-filters" role="tablist" aria-label="Filter by sport">
-              <button class="sport-tab active" data-sport="all" role="tab" aria-selected="true">All disciplines</button>
-              <button class="sport-tab" data-sport="surf" role="tab" aria-selected="false">Surf</button>
-              <button class="sport-tab" data-sport="adaptive-surf" role="tab" aria-selected="false">Adaptive</button>
-              <button class="sport-tab" data-sport="skate" role="tab" aria-selected="false">Skate</button>
-              <button class="sport-tab" data-sport="snow" role="tab" aria-selected="false">Snow</button>
-              <button class="sport-tab" data-sport="wake" role="tab" aria-selected="false">Wake</button>
-              <button class="sport-tab" data-sport="mtb" role="tab" aria-selected="false">MTB</button>
-              <button class="sport-tab" data-sport="moto" role="tab" aria-selected="false">Moto / SX</button>
-              <button class="sport-tab" data-sport="bmx" role="tab" aria-selected="false">BMX</button>
-              <button class="sport-tab" data-sport="climb" role="tab" aria-selected="false">Climb</button>
-              <button class="sport-tab" data-sport="air" role="tab" aria-selected="false">Air</button>
-              <button class="sport-tab" data-sport="parkour" role="tab" aria-selected="false">Parkour</button>
-              <button class="sport-tab" data-sport="breaking" role="tab" aria-selected="false">Breaking</button>
-              <button class="sport-tab" data-sport="film" role="tab" aria-selected="false">Film</button>
-              <button class="sport-tab" data-sport="music" role="tab" aria-selected="false">Music</button>
-              <button class="sport-tab" data-sport="brand" role="tab" aria-selected="false">Brands</button>
-              <button class="sport-tab" data-sport="location" role="tab" aria-selected="false">Locations</button>
+              <span class="card-eyebrow">Refine</span>
+              <h2>Narrow the directory</h2>
             </div>
 
             <h3>Location</h3>
@@ -269,10 +253,10 @@
 
         <aside class="home-insights" aria-label="About the network">
           <div class="network-card insight-card">
-            <span class="card-eyebrow">Inside ASDB</span>
-            <h2>A living map of action sports</h2>
+            <span class="card-eyebrow">How it works</span>
+            <h2>Every profile opens another path</h2>
             <p>Move from an athlete to their sponsors, films, locations and influences without losing the story.</p>
-            <button type="button" onclick="navigateMap()">Explore connections</button>
+            <a class="insight-action" href="#browse-directory">Browse profiles</a>
           </div>
           <div class="network-card quick-links-card">
             <span class="card-eyebrow">Popular paths</span>

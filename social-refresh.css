@@ -68,11 +68,11 @@ body {
 }
 
 .search-wrap {
-  max-width: 560px;
+  max-width: 680px;
 }
 
 .search-input {
-  height: 42px;
+  height: 46px;
   border: 1px solid transparent;
   border-radius: 8px;
   background: var(--network-soft);
@@ -101,7 +101,72 @@ body {
 }
 
 #app {
-  padding: 26px 0 64px;
+  padding: 18px 0 64px;
+}
+
+.home-entry {
+  margin-bottom: 18px;
+  padding: 18px 20px 14px;
+  overflow: hidden;
+  border: 1px solid var(--network-line);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--card-shadow);
+}
+
+.entry-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 14px;
+}
+
+.entry-heading h1 {
+  margin: 0;
+  color: var(--network-ink);
+  font-size: clamp(1.55rem, 3vw, 2.15rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.entry-heading p {
+  margin: 0;
+  color: var(--network-muted);
+  font-size: 0.88rem;
+}
+
+.home-entry .sport-filters {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 7px;
+  margin: 0;
+  padding: 1px 0 5px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.home-entry .sport-tab {
+  flex: 0 0 auto;
+  padding: 7px 13px;
+  border: 1px solid var(--network-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--network-muted);
+  font-size: 0.79rem;
+  font-weight: 700;
+}
+
+.home-entry .sport-tab:hover {
+  border-color: var(--network-blue);
+  color: var(--network-blue);
+}
+
+.home-entry .sport-tab.active {
+  border-color: var(--network-blue);
+  background: var(--network-blue);
+  color: #fff;
 }
 
 .home-hero {
@@ -453,6 +518,19 @@ body {
   font-weight: 750;
 }
 
+.insight-action {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--network-blue);
+  border-radius: 999px;
+  color: var(--network-blue);
+  font-size: 0.82rem;
+  font-weight: 750;
+  text-align: center;
+  text-decoration: none;
+}
+
 .quick-links-card {
   display: flex;
   flex-direction: column;
@@ -544,7 +622,21 @@ body {
   }
 
   #app {
-    padding-top: 14px;
+    padding-top: 10px;
+  }
+
+  .home-entry {
+    margin-bottom: 10px;
+    padding: 15px 14px 11px;
+  }
+
+  .entry-heading {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .entry-heading p {
+    margin-top: 6px;
   }
 
   .home-hero {

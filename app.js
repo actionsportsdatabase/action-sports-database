@@ -2528,14 +2528,35 @@ function handleSearch(query) {
     return;
   }
 
-  const nodes   = Object.values(ASDB.nodes);
-  const results = nodes.filter(n => {
+  const nodes  = Object.values(ASDB.nodes);
+  const tokens = q.split(/\s+/).filter(Boolean);
+  const aliasId = NAME_ALIASES[q];
+  const results = nodes.map(n => {
     const name       = (n.name || '').toLowerCase();
     const nick       = (n.nick || '').toLowerCase();
     const bio        = (n.bio || n.description || '').toLowerCase();
     const birthplace = (n.birthplace || n.headquarters || '').toLowerCase();
-    return name.includes(q) || nick.includes(q) || bio.includes(q) || birthplace.includes(q);
-  }).slice(0, 8);
+    const sport      = (n.sport || []).join(' ').toLowerCase();
+    let score = 0;
+
+    if (n.id === aliasId)             score += 950;
+    if (name === q)                   score += 1000;
+    else if (name.startsWith(q))      score += 800;
+    else if (name.includes(q))        score += 600;
+    if (tokens.length > 1 && tokens.every(token => name.includes(token))) score += 550;
+    if (nick === q)                   score += 500;
+    else if (nick.startsWith(q))      score += 400;
+    else if (nick.includes(q))        score += 300;
+    if (birthplace.includes(q))       score += 80;
+    if (sport.includes(q))            score += 60;
+    if (bio.includes(q))              score += 30;
+    else if (tokens.length > 1 && tokens.every(token => bio.includes(token))) score += 15;
+
+    return { node: n, score };
+  }).filter(result => result.score > 0)
+    .sort((a, b) => b.score - a.score || a.node.name.localeCompare(b.node.name))
+    .slice(0, 8)
+    .map(result => result.node);
 
   if (!results.length) {
     searchDrop.innerHTML = `<div style="padding:var(--sp-4);color:var(--text-muted);font-size:var(--text-sm)">No results for "${query}"</div>`;
@@ -3456,8 +3477,8 @@ function renderHomeFeed() {
 
   const html = `
     <div class="v2-feed-header">
-      <h2>What's happening on ASDB</h2>
-      <p>Follow athletes, brands, and archives — see updates from the world you care about.</p>
+      <h2>Latest from ASDB</h2>
+      <p>New profiles, milestones and discoveries across the database.</p>
     </div>
     ${otdHTML}
     ${items.slice(0, 8).map(item => `
