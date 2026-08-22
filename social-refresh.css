@@ -722,3 +722,569 @@ body {
     padding: 16px;
   }
 }
+
+/* Mobile-first polish for iPhone and Android browsers. Keep these overrides
+   last so the older component styles cannot reintroduce desktop dimensions. */
+@media (max-width: 760px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    min-width: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  img,
+  video,
+  canvas,
+  iframe,
+  svg {
+    max-width: 100%;
+  }
+
+  #asdb-gate {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding:
+      max(18px, env(safe-area-inset-top, 0px))
+      max(18px, env(safe-area-inset-right, 0px))
+      max(18px, env(safe-area-inset-bottom, 0px))
+      max(18px, env(safe-area-inset-left, 0px));
+    overflow-y: auto;
+  }
+
+  #asdb-gate > div {
+    width: min(100%, 360px) !important;
+    padding: 1.25rem 0 !important;
+  }
+
+  #gate-input {
+    min-height: 48px;
+    font-size: 16px !important;
+  }
+
+  #asdb-gate button {
+    min-height: 48px;
+  }
+
+  #site-header {
+    min-height: 0;
+    padding: 6px 0 8px;
+  }
+
+  #site-header .container,
+  #breadcrumb-bar .container,
+  #app > .container,
+  #site-footer .container {
+    padding-left: max(12px, env(safe-area-inset-left, 0px));
+    padding-right: max(12px, env(safe-area-inset-right, 0px));
+  }
+
+  .header-inner {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 6px 10px;
+    width: 100%;
+  }
+
+  .logo-mark {
+    grid-column: 1;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .logo-svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .header-actions {
+    grid-column: 3;
+    gap: 4px;
+  }
+
+  .feed-nav-btn,
+  .theme-toggle {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .feed-nav-btn svg,
+  .theme-toggle svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .search-wrap {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100% !important;
+    min-width: 0;
+  }
+
+  .search-input {
+    height: 46px;
+    min-height: 46px;
+    padding-right: 12px;
+    font-size: 16px;
+  }
+
+  .search-results-dropdown {
+    top: calc(100% + 5px);
+    max-height: min(56vh, 420px);
+    border-radius: 10px;
+    overscroll-behavior: contain;
+  }
+
+  .search-result-item {
+    min-height: 58px;
+    padding: 10px 12px;
+  }
+
+  #breadcrumb-bar {
+    padding: 6px 0;
+  }
+
+  .breadcrumb-inner {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .breadcrumb-inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  #breadcrumb-trail {
+    min-width: max-content;
+    flex-wrap: nowrap !important;
+  }
+
+  .nav-btn {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+  }
+
+  #app {
+    padding: 10px 0 40px;
+  }
+
+  .home-entry {
+    border-radius: 10px;
+    padding: 13px 12px 9px;
+  }
+
+  .entry-heading {
+    margin-bottom: 10px;
+  }
+
+  .entry-heading h1 {
+    font-size: 1.35rem;
+    line-height: 1.05;
+  }
+
+  .entry-heading p {
+    font-size: 0.8rem;
+  }
+
+  .home-entry .sport-filters {
+    margin-right: -12px;
+    padding-right: 12px;
+    padding-bottom: 4px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .home-entry .sport-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .home-entry .sport-tab,
+  .discovery-card .sport-tab,
+  .discovery-card .loc-tab,
+  .discovery-card .era-chip {
+    min-height: 40px;
+    scroll-snap-align: start;
+  }
+
+  .home-social-layout {
+    gap: 10px;
+  }
+
+  .network-card,
+  .browse-section,
+  .v2-feed-header,
+  .v2-feed-item {
+    border-radius: 10px !important;
+  }
+
+  .home-discovery .network-card {
+    padding: 12px;
+  }
+
+  .discovery-card .card-heading {
+    display: none;
+  }
+
+  .discovery-card h3 {
+    margin: 4px 0 6px;
+  }
+
+  .discovery-card .era-timeline + *,
+  .discovery-card h3:not(:first-of-type) {
+    margin-top: 10px;
+  }
+
+  .discovery-card .location-filters,
+  .discovery-card .era-timeline {
+    margin-right: -12px;
+    padding-right: 12px;
+    scroll-snap-type: x proximity;
+  }
+
+  .v2-feed {
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .v2-feed-header {
+    padding: 15px 14px;
+  }
+
+  .v2-feed-header h2 {
+    font-size: 1.12rem;
+  }
+
+  .v2-feed-header p {
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .v2-feed-item {
+    padding: 14px;
+  }
+
+  .v2-feed-item-head {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .v2-feed-item-avatar {
+    width: 42px;
+    height: 42px;
+  }
+
+  .v2-feed-item-tag {
+    margin-left: 0;
+    margin-top: 5px;
+  }
+
+  .browse-section {
+    padding: 14px;
+  }
+
+  .browse-section .section-header {
+    align-items: flex-end;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+  }
+
+  .browse-section .section-title {
+    font-size: 1.08rem;
+  }
+
+  .node-grid {
+    gap: 10px;
+  }
+
+  .node-card {
+    min-height: 0;
+    padding: 14px;
+  }
+
+  .node-grid .node-card::before {
+    height: 34px !important;
+    margin-bottom: -19px;
+  }
+
+  .node-card .card-avatar {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 9px;
+    font-size: 1.05rem;
+  }
+
+  .profile-layout,
+  .profile-main,
+  .tab-panel,
+  .profile-section {
+    min-width: 0;
+  }
+
+  .profile-sidebar {
+    display: none;
+  }
+
+  .v2-profile-hero {
+    margin-top: 0;
+    margin-bottom: 12px;
+    border-radius: 10px;
+  }
+
+  .v2-hero-cover {
+    height: 120px;
+  }
+
+  .v2-hero-body {
+    padding: 0 14px 14px;
+  }
+
+  .v2-hero-avatar-wrap {
+    width: 96px;
+    height: 96px;
+    margin-top: -48px;
+    margin-bottom: 10px;
+    padding: 4px;
+  }
+
+  .v2-hero-avatar {
+    border-width: 3px;
+    font-size: 2rem;
+  }
+
+  .v2-hero-verified-check {
+    right: 3px;
+    bottom: 3px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .v2-hero-name-row,
+  .v2-hero-name-row > div:first-child {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .v2-hero-name {
+    font-size: clamp(1.55rem, 8vw, 2rem);
+    overflow-wrap: anywhere;
+  }
+
+  .v2-hero-tagline {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .v2-hero-stats {
+    gap: 6px 9px;
+    font-size: 0.8rem;
+  }
+
+  .v2-profile-hero .v2-hero-actions {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 14px !important;
+    padding-top: 14px !important;
+  }
+
+  .v2-action-btn {
+    min-height: 44px;
+    width: 100%;
+    padding: 8px 10px;
+    justify-content: center;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .profile-chips-row,
+  .profile-tabs,
+  .conn-typefilter,
+  .social-links,
+  .profile-legal-actions {
+    max-width: 100%;
+  }
+
+  .profile-tabs {
+    position: sticky;
+    top: 106px;
+    z-index: 30;
+    margin: 0 -12px 16px;
+    padding: 0 12px;
+    background: var(--network-canvas);
+    border-bottom-color: var(--network-line);
+  }
+
+  .profile-tab-btn {
+    min-height: 44px;
+    padding: 10px 13px;
+  }
+
+  .claim-banner,
+  .defunct-notice {
+    align-items: flex-start;
+    padding: 14px !important;
+  }
+
+  .claim-btn {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .profile-section {
+    margin-bottom: 22px;
+    padding: 0;
+  }
+
+  .profile-section p,
+  .profile-section li,
+  .profile-source-list a,
+  .legal-page,
+  .legal-section,
+  .filter-page,
+  .search-page {
+    overflow-wrap: anywhere;
+  }
+
+  .conn-chip {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .conn-chip-name,
+  .conn-chip-rel {
+    white-space: normal;
+  }
+
+  .related-carousel,
+  .lineage-chain,
+  .source-table {
+    max-width: 100%;
+  }
+
+  .source-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-page,
+  .search-page,
+  #legal-view {
+    padding-top: 12px;
+  }
+
+  .filter-page-header,
+  .search-page-header {
+    margin-bottom: 18px;
+  }
+
+  .filter-page-header h2,
+  .search-page-header h2 {
+    font-size: 1.5rem;
+    overflow-wrap: anywhere;
+  }
+
+  .filter-subgroup {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px;
+  }
+
+  .subgroup-label,
+  .subgroup-chip {
+    flex: 0 0 auto;
+  }
+
+  .legal-page {
+    padding: 0;
+  }
+
+  .legal-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+
+  .legal-tab {
+    flex: 0 0 auto;
+    min-height: 44px;
+  }
+
+  .auth-modal,
+  .claim-modal-box,
+  .flag-modal-box,
+  .sixdeg-modal-box,
+  .stripe-modal-box {
+    width: min(100%, 560px) !important;
+    max-width: 100% !important;
+    border-radius: 14px !important;
+    padding: 22px 16px 16px !important;
+  }
+
+  .flag-modal-overlay,
+  .auth-modal-overlay {
+    padding:
+      max(12px, env(safe-area-inset-top, 0px))
+      max(12px, env(safe-area-inset-right, 0px))
+      max(12px, env(safe-area-inset-bottom, 0px))
+      max(12px, env(safe-area-inset-left, 0px)) !important;
+  }
+
+  .footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer-links {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .entry-heading .card-eyebrow,
+  .entry-heading p {
+    display: none;
+  }
+
+  .entry-heading h1 {
+    font-size: 1.2rem;
+  }
+
+  .home-entry .sport-tab {
+    padding: 7px 12px;
+  }
+
+  .v2-feed-item-title {
+    font-size: 0.88rem;
+  }
+
+  .card-tags {
+    gap: 3px;
+  }
+
+  .tag {
+    font-size: 0.68rem;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .v2-feed-item:hover,
+  .node-card:hover,
+  .node-grid .node-card:hover,
+  .v2-card:hover {
+    transform: none !important;
+  }
+
+  .flag-btn {
+    opacity: 0.75;
+  }
+}
