@@ -5,17 +5,17 @@ RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# www → non-www (use actionsportsdatabase.com as canonical)
+# www → non-www
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
-# Redirect alternate domains to primary
-RewriteCond %{HTTP_HOST} ^(www\.)?actionsportsdb\.com$ [NC]
-RewriteRule ^(.*)$ https://actionsportsdatabase.com/$1 [R=301,L]
+# Redirect alternate domains to the live primary domain
+RewriteCond %{HTTP_HOST} ^(www\.)?actionsportsdatabase\.com$ [NC]
+RewriteRule ^(.*)$ https://actionsportsdb.com/$1 [R=301,L]
 RewriteCond %{HTTP_HOST} ^(www\.)?actionsportdatabase\.com$ [NC]
-RewriteRule ^(.*)$ https://actionsportsdatabase.com/$1 [R=301,L]
+RewriteRule ^(.*)$ https://actionsportsdb.com/$1 [R=301,L]
 RewriteCond %{HTTP_HOST} ^(www\.)?actionsportdb\.com$ [NC]
-RewriteRule ^(.*)$ https://actionsportsdatabase.com/$1 [R=301,L]
+RewriteRule ^(.*)$ https://actionsportsdb.com/$1 [R=301,L]
 
 # SPA routing — serve index.html for all non-file requests
 RewriteCond %{REQUEST_FILENAME} !-f
