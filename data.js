@@ -823,7 +823,7 @@ ASDB.nodes = {
       "moto",
       "bmx"
     ],
-    "bio": "The Action Sports Database (ASDB) is an open, Wikipedia-style reference database for action sports culture — athletes, brands, locations, events, and the people who shaped the sports. Co-founded by Adam Wright, whose 20-year vision was to build a cross-linked, ancestry-style reference for surf, skate, snow, moto, and MTB. Designed to be acquired by Surfline, WSL, Outside Inc., or a major action sports media company.",
+    "bio": "The Action Sports Database (ASDB) is a connected reference and discovery platform for action-sports culture — athletes, brands, products, locations, films, music, events, and the people who shaped them. Its origin goes back to Adam Wright's childhood, when he sat in his father's office reading action-sports magazines, searching for fax numbers, then sending brands a cover sheet, résumé, and surf photos. That early instinct to find the people behind the culture and make a direct connection became a 20-year vision for a living, cross-linked archive. ASDB preserves those memories while creating a foundation for cultural discovery, audience-intent insights, and trend intelligence.",
     "keyPeople": [
       {
         "name": "Adam Wright",
@@ -832,9 +832,10 @@ ASDB.nodes = {
     ],
     "notable": [
       "Wikipedia-meets-IMDB for action sports culture",
+      "Began with Adam Wright finding brand fax numbers in magazines and sending his résumé and surf photos as a kid",
       "20-year vision of co-founder Adam Wright",
       "Cross-linked athlete, brand, location, and event data",
-      "Designed for acquisition by Surfline, WSL, or Outside Inc.",
+      "Built to turn cultural discovery into durable audience and trend intelligence",
       "Features Claim Your Profile mechanic for athlete verification"
     ],
     "connections": [
@@ -1000,7 +1001,13 @@ ASDB.nodes = {
     "siblings": [
       "Jaime Giroux"
     ],
-    "bio": "4th-generation New Smyrna Beach native and competitive surfer. Husband of Jennifer Waxman and brother of Jaime Giroux. Son of Tom Wright — 3rd-generation NSB native, attorney, and recognized historian of New Smyrna Beach — and Barbara Bresnahan Wright Lovelace, co-founders of the Smyrna Surfari Club, one of the oldest surf clubs on the East Coast. Growing up at the NSB Inlet, one of the most consistent and shark-populated surf breaks on the East Coast, Adam competed through the ESA and NSSA amateur ranks before reaching the semi-pro and regional pro level. His sponsor list tells the story of the 1990s East Coast surf scene: CB Surfboards (shaper Charlie Baldwin), Inlet Charley's, Gotcha (team managed by Mike Cruickshank), Arnette Optics (founder Greg Arnette became a personal mentor and close family friend), Freestyle Watches, Amp Wear, Rip Curl, Lost Surfboards, and Stone Edge Skate Park. Co-founder of Seed2Source (action sports event sponsorship), Mastermind Mushrooms (functional wellness), and the Action Sports Database — a project 20 years in the making.",
+    "bio": "4th-generation New Smyrna Beach native and competitive surfer. Husband of Jennifer Waxman and brother of Jaime Giroux. Son of Tom Wright — 3rd-generation NSB native, attorney, and recognized historian of New Smyrna Beach — and Barbara Bresnahan Wright Lovelace, co-founders of the Smyrna Surfari Club, one of the oldest surf clubs on the East Coast. Growing up at the NSB Inlet, one of the most consistent and shark-populated surf breaks on the East Coast, Adam competed through the ESA and NSSA amateur ranks before reaching the semi-pro and regional pro level. His sponsor list tells the story of the 1990s East Coast surf scene: CB Surfboards (shaper Charlie Baldwin), Inlet Charley's, Gotcha (team managed by Mike Cruickshank), Arnette Optics (founder Greg Arnette became a personal mentor and close family friend), Freestyle Watches, Amp Wear, Rip Curl, Lost Surfboards, and Stone Edge Skate Park. As a kid, Adam sat in his father's office reading action-sports magazines and searching for fax numbers; whenever he found one, he sent the company a cover sheet, his résumé, and surf photos. That pre-internet ritual of finding brands and making connections became the human origin of the Action Sports Database — a project 20 years in the making. He also co-founded Seed2Source and Mastermind Mushrooms.",
+    "notable": [
+      "Built the childhood precursor to ASDB by finding fax numbers in action-sports magazines and sending brands his résumé and surf photos",
+      "Co-founder of the Action Sports Database — a 20-year vision for preserving and connecting action-sports culture",
+      "4th-generation New Smyrna Beach native",
+      "Competitive amateur, semi-pro, and regional pro surfer"
+    ],
     "sponsors": [
       "CB Surfboards (Charlie Baldwin — shaper/sponsor)",
       "Inlet Charley's Surf Shop",
