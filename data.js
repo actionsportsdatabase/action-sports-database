@@ -33705,6 +33705,20 @@ ASDB.nodes = {
     "titles": [
       "Lake County FL Parkour Champion (1976-present)"
     ],
+    "communityLore": [
+      {
+        "label": "Unverified family legend",
+        "title": "The legend of PARKOUR!",
+        "description": "A Wright/Giroux family-and-workplace legend at The Villages Grown says Jaime Giroux — unquestionably the leader — along with Adam Wright and Jennifer Waxman, loosely inspired the glorious chaos of the PARKOUR! scene from The Office US. No production connection has been verified; ASDB is preserving the story exactly as the family tells it.",
+        "youtubeId": "0Kvw2BPKjz0",
+        "videoTitle": "Parkour PARKOUR — The Office US",
+        "subjects": [
+          "jaime-giroux",
+          "adam-wright",
+          "jennifer-waxman"
+        ]
+      }
+    ],
     "connections": [
       {
         "id": "adam-wright",

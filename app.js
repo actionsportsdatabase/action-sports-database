@@ -2032,6 +2032,50 @@ function renderOverviewTab(node) {
     `;
   }
 
+  // Community lore is deliberately separated from verified profile facts.
+  // These stories are part of the culture, but the label keeps playful memories
+  // from being mistaken for documented history.
+  if (node.communityLore && node.communityLore.length) {
+    html += `
+      <div class="profile-section community-lore-section">
+        <div class="community-lore-heading">
+          <div>
+            <span class="community-lore-kicker">Community lore</span>
+            <h3>Stories that refuse to disappear</h3>
+          </div>
+          <span class="community-lore-status">Unverified — told with love</span>
+        </div>
+        <div class="community-lore-list">
+          ${node.communityLore.map(story => {
+            const videoId = String(story.youtubeId || '').replace(/[^a-zA-Z0-9_-]/g, '');
+            const subjects = (story.subjects || []).map(subjectId => {
+              const subject = ASDB.nodes[subjectId];
+              if (!subject) return '';
+              return `<button type="button" class="community-lore-person" onclick="navigateTo('${subject.id}')">${escapeHtml(subject.name)}</button>`;
+            }).filter(Boolean).join('');
+            return `
+              <article class="community-lore-card">
+                ${videoId ? `
+                  <a class="community-lore-visual" href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener" aria-label="Watch ${escapeHtml(story.videoTitle || story.title || 'the referenced scene')} on YouTube">
+                    <img src="https://i.ytimg.com/vi/${videoId}/hqdefault.jpg" alt="Still from ${escapeHtml(story.videoTitle || story.title || 'the referenced scene')}" loading="lazy" />
+                    <span class="community-lore-play" aria-hidden="true">▶</span>
+                  </a>
+                ` : ''}
+                <div class="community-lore-copy">
+                  <span class="community-lore-label">${escapeHtml(story.label || 'Unverified community story')}</span>
+                  <h4>${escapeHtml(story.title || 'Local legend')}</h4>
+                  <p>${linkifyText(story.description || '', id)}</p>
+                  ${subjects ? `<div class="community-lore-people">${subjects}</div>` : ''}
+                  ${videoId ? `<a class="community-lore-watch" href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener">Watch “${escapeHtml(story.videoTitle || 'the scene')}” ↗</a>` : ''}
+                </div>
+              </article>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }
+
   // ── QUICK FACTS — every value is a live link ──
   const facts = [];
 
