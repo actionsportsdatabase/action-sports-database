@@ -56,7 +56,7 @@
   <link rel="stylesheet" href="base.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="visual-v2.css?v=20260712h" />
-  <link rel="stylesheet" href="social-refresh.css?v=20260822j" />
+  <link rel="stylesheet" href="social-refresh.css?v=20260822l" />
 </head>
 <body>
 
@@ -178,7 +178,10 @@
           <p>That shirt from a movie. That deck from a skate video. The sunglasses, soundtrack or logo you never forgot.</p>
           <form class="memory-search" onsubmit="runMemorySearch(event)">
             <label class="sr-only" for="memory-search-input">Search a memory</label>
-            <input id="memory-search-input" type="search" placeholder="Try “Gotcha shirt from 1988” or “Video Days soundtrack”" autocomplete="off" />
+            <div class="memory-search-field">
+              <input id="memory-search-input" type="search" placeholder="Try “Gotcha shirt from 1988” or “Video Days soundtrack”" autocomplete="off" />
+              <div class="search-results-dropdown memory-search-dropdown" id="memory-search-drop" role="listbox" aria-label="Memory search suggestions"></div>
+            </div>
             <button type="submit">Find my memory</button>
           </form>
           <div class="memory-prompts" aria-label="Example searches">
@@ -189,7 +192,7 @@
             <button class="memory-surprise" type="button" onclick="surpriseMe()"><span aria-hidden="true">✦</span> Surprise me</button>
           </div>
           <div class="memory-proof" aria-label="About the archive">
-            <span><strong>3,963</strong> connected stories</span>
+            <span><strong>3,962</strong> connected stories</span>
             <span><strong>50+</strong> years of culture</span>
             <span><strong>∞</strong> rabbit holes</span>
           </div>
@@ -260,7 +263,7 @@
         <div class="entry-heading">
           <div>
             <span class="card-eyebrow">The complete archive</span>
-            <h2>Browse all 3,963 connected profiles.</h2>
+          <h2>Browse all 3,962 connected profiles.</h2>
           </div>
           <p>Choose a discipline, then refine by location or era.</p>
         </div>
@@ -343,7 +346,7 @@
                 <p>Choose a filter, open any profile and follow the connections.</p>
               </div>
               <div class="directory-total" aria-label="Total profiles">
-                <strong id="directory-total-count">3,963</strong>
+                <strong id="directory-total-count">3,962</strong>
                 <span>connected profiles</span>
               </div>
             </div>
@@ -541,10 +544,10 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
 <script src="firebase-config.js?v=20260712"></script>
-<script src="data.js?v=20260713a"></script>
+<script src="data.js?v=20260822l"></script>
 <script src="data-enrichment.js?v=20260822a"></script>
 <script src="data-new-profiles.js?v=20260822a"></script>
-<script src="app.js?v=20260822j"></script>
+<script src="app.js?v=20260822l"></script>
 <script src="auth.js?v=20260712"></script>
 
 </div><!-- /#asdb-root -->

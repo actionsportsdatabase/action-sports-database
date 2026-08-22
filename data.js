@@ -992,9 +992,15 @@ ASDB.nodes = {
     "status": "pre-populated",
     "parents": [
       "Tom Wright",
-      "Barbara Bresnahan"
+      "Barbara Bresnahan Wright Lovelace"
     ],
-    "bio": "4th-generation New Smyrna Beach native and competitive surfer. Son of Tom Wright — 3rd-generation NSB native, attorney, and recognized historian of New Smyrna Beach — and Barbara Bresnahan, co-founders of the Smyrna Surfari Club, one of the oldest surf clubs on the East Coast. Growing up at the NSB Inlet, one of the most consistent and shark-populated surf breaks on the East Coast, Adam competed through the ESA and NSSA amateur ranks before reaching the semi-pro and regional pro level. His sponsor list tells the story of the 1990s East Coast surf scene: CB Surfboards (shaper Charlie Baldwin), Inlet Charley's, Gotcha (team managed by Mike Cruickshank), Arnette Optics (founder Greg Arnette became a personal mentor and close family friend), Freestyle Watches, Amp Wear, Rip Curl, Lost Surfboards, and Stone Edge Skate Park. Co-founder of Seed2Source (action sports event sponsorship), Mastermind Mushrooms (functional wellness), and the Action Sports Database — a project 20 years in the making.",
+    "spouse": [
+      "Jennifer Waxman"
+    ],
+    "siblings": [
+      "Jaime Giroux"
+    ],
+    "bio": "4th-generation New Smyrna Beach native and competitive surfer. Husband of Jennifer Waxman and brother of Jaime Giroux. Son of Tom Wright — 3rd-generation NSB native, attorney, and recognized historian of New Smyrna Beach — and Barbara Bresnahan Wright Lovelace, co-founders of the Smyrna Surfari Club, one of the oldest surf clubs on the East Coast. Growing up at the NSB Inlet, one of the most consistent and shark-populated surf breaks on the East Coast, Adam competed through the ESA and NSSA amateur ranks before reaching the semi-pro and regional pro level. His sponsor list tells the story of the 1990s East Coast surf scene: CB Surfboards (shaper Charlie Baldwin), Inlet Charley's, Gotcha (team managed by Mike Cruickshank), Arnette Optics (founder Greg Arnette became a personal mentor and close family friend), Freestyle Watches, Amp Wear, Rip Curl, Lost Surfboards, and Stone Edge Skate Park. Co-founder of Seed2Source (action sports event sponsorship), Mastermind Mushrooms (functional wellness), and the Action Sports Database — a project 20 years in the making.",
     "sponsors": [
       "CB Surfboards (Charlie Baldwin — shaper/sponsor)",
       "Inlet Charley's Surf Shop",
@@ -5848,26 +5854,21 @@ ASDB.nodes = {
     "id": "barb-wright-lovelace",
     "type": "person",
     "name": "Barb Wright Lovelace",
-    "sport": [
-      "surf"
-    ],
-    "hometown": "New Smyrna Beach, FL",
-    "bio": "Co-founder of the Smyrna Surfari Club (est. 1979). Wright family — part of the multi-generational NSB surf legacy.",
-    "connections": [
-      {
-        "id": "smyrna-surfari-club",
-        "rel": "Founder"
-      },
-      {
-        "id": "tom-wright",
-        "rel": "Surfari Club Co-Founder / Wright Family"
-      }
-    ]
+    "redirectTo": "barbara-bresnahan",
+    "hidden": true,
+    "bio": "Alternate name for Barbara Bresnahan Wright Lovelace."
   },
   "barbara-bresnahan": {
     "id": "barbara-bresnahan",
     "type": "person",
-    "name": "Barbara Bresnahan",
+    "name": "Barbara Bresnahan Wright Lovelace",
+    "aliases": [
+      "Barbara Bresnahan",
+      "Barb Bresnahan",
+      "Barbara Wright",
+      "Barb Wright Lovelace",
+      "Barbara Lovelace"
+    ],
     "role": "Co-founder — Smyrna Surfari Club / NSB Community Leader",
     "children": [
       "Adam Wright"
@@ -5878,10 +5879,14 @@ ASDB.nodes = {
     "era": "1960s–present",
     "status": "pre-populated",
     "birthplace": "New Smyrna Beach, FL",
+    "hometown": "New Smyrna Beach, FL",
     "nationality": "🇺🇸",
-    "bio": "New Smyrna Beach community figure and mother of Adam Wright. Along with Tom Wright (ex-husband), co-built the Smyrna Surfari Club — one of the oldest and most storied surf clubs on the East Coast. Her family's roots and commitment to the NSB surf community span generations.",
+    "sport": [
+      "surf"
+    ],
+    "bio": "Barbara Bresnahan Wright Lovelace is a New Smyrna Beach community figure and mother of Adam Wright. Along with Tom Wright (ex-husband), she co-founded the Smyrna Surfari Club — one of the oldest and most storied surf clubs on the East Coast. Her family's roots and commitment to the NSB surf community span generations.",
     "notable": [
-      "Co-built the Smyrna Surfari Club with ex-husband Tom Wright",
+      "Co-founded the Smyrna Surfari Club with Tom Wright and the original club founders",
       "Mother of Adam Wright — 4th generation NSB native and ASDB co-founder",
       "NSB community figure across multiple decades",
       "Part of the extended New Smyrna Beach surf community heritage"
@@ -5897,7 +5902,7 @@ ASDB.nodes = {
       },
       {
         "id": "smyrna-surfari-club",
-        "rel": "Co-builder of the club"
+        "rel": "Founder"
       },
       {
         "id": "nsb-inlet",
@@ -66727,7 +66732,7 @@ ASDB.nodes = {
     "sport": [
       "surf"
     ],
-    "bio": "One of the oldest surf clubs on the East Coast, established 1979 in New Smyrna Beach, FL. Founded by Tom Wright, Mike Martin, Gordon Smith, Jim Smith, Charlie Lyons, Mark Scarbrough, Charley Baldwin, Marty Concannon, Skipper Eppelin, Buddy Wright, Mike Lary, Barb Wright Lovelace, and Jennifer Baldwin (Payseur). The club has been a cornerstone of East Coast surf culture and competition for decades. Tom Wright and Barbara Bresnahan were instrumental in building the club into what it is today.",
+    "bio": "One of the oldest surf clubs on the East Coast, established 1979 in New Smyrna Beach, FL. Founded by Tom Wright, Mike Martin, Gordon Smith, Jim Smith, Charlie Lyons, Mark Scarbrough, Charley Baldwin, Marty Concannon, Skipper Eppelin, Buddy Wright, Mike Lary, Barbara Bresnahan Wright Lovelace, and Jennifer Baldwin (Payseur). The club has been a cornerstone of East Coast surf culture and competition for decades.",
     "keyPeople": [
       {
         "name": "Tom Wright",
@@ -66774,16 +66779,12 @@ ASDB.nodes = {
         "role": "Founder"
       },
       {
-        "name": "Barb Wright Lovelace",
-        "role": "Founder — Wright family"
+        "name": "Barbara Bresnahan Wright Lovelace",
+        "role": "Founder — NSB community leader"
       },
       {
         "name": "Jennifer Baldwin (Payseur)",
         "role": "Founder"
-      },
-      {
-        "name": "Barbara Bresnahan",
-        "role": "Co-builder — NSB community leader"
       },
       {
         "name": "Adam Wright",
@@ -66836,16 +66837,12 @@ ASDB.nodes = {
         "rel": "Founder"
       },
       {
-        "id": "barb-wright-lovelace",
-        "rel": "Founder — Wright family"
-      },
-      {
         "id": "jennifer-payseur",
         "rel": "Founder"
       },
       {
         "id": "barbara-bresnahan",
-        "rel": "Co-builder"
+        "rel": "Founder — NSB community leader"
       },
       {
         "id": "adam-wright",
@@ -75876,18 +75873,18 @@ ASDB.nodes = {
       "Adam Wright"
     ],
     "exSpouse": [
-      "Barbara Bresnahan"
+      "Barbara Bresnahan Wright Lovelace"
     ],
     "era": "1960s–present",
     "status": "pre-populated",
     "birthplace": "New Smyrna Beach, FL",
     "nationality": "🇺🇸",
-    "bio": "3rd-generation New Smyrna Beach native, attorney, surfer, and recognized historian of New Smyrna Beach's history. Co-founded the Wright & Casey law firm in NSB. Along with Barbara Bresnahan (ex-wife), was instrumental in building the Smyrna Surfari Club — one of the oldest surf clubs on the East Coast. Father of Adam Wright, 4th-generation NSB native and co-founder of the Action Sports Database.",
+    "bio": "3rd-generation New Smyrna Beach native, attorney, surfer, and recognized historian of New Smyrna Beach's history. Co-founded the Wright & Casey law firm in NSB. Along with Barbara Bresnahan Wright Lovelace (ex-wife), co-founded the Smyrna Surfari Club — one of the oldest surf clubs on the East Coast. Father of Adam Wright, 4th-generation NSB native and co-founder of the Action Sports Database.",
     "notable": [
       "3rd-generation New Smyrna Beach native",
       "Co-founder of Wright & Casey Law Firm, New Smyrna Beach",
       "Recognized historian of New Smyrna Beach history",
-      "Co-built the Smyrna Surfari Club with ex-wife Barbara Bresnahan",
+      "Co-founded the Smyrna Surfari Club with ex-wife Barbara Bresnahan Wright Lovelace",
       "Father of Adam Wright (surfer, ASDB co-founder)"
     ],
     "connections": [

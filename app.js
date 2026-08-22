@@ -614,6 +614,11 @@ const NAME_ALIASES = {
   'wright and casey':    'wright-casey-law',
   'tom wright':          'tom-wright',
   'barbara bresnahan':   'barbara-bresnahan',
+  'barbara bresnahan wright lovelace': 'barbara-bresnahan',
+  'barb bresnahan':      'barbara-bresnahan',
+  'barbara wright':      'barbara-bresnahan',
+  'barb wright lovelace':'barbara-bresnahan',
+  'barbara lovelace':    'barbara-bresnahan',
   'barbara':             'barbara-bresnahan',
   // Orgs + Media (additional)
   'thrasher':            'eastern-surf-mag',   // placeholder until thrasher node added
@@ -634,7 +639,11 @@ function buildNameIndex() {
 
   // Add every node's canonical name
   Object.values(ASDB.nodes).forEach(n => {
+    if (n.hidden || n.redirectTo) return;
     index[n.name.toLowerCase()] = n.id;
+    (n.aliases || []).forEach(alias => {
+      index[alias.toLowerCase()] = n.id;
+    });
     // nick field (strip surrounding quotes)
     if (n.nick) {
       const clean = n.nick.toLowerCase().replace(/["“”‘’]/g,'').trim();
@@ -734,7 +743,7 @@ function bornLink(bornStr, nodeId) {
 
 // ── RENDER NODE GRID ─────────────────────────────────────────
 function renderGrid() {
-  const nodes = Object.values(ASDB.nodes);
+  const nodes = Object.values(ASDB.nodes).filter(n => !n.hidden && !n.redirectTo);
   const directoryTotal = document.getElementById('directory-total-count');
   if (directoryTotal) directoryTotal.textContent = nodes.length.toLocaleString();
   if (searchInput) searchInput.placeholder = `What do you remember? Search ${nodes.length.toLocaleString()} connected profiles...`;
@@ -1063,6 +1072,7 @@ window.closeAsdbPlayer = closeAsdbPlayer;
 function searchMemory(query) {
   const input = document.getElementById('memory-search-input');
   if (input) input.value = query;
+  document.getElementById('memory-search-drop')?.classList.remove('open');
   navigateSearch(query);
 }
 window.searchMemory = searchMemory;
@@ -1071,9 +1081,73 @@ function runMemorySearch(event) {
   event.preventDefault();
   const input = document.getElementById('memory-search-input');
   const query = input ? input.value.trim() : '';
-  if (query) navigateSearch(query);
+  if (query) {
+    document.getElementById('memory-search-drop')?.classList.remove('open');
+    navigateSearch(query);
+  }
 }
 window.runMemorySearch = runMemorySearch;
+
+function handleMemorySearch(query) {
+  const drop = document.getElementById('memory-search-drop');
+  const input = document.getElementById('memory-search-input');
+  if (!drop) return;
+
+  const q = query.trim().toLowerCase();
+  if (!q) {
+    drop.classList.remove('open');
+    drop.innerHTML = '';
+    return;
+  }
+
+  const aliasId = NAME_ALIASES[q];
+  const results = Object.values(ASDB.nodes)
+    .filter(n => !n.hidden && !n.redirectTo)
+    .map(n => {
+      const name = (n.name || '').toLowerCase();
+      const aliases = (n.aliases || []).join(' ').toLowerCase();
+      const details = [n.nick, n.bio, n.description, n.role, n.category, n.era, n.founded]
+        .filter(Boolean).join(' ').toLowerCase();
+      let score = n.id === aliasId ? 1000 : 0;
+      if (name === q) score += 1000;
+      else if (name.startsWith(q)) score += 800;
+      else if (name.includes(q)) score += 600;
+      if (aliases.includes(q)) score += 700;
+      if (details.includes(q)) score += 80;
+      return { node: n, score };
+    })
+    .filter(result => result.score > 0)
+    .sort((a, b) => b.score - a.score || a.node.name.localeCompare(b.node.name))
+    .slice(0, 6)
+    .map(result => result.node);
+
+  if (!results.length) {
+    drop.innerHTML = `<div class="search-see-all" data-memory-search-all>Search the full archive for “${query}” →</div>`;
+  } else {
+    drop.innerHTML = results.map(n => `
+      <div class="search-result-item" data-memory-search-id="${n.id}" role="option">
+        <div class="search-result-avatar">${initials(n.name)}</div>
+        <div>
+          <div class="search-result-name">${n.name}${n.nick ? ` “${n.nick}”` : ''} ${sportIcon(n)}</div>
+          <div class="search-result-meta">${nodeSubtitle(n) || n.type}</div>
+        </div>
+      </div>
+    `).join('') + `<div class="search-see-all" data-memory-search-all>See all results for “${query}” →</div>`;
+  }
+
+  drop.classList.add('open');
+  drop.querySelectorAll('[data-memory-search-id]').forEach(item => {
+    item.addEventListener('click', () => {
+      navigateTo(item.dataset.memorySearchId);
+      drop.classList.remove('open');
+      if (input) input.value = '';
+    });
+  });
+  drop.querySelector('[data-memory-search-all]')?.addEventListener('click', () => {
+    navigateSearch(query);
+    drop.classList.remove('open');
+  });
+}
 
 function exploreMemoryEra(era) {
   const eraButton = document.querySelector(`.era-chip[data-era="${era}"]`);
@@ -1307,6 +1381,7 @@ function renderFilterPage(type, value) {
 // ── NAVIGATION ───────────────────────────────────────────────
 function navigateTo(id, addToHistory = true) {
   if (!ASDB.nodes[id]) return;
+  if (ASDB.nodes[id].redirectTo) id = ASDB.nodes[id].redirectTo;
   trackInterest('profile', id);
 
   if (addToHistory) {
@@ -2753,23 +2828,25 @@ function renderSearchPage(query) {
   const q       = query.toLowerCase();
   const stopWords = new Set(['the', 'from', 'with', 'that', 'this', 'was', 'were', 'and', 'for', 'but', 'not', 'you', 'your', 'our', 'their', 'into']);
   const tokens  = q.split(/\s+/).filter(token => token.length > 1 && !stopWords.has(token));
-  const nodes   = Object.values(ASDB.nodes);
+  const nodes   = Object.values(ASDB.nodes).filter(n => !n.hidden && !n.redirectTo);
 
   const scored = nodes.map(n => {
     let score = 0;
     const name  = (n.name || '').toLowerCase();
+    const aliases = (n.aliases || []).join(' ').toLowerCase();
     const nick  = (n.nick || '').toLowerCase();
     const bio   = (n.bio || n.description || '').toLowerCase();
     const bp    = (n.birthplace || n.headquarters || '').toLowerCase();
     const sport = (n.sport || []).join(' ').toLowerCase();
     const details = [n.category, n.notableFor, n.catalogNotes, n.released, n.founded, n.era, n.peakEra, n.mediaType]
       .filter(Boolean).join(' ').toLowerCase();
-    const haystack = `${name} ${nick} ${bio} ${bp} ${sport} ${details}`;
+    const haystack = `${name} ${aliases} ${nick} ${bio} ${bp} ${sport} ${details}`;
 
     if (name === q)                    score += 100;
     else if (name.startsWith(q))       score += 80;
     else if (name.includes(q))         score += 60;
     if (nick.includes(q))              score += 50;
+    if (aliases.includes(q))           score += 75;
     if (bp.includes(q))                score += 30;
     if (sport.includes(q))             score += 20;
     if (bio.includes(q))               score += 10;
@@ -2778,6 +2855,7 @@ function renderSearchPage(query) {
       if (name === token) score += 240;
       else if (name.startsWith(token)) score += 150;
       else if (name.includes(token)) score += 100;
+      if (aliases.includes(token)) score += 90;
       if (details.includes(token)) score += 24;
       if (bio.includes(token)) score += 10;
       if (sport.includes(token)) score += 8;
@@ -2856,11 +2934,12 @@ function handleSearch(query) {
     return;
   }
 
-  const nodes  = Object.values(ASDB.nodes);
+  const nodes  = Object.values(ASDB.nodes).filter(n => !n.hidden && !n.redirectTo);
   const tokens = q.split(/\s+/).filter(Boolean);
   const aliasId = NAME_ALIASES[q];
   const results = nodes.map(n => {
     const name       = (n.name || '').toLowerCase();
+    const aliases    = (n.aliases || []).join(' ').toLowerCase();
     const nick       = (n.nick || '').toLowerCase();
     const bio        = (n.bio || n.description || '').toLowerCase();
     const birthplace = (n.birthplace || n.headquarters || '').toLowerCase();
@@ -2871,6 +2950,7 @@ function handleSearch(query) {
     if (name === q)                   score += 1000;
     else if (name.startsWith(q))      score += 800;
     else if (name.includes(q))        score += 600;
+    if (aliases.includes(q))          score += 700;
     if (tokens.length > 1 && tokens.every(token => name.includes(token))) score += 550;
     if (nick === q)                   score += 500;
     else if (nick.startsWith(q))      score += 400;
@@ -3497,7 +3577,7 @@ window.toggleLegit = toggleLegit;
 
 function buildFeedItems() {
   const items = [];
-  const nodeList = Object.values(ASDB.nodes);
+  const nodeList = Object.values(ASDB.nodes).filter(n => !n.hidden && !n.redirectTo);
 
   // Historical posts: nodes with bio/description and era/year data
   const historicalCandidates = nodeList.filter(n =>
@@ -4403,9 +4483,22 @@ function init() {
       navigateSearch(q);
     }
   });
+  const memorySearchInput = document.getElementById('memory-search-input');
+  const memorySearchDrop = document.getElementById('memory-search-drop');
+  if (memorySearchInput) {
+    memorySearchInput.addEventListener('input', e => handleMemorySearch(e.target.value));
+    memorySearchInput.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        memorySearchDrop?.classList.remove('open');
+      }
+    });
+  }
   document.addEventListener('click', e => {
     if (!e.target.closest('.search-wrap')) {
       searchDrop.classList.remove('open');
+    }
+    if (!e.target.closest('.memory-search')) {
+      memorySearchDrop?.classList.remove('open');
     }
   });
 
