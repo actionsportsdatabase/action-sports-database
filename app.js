@@ -1359,29 +1359,19 @@ function renderProfile(id) {
   const lineageTab     = renderLineageTab(node);
   const sidebar        = renderSidebar(node);
 
-  // Build per-node source list. Wikipedia is our baseline source — auto-generated for every profile.
-  // If the node has an explicit sources[] array, prepend those; otherwise use only the auto-list.
-  const wikiTitle = (node.name || '').replace(/\s+/g, '_');
-  const wikiURL = node.external && (node.external.wikipedia || node.external.wiki)
-    ? (node.external.wikipedia || node.external.wiki)
-    : `https://en.wikipedia.org/wiki/${encodeURIComponent(wikiTitle)}`;
-
+  // Only display sources that were explicitly reviewed for this profile.
+  // Guessed article URLs and generic search-result pages are discovery aids, not citations.
   const explicitSources = Array.isArray(node.sources) ? node.sources : [];
-  const autoSources = [
-    { url: wikiURL, title: `Wikipedia — ${node.name}`, type: 'CC BY-SA 4.0', note: 'baseline reference' },
-  ];
-  // Add athlete-specific auto-sources by sport
-  const sportKey = Array.isArray(node.sport) ? node.sport[0] : node.sport;
-  if (node.type === 'athlete' || node.type === 'person') {
-    if (sportKey === 'surf') autoSources.push({ url: `https://www.worldsurfleague.com/athletes?searchTerm=${encodeURIComponent(node.name || '')}`, title: 'World Surf League athlete search', type: 'governing body' });
-    if (sportKey === 'skate') autoSources.push({ url: `https://www.thrashermagazine.com/search-results/?q=${encodeURIComponent(node.name || '')}`, title: 'Thrasher Magazine search', type: 'trade publication' });
-    if (sportKey === 'snow') autoSources.push({ url: `https://www.espn.com/action/xgames/athletes`, title: 'X Games athlete roster', type: 'event archive' });
-    if (sportKey === 'moto' || sportKey === 'mx') autoSources.push({ url: `https://racerxonline.com/rider/search?q=${encodeURIComponent(node.name || '')}`, title: 'Racer X Online rider search', type: 'trade publication' });
-    if (sportKey === 'bmx') autoSources.push({ url: `https://www.usabmx.com/site/riderprofiles/search?name=${encodeURIComponent(node.name || '')}`, title: 'USA BMX rider profile search', type: 'governing body' });
-  }
-
-  const allSources = [...explicitSources, ...autoSources];
-  const sourceListHTML = `<ul class="profile-source-list">${allSources.map(s => {
+  const sourceKeys = new Set();
+  const allSources = explicitSources.filter(source => {
+    const key = typeof source === 'string'
+      ? source.trim().toLowerCase()
+      : String(source?.url || source?.title || '').trim().toLowerCase();
+    if (!key || sourceKeys.has(key)) return false;
+    sourceKeys.add(key);
+    return true;
+  });
+  const sourceListHTML = allSources.length ? `<ul class="profile-source-list">${allSources.map(s => {
     if (typeof s === 'string') return `<li>${linkifyText(s, node.id)}</li>`;
     if (s && s.url) {
       let li = `<a href="${s.url}" target="_blank" rel="noopener">${s.title || s.url}</a>`;
@@ -1391,8 +1381,7 @@ function renderProfile(id) {
       return `<li>${li}</li>`;
     }
     return `<li>${s && s.title || ''}</li>`;
-  }).join('')}</ul>
-  <p style="font-size:0.72rem;color:var(--text-muted);margin:0.35rem 0 0 0;font-style:italic">Wikipedia content used under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener" style="color:var(--accent)">CC BY-SA 4.0</a>. Article existence not guaranteed — broken links indicate the subject does not yet have a Wikipedia article.</p>`;
+  }).join('')}</ul>` : `<p class="profile-source-empty">Reviewed source links have not been added to this profile yet.</p>`;
 
   const legalFooter = `
     <div class="profile-legal">

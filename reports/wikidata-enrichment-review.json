@@ -1,0 +1,2127 @@
+{
+  "generatedAt": "2026-08-22T15:38:26.425Z",
+  "targetCount": 99,
+  "results": [
+    {
+      "id": "aaron-gwin",
+      "name": "Aaron Gwin",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q3603072",
+        "label": "Aaron Gwin",
+        "description": "American racing cyclist"
+      },
+      "additions": {
+        "wikidataId": "Q3603072",
+        "wikidataDescription": "American racing cyclist",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "December 24, 1987",
+        "birthplace": "Palm Springs",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q3603072",
+          "wikipedia": "https://en.wikipedia.org/wiki/Aaron_Gwin"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q3603072",
+            "title": "Wikidata — Aaron Gwin",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Aaron_Gwin",
+            "title": "Wikipedia — Aaron Gwin",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "alex-honnold",
+      "name": "Alex Honnold",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q979249",
+        "label": "Alex Honnold",
+        "description": "American professional mountaineer and extreme climber"
+      },
+      "additions": {
+        "wikidataId": "Q979249",
+        "wikidataDescription": "American professional mountaineer and extreme climber",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "August 17, 1985",
+        "birthplace": "Sacramento",
+        "website": "http://www.alexhonnold.com",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q979249",
+          "wikipedia": "https://en.wikipedia.org/wiki/Alex_Honnold"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q979249",
+            "title": "Wikidata — Alex Honnold",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Alex_Honnold",
+            "title": "Wikipedia — Alex Honnold",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bob-burnquist",
+      "name": "Bob Burnquist",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q668755",
+        "label": "Bob Burnquist",
+        "description": "Brazilian professional skateboarder"
+      },
+      "additions": {
+        "wikidataId": "Q668755",
+        "wikidataDescription": "Brazilian professional skateboarder",
+        "dataEnrichedAt": "2026-08-22",
+        "birthplace": "Rio de Janeiro",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q668755",
+          "wikipedia": "https://en.wikipedia.org/wiki/Bob_Burnquist"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q668755",
+            "title": "Wikidata — Bob Burnquist",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Bob_Burnquist",
+            "title": "Wikipedia — Bob Burnquist",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "brandon-semenuk",
+      "name": "Brandon Semenuk",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q23761725",
+        "label": "Brandon Semenuk",
+        "description": "Canadian freeride mountain biker"
+      },
+      "additions": {
+        "wikidataId": "Q23761725",
+        "wikidataDescription": "Canadian freeride mountain biker",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "February 2, 1991",
+        "birthplace": "Whistler",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q23761725",
+          "wikipedia": "https://en.wikipedia.org/wiki/Brandon_Semenuk"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q23761725",
+            "title": "Wikidata — Brandon Semenuk",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Brandon_Semenuk",
+            "title": "Wikipedia — Brandon Semenuk",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "carissa-moore",
+      "name": "Carissa Moore",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q2938849",
+        "label": "Carissa Moore",
+        "description": "Native Hawaiian-American surfer"
+      },
+      "additions": {
+        "wikidataId": "Q2938849",
+        "wikidataDescription": "Native Hawaiian-American surfer",
+        "dataEnrichedAt": "2026-08-22",
+        "birthplace": "Honolulu",
+        "website": "https://carissamoore.com/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q2938849",
+          "wikipedia": "https://en.wikipedia.org/wiki/Carissa_Moore"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q2938849",
+            "title": "Wikidata — Carissa Moore",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Carissa_Moore",
+            "title": "Wikipedia — Carissa Moore",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "chloe-kim",
+      "name": "Chloe Kim",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q15649119",
+        "label": "Chloe Kim",
+        "description": "American snowboarder"
+      },
+      "additions": {
+        "wikidataId": "Q15649119",
+        "wikidataDescription": "American snowboarder",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "April 23, 2000",
+        "birthplace": "Long Beach",
+        "website": "https://www.chloekimofficial.com/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q15649119",
+          "wikipedia": "https://en.wikipedia.org/wiki/Chloe_Kim"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q15649119",
+            "title": "Wikidata — Chloe Kim",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Chloe_Kim",
+            "title": "Wikipedia — Chloe Kim",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "chris-sharma",
+      "name": "Chris Sharma",
+      "type": "person",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q722754",
+        "label": "Chris Sharma",
+        "description": "American rock climber"
+      },
+      "additions": {
+        "wikidataId": "Q722754",
+        "wikidataDescription": "American rock climber",
+        "dataEnrichedAt": "2026-08-22",
+        "nationality": "United States",
+        "website": "http://www.chrissharma.com",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q722754",
+          "wikipedia": "https://en.wikipedia.org/wiki/Chris_Sharma"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q722754",
+            "title": "Wikidata — Chris Sharma",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Chris_Sharma",
+            "title": "Wikipedia — Chris Sharma",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "danny-way",
+      "name": "Danny Way",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q465755",
+        "label": "Danny Way",
+        "description": "American professional Skateboarder"
+      },
+      "additions": {
+        "wikidataId": "Q465755",
+        "wikidataDescription": "American professional Skateboarder",
+        "dataEnrichedAt": "2026-08-22",
+        "birthplace": "Portland",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q465755",
+          "wikipedia": "https://en.wikipedia.org/wiki/Danny_Way"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q465755",
+            "title": "Wikidata — Danny Way",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Danny_Way",
+            "title": "Wikipedia — Danny Way",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "duke-kahanamoku",
+      "name": "Duke Kahanamoku",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q123688",
+        "label": "Duke Kahanamoku",
+        "description": "American swimmer, surfer and actor (1890-1968)"
+      },
+      "additions": {
+        "wikidataId": "Q123688",
+        "wikidataDescription": "American swimmer, surfer and actor (1890-1968)",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q123688",
+          "wikipedia": "https://en.wikipedia.org/wiki/Duke_Kahanamoku"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q123688",
+            "title": "Wikidata — Duke Kahanamoku",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Duke_Kahanamoku",
+            "title": "Wikipedia — Duke Kahanamoku",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "filipe-toledo",
+      "name": "Filipe Toledo",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q20743719",
+        "label": "Filipe Toledo",
+        "description": "Brazilian surfer"
+      },
+      "additions": {
+        "wikidataId": "Q20743719",
+        "wikidataDescription": "Brazilian surfer",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "April 16, 1995",
+        "birthplace": "Ubatuba",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q20743719",
+          "wikipedia": "https://en.wikipedia.org/wiki/Filipe_Toledo"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q20743719",
+            "title": "Wikidata — Filipe Toledo",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Filipe_Toledo",
+            "title": "Wikipedia — Filipe Toledo",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gabriel-medina",
+      "name": "Gabriel Medina",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q3093867",
+        "label": "Gabriel Medina",
+        "description": "Brazilian surfer"
+      },
+      "additions": {
+        "wikidataId": "Q3093867",
+        "wikidataDescription": "Brazilian surfer",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "December 22, 1993",
+        "birthplace": "São Sebastião",
+        "website": "http://www.gabrielmedinaoficial.com.br",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q3093867",
+          "wikipedia": "https://en.wikipedia.org/wiki/Gabriel_Medina"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q3093867",
+            "title": "Wikidata — Gabriel Medina",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Gabriel_Medina",
+            "title": "Wikipedia — Gabriel Medina",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "garrett-reynolds",
+      "name": "Garrett Reynolds",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q17231998",
+        "label": "Garrett Reynolds",
+        "description": "American BMX rider"
+      },
+      "additions": {
+        "wikidataId": "Q17231998",
+        "wikidataDescription": "American BMX rider",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "August 2, 1990",
+        "birthplace": "Toms River",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q17231998",
+          "wikipedia": "https://en.wikipedia.org/wiki/Garrett_Reynolds_(BMX_rider)"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q17231998",
+            "title": "Wikidata — Garrett Reynolds",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Garrett_Reynolds_(BMX_rider)",
+            "title": "Wikipedia — Garrett Reynolds (BMX rider)",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gerry-lopez",
+      "name": "Gerry Lopez",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q533270",
+        "label": "Gerry Lopez",
+        "description": "American surfer and actor"
+      },
+      "additions": {
+        "wikidataId": "Q533270",
+        "wikidataDescription": "American surfer and actor",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "November 7, 1948",
+        "birthplace": "Honolulu",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q533270",
+          "wikipedia": "https://en.wikipedia.org/wiki/Gerry_Lopez"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q533270",
+            "title": "Wikidata — Gerry Lopez",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Gerry_Lopez",
+            "title": "Wikipedia — Gerry Lopez",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "italo-ferreira",
+      "name": "Italo Ferreira",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q19955824",
+        "label": "Ítalo Ferreira",
+        "description": "Brazilian surfer"
+      },
+      "additions": {
+        "wikidataId": "Q19955824",
+        "wikidataDescription": "Brazilian surfer",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "May 6, 1994",
+        "birthplace": "Baía Formosa",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q19955824",
+          "wikipedia": "https://en.wikipedia.org/wiki/%C3%8Dtalo_Ferreira"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q19955824",
+            "title": "Wikidata — Italo Ferreira",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/%C3%8Dtalo_Ferreira",
+            "title": "Wikipedia — Ítalo Ferreira",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "james-stewart",
+      "name": "James Stewart",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "jamie-anderson",
+      "name": "Jamie Anderson",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q2944286",
+        "label": "Jamie Anderson",
+        "description": "American snowboarder"
+      },
+      "additions": {
+        "wikidataId": "Q2944286",
+        "wikidataDescription": "American snowboarder",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "September 13, 1990",
+        "birthplace": "South Lake Tahoe",
+        "website": "https://www.jamieandersonsnow.com/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q2944286",
+          "wikipedia": "https://en.wikipedia.org/wiki/Jamie_Anderson_(snowboarder)"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q2944286",
+            "title": "Wikidata — Jamie Anderson",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Jamie_Anderson_(snowboarder)",
+            "title": "Wikipedia — Jamie Anderson (snowboarder)",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "jay-adams",
+      "name": "Jay Adams",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q1350706",
+        "label": "Jay Adams",
+        "description": "American skateboarder (1961–2014)"
+      },
+      "additions": {
+        "wikidataId": "Q1350706",
+        "wikidataDescription": "American skateboarder (1961–2014)",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q1350706",
+          "wikipedia": "https://en.wikipedia.org/wiki/Jay_Adams"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q1350706",
+            "title": "Wikidata — Jay Adams",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Jay_Adams",
+            "title": "Wikipedia — Jay Adams",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "jeff-clark",
+      "name": "Jeff Clark",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q1686278",
+        "label": "Jeff Clark",
+        "description": "American surfer"
+      },
+      "additions": {
+        "wikidataId": "Q1686278",
+        "wikidataDescription": "American surfer",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "March 26, 1957",
+        "birthplace": "Redwood City",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q1686278",
+          "wikipedia": "https://en.wikipedia.org/wiki/Jeff_Clark_(surfer)"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q1686278",
+            "title": "Wikidata — Jeff Clark",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Jeff_Clark_(surfer)",
+            "title": "Wikipedia — Jeff Clark (surfer)",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "joel-parkinson",
+      "name": "Joel Parkinson",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q3187443",
+        "label": "Joel Parkinson",
+        "description": "Australian surfer"
+      },
+      "additions": {
+        "wikidataId": "Q3187443",
+        "wikidataDescription": "Australian surfer",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "April 10, 1981",
+        "birthplace": "Nambour",
+        "website": "http://joelparko.com/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q3187443",
+          "wikipedia": "https://en.wikipedia.org/wiki/Joel_Parkinson"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q3187443",
+            "title": "Wikidata — Joel Parkinson",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Joel_Parkinson",
+            "title": "Wikipedia — Joel Parkinson",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "kelly-clark",
+      "name": "Kelly Clark",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q270331",
+        "label": "Kelly Clark",
+        "description": "American snowboarder"
+      },
+      "additions": {
+        "wikidataId": "Q270331",
+        "wikidataDescription": "American snowboarder",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "July 26, 1983",
+        "birthplace": "Newport",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q270331",
+          "wikipedia": "https://en.wikipedia.org/wiki/Kelly_Clark"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q270331",
+            "title": "Wikidata — Kelly Clark",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Kelly_Clark",
+            "title": "Wikipedia — Kelly Clark",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "kelly-slater",
+      "name": "Kelly Slater",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q364406",
+        "label": "Kelly Slater",
+        "description": "American surfer (born 1972)"
+      },
+      "additions": {
+        "wikidataId": "Q364406",
+        "wikidataDescription": "American surfer (born 1972)",
+        "dataEnrichedAt": "2026-08-22",
+        "website": "http://www.kellyslater.com/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q364406",
+          "wikipedia": "https://en.wikipedia.org/wiki/Kelly_Slater"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q364406",
+            "title": "Wikidata — Kelly Slater",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Kelly_Slater",
+            "title": "Wikipedia — Kelly Slater",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "laird-hamilton",
+      "name": "Laird Hamilton",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q1320597",
+        "label": "Laird Hamilton",
+        "description": "American surfer (born 1964)"
+      },
+      "additions": {
+        "wikidataId": "Q1320597",
+        "wikidataDescription": "American surfer (born 1964)",
+        "dataEnrichedAt": "2026-08-22",
+        "website": "https://lairdhamilton.com/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q1320597",
+          "wikipedia": "https://en.wikipedia.org/wiki/Laird_Hamilton"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q1320597",
+            "title": "Wikidata — Laird Hamilton",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Laird_Hamilton",
+            "title": "Wikipedia — Laird Hamilton",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lance-mountain",
+      "name": "Lance Mountain",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q6483485",
+        "label": "Lance Mountain",
+        "description": "American skateboarder"
+      },
+      "additions": {
+        "wikidataId": "Q6483485",
+        "wikidataDescription": "American skateboarder",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "June 13, 1964",
+        "birthplace": "Pasadena",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q6483485",
+          "wikipedia": "https://en.wikipedia.org/wiki/Lance_Mountain"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q6483485",
+            "title": "Wikidata — Lance Mountain",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Lance_Mountain",
+            "title": "Wikipedia — Lance Mountain",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mark-foo",
+      "name": "Mark Foo",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q3294080",
+        "label": "Mark Foo",
+        "description": "Singapore-born Hawaiian professional surfer of Chinese ancestry (1958-1994)"
+      },
+      "additions": {
+        "wikidataId": "Q3294080",
+        "wikidataDescription": "Singapore-born Hawaiian professional surfer of Chinese ancestry (1958-1994)",
+        "dataEnrichedAt": "2026-08-22",
+        "birthplace": "Singapore",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q3294080",
+          "wikipedia": "https://en.wikipedia.org/wiki/Mark_Foo"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q3294080",
+            "title": "Wikidata — Mark Foo",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Mark_Foo",
+            "title": "Wikipedia — Mark Foo",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mat-hoffman",
+      "name": "Mat Hoffman",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q968888",
+        "label": "Mat Hoffman",
+        "description": "American BMX rider (born 1972)"
+      },
+      "additions": {
+        "wikidataId": "Q968888",
+        "wikidataDescription": "American BMX rider (born 1972)",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "January 9, 1972",
+        "birthplace": "Oklahoma City",
+        "website": "http://www.mathoffman.com",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q968888",
+          "wikipedia": "https://en.wikipedia.org/wiki/Mat_Hoffman"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q968888",
+            "title": "Wikidata — Mat Hoffman",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Mat_Hoffman",
+            "title": "Wikipedia — Mat Hoffman",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mick-fanning",
+      "name": "Mick Fanning",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q1140016",
+        "label": "Mick Fanning",
+        "description": "Australian surfer"
+      },
+      "additions": {
+        "wikidataId": "Q1140016",
+        "wikidataDescription": "Australian surfer",
+        "dataEnrichedAt": "2026-08-22",
+        "website": "http://mickfanning.com.au/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q1140016",
+          "wikipedia": "https://en.wikipedia.org/wiki/Mick_Fanning"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q1140016",
+            "title": "Wikidata — Mick Fanning",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Mick_Fanning",
+            "title": "Wikipedia — Mick Fanning",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "nat-young",
+      "name": "Nat Young",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q6967902",
+        "label": "Nat Young",
+        "description": "Australian surfer"
+      },
+      "additions": {
+        "wikidataId": "Q6967902",
+        "wikidataDescription": "Australian surfer",
+        "dataEnrichedAt": "2026-08-22",
+        "birthplace": "Sydney",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q6967902",
+          "wikipedia": "https://en.wikipedia.org/wiki/Nat_Young"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q6967902",
+            "title": "Wikidata — Nat Young",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Nat_Young",
+            "title": "Wikipedia — Nat Young",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "nyjah-huston",
+      "name": "Nyjah Huston",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q2185882",
+        "label": "Nyjah Huston",
+        "description": "American skateboarder"
+      },
+      "additions": {
+        "wikidataId": "Q2185882",
+        "wikidataDescription": "American skateboarder",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "November 30, 1994",
+        "birthplace": "Davis",
+        "website": "https://nyjah.com/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q2185882",
+          "wikipedia": "https://en.wikipedia.org/wiki/Nyjah_Huston"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q2185882",
+            "title": "Wikidata — Nyjah Huston",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Nyjah_Huston",
+            "title": "Wikipedia — Nyjah Huston",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rachel-atherton",
+      "name": "Rachel Atherton",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q390519",
+        "label": "Rachel Atherton",
+        "description": "English cyclist"
+      },
+      "additions": {
+        "wikidataId": "Q390519",
+        "wikidataDescription": "English cyclist",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "December 6, 1987",
+        "birthplace": "Wells",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q390519",
+          "wikipedia": "https://en.wikipedia.org/wiki/Rachel_Atherton"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q390519",
+            "title": "Wikidata — Rachel Atherton",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Rachel_Atherton",
+            "title": "Wikipedia — Rachel Atherton",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ricky-carmichael",
+      "name": "Ricky Carmichael",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q532073",
+        "label": "Ricky Carmichael",
+        "description": "American motorcycle and stock car racing driver"
+      },
+      "additions": {
+        "wikidataId": "Q532073",
+        "wikidataDescription": "American motorcycle and stock car racing driver",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "November 27, 1979",
+        "birthplace": "Clearwater",
+        "website": "https://www.rickycarmichael.com/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q532073",
+          "wikipedia": "https://en.wikipedia.org/wiki/Ricky_Carmichael"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q532073",
+            "title": "Wikidata — Ricky Carmichael",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Ricky_Carmichael",
+            "title": "Wikipedia — Ricky Carmichael",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rodney-mullen",
+      "name": "Rodney Mullen",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q313447",
+        "label": "Rodney Mullen",
+        "description": "American professional skateboarder"
+      },
+      "additions": {
+        "wikidataId": "Q313447",
+        "wikidataDescription": "American professional skateboarder",
+        "dataEnrichedAt": "2026-08-22",
+        "birthplace": "Gainesville",
+        "website": "http://www.rodneymullen.net/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q313447",
+          "wikipedia": "https://en.wikipedia.org/wiki/Rodney_Mullen"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q313447",
+            "title": "Wikidata — Rodney Mullen",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Rodney_Mullen",
+            "title": "Wikipedia — Rodney Mullen",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ryan-dungey",
+      "name": "Ryan Dungey",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q7384030",
+        "label": "Ryan Dungey",
+        "description": "American motorcycle racer"
+      },
+      "additions": {
+        "wikidataId": "Q7384030",
+        "wikidataDescription": "American motorcycle racer",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "December 4, 1989",
+        "birthplace": "Belle Plaine",
+        "website": "http://ryandungey.com",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q7384030",
+          "wikipedia": "https://en.wikipedia.org/wiki/Ryan_Dungey"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q7384030",
+            "title": "Wikidata — Ryan Dungey",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Ryan_Dungey",
+            "title": "Wikipedia — Ryan Dungey",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "shaun-white",
+      "name": "Shaun White",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q288656",
+        "label": "Shaun White",
+        "description": "American snowboarder and skateboarder"
+      },
+      "additions": {
+        "wikidataId": "Q288656",
+        "wikidataDescription": "American snowboarder and skateboarder",
+        "dataEnrichedAt": "2026-08-22",
+        "website": "http://www.shaunwhite.com/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q288656",
+          "wikipedia": "https://en.wikipedia.org/wiki/Shaun_White"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q288656",
+            "title": "Wikidata — Shaun White",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Shaun_White",
+            "title": "Wikipedia — Shaun White",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "stephanie-gilmore",
+      "name": "Stephanie Gilmore",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q435974",
+        "label": "Stephanie Gilmore",
+        "description": "Australian surfer"
+      },
+      "additions": {
+        "wikidataId": "Q435974",
+        "wikidataDescription": "Australian surfer",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "January 29, 1988",
+        "birthplace": "Murwillumbah",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q435974",
+          "wikipedia": "https://en.wikipedia.org/wiki/Stephanie_Gilmore"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q435974",
+            "title": "Wikidata — Stephanie Gilmore",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Stephanie_Gilmore",
+            "title": "Wikipedia — Stephanie Gilmore",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "terry-fitzgerald",
+      "name": "Terry Fitzgerald",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "tom-carroll",
+      "name": "Tom Carroll",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q2327296",
+        "label": "Tom Carroll",
+        "description": "Australian surfer"
+      },
+      "additions": {
+        "wikidataId": "Q2327296",
+        "wikidataDescription": "Australian surfer",
+        "dataEnrichedAt": "2026-08-22",
+        "born": "November 26, 1961",
+        "birthplace": "Newport",
+        "website": "http://www.tomcarrollpaddlesurf.com",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q2327296",
+          "wikipedia": "https://en.wikipedia.org/wiki/Tom_Carroll_(surfer)"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q2327296",
+            "title": "Wikidata — Tom Carroll",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Tom_Carroll_(surfer)",
+            "title": "Wikipedia — Tom Carroll (surfer)",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tony-alva",
+      "name": "Tony Alva",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q538026",
+        "label": "Tony Alva",
+        "description": "American skateboarder and entrepreneur"
+      },
+      "additions": {
+        "wikidataId": "Q538026",
+        "wikidataDescription": "American skateboarder and entrepreneur",
+        "dataEnrichedAt": "2026-08-22",
+        "website": "http://www.alvaskates.com/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q538026",
+          "wikipedia": "https://en.wikipedia.org/wiki/Tony_Alva"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q538026",
+            "title": "Wikidata — Tony Alva",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Tony_Alva",
+            "title": "Wikipedia — Tony Alva",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tony-hawk",
+      "name": "Tony Hawk",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q295020",
+        "label": "Tony Hawk",
+        "description": "American professional skateboarder and actor"
+      },
+      "additions": {
+        "wikidataId": "Q295020",
+        "wikidataDescription": "American professional skateboarder and actor",
+        "dataEnrichedAt": "2026-08-22",
+        "website": "https://www.tonyhawk.com/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q295020",
+          "wikipedia": "https://en.wikipedia.org/wiki/Tony_Hawk"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q295020",
+            "title": "Wikidata — Tony Hawk",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Tony_Hawk",
+            "title": "Wikipedia — Tony Hawk",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "travis-pastrana",
+      "name": "Travis Pastrana",
+      "type": "athlete",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q379510",
+        "label": "Travis Pastrana",
+        "description": "American professional motorsports competitor and stunt performer"
+      },
+      "additions": {
+        "wikidataId": "Q379510",
+        "wikidataDescription": "American professional motorsports competitor and stunt performer",
+        "dataEnrichedAt": "2026-08-22",
+        "website": "http://www.travispastrana.com/",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q379510",
+          "wikipedia": "https://en.wikipedia.org/wiki/Travis_Pastrana"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q379510",
+            "title": "Wikidata — Travis Pastrana",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Travis_Pastrana",
+            "title": "Wikipedia — Travis Pastrana",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lost-surfboards-2",
+      "name": "...Lost Surfboards",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "686",
+      "name": "686",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "adidas-skateboarding",
+      "name": "Adidas Skateboarding",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "airwalk",
+      "name": "Airwalk",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "alien-workshop",
+      "name": "Alien Workshop",
+      "type": "brand",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q1982335",
+        "label": "Alien Workshop",
+        "description": "American skateboarding company"
+      },
+      "additions": {
+        "wikidataId": "Q1982335",
+        "wikidataDescription": "American skateboarding company",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q1982335",
+          "wikipedia": "https://en.wikipedia.org/wiki/Alien_Workshop"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q1982335",
+            "title": "Wikidata — Alien Workshop",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Alien_Workshop",
+            "title": "Wikipedia — Alien Workshop",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "almost-skateboards",
+      "name": "Almost Skateboards",
+      "type": "brand",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q2114113",
+        "label": "Almost Skateboards",
+        "description": "American skateboard company"
+      },
+      "additions": {
+        "wikidataId": "Q2114113",
+        "wikidataDescription": "American skateboard company",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q2114113",
+          "wikipedia": "https://en.wikipedia.org/wiki/Almost_Skateboards"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q2114113",
+            "title": "Wikidata — Almost Skateboards",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Almost_Skateboards",
+            "title": "Wikipedia — Almost Skateboards",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "alpinestars",
+      "name": "Alpinestars",
+      "type": "brand",
+      "status": "approved",
+      "matchReason": "official-domain-match",
+      "candidate": {
+        "id": "Q751488",
+        "label": "Alpinestars",
+        "description": "Italian motorsports and action sports safety equipment manufacturer"
+      },
+      "additions": {
+        "wikidataId": "Q751488",
+        "wikidataDescription": "Italian motorsports and action sports safety equipment manufacturer",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q751488",
+          "wikipedia": "https://en.wikipedia.org/wiki/Alpinestars"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q751488",
+            "title": "Wikidata — Alpinestars",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Alpinestars",
+            "title": "Wikipedia — Alpinestars",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ama-american-motorcyclist-association",
+      "name": "AMA (American Motorcyclist Association)",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "amer-sports",
+      "name": "Amer Sports",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "american-wave-machines",
+      "name": "American Wave Machines",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "anon-optics",
+      "name": "Anon Optics",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "arai-helmet",
+      "name": "Arai Helmet",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "arbor-collective",
+      "name": "Arbor Collective",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "arc-teryx",
+      "name": "Arc'teryx",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "armada-skis",
+      "name": "Armada Skis",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "arnette",
+      "name": "Arnette",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "atomic-skis",
+      "name": "Atomic",
+      "type": "brand",
+      "status": "review",
+      "matchReason": "exact-name-only",
+      "candidate": {
+        "id": "Q23818559",
+        "label": "Atomic",
+        "description": "album by Mogwai"
+      },
+      "additions": {
+        "wikidataId": "Q23818559",
+        "wikidataDescription": "album by Mogwai",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q23818559",
+          "wikipedia": "https://en.wikipedia.org/wiki/Atomic_(Mogwai_album)"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q23818559",
+            "title": "Wikidata — Atomic",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Atomic_(Mogwai_album)",
+            "title": "Wikipedia — Atomic (Mogwai album)",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "authentic-brands-group-abg",
+      "name": "Authentic Brands Group (ABG)",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "bell-helmets",
+      "name": "Bell Helmets",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "billabong",
+      "name": "Billabong",
+      "type": "brand",
+      "status": "approved",
+      "matchReason": "official-domain-match",
+      "candidate": {
+        "id": "Q862718",
+        "label": "Billabong",
+        "description": "surfing equipment and apparel company"
+      },
+      "additions": {
+        "wikidataId": "Q862718",
+        "wikidataDescription": "surfing equipment and apparel company",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q862718",
+          "wikipedia": "https://en.wikipedia.org/wiki/Billabong_(clothing)"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q862718",
+            "title": "Wikidata — Billabong",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Billabong_(clothing)",
+            "title": "Wikipedia — Billabong (clothing)",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bing-surfboards",
+      "name": "Bing Surfboards",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "birdhouse",
+      "name": "Birdhouse Skateboards",
+      "type": "brand",
+      "status": "approved",
+      "matchReason": "official-domain-match",
+      "candidate": {
+        "id": "Q3300229",
+        "label": "Birdhouse Skateboards",
+        "description": "American skateboard company"
+      },
+      "additions": {
+        "wikidataId": "Q3300229",
+        "wikidataDescription": "American skateboard company",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q3300229",
+          "wikipedia": "https://en.wikipedia.org/wiki/Birdhouse_Skateboards"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q3300229",
+            "title": "Wikidata — Birdhouse Skateboards",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Birdhouse_Skateboards",
+            "title": "Wikipedia — Birdhouse Skateboards",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "black-diamond-equipment",
+      "name": "Black Diamond Equipment",
+      "type": "brand",
+      "status": "approved",
+      "matchReason": "official-domain-match",
+      "candidate": {
+        "id": "Q2905359",
+        "label": "Black Diamond Equipment",
+        "description": "Manufacturer of equipment for climbing, skiing, and mountain sports"
+      },
+      "additions": {
+        "wikidataId": "Q2905359",
+        "wikidataDescription": "Manufacturer of equipment for climbing, skiing, and mountain sports",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q2905359",
+          "wikipedia": "https://en.wikipedia.org/wiki/Black_Diamond_Equipment"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q2905359",
+            "title": "Wikidata — Black Diamond Equipment",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Black_Diamond_Equipment",
+            "title": "Wikipedia — Black Diamond Equipment",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blizzard",
+      "name": "Blizzard",
+      "type": "brand",
+      "status": "review",
+      "matchReason": "exact-name-only",
+      "candidate": {
+        "id": "Q25394275",
+        "label": "Blizzard",
+        "description": "1935 Uragan-class guard ship"
+      },
+      "additions": {
+        "wikidataId": "Q25394275",
+        "wikidataDescription": "1935 Uragan-class guard ship",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q25394275"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q25394275",
+            "title": "Wikidata — Blizzard",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "body-glove",
+      "name": "Body Glove",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "bones-wheels-bones-bearings",
+      "name": "Bones Wheels / Bones Bearings",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "boreal",
+      "name": "Boreal",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "burton",
+      "name": "Burton Snowboards",
+      "type": "brand",
+      "status": "approved",
+      "matchReason": "official-domain-match",
+      "candidate": {
+        "id": "Q763051",
+        "label": "Burton Snowboards",
+        "description": "American manufacturer of snowboards, snowboarding equipment, and apparel"
+      },
+      "additions": {
+        "wikidataId": "Q763051",
+        "wikidataDescription": "American manufacturer of snowboards, snowboarding equipment, and apparel",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q763051",
+          "wikipedia": "https://en.wikipedia.org/wiki/Burton_Snowboards"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q763051",
+            "title": "Wikidata — Burton Snowboards",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Burton_Snowboards",
+            "title": "Wikipedia — Burton Snowboards",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "burton-us-open-2",
+      "name": "Burton US Open",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "cabrinha",
+      "name": "Cabrinha",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "cannondale",
+      "name": "Cannondale",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "canyon-bicycles",
+      "name": "Canyon Bicycles",
+      "type": "brand",
+      "status": "approved",
+      "matchReason": "official-domain-match",
+      "candidate": {
+        "id": "Q318730",
+        "label": "Canyon Bicycles",
+        "description": "German bicycle manufacturer"
+      },
+      "additions": {
+        "wikidataId": "Q318730",
+        "wikidataDescription": "German bicycle manufacturer",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q318730",
+          "wikipedia": "https://en.wikipedia.org/wiki/Canyon_Bicycles"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q318730",
+            "title": "Wikidata — Canyon Bicycles",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Canyon_Bicycles",
+            "title": "Wikipedia — Canyon Bicycles",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "capita",
+      "name": "CAPiTA",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "catch-surf",
+      "name": "Catch Surf",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "ccs-california-cheap-skates",
+      "name": "CCS (California Cheap Skates)",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "channel-islands",
+      "name": "Channel Islands Surfboards",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "confluence-outdoor",
+      "name": "Confluence Outdoor",
+      "type": "brand",
+      "status": "approved",
+      "matchReason": "official-domain-match",
+      "candidate": {
+        "id": "Q17510887",
+        "label": "Confluence Outdoor",
+        "description": "American manufacturer of kayaks, canoes, and related accessories"
+      },
+      "additions": {
+        "wikidataId": "Q17510887",
+        "wikidataDescription": "American manufacturer of kayaks, canoes, and related accessories",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q17510887",
+          "wikipedia": "https://en.wikipedia.org/wiki/Confluence_Outdoor"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q17510887",
+            "title": "Wikidata — Confluence Outdoor",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Confluence_Outdoor",
+            "title": "Wikipedia — Confluence Outdoor",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "crailtap-girl-distribution",
+      "name": "Crailtap / Girl Distribution",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "cypres-airtec",
+      "name": "Cypres (Airtec)",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "dagger-kayaks",
+      "name": "Dagger Kayaks",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "dainese",
+      "name": "Dainese",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "dakine",
+      "name": "Dakine",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "dc-shoes",
+      "name": "DC Shoes",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "dlxsf-deluxe-distribution",
+      "name": "Deluxe Distribution (DLXSF)",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "dew-tour-skate",
+      "name": "Dew Tour",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "dhd-surfboards",
+      "name": "DHD Surfboards",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "dive-n-surf",
+      "name": "Dive N' Surf",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "dogtown-skateboards",
+      "name": "Dogtown Skateboards",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "duotone-formerly-north-kiteboarding",
+      "name": "Duotone (formerly North Kiteboarding)",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "duotone-kiteboarding",
+      "name": "Duotone Kiteboarding",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "dwindle-distribution",
+      "name": "Dwindle Distribution",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "esa",
+      "name": "Eastern Surfing Association (ESA)",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "edelrid",
+      "name": "Edelrid",
+      "type": "brand",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q19278785",
+        "label": "Edelrid",
+        "description": "producer of rock climbing equipment and outdoor gear"
+      },
+      "additions": {
+        "wikidataId": "Q19278785",
+        "wikidataDescription": "producer of rock climbing equipment and outdoor gear",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q19278785"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q19278785",
+            "title": "Wikidata — Edelrid",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "elan",
+      "name": "Elan",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "elevate-outdoor-collective",
+      "name": "Elevate Outdoor Collective",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "encyclopedia-of-surfing",
+      "name": "Encyclopedia of Surfing",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "enjoi",
+      "name": "Enjoi",
+      "type": "brand",
+      "status": "approved",
+      "matchReason": "description-match",
+      "candidate": {
+        "id": "Q2038070",
+        "label": "Enjoi",
+        "description": "skateboard products manufacturer"
+      },
+      "additions": {
+        "wikidataId": "Q2038070",
+        "wikidataDescription": "skateboard products manufacturer",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q2038070",
+          "wikipedia": "https://en.wikipedia.org/wiki/Enjoi"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q2038070",
+            "title": "Wikidata — Enjoi",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Enjoi",
+            "title": "Wikipedia — Enjoi",
+            "type": "CC BY-SA 4.0 reference",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    },
+    {
+      "id": "es-footwear",
+      "name": "éS Footwear",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "etnies",
+      "name": "Etnies",
+      "status": "no-match",
+      "candidates": []
+    },
+    {
+      "id": "f-one",
+      "name": "F-One",
+      "type": "brand",
+      "status": "approved",
+      "matchReason": "official-domain-match",
+      "candidate": {
+        "id": "Q121372475",
+        "label": "F-One",
+        "description": "windsurf brand"
+      },
+      "additions": {
+        "wikidataId": "Q121372475",
+        "wikidataDescription": "windsurf brand",
+        "dataEnrichedAt": "2026-08-22",
+        "external": {
+          "wikidata": "https://www.wikidata.org/wiki/Q121372475"
+        },
+        "sources": [
+          {
+            "url": "https://www.wikidata.org/wiki/Q121372475",
+            "title": "Wikidata — F-One",
+            "type": "CC0 structured data",
+            "accessed": "2026-08-22"
+          }
+        ]
+      }
+    }
+  ]
+}
