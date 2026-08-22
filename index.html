@@ -56,7 +56,7 @@
   <link rel="stylesheet" href="base.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="visual-v2.css?v=20260712h" />
-  <link rel="stylesheet" href="social-refresh.css?v=20260822o" />
+  <link rel="stylesheet" href="social-refresh.css?v=20260822p" />
 </head>
 <body>
 
@@ -173,9 +173,9 @@
 
       <section class="memory-entry" aria-labelledby="memory-heading">
         <div class="memory-search-panel">
-          <span class="card-eyebrow">Remember this?</span>
-          <h1 id="memory-heading">Find the stuff you grew up with.</h1>
-          <p>That shirt from a movie. That deck from a skate video. The sunglasses, soundtrack or logo you never forgot.</p>
+          <span class="card-eyebrow">Rewind to the good stuff</span>
+          <h1 id="memory-heading">You never forgot it. You just needed a way back.</h1>
+          <p>The shirt. The deck. The movie. The song behind the best part. Press play on the culture you grew up with.</p>
           <form class="memory-search" onsubmit="runMemorySearch(event)">
             <label class="sr-only" for="memory-search-input">Search a memory</label>
             <div class="memory-search-field">
@@ -208,6 +208,26 @@
             <button type="button" onclick="exploreMemoryEra('2000s')"><strong>’00s</strong><span>DVD &amp; X Games</span></button>
           </div>
         </div>
+      </section>
+
+      <section class="asdb-mixtape" aria-labelledby="mixtape-heading">
+        <div class="mixtape-intro">
+          <div>
+            <span class="card-eyebrow">ASDB mixtape · side A</span>
+            <h2 id="mixtape-heading">The soundtrack is the time machine.</h2>
+            <p>Deep cuts from skate parts, surf films, games and VHS tapes. Pick one and keep digging.</p>
+          </div>
+          <div class="mixtape-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="mixtape-stations" role="group" aria-label="Filter music by genre">
+          <button class="mixtape-station active" type="button" onclick="filterAsdbMusic('all', this)">All cuts</button>
+          <button class="mixtape-station" type="button" onclick="filterAsdbMusic('punk', this)">Skate punk</button>
+          <button class="mixtape-station" type="button" onclick="filterAsdbMusic('hip-hop', this)">Hip-hop</button>
+          <button class="mixtape-station" type="button" onclick="filterAsdbMusic('alternative', this)">Alternative</button>
+          <button class="mixtape-station" type="button" onclick="filterAsdbMusic('surf', this)">Surf &amp; soul</button>
+        </div>
+        <div class="mixtape-track-list" id="mixtape-track-list" aria-live="polite"></div>
+        <p class="mixtape-source-note">Playback is provided by official or credited YouTube sources. ASDB does not host the recordings.</p>
       </section>
 
       <section class="founder-origin" aria-labelledby="founder-origin-heading">
@@ -259,25 +279,6 @@
           <p>Open it, see the story, then find the next connection.</p>
         </div>
         <div class="memory-showcase" id="memory-showcase"></div>
-      </section>
-
-      <section class="asdb-mixtape" aria-labelledby="mixtape-heading">
-        <div class="mixtape-intro">
-          <div>
-            <span class="card-eyebrow">ASDB mixtape</span>
-            <h2 id="mixtape-heading">Hear the culture.</h2>
-            <p>The songs behind the parts, films, games and eras. Deep cuts first.</p>
-          </div>
-          <div class="mixtape-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        </div>
-        <div class="mixtape-stations" role="group" aria-label="Filter music by genre">
-          <button class="mixtape-station active" type="button" onclick="filterAsdbMusic('all', this)">All cuts</button>
-          <button class="mixtape-station" type="button" onclick="filterAsdbMusic('punk', this)">Skate punk</button>
-          <button class="mixtape-station" type="button" onclick="filterAsdbMusic('hip-hop', this)">Hip-hop</button>
-          <button class="mixtape-station" type="button" onclick="filterAsdbMusic('alternative', this)">Alternative</button>
-        </div>
-        <div class="mixtape-track-list" id="mixtape-track-list" aria-live="polite"></div>
-        <p class="mixtape-source-note">Playback is provided by official or credited YouTube sources. ASDB does not host the recordings.</p>
       </section>
 
       <div class="home-entry archive-entry">
@@ -425,7 +426,7 @@
 </main>
 
 <!-- ── PERSISTENT MUSIC PLAYER ─────────────────────────────── -->
-<aside class="asdb-player" id="asdb-player" aria-label="ASDB music player" hidden>
+<aside class="asdb-player" id="asdb-player" aria-label="ASDB music player">
   <div class="asdb-player-drawer" id="asdb-player-drawer" hidden>
     <div class="asdb-player-video" id="asdb-player-video"></div>
     <div class="asdb-player-context" id="asdb-player-context"></div>
@@ -434,8 +435,8 @@
     <button class="asdb-player-art" id="asdb-player-expand" type="button" onclick="toggleAsdbPlayer()" aria-label="Open music player" aria-expanded="false"><span>AS</span><i></i></button>
     <div class="asdb-player-now">
       <small>ASDB MIXTAPE · NOW PLAYING</small>
-      <strong id="asdb-player-title">Choose a track</strong>
-      <span id="asdb-player-artist">Action sports soundtracks</span>
+      <strong id="asdb-player-title">Press play on a deep cut</strong>
+      <span id="asdb-player-artist">The sound of action-sports history</span>
     </div>
     <div class="asdb-player-actions">
       <button type="button" onclick="previousAsdbTrack()" aria-label="Previous track">‹</button>
@@ -568,7 +569,7 @@
 <script src="data.js?v=20260822o"></script>
 <script src="data-enrichment.js?v=20260822a"></script>
 <script src="data-new-profiles.js?v=20260822a"></script>
-<script src="app.js?v=20260822o"></script>
+<script src="app.js?v=20260822p"></script>
 <script src="auth.js?v=20260712"></script>
 
 </div><!-- /#asdb-root -->

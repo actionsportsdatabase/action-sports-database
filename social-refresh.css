@@ -2847,3 +2847,271 @@ body::before {
   .community-lore-visual { min-height: 185px; aspect-ratio: 16 / 9; }
   .community-lore-copy { padding: 17px 15px 19px; }
 }
+
+/* ── THE REWIND — WARM 1980s EDITORIAL HOME ─────────────────
+   Sun-faded surf magazines, VHS labels and mixtapes. The visual
+   language is nostalgic and human, never costume-neon or fratty. */
+#home-view {
+  --rewind-ink: #20233d;
+  --rewind-navy: #20284b;
+  --rewind-cream: #fff5dc;
+  --rewind-paper: #fffaf0;
+  --rewind-pink: #e85c92;
+  --rewind-coral: #ef765d;
+  --rewind-cyan: #28a7b8;
+  --rewind-gold: #f2bd4b;
+  position: relative;
+  padding-top: 12px;
+}
+
+#home-view::before {
+  position: absolute;
+  inset: -30px -100vw auto;
+  z-index: -1;
+  height: 720px;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 244, 218, .72), rgba(255,255,255,0)),
+    repeating-linear-gradient(0deg, rgba(32,35,61,.018) 0, rgba(32,35,61,.018) 1px, transparent 1px, transparent 4px);
+  content: '';
+}
+
+#home-view .memory-entry {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(32, 35, 61, .26);
+  border-radius: 7px;
+  background: var(--rewind-paper);
+  box-shadow: 10px 12px 0 rgba(32, 40, 75, .09), 0 22px 55px rgba(70, 45, 35, .10);
+}
+
+#home-view .memory-entry::before {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 3;
+  height: 7px;
+  background: linear-gradient(90deg, var(--rewind-coral) 0 23%, var(--rewind-gold) 23% 43%, var(--rewind-cyan) 43% 68%, var(--rewind-pink) 68% 100%);
+  content: '';
+}
+
+#home-view .memory-search-panel {
+  padding: clamp(28px, 4vw, 48px);
+  background:
+    radial-gradient(circle at 94% 12%, rgba(232, 92, 146, .14), transparent 25%),
+    radial-gradient(circle at 78% 110%, rgba(242, 189, 75, .21), transparent 34%),
+    linear-gradient(135deg, #fffaf0 0%, #fff4e5 62%, #f8e3dc 100%);
+}
+
+#home-view .memory-search-panel::after {
+  top: auto;
+  right: 4%;
+  bottom: -115px;
+  width: 250px;
+  height: 250px;
+  border: 18px solid rgba(40, 167, 184, .09);
+  box-shadow: 0 0 0 30px rgba(232, 92, 146, .055), 0 0 0 58px rgba(242, 189, 75, .05);
+}
+
+#home-view .card-eyebrow {
+  color: #a33b67;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .67rem;
+  letter-spacing: .17em;
+}
+
+#home-view .memory-search-panel h1 {
+  max-width: 840px;
+  margin: 10px 0 14px;
+  color: var(--rewind-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.4rem, 5.2vw, 4.35rem);
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: -.045em;
+  line-height: .96;
+  text-shadow: 3px 3px 0 rgba(232, 92, 146, .12);
+}
+
+#home-view .memory-search-panel > p {
+  max-width: 760px;
+  color: #5d5965;
+  font-size: clamp(.9rem, 1.35vw, 1.06rem);
+}
+
+#home-view .memory-search input {
+  border: 2px solid rgba(32, 35, 61, .34);
+  border-radius: 4px;
+  background: rgba(255,255,255,.84);
+  box-shadow: 4px 5px 0 rgba(32, 40, 75, .11);
+}
+
+#home-view .memory-search > button {
+  border-radius: 4px;
+  background: var(--rewind-navy);
+  box-shadow: 4px 5px 0 rgba(232, 92, 146, .35);
+}
+
+#home-view .memory-search > button:hover { background: #343d6b; }
+#home-view .memory-prompts button { border-radius: 2px; background: #f6e7c9; color: #4a4260; }
+#home-view .memory-prompts button:hover { background: #edd49f; }
+#home-view .memory-prompts .memory-surprise { background: var(--rewind-pink); color: #fff; }
+#home-view .memory-proof { border-color: rgba(32, 35, 61, .18); color: #6f6874; }
+
+#home-view .memory-decade-panel {
+  padding: clamp(28px, 3.1vw, 42px) clamp(22px, 3vw, 36px);
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0, rgba(255,255,255,.025) 1px, transparent 1px, transparent 4px),
+    var(--rewind-navy);
+  color: #fff9e8;
+}
+
+#home-view .memory-decade-panel .card-eyebrow { color: #f5adca; }
+#home-view .memory-decade-panel h2 {
+  color: #fff9e8;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  letter-spacing: -.03em;
+}
+
+#home-view .memory-decades button {
+  min-height: 106px;
+  border: 0;
+  border-radius: 3px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,.24);
+  transform: rotate(-.4deg);
+}
+#home-view .memory-decades button:nth-child(even) { transform: rotate(.45deg); }
+#home-view .memory-decades button:nth-child(1) { background: #f2d28f; }
+#home-view .memory-decades button:nth-child(2) { background: #ef8fb2; }
+#home-view .memory-decades button:nth-child(3) { background: #82ced0; }
+#home-view .memory-decades button:nth-child(4) { background: #eca779; }
+#home-view .memory-decades button strong { color: var(--rewind-ink); font-family: Georgia, serif; font-style: italic; }
+#home-view .memory-decades button span { color: rgba(32,35,61,.72); }
+
+/* The mixtape belongs above the fold, presented like a real deck. */
+#home-view .asdb-mixtape {
+  position: relative;
+  margin: 22px 0 18px;
+  padding: 24px 24px 18px;
+  overflow: hidden;
+  border: 2px solid #2a2a33;
+  border-radius: 7px;
+  background:
+    linear-gradient(90deg, transparent 0 58%, rgba(232,92,146,.11) 58% 60%, transparent 60% 63%, rgba(40,167,184,.12) 63% 65%, transparent 65%),
+    #e9dfc8;
+  color: var(--rewind-ink);
+  box-shadow: 8px 9px 0 rgba(32,40,75,.12), inset 0 0 0 5px rgba(255,255,255,.34);
+}
+
+#home-view .asdb-mixtape::before {
+  position: absolute;
+  top: 13px;
+  right: 18px;
+  width: 58px;
+  height: 10px;
+  border-top: 3px solid var(--rewind-pink);
+  border-bottom: 3px solid var(--rewind-cyan);
+  content: '';
+}
+
+#home-view .asdb-mixtape .card-eyebrow { color: #9b3e68; }
+#home-view .mixtape-intro h2 {
+  color: var(--rewind-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.55rem, 3vw, 2.45rem);
+  font-style: italic;
+  letter-spacing: -.035em;
+}
+#home-view .mixtape-intro p { color: #655f68; }
+#home-view .mixtape-eq i { background: linear-gradient(#e85c92, #ef765d, #f2bd4b); }
+#home-view .mixtape-stations { margin: 17px 0 13px; }
+#home-view .mixtape-station {
+  border-color: #8d846f;
+  border-radius: 2px;
+  background: rgba(255,250,237,.76);
+  color: #4d4852;
+}
+#home-view .mixtape-station:hover,
+#home-view .mixtape-station.active { border-color: var(--rewind-pink); background: var(--rewind-pink); color: #fff; }
+
+#home-view .mixtape-track-list {
+  display: grid;
+  grid-auto-columns: minmax(300px, 360px);
+  grid-auto-flow: column;
+  grid-template-columns: none;
+  gap: 10px;
+  padding: 2px 2px 10px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: inline proximity;
+}
+
+#home-view .mixtape-track {
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  min-height: 84px;
+  border: 1px solid #2d2d35;
+  border-radius: 3px;
+  background: #252633;
+  box-shadow: 3px 4px 0 rgba(0,0,0,.17);
+  scroll-snap-align: start;
+}
+#home-view .mixtape-track p { display: none; }
+#home-view .mixtape-source-note { color: #766f65; }
+
+/* The player is always visible: a portable cassette deck, not a hidden widget. */
+.asdb-player {
+  border: 2px solid #22242e;
+  border-radius: 6px;
+  background: #e8dec7;
+  color: #20233d;
+  box-shadow: 7px 8px 0 rgba(32,35,61,.18), 0 20px 55px rgba(0,0,0,.20);
+}
+.asdb-player::before {
+  display: block;
+  height: 5px;
+  background: linear-gradient(90deg, #e85c92 0 34%, #f2bd4b 34% 58%, #28a7b8 58% 100%);
+  content: '';
+}
+.asdb-player-bar { min-height: 70px; }
+.asdb-player-art { border-radius: 3px; background: #252633; box-shadow: inset 0 0 0 2px #777264; }
+.asdb-player-now small { color: #a33b67; }
+.asdb-player-now strong { color: #20233d; }
+.asdb-player-now span { color: #67636a; }
+.asdb-player-actions button { color: #4f4b55; }
+.asdb-player-actions button:hover { background: #d0c5ac; color: #20233d; }
+.asdb-player-actions .asdb-player-main { background: #e85c92; color: #fff; }
+.asdb-player-drawer { background: #20233d; }
+
+#home-view .founder-origin,
+#home-view .memory-categories,
+#home-view .memory-showcase-section,
+#home-view .archive-entry {
+  border-radius: 7px;
+  border-color: rgba(32,35,61,.22);
+  box-shadow: 7px 8px 0 rgba(32,40,75,.07);
+}
+
+#home-view .founder-origin-copy h2,
+#home-view .memory-section-heading h2,
+#home-view .entry-heading h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: -.04em;
+}
+
+#home-view .memory-category-grid button { border-radius: 4px; box-shadow: 3px 4px 0 rgba(32,40,75,.08); }
+
+@media (max-width: 760px) {
+  #home-view { padding-top: 4px; }
+  #home-view .memory-entry { border-radius: 5px; box-shadow: 5px 6px 0 rgba(32,40,75,.08); }
+  #home-view .memory-search-panel { padding: 27px 17px 20px; }
+  #home-view .memory-search-panel h1 { font-size: clamp(2.25rem, 11.5vw, 3.2rem); }
+  #home-view .memory-decade-panel { padding: 22px 16px; }
+  #home-view .memory-decades { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #home-view .memory-decades button { min-height: 88px; }
+  #home-view .asdb-mixtape { margin-top: 15px; padding: 20px 14px 14px; }
+  #home-view .asdb-mixtape::before { right: 12px; width: 42px; }
+  #home-view .mixtape-track-list { grid-auto-columns: minmax(270px, 84vw); }
+  .asdb-player { bottom: max(8px, env(safe-area-inset-bottom)); }
+}

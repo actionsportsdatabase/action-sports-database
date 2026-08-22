@@ -1037,7 +1037,11 @@ window.playAsdbTrack = playAsdbTrack;
 function toggleAsdbPlayer() {
   const player = document.getElementById('asdb-player');
   const drawer = document.getElementById('asdb-player-drawer');
-  if (!player || player.hidden || currentAsdbTrackIndex < 0) return;
+  if (!player) return;
+  if (currentAsdbTrackIndex < 0) {
+    playAsdbTrack(0);
+    return;
+  }
   const open = !player.classList.contains('open');
   player.classList.toggle('open', open);
   drawer.hidden = !open;
