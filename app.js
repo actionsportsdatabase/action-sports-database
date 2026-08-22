@@ -933,6 +933,133 @@ function surpriseMe() {
 }
 window.surpriseMe = surpriseMe;
 
+// ── ASDB MIXTAPE ────────────────────────────────────────────
+// Audio stays on its source platform. ASDB supplies the cultural context
+// and a persistent discovery interface.
+const ASDB_TRACKS = [
+  {
+    id: 'goldfinger-superman', title: 'Superman', artist: 'Goldfinger', year: '1997',
+    genre: 'punk', sport: 'Skate · THPS', youtubeId: 'XvziPPpryv0',
+    context: 'The song that became inseparable from the original Tony Hawk’s Pro Skater and a generation of living-room kickflips.',
+    nodeId: 'goldfinger-superman-thps-soundtrack', color: '#f5a524'
+  },
+  {
+    id: 'sublime-what-i-got', title: 'What I Got', artist: 'Sublime', year: '1996',
+    genre: 'punk', sport: 'Surf · Skate', youtubeId: '0Uc3ZrmhDN4',
+    context: 'Long Beach beach-punk in one track: sun-bleached, loose and embedded in late-1990s surf-and-skate culture.',
+    nodeId: 'sublime-what-i-got-video', color: '#e85b35'
+  },
+  {
+    id: 'dinosaur-jr-heaven', title: 'Just Like Heaven', artist: 'Dinosaur Jr.', year: '1989',
+    genre: 'alternative', sport: 'Skate · Video Days', youtubeId: 'UT7IpRx08tE',
+    context: 'Mark Gonzales, Blind’s Video Days and one of the most enduring song-to-skate-part connections ever made.',
+    nodeId: 'video-days-blind', color: '#6d43a5'
+  },
+  {
+    id: 'tribe-kick-it', title: 'Can I Kick It?', artist: 'A Tribe Called Quest', year: '1990',
+    genre: 'hip-hop', sport: 'Street skate', youtubeId: 'IoFdHWuKEN8',
+    context: 'Jazz-inflected hip-hop that matched the playful rhythm and visual language of early-1990s street skating.',
+    nodeId: 'a-tribe-called-quest', color: '#e23c66'
+  },
+  {
+    id: 'sandals-endless-summer', title: 'Theme from The Endless Summer', artist: 'The Sandals', year: '1966',
+    genre: 'surf', sport: 'Surf film', youtubeId: 'hg4FvOi-N18',
+    context: 'The warm instrumental theme that made Bruce Brown’s endless search for perfect waves feel timeless.',
+    nodeId: 'endless-summer', color: '#f49a45'
+  },
+  {
+    id: 'jack-johnson-flake', title: 'Flake', artist: 'Jack Johnson', year: '2002',
+    genre: 'surf', sport: 'Surf · Soul', youtubeId: '3wB6cWIMtXc',
+    context: 'The filmmaker-surfer’s laid-back sound became the quieter counterpoint to the high-energy VHS era.',
+    nodeId: 'jack-johnson', color: '#3e8f83'
+  }
+];
+
+let currentAsdbTrackIndex = -1;
+
+function renderAsdbMusic(genre = 'all') {
+  const list = document.getElementById('mixtape-track-list');
+  if (!list) return;
+  const tracks = ASDB_TRACKS.filter(track => genre === 'all' || track.genre === genre);
+  list.innerHTML = tracks.map(track => {
+    const index = ASDB_TRACKS.findIndex(item => item.id === track.id);
+    return `
+      <article class="mixtape-track" style="--track-color:${track.color}">
+        <button class="mixtape-play" type="button" onclick="playAsdbTrack(${index})" aria-label="Play ${escapeHtml(track.title)} by ${escapeHtml(track.artist)}"><span>▶</span></button>
+        <div class="mixtape-track-copy">
+          <small>${track.year} · ${escapeHtml(track.sport)}</small>
+          <strong>${escapeHtml(track.title)}</strong>
+          <span>${escapeHtml(track.artist)}</span>
+        </div>
+        <p>${escapeHtml(track.context)}</p>
+        <button class="mixtape-story" type="button" onclick="navigateTo('${track.nodeId}')">Story ↗</button>
+      </article>`;
+  }).join('');
+}
+
+function filterAsdbMusic(genre, button) {
+  document.querySelectorAll('.mixtape-station').forEach(item => item.classList.toggle('active', item === button));
+  renderAsdbMusic(genre);
+  trackInterest('music-genre', genre);
+}
+window.filterAsdbMusic = filterAsdbMusic;
+
+function playAsdbTrack(index) {
+  const track = ASDB_TRACKS[index];
+  if (!track) return;
+  currentAsdbTrackIndex = index;
+  const player = document.getElementById('asdb-player');
+  const drawer = document.getElementById('asdb-player-drawer');
+  const video = document.getElementById('asdb-player-video');
+  const expand = document.getElementById('asdb-player-expand');
+  player.hidden = false;
+  drawer.hidden = false;
+  player.classList.add('open');
+  expand?.setAttribute('aria-expanded', 'true');
+  document.getElementById('asdb-player-title').textContent = track.title;
+  document.getElementById('asdb-player-artist').textContent = `${track.artist} · ${track.year}`;
+  document.getElementById('asdb-player-context').innerHTML = `<strong>${escapeHtml(track.sport)}</strong><span>${escapeHtml(track.context)}</span><div><button type="button" onclick="navigateTo('${track.nodeId}')">Open the ASDB story ↗</button><a href="https://www.youtube.com/watch?v=${track.youtubeId}" target="_blank" rel="noopener">Listen on YouTube ↗</a></div>`;
+  video.innerHTML = `<iframe src="https://www.youtube.com/embed/${track.youtubeId}?autoplay=1&playsinline=1&rel=0" title="${escapeHtml(track.title)} by ${escapeHtml(track.artist)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  document.documentElement.style.setProperty('--active-track', track.color);
+  trackInterest('music-play', track.id);
+}
+window.playAsdbTrack = playAsdbTrack;
+
+function toggleAsdbPlayer() {
+  const player = document.getElementById('asdb-player');
+  const drawer = document.getElementById('asdb-player-drawer');
+  if (!player || player.hidden || currentAsdbTrackIndex < 0) return;
+  const open = !player.classList.contains('open');
+  player.classList.toggle('open', open);
+  drawer.hidden = !open;
+  document.getElementById('asdb-player-expand')?.setAttribute('aria-expanded', String(open));
+}
+window.toggleAsdbPlayer = toggleAsdbPlayer;
+
+function nextAsdbTrack() {
+  const next = currentAsdbTrackIndex < 0 ? 0 : (currentAsdbTrackIndex + 1) % ASDB_TRACKS.length;
+  playAsdbTrack(next);
+}
+window.nextAsdbTrack = nextAsdbTrack;
+
+function previousAsdbTrack() {
+  const previous = currentAsdbTrackIndex <= 0 ? ASDB_TRACKS.length - 1 : currentAsdbTrackIndex - 1;
+  playAsdbTrack(previous);
+}
+window.previousAsdbTrack = previousAsdbTrack;
+
+function closeAsdbPlayer() {
+  const player = document.getElementById('asdb-player');
+  const video = document.getElementById('asdb-player-video');
+  if (video) video.innerHTML = '';
+  if (player) {
+    player.hidden = true;
+    player.classList.remove('open');
+  }
+  currentAsdbTrackIndex = -1;
+}
+window.closeAsdbPlayer = closeAsdbPlayer;
+
 function searchMemory(query) {
   const input = document.getElementById('memory-search-input');
   if (input) input.value = query;
@@ -4247,6 +4374,7 @@ function init() {
   setupTheme();
   renderGrid();
   renderMemoryShowcase();
+  renderAsdbMusic();
   setupSportFilters();
   setupEraFilters();
   setupLocationFilters();
