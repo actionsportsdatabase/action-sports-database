@@ -311,7 +311,7 @@ body {
 
 .home-social-layout {
   display: grid;
-  grid-template-columns: 238px minmax(0, 1fr) 270px;
+  grid-template-columns: 220px minmax(0, 1fr) 292px;
   gap: 24px;
   align-items: start;
 }
@@ -413,6 +413,59 @@ body {
   gap: 12px;
 }
 
+.home-insights .v2-feed {
+  gap: 9px;
+  margin: 0;
+}
+
+.home-insights .v2-feed-header {
+  padding: 16px;
+}
+
+.home-insights .v2-feed-header h2 {
+  margin-bottom: 3px;
+  font-size: 1rem;
+}
+
+.home-insights .v2-feed-header p {
+  margin: 0;
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+.home-insights .v2-feed-item {
+  padding: 14px;
+}
+
+.home-insights .v2-feed-item-head {
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.home-insights .v2-feed-item-avatar {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  font-size: 0.72rem;
+}
+
+.home-insights .v2-feed-item-title {
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.home-insights .v2-feed-item-time,
+.home-insights .v2-feed-item-body {
+  font-size: 0.73rem;
+  line-height: 1.4;
+}
+
+.home-insights .v2-feed-item-tag {
+  display: inline-block;
+  margin: 4px 0 0;
+  font-size: 0.58rem;
+}
+
 .v2-feed-header {
   padding: 20px 22px;
 }
@@ -456,7 +509,82 @@ body {
 
 .browse-section {
   margin-top: 0;
-  padding: 22px;
+  padding: 0 24px 24px;
+  overflow: hidden;
+  border-top: 4px solid var(--network-blue) !important;
+  box-shadow: 0 10px 30px rgba(23, 33, 43, 0.09) !important;
+}
+
+.directory-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0 -24px;
+  padding: 26px 24px 22px;
+  background: linear-gradient(135deg, #f7fbff 0%, #edf6ff 100%);
+  border-bottom: 1px solid var(--network-line);
+}
+
+.directory-hero-copy {
+  max-width: 620px;
+}
+
+.directory-hero h2 {
+  max-width: 580px;
+  margin: 5px 0 7px;
+  color: var(--network-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.35vw, 2.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+.directory-hero p {
+  margin: 0;
+  color: var(--network-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.directory-total {
+  min-width: 132px;
+  padding: 13px 15px;
+  border: 1px solid #bdd8ef;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.82);
+  text-align: right;
+}
+
+.directory-total strong,
+.directory-total span {
+  display: block;
+}
+
+.directory-total strong {
+  color: var(--network-blue-dark);
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.directory-total span {
+  margin-top: 4px;
+  color: var(--network-muted);
+  font-size: 0.65rem;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.directory-results-header {
+  margin: 0;
+  padding: 18px 0 14px;
+}
+
+.directory-results-header .section-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
 }
 
 .directory-load-more {
@@ -1017,6 +1145,25 @@ body {
     padding: 14px;
   }
 
+  .directory-hero {
+    align-items: flex-start;
+    margin: -14px -14px 0;
+    padding: 19px 14px 17px;
+  }
+
+  .directory-hero h2 {
+    font-size: 1.45rem;
+  }
+
+  .directory-total {
+    min-width: 112px;
+    padding: 10px 11px;
+  }
+
+  .directory-total strong {
+    font-size: 1.3rem;
+  }
+
   .browse-section .section-header {
     align-items: flex-end;
     gap: 10px;
@@ -1284,6 +1431,16 @@ body {
 
   .entry-heading h1 {
     font-size: 1.2rem;
+  }
+
+  .directory-hero {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .directory-total {
+    width: 100%;
+    text-align: left;
   }
 
   .home-entry .sport-tab {

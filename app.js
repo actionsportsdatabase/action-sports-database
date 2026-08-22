@@ -735,6 +735,9 @@ function bornLink(bornStr, nodeId) {
 // ── RENDER NODE GRID ─────────────────────────────────────────
 function renderGrid() {
   const nodes = Object.values(ASDB.nodes);
+  const directoryTotal = document.getElementById('directory-total-count');
+  if (directoryTotal) directoryTotal.textContent = nodes.length.toLocaleString();
+  if (searchInput) searchInput.placeholder = `Search ${nodes.length.toLocaleString()} athletes, brands, places, films and more...`;
 
   let filtered = nodes.filter(n =>
     sportMatchesFilter(n, State.currentSport) &&
@@ -763,7 +766,15 @@ function renderGrid() {
     people:'Athletes & People', event:'Events & Competitions',
     org:'Organizations', equipment:'Equipment',
   };
-  browseTitle.textContent = sportTitleMap[State.currentSport] || 'Browse';
+  const locationLabel = State.currentLocation === 'all'
+    ? ''
+    : (document.querySelector(`.loc-tab[data-location="${State.currentLocation}"]`)?.textContent.trim() || State.currentLocation);
+  const eraLabel = State.currentEra === 'all'
+    ? ''
+    : (document.querySelector(`.era-chip[data-era="${State.currentEra}"]`)?.textContent.trim() || State.currentEra);
+  browseTitle.textContent = [sportTitleMap[State.currentSport] || 'Browse', locationLabel, eraLabel]
+    .filter(Boolean)
+    .join(' · ');
 
   if (filtered.length === 0) {
     nodeGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><h3>No entries found</h3><p>Try a different filter combination or <a href="#" onclick="resetFilters();return false;" style="color:var(--accent)">reset all filters</a>.</p></div>`;
@@ -3528,7 +3539,7 @@ function renderHomeFeed() {
 
   // Render — with On This Day rows at the top
   let otdHTML = '';
-  try { otdHTML = renderOnThisDayWidget(); } catch(e) { console.warn('OTD render failed', e); }
+  try { otdHTML = renderOnThisDayWidget(2); } catch(e) { console.warn('OTD render failed', e); }
 
   const html = `
     <div class="v2-feed-header">
@@ -3536,7 +3547,7 @@ function renderHomeFeed() {
       <p>New profiles, milestones and discoveries across the database.</p>
     </div>
     ${otdHTML}
-    ${items.slice(0, 8).map(item => `
+    ${items.slice(0, 3).map(item => `
       <article class="v2-feed-item" ${item.id ? `onclick="navigateTo('${item.id}')"` : ''}>
         <div class="v2-feed-item-head">
           <div class="v2-feed-item-avatar ${item.gradClass}">${item.avatar}</div>
@@ -4779,7 +4790,7 @@ function getOnThisDayItems() {
   };
 }
 
-function renderOnThisDayWidget() {
+function renderOnThisDayWidget(maxRows = 15) {
   const { born, founded, events, yearFounded, yearBorn, dateLabel, currentYear } = getOnThisDayItems();
   const total = born.length + founded.length + events.length;
   const milestoneTotal = yearFounded.length + yearBorn.length;
@@ -4870,7 +4881,7 @@ function renderOnThisDayWidget() {
     ? summaryBits.join(' · ')
     : (milestoneRows.length ? `No matches on ${dateLabel} — milestone anniversaries this year:` : `A quiet day in action-sports history. Come back tomorrow.`);
 
-  const allRows = [...rows, ...milestoneRows].slice(0, 15);
+  const allRows = [...rows, ...milestoneRows].slice(0, maxRows);
 
   return `
     <article class="v2-feed-item otd-summary">

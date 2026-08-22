@@ -56,7 +56,7 @@
   <link rel="stylesheet" href="base.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="visual-v2.css?v=20260712h" />
-  <link rel="stylesheet" href="social-refresh.css?v=20260822d" />
+  <link rel="stylesheet" href="social-refresh.css?v=20260822e" />
 </head>
 <body>
 
@@ -250,15 +250,21 @@
         </aside>
 
         <div class="home-stream">
-          <div class="v2-feed" id="home-feed"></div>
-
           <div class="browse-section" id="browse-directory">
-            <div class="section-header">
-              <div>
-                <span class="card-eyebrow">Directory</span>
-                <span class="section-title" id="browse-title">Athletes &amp; People</span>
+            <div class="directory-hero">
+              <div class="directory-hero-copy">
+                <span class="card-eyebrow">The ASDB directory</span>
+                <h2>Explore the people, places and culture of action sports.</h2>
+                <p>Choose a filter, open any profile and follow the connections.</p>
               </div>
-              <span class="section-count" id="browse-count"></span>
+              <div class="directory-total" aria-label="Total profiles">
+                <strong id="directory-total-count">3,963</strong>
+                <span>connected profiles</span>
+              </div>
+            </div>
+            <div class="section-header directory-results-header">
+              <span class="section-title" id="browse-title">All Entries</span>
+              <span class="section-count" id="browse-count" aria-live="polite"></span>
             </div>
             <div class="node-grid" id="node-grid"></div>
             <div class="directory-load-more" id="directory-load-more" hidden>
@@ -274,6 +280,7 @@
             <p>Move from an athlete to their sponsors, films, locations and influences without losing the story.</p>
             <a class="insight-action" href="#browse-directory">Browse profiles</a>
           </div>
+          <div class="v2-feed right-rail-feed" id="home-feed"></div>
           <div class="network-card quick-links-card">
             <span class="card-eyebrow">Popular paths</span>
             <a href="#profile/kelly-slater">Kelly Slater</a>
@@ -430,7 +437,7 @@
 <script src="data.js?v=20260713a"></script>
 <script src="data-enrichment.js?v=20260822a"></script>
 <script src="data-new-profiles.js?v=20260822a"></script>
-<script src="app.js?v=20260822d"></script>
+<script src="app.js?v=20260822e"></script>
 <script src="auth.js?v=20260712"></script>
 
 </div><!-- /#asdb-root -->
