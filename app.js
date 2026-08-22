@@ -1029,6 +1029,18 @@ function playAsdbTrack(index) {
   document.getElementById('asdb-player-artist').textContent = `${track.artist} · ${track.year}`;
   document.getElementById('asdb-player-context').innerHTML = `<strong>${escapeHtml(track.sport)}</strong><span>${escapeHtml(track.context)}</span><div><button type="button" onclick="navigateTo('${track.nodeId}')">Open the ASDB story ↗</button><a href="https://www.youtube.com/watch?v=${track.youtubeId}" target="_blank" rel="noopener">Listen on YouTube ↗</a></div>`;
   video.innerHTML = `<iframe src="https://www.youtube.com/embed/${track.youtubeId}?autoplay=1&playsinline=1&rel=0" title="${escapeHtml(track.title)} by ${escapeHtml(track.artist)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  const stageVideo = document.getElementById('mixtape-stage-video');
+  const stageTitle = document.getElementById('mixtape-stage-title');
+  const stageArtist = document.getElementById('mixtape-stage-artist');
+  const stageMeta = document.getElementById('mixtape-stage-meta');
+  const stageContext = document.getElementById('mixtape-stage-context');
+  const stageLinks = document.getElementById('mixtape-stage-links');
+  if (stageVideo) stageVideo.innerHTML = `<iframe src="https://www.youtube.com/embed/${track.youtubeId}?autoplay=1&playsinline=1&rel=0" title="${escapeHtml(track.title)} by ${escapeHtml(track.artist)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  if (stageTitle) stageTitle.textContent = track.title;
+  if (stageArtist) stageArtist.textContent = track.artist;
+  if (stageMeta) stageMeta.textContent = `${track.year} · ${track.sport}`;
+  if (stageContext) stageContext.textContent = track.context;
+  if (stageLinks) stageLinks.innerHTML = `<button type="button" onclick="playAsdbTrack(${index})">Restart track</button><button type="button" onclick="navigateTo('${track.nodeId}')">Open the story →</button>`;
   document.documentElement.style.setProperty('--active-track', track.color);
   trackInterest('music-play', track.id);
 }

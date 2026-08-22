@@ -3115,3 +3115,156 @@ body::before {
   #home-view .mixtape-track-list { grid-auto-columns: minmax(270px, 84vw); }
   .asdb-player { bottom: max(8px, env(safe-area-inset-bottom)); }
 }
+
+/* ── MUSIC-FIRST HOME: THE PLAYER IS THE HERO ─────────────── */
+#home-view > .asdb-mixtape:first-child {
+  margin: 0 0 18px;
+  padding: clamp(20px, 3vw, 34px);
+  border: 0;
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(232,92,146,.22), transparent 34%),
+    radial-gradient(circle at 0% 100%, rgba(40,167,184,.16), transparent 38%),
+    #171922;
+  color: #fff;
+  box-shadow: 0 18px 48px rgba(20, 22, 30, .22);
+}
+
+#home-view > .asdb-mixtape:first-child::before {
+  top: 0;
+  right: 0;
+  left: 0;
+  width: auto;
+  height: 5px;
+  border: 0;
+  background: linear-gradient(90deg, #e85c92, #f2bd4b 48%, #28a7b8);
+}
+
+#home-view > .asdb-mixtape .mixtape-intro { align-items: end; }
+#home-view > .asdb-mixtape .mixtape-intro h2 {
+  margin-top: 4px;
+  color: #fff;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.8rem, 3.6vw, 3.25rem);
+  font-style: italic;
+  line-height: 1;
+}
+#home-view > .asdb-mixtape .mixtape-intro p { max-width: 760px; color: #b9bbc7; font-size: .88rem; }
+
+.mixtape-stage {
+  display: grid;
+  grid-template-columns: minmax(380px, 1.35fr) minmax(260px, .65fr);
+  gap: 0;
+  margin: 22px 0 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 8px;
+  background: #0b0c11;
+}
+
+.mixtape-stage-video {
+  position: relative;
+  display: grid;
+  min-height: 350px;
+  place-items: center;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(40,167,184,.45), rgba(32,35,61,.25) 48%, rgba(232,92,146,.48)),
+    #212432;
+}
+
+.mixtape-stage-video::before {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border: 28px solid rgba(255,255,255,.055);
+  border-radius: 50%;
+  box-shadow: 0 0 0 45px rgba(255,255,255,.025);
+  content: '';
+}
+
+.mixtape-stage-video > button {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+.mixtape-stage-video > button span {
+  display: grid;
+  width: 78px;
+  height: 78px;
+  margin-bottom: 7px;
+  border: 2px solid rgba(255,255,255,.82);
+  border-radius: 50%;
+  place-items: center;
+  background: rgba(10,11,16,.58);
+  font-size: 1.35rem;
+  box-shadow: 0 10px 35px rgba(0,0,0,.28);
+}
+.mixtape-stage-video > button strong { font: 800 1.15rem/1 var(--font-body); }
+.mixtape-stage-video > button small { color: rgba(255,255,255,.72); font-size: .72rem; }
+.mixtape-stage-video iframe { display: block; width: 100%; height: 100%; min-height: 350px; border: 0; }
+
+.mixtape-stage-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(24px, 3vw, 42px);
+  background: #f7f3e8;
+  color: #20233d;
+}
+.mixtape-stage-copy > span { color: #a33b67; font-size: .64rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.mixtape-stage-copy h3 { margin: 10px 0 2px; font: italic 700 clamp(1.8rem, 3vw, 2.8rem)/.98 Georgia, serif; letter-spacing: -.04em; }
+.mixtape-stage-copy > strong { color: #66606d; font-size: .9rem; }
+.mixtape-stage-copy p { margin: 18px 0 0; color: #5f5b65; font-size: .82rem; line-height: 1.55; }
+.mixtape-stage-copy > div { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.mixtape-stage-copy button {
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid #20233d;
+  border-radius: 4px;
+  background: transparent;
+  color: #20233d;
+  font: 800 .72rem/1 var(--font-body);
+  cursor: pointer;
+}
+.mixtape-stage-copy button:first-child { border-color: #e85c92; background: #e85c92; color: #fff; }
+
+#home-view > .asdb-mixtape .mixtape-station { border-color: #444752; background: #272a35; color: #c8cad2; }
+#home-view > .asdb-mixtape .mixtape-station:hover,
+#home-view > .asdb-mixtape .mixtape-station.active { border-color: #e85c92; background: #e85c92; color: #fff; }
+#home-view > .asdb-mixtape .mixtape-source-note { color: #747784; }
+
+/* Search is a utility now, not a wall of letters. */
+#home-view .memory-entry { margin-top: 0; box-shadow: 0 12px 36px rgba(32,35,61,.08); }
+#home-view .memory-search-panel { padding: clamp(24px, 3vw, 34px); }
+#home-view .memory-search-panel h1 {
+  max-width: none;
+  margin: 7px 0 7px;
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  line-height: 1;
+  text-shadow: none;
+}
+#home-view .memory-search-panel > p { margin-bottom: 18px; }
+
+@media (max-width: 900px) {
+  .mixtape-stage { grid-template-columns: 1fr; }
+  .mixtape-stage-video,
+  .mixtape-stage-video iframe { min-height: 310px; }
+}
+
+@media (max-width: 620px) {
+  #home-view > .asdb-mixtape:first-child { padding: 20px 12px 14px; border-radius: 6px; }
+  #home-view > .asdb-mixtape .mixtape-intro h2 { font-size: 2rem; }
+  .mixtape-stage { margin: 16px 0 14px; }
+  .mixtape-stage-video,
+  .mixtape-stage-video iframe { min-height: 220px; }
+  .mixtape-stage-copy { padding: 21px 17px; }
+  .mixtape-stage-copy h3 { font-size: 2rem; }
+  #home-view .memory-search-panel h1 { font-size: 2.2rem; }
+}
