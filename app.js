@@ -898,11 +898,13 @@ function renderMemoryShowcase() {
     const visualStyle = image
       ? `--memory-gradient:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.62)),url('${image}') center/cover no-repeat`
       : `--memory-gradient:${item.gradient}`;
+    const eraClass = `era-${String(item.year).replace(/[^0-9a-z]/gi, '').toLowerCase()}`;
     return `
-      <article class="memory-card">
+      <article class="memory-card ${eraClass}">
         <div class="memory-card-visual" style="${visualStyle}" role="button" tabindex="0" aria-label="Open ${escapeHtml(node.name)}" onclick="navigateTo('${node.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateTo('${node.id}');}">
           <span class="memory-card-year">${item.year}</span>
           <span class="memory-card-monogram">${initials(node.name)}</span>
+          <span class="memory-card-open">Open story <b aria-hidden="true">↗</b></span>
         </div>
         <div class="memory-card-copy">
           <strong>${escapeHtml(node.name)}</strong>
@@ -915,6 +917,21 @@ function renderMemoryShowcase() {
       </article>`;
   }).join('');
 }
+
+function surpriseMe() {
+  const curated = MEMORY_SHOWCASE
+    .map(item => ASDB.nodes[item.id])
+    .filter(Boolean);
+  if (!curated.length) return;
+
+  const lastId = sessionStorage.getItem('asdb_last_surprise');
+  const choices = curated.filter(node => node.id !== lastId);
+  const node = choices[Math.floor(Math.random() * choices.length)] || curated[0];
+  sessionStorage.setItem('asdb_last_surprise', node.id);
+  trackInterest('surprise', node.id);
+  navigateTo(node.id);
+}
+window.surpriseMe = surpriseMe;
 
 function searchMemory(query) {
   const input = document.getElementById('memory-search-input');

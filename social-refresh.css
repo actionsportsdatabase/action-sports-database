@@ -1932,3 +1932,245 @@ body {
     opacity: 0.75;
   }
 }
+
+/* ── NOSTALGIA POLISH ───────────────────────────────────────
+   Keeps the search-first layout while making the archive feel
+   warmer, more tactile and more rewarding to explore. */
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 8% 7%, rgba(255, 164, 91, 0.08), transparent 24rem),
+    radial-gradient(circle at 94% 18%, rgba(46, 126, 203, 0.09), transparent 28rem),
+    linear-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.16) 1px, transparent 1px);
+  background-size: auto, auto, 32px 32px, 32px 32px;
+  content: '';
+}
+
+.memory-entry,
+.memory-categories,
+.memory-showcase-section,
+.archive-entry {
+  box-shadow: 0 10px 34px rgba(23, 33, 43, 0.075);
+}
+
+.memory-search-panel {
+  position: relative;
+  isolation: isolate;
+}
+
+.memory-search-panel::after {
+  position: absolute;
+  top: -72px;
+  right: -46px;
+  z-index: -1;
+  width: 250px;
+  height: 250px;
+  border: 42px solid rgba(44, 131, 211, 0.055);
+  border-radius: 50%;
+  content: '';
+}
+
+.memory-search input {
+  box-shadow: 0 5px 18px rgba(23, 33, 43, 0.055);
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.memory-search input:focus {
+  box-shadow: 0 0 0 4px rgba(10, 102, 194, 0.1), 0 10px 24px rgba(23, 33, 43, 0.08);
+  transform: translateY(-1px);
+}
+
+.memory-search > button {
+  box-shadow: 0 7px 18px rgba(10, 102, 194, 0.24);
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.memory-search > button:hover {
+  background: var(--network-blue-dark);
+  box-shadow: 0 10px 23px rgba(10, 102, 194, 0.29);
+  transform: translateY(-2px);
+}
+
+.memory-prompts button {
+  transition: background 150ms ease, color 150ms ease, transform 150ms ease;
+}
+
+.memory-prompts button:hover {
+  background: #d6eafb;
+  transform: translateY(-1px);
+}
+
+.memory-prompts .memory-surprise {
+  margin-left: 2px;
+  background: #17212b;
+  color: #fff;
+}
+
+.memory-prompts .memory-surprise:hover {
+  background: #263647;
+}
+
+.memory-surprise span {
+  margin-right: 3px;
+  color: #ffd26f;
+}
+
+.memory-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(146, 174, 200, 0.34);
+  color: var(--network-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.memory-proof span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.memory-proof strong {
+  color: var(--network-ink);
+  font-family: var(--font-display);
+  font-size: 0.86rem;
+}
+
+.memory-decades button {
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.memory-decades button::after {
+  position: absolute;
+  right: -8px;
+  bottom: -18px;
+  color: rgba(23, 33, 43, 0.055);
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  line-height: 1;
+  content: '◯';
+}
+
+.memory-category-grid button {
+  position: relative;
+  overflow: hidden;
+}
+
+.memory-category-grid button::after {
+  position: absolute;
+  inset: auto -30px -45px auto;
+  width: 80px;
+  height: 80px;
+  border: 14px solid rgba(23, 33, 43, 0.035);
+  border-radius: 50%;
+  content: '';
+}
+
+.memory-category-grid button:nth-child(1) { background: linear-gradient(145deg, #fff 55%, #fff0e6); }
+.memory-category-grid button:nth-child(2) { background: linear-gradient(145deg, #fff 55%, #fff7d9); }
+.memory-category-grid button:nth-child(3) { background: linear-gradient(145deg, #fff 55%, #e8f4ff); }
+.memory-category-grid button:nth-child(4) { background: linear-gradient(145deg, #fff 55%, #f1eaff); }
+.memory-category-grid button:nth-child(5) { background: linear-gradient(145deg, #fff 55%, #e7f7ef); }
+.memory-category-grid button:nth-child(6) { background: linear-gradient(145deg, #fff 55%, #fbeaf1); }
+
+.memory-card {
+  position: relative;
+  transition: transform 190ms ease, box-shadow 190ms ease, border-color 190ms ease;
+}
+
+.memory-card:hover {
+  border-color: #9ebbd3;
+  box-shadow: 0 14px 30px rgba(23, 33, 43, 0.14);
+  transform: translateY(-5px);
+}
+
+.memory-card-visual {
+  transition: filter 190ms ease;
+}
+
+.memory-card:hover .memory-card-visual {
+  filter: saturate(1.12) contrast(1.03);
+}
+
+.memory-card-visual::before {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.18) 3px 4px);
+  pointer-events: none;
+  content: '';
+}
+
+.memory-card-open {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+  padding: 5px 7px;
+  border-radius: 999px;
+  background: rgba(10, 14, 18, 0.42);
+  color: #fff;
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 170ms ease, transform 170ms ease;
+}
+
+.memory-card:hover .memory-card-open,
+.memory-card-visual:focus .memory-card-open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.memory-card-actions a {
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.memory-card-actions a:hover {
+  background: #e7f2fc;
+  color: var(--network-blue-dark);
+}
+
+@media (max-width: 760px) {
+  .memory-proof {
+    gap: 8px 14px;
+  }
+
+  .memory-proof span:nth-child(3) {
+    display: none;
+  }
+
+  .memory-card {
+    flex: 0 0 76vw;
+    max-width: 290px;
+    scroll-snap-align: start;
+  }
+
+  .memory-card-open {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memory-search input,
+  .memory-search > button,
+  .memory-prompts button,
+  .memory-decades button,
+  .memory-category-grid button,
+  .memory-card,
+  .memory-card-open {
+    transition: none !important;
+  }
+}
