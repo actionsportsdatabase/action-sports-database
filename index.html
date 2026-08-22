@@ -56,7 +56,7 @@
   <link rel="stylesheet" href="base.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="visual-v2.css?v=20260712h" />
-  <link rel="stylesheet" href="social-refresh.css?v=20260822e" />
+  <link rel="stylesheet" href="social-refresh.css?v=20260822f" />
 </head>
 <body>
 
@@ -113,7 +113,7 @@
           type="search"
           class="search-input"
           id="main-search"
-          placeholder="Search 3,960 athletes, brands, places, films and more…"
+          placeholder="What do you remember? Search athletes, brands, gear, films and more…"
           autocomplete="off"
           aria-label="Search database"
           aria-autocomplete="list"
@@ -171,13 +171,72 @@
     <!-- ── HOME VIEW ──────────────────────────────────────── -->
     <section id="home-view" aria-label="Homepage">
 
-      <div class="home-entry">
+      <section class="memory-entry" aria-labelledby="memory-heading">
+        <div class="memory-search-panel">
+          <span class="card-eyebrow">Remember this?</span>
+          <h1 id="memory-heading">Find the stuff you grew up with.</h1>
+          <p>That shirt from a movie. That deck from a skate video. The sunglasses, soundtrack or logo you never forgot.</p>
+          <form class="memory-search" onsubmit="runMemorySearch(event)">
+            <label class="sr-only" for="memory-search-input">Search a memory</label>
+            <input id="memory-search-input" type="search" placeholder="Try “Gotcha shirt from 1988” or “Video Days soundtrack”" autocomplete="off" />
+            <button type="submit">Find my memory</button>
+          </form>
+          <div class="memory-prompts" aria-label="Example searches">
+            <button type="button" onclick="searchMemory('Gotcha')">Gotcha</button>
+            <button type="button" onclick="searchMemory('Video Days 1991')">Video Days</button>
+            <button type="button" onclick="searchMemory('Powell Peralta 1980s')">Powell-Peralta</button>
+            <button type="button" onclick="searchMemory('surf movies 1990s')">90s surf movies</button>
+          </div>
+        </div>
+
+        <div class="memory-decade-panel">
+          <span class="card-eyebrow">Jump back in time</span>
+          <h2>Pick your era</h2>
+          <div class="memory-decades">
+            <button type="button" onclick="exploreMemoryEra('1970s')"><strong>’70s</strong><span>Origins</span></button>
+            <button type="button" onclick="exploreMemoryEra('1980s')"><strong>’80s</strong><span>Neon &amp; VHS</span></button>
+            <button type="button" onclick="exploreMemoryEra('1990s')"><strong>’90s</strong><span>Peak culture</span></button>
+            <button type="button" onclick="exploreMemoryEra('2000s')"><strong>’00s</strong><span>DVD &amp; X Games</span></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="memory-categories" aria-labelledby="memory-categories-heading">
+        <div class="memory-section-heading">
+          <div>
+            <span class="card-eyebrow">Follow the rabbit hole</span>
+            <h2 id="memory-categories-heading">What do you remember?</h2>
+          </div>
+          <p>Start anywhere. Every memory connects to another.</p>
+        </div>
+        <div class="memory-category-grid">
+          <button type="button" onclick="searchMemory('apparel clothing shirts boardshorts')"><span>👕</span><strong>Clothing &amp; graphics</strong><small>Shirts, jackets, boardshorts</small></button>
+          <button type="button" onclick="exploreMemoryType('equipment')"><span>🛹</span><strong>Boards &amp; gear</strong><small>Decks, shapes, bikes, hardware</small></button>
+          <button type="button" onclick="exploreMemoryType('film')"><span>📼</span><strong>Videos &amp; movies</strong><small>VHS parts, films, television</small></button>
+          <button type="button" onclick="exploreMemoryType('music')"><span>🎵</span><strong>Music &amp; soundtracks</strong><small>The songs tied to the footage</small></button>
+          <button type="button" onclick="exploreMemoryType('brand')"><span>🏷️</span><strong>Brands &amp; logos</strong><small>The names we wore everywhere</small></button>
+          <button type="button" onclick="searchMemory('magazine video game')"><span>🎮</span><strong>Magazines &amp; games</strong><small>Print, consoles and culture</small></button>
+        </div>
+      </section>
+
+      <section class="memory-showcase-section" aria-labelledby="memory-showcase-heading">
+        <div class="memory-section-heading">
+          <div>
+            <span class="card-eyebrow">Start with a memory</span>
+            <h2 id="memory-showcase-heading">Icons hiding in the archive</h2>
+          </div>
+          <p>Open it, see the story, then find the next connection.</p>
+        </div>
+        <div class="memory-showcase" id="memory-showcase"></div>
+      </section>
+
+      <div class="home-entry archive-entry">
         <div class="entry-heading">
           <div>
-            <span class="card-eyebrow">Action Sports Database</span>
-            <h1>Start exploring.</h1>
+            <span class="card-eyebrow">The complete archive</span>
+            <h2>Browse all 3,963 connected profiles.</h2>
           </div>
-          <p>Search above, or jump into a discipline.</p>
+          <p>Choose a discipline, then refine by location or era.</p>
         </div>
         <div class="sport-filters" id="sport-filters" role="tablist" aria-label="Filter by sport">
           <button class="sport-tab active" data-sport="all" role="tab" aria-selected="true">All</button>
@@ -437,7 +496,7 @@
 <script src="data.js?v=20260713a"></script>
 <script src="data-enrichment.js?v=20260822a"></script>
 <script src="data-new-profiles.js?v=20260822a"></script>
-<script src="app.js?v=20260822e"></script>
+<script src="app.js?v=20260822f"></script>
 <script src="auth.js?v=20260712"></script>
 
 </div><!-- /#asdb-root -->

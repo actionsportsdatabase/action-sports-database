@@ -737,7 +737,7 @@ function renderGrid() {
   const nodes = Object.values(ASDB.nodes);
   const directoryTotal = document.getElementById('directory-total-count');
   if (directoryTotal) directoryTotal.textContent = nodes.length.toLocaleString();
-  if (searchInput) searchInput.placeholder = `Search ${nodes.length.toLocaleString()} athletes, brands, places, films and more...`;
+  if (searchInput) searchInput.placeholder = `What do you remember? Search ${nodes.length.toLocaleString()} connected profiles...`;
 
   let filtered = nodes.filter(n =>
     sportMatchesFilter(n, State.currentSport) &&
@@ -867,6 +867,109 @@ function renderCard(node) {
     </article>
   `;
 }
+
+// ── MEMORY-FIRST HOME ───────────────────────────────────────
+// Curated entry points use real ASDB records. Image URLs can be added to a
+// node later; the card automatically switches from the archival art fallback.
+const MEMORY_SHOWCASE = [
+  { id: 'gotcha', year: '1980s', note: 'The surf-fashion brand that put neon culture everywhere.', gradient: 'linear-gradient(135deg,#ff5b2e 0%,#ffb000 52%,#e90070 100%)' },
+  { id: 'powell-peralta-public-domain-1988', year: '1988', note: 'Bones Brigade on VHS at the edge of skateboarding’s street shift.', gradient: 'linear-gradient(135deg,#131313 0%,#4c2387 54%,#e34423 100%)' },
+  { id: 'video-days-blind', year: '1991', note: 'Blind, Spike Jonze and a video that changed street skating.', gradient: 'linear-gradient(135deg,#0f1720 0%,#1c6c88 55%,#efcf52 100%)' },
+  { id: 'gleaming-the-cube-1989', year: '1989', note: 'A cult movie where skateboarding took over the plot.', gradient: 'linear-gradient(135deg,#133e7c 0%,#207ed1 50%,#e54f9d 100%)' },
+  { id: 'arnette', year: '1990s', note: 'Black Dogs, Ravens and the sunglasses every rider recognized.', gradient: 'linear-gradient(135deg,#151515 0%,#363636 57%,#e8500a 100%)' },
+  { id: '1080-snowboarding', year: '1998', note: 'The N64 snowboarding game that lived in the console.', gradient: 'linear-gradient(135deg,#162554 0%,#2e7ecb 48%,#d4edf8 100%)' },
+];
+
+function memoryMarketplaceQuery(node) {
+  const era = node.released || node.founded || node.era || node.peakEra || '';
+  const objectWord = ['brand', 'equipment', 'media', 'film', 'music'].includes(node.type) ? 'vintage' : 'memorabilia';
+  return `${node.name} ${era} ${objectWord}`.trim();
+}
+
+function renderMemoryShowcase() {
+  const el = document.getElementById('memory-showcase');
+  if (!el) return;
+
+  el.innerHTML = MEMORY_SHOWCASE.map(item => {
+    const node = ASDB.nodes[item.id];
+    if (!node) return '';
+    const query = encodeURIComponent(memoryMarketplaceQuery(node));
+    const image = node.image || node.imageUrl || node.photo || '';
+    const visualStyle = image
+      ? `--memory-gradient:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.62)),url('${image}') center/cover no-repeat`
+      : `--memory-gradient:${item.gradient}`;
+    return `
+      <article class="memory-card">
+        <div class="memory-card-visual" style="${visualStyle}" role="button" tabindex="0" aria-label="Open ${escapeHtml(node.name)}" onclick="navigateTo('${node.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateTo('${node.id}');}">
+          <span class="memory-card-year">${item.year}</span>
+          <span class="memory-card-monogram">${initials(node.name)}</span>
+        </div>
+        <div class="memory-card-copy">
+          <strong>${escapeHtml(node.name)}</strong>
+          <small>${item.note}</small>
+        </div>
+        <div class="memory-card-actions">
+          <a href="https://www.ebay.com/sch/i.html?_nkw=${query}" target="_blank" rel="noopener sponsored" onclick="trackInterest('marketplace','ebay:${node.id}')">Find on eBay</a>
+          <a href="https://www.amazon.com/s?k=${query}" target="_blank" rel="noopener sponsored" onclick="trackInterest('marketplace','amazon:${node.id}')">Try Amazon</a>
+        </div>
+      </article>`;
+  }).join('');
+}
+
+function searchMemory(query) {
+  const input = document.getElementById('memory-search-input');
+  if (input) input.value = query;
+  navigateSearch(query);
+}
+window.searchMemory = searchMemory;
+
+function runMemorySearch(event) {
+  event.preventDefault();
+  const input = document.getElementById('memory-search-input');
+  const query = input ? input.value.trim() : '';
+  if (query) navigateSearch(query);
+}
+window.runMemorySearch = runMemorySearch;
+
+function exploreMemoryEra(era) {
+  const eraButton = document.querySelector(`.era-chip[data-era="${era}"]`);
+  if (eraButton) eraButton.click();
+  trackInterest('era', era);
+  document.getElementById('browse-directory')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+window.exploreMemoryEra = exploreMemoryEra;
+
+function exploreMemoryType(type) {
+  const typeButton = document.querySelector(`.sport-tab[data-sport="${type}"]`);
+  if (typeButton) typeButton.click();
+  trackInterest('category', type);
+  document.getElementById('browse-directory')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+window.exploreMemoryType = exploreMemoryType;
+
+function trackInterest(kind, value) {
+  try {
+    const key = 'asdb_interest_events_v1';
+    const events = JSON.parse(localStorage.getItem(key) || '[]');
+    events.push({ kind, value, at: Date.now() });
+    localStorage.setItem(key, JSON.stringify(events.slice(-500)));
+  } catch(e) {}
+}
+window.trackInterest = trackInterest;
+
+function saveMemory(id) {
+  try {
+    const key = 'asdb_saved_memories_v1';
+    const saved = JSON.parse(localStorage.getItem(key) || '[]');
+    if (!saved.includes(id)) saved.push(id);
+    localStorage.setItem(key, JSON.stringify(saved));
+    trackInterest('save', id);
+    showToast(`Saved ${ASDB.nodes[id]?.name || 'memory'}`);
+  } catch(e) {
+    showToast('Unable to save this memory on this device.');
+  }
+}
+window.saveMemory = saveMemory;
 
 // ── FILTER PAGE ───────────────────────────────────────────────
 function navigateFilter(type, value, addToHistory = true) {
@@ -1060,6 +1163,7 @@ function renderFilterPage(type, value) {
 // ── NAVIGATION ───────────────────────────────────────────────
 function navigateTo(id, addToHistory = true) {
   if (!ASDB.nodes[id]) return;
+  trackInterest('profile', id);
 
   if (addToHistory) {
     if (State.historyIdx < State.history.length - 1) {
@@ -1266,32 +1370,19 @@ function buildV2Hero(node, id, isClaimed, isDefunct) {
 
   const statsHTML = stats.join('<span class="v2-stat-divider">·</span>');
 
-  // Action buttons — Follow / Connect / Endorse + Share/Embed
-  const isPerson = (type === 'athlete' || type === 'person' || type === 'photographer' || type === 'filmer' || type === 'journalist');
-  const primaryLabel = isPerson ? 'Follow' : 'Follow';
-  const connectLabel = isPerson ? 'Connect' : 'Save';
-  const endorseLabel = isPerson ? 'Endorse' : 'Recommend';
+  // Memory actions — save the rabbit hole and search live marketplaces.
+  const marketQuery = encodeURIComponent(memoryMarketplaceQuery(node));
 
   const actionsHTML = `
-    <button class="v2-action-btn primary" onclick="handleFollow('${id}')" title="${primaryLabel} ${node.name}">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
-      ${primaryLabel}
+    <button class="v2-action-btn primary" onclick="saveMemory('${id}')" title="Save ${node.name}">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h12v18l-6-4-6 4V3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      Save memory
     </button>
-    <button class="v2-action-btn secondary" onclick="handleConnect('${id}')" title="${connectLabel}">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
-      ${connectLabel}
-    </button>
-    <button class="v2-action-btn ghost" onclick="handleEndorse('${id}')" title="${endorseLabel}">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M7 10v11h10V10M4 10l8-7 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      ${endorseLabel}
-    </button>
+    <a class="v2-action-btn secondary" href="https://www.ebay.com/sch/i.html?_nkw=${marketQuery}" target="_blank" rel="noopener sponsored" onclick="trackInterest('marketplace','ebay:${id}')">Find on eBay</a>
+    <a class="v2-action-btn ghost" href="https://www.amazon.com/s?k=${marketQuery}" target="_blank" rel="noopener sponsored" onclick="trackInterest('marketplace','amazon:${id}')">Try Amazon</a>
     <button class="v2-action-btn ghost" id="btn-share-profile" title="Share this profile">
       <svg viewBox="0 0 24 24" fill="none"><circle cx="18" cy="5" r="2.5" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.5" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="2.5" stroke="currentColor" stroke-width="2"/><path d="M8 11l8-5M8 13l8 5" stroke="currentColor" stroke-width="2"/></svg>
       Share
-    </button>
-    <button class="v2-action-btn ghost" id="btn-embed-profile" title="Embed this profile">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Embed
     </button>
   `;
 
@@ -2483,6 +2574,7 @@ function renderSidebar(node) {
 // ── FULL SEARCH PAGE ─────────────────────────────────────────
 function navigateSearch(query, addToHistory = true) {
   if (!query.trim()) return;
+  trackInterest('search', query.trim().toLowerCase());
 
   const key = `search:${query.trim()}`;
   if (addToHistory) {
@@ -2515,6 +2607,8 @@ window.navigateSearch = navigateSearch;
 
 function renderSearchPage(query) {
   const q       = query.toLowerCase();
+  const stopWords = new Set(['the', 'from', 'with', 'that', 'this', 'was', 'were', 'and', 'for', 'but', 'not', 'you', 'your', 'our', 'their', 'into']);
+  const tokens  = q.split(/\s+/).filter(token => token.length > 1 && !stopWords.has(token));
   const nodes   = Object.values(ASDB.nodes);
 
   const scored = nodes.map(n => {
@@ -2524,6 +2618,9 @@ function renderSearchPage(query) {
     const bio   = (n.bio || n.description || '').toLowerCase();
     const bp    = (n.birthplace || n.headquarters || '').toLowerCase();
     const sport = (n.sport || []).join(' ').toLowerCase();
+    const details = [n.category, n.notableFor, n.catalogNotes, n.released, n.founded, n.era, n.peakEra, n.mediaType]
+      .filter(Boolean).join(' ').toLowerCase();
+    const haystack = `${name} ${nick} ${bio} ${bp} ${sport} ${details}`;
 
     if (name === q)                    score += 100;
     else if (name.startsWith(q))       score += 80;
@@ -2532,23 +2629,50 @@ function renderSearchPage(query) {
     if (bp.includes(q))                score += 30;
     if (sport.includes(q))             score += 20;
     if (bio.includes(q))               score += 10;
+    if (details.includes(q))           score += 25;
+    tokens.forEach(token => {
+      if (name === token) score += 240;
+      else if (name.startsWith(token)) score += 150;
+      else if (name.includes(token)) score += 100;
+      if (details.includes(token)) score += 24;
+      if (bio.includes(token)) score += 10;
+      if (sport.includes(token)) score += 8;
+    });
+    if (tokens.length > 1) {
+      const matchedTokens = tokens.filter(token => haystack.includes(token));
+      score += matchedTokens.length * 14;
+      if (matchedTokens.length === tokens.length) score += 45;
+    }
 
     return { node: n, score };
   }).filter(r => r.score > 0).sort((a, b) => b.score - a.score);
 
   const results = scored.map(r => r.node);
 
-  // Group by type for cleaner display
+  // Put relevance ahead of taxonomy for vague, natural-language memories.
+  const bestResults = results.slice(0, 12);
+  const bestIds = new Set(bestResults.map(n => n.id));
+  const groupedResults = results.filter(n => !bestIds.has(n.id));
+
+  // Group the rest by type for deeper browsing.
   const groups = [
-    { label: '🏅 Athletes',  type: 'athlete',  nodes: results.filter(n => n.type === 'athlete') },
-    { label: '👤 People',    type: 'person',   nodes: results.filter(n => n.type === 'person') },
-    { label: '🏷 Brands',    type: 'brand',    nodes: results.filter(n => n.type === 'brand') },
-    { label: '🏛 Orgs',      type: 'org',      nodes: results.filter(n => n.type === 'org') },
-    { label: '📍 Locations', type: 'location', nodes: results.filter(n => n.type === 'location') },
-    { label: '🎬 Media',     type: 'media',    nodes: results.filter(n => n.type === 'media') },
-    { label: '🎵 Music',     type: 'music',    nodes: results.filter(n => n.type === 'music') },
-    { label: '📅 Events',    type: 'event',    nodes: results.filter(n => n.type === 'event') },
+    { label: '🏅 Athletes',  type: 'athlete',  nodes: groupedResults.filter(n => n.type === 'athlete') },
+    { label: '👤 People',    type: 'person',   nodes: groupedResults.filter(n => n.type === 'person') },
+    { label: '🏷 Brands',    type: 'brand',    nodes: groupedResults.filter(n => n.type === 'brand') },
+    { label: '🏛 Orgs',      type: 'org',      nodes: groupedResults.filter(n => n.type === 'org') },
+    { label: '📍 Locations', type: 'location', nodes: groupedResults.filter(n => n.type === 'location') },
+    { label: '🎬 Media',     type: 'media',    nodes: groupedResults.filter(n => n.type === 'media') },
+    { label: '📼 Films & Videos', type: 'film', nodes: groupedResults.filter(n => n.type === 'film') },
+    { label: '🛹 Gear & Objects', type: 'equipment', nodes: groupedResults.filter(n => n.type === 'equipment') },
+    { label: '🎵 Music',     type: 'music',    nodes: groupedResults.filter(n => n.type === 'music') },
+    { label: '📅 Events',    type: 'event',    nodes: groupedResults.filter(n => n.type === 'event') },
   ].filter(g => g.nodes.length > 0);
+
+  const bestHTML = bestResults.length ? `
+    <div class="search-group search-best-matches">
+      <h3 class="search-group-label">Best matches</h3>
+      <div class="node-grid">${bestResults.map(renderCard).join('')}</div>
+    </div>` : '';
 
   const groupHTML = groups.map(g => `
     <div class="search-group">
@@ -2568,7 +2692,7 @@ function renderSearchPage(query) {
         <h2>🔍 "<span style="color:var(--accent)">${query}</span>"</h2>
         <div class="filter-page-count">${results.length} result${results.length !== 1 ? 's' : ''}</div>
       </div>
-      ${results.length ? groupHTML : `<div class="empty-state"><h3>No results for "${query}"</h3><p>Try a different spelling, or <a href="#" onclick="navigateHome();return false;" style="color:var(--accent)">browse all entries</a>.</p></div>`}
+      ${results.length ? bestHTML + groupHTML : `<div class="empty-state"><h3>No results for "${query}"</h3><p>Try a different spelling, or <a href="#" onclick="navigateHome();return false;" style="color:var(--accent)">browse all entries</a>.</p></div>`}
     </div>
   `;
 
@@ -3474,6 +3598,7 @@ function showHome() {
   try { if (typeof injectOnThisDayWidget === 'function') injectOnThisDayWidget(); } catch(e) {}
   // Render v2 feed at top of home
   try { renderHomeFeed(); } catch(e) { console.warn('renderHomeFeed failed', e); }
+  try { renderMemoryShowcase(); } catch(e) { console.warn('renderMemoryShowcase failed', e); }
 }
 
 // ── V2 HOME FEED ────────────────────────────────────────────
@@ -4104,6 +4229,7 @@ function showEmbedModal(node) {
 function init() {
   setupTheme();
   renderGrid();
+  renderMemoryShowcase();
   setupSportFilters();
   setupEraFilters();
   setupLocationFilters();
