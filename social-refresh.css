@@ -3268,3 +3268,182 @@ body::before {
   .mixtape-stage-copy h3 { font-size: 2rem; }
   #home-view .memory-search-panel h1 { font-size: 2.2rem; }
 }
+
+/* ── PREMIUM 1980s ARCHIVE ───────────────────────────────────
+   Cultural memory through editorial restraint: warm stock,
+   sober ink and the faded color of period surf photography. */
+#home-view {
+  --rewind-ink: #15263a;
+  --rewind-navy: #15263a;
+  --rewind-cream: #f4efe5;
+  --rewind-paper: #fbf8f1;
+  --rewind-pink: #b94737;
+  --rewind-coral: #c65a43;
+  --rewind-cyan: #357985;
+  --rewind-gold: #b89554;
+}
+
+#home-view::before {
+  background:
+    linear-gradient(180deg, rgba(238, 231, 217, .72), rgba(255,255,255,0)),
+    repeating-linear-gradient(0deg, rgba(21,38,58,.014) 0, rgba(21,38,58,.014) 1px, transparent 1px, transparent 5px);
+}
+
+#home-view > .asdb-mixtape:first-child {
+  border: 1px solid rgba(21,38,58,.28);
+  border-radius: 3px;
+  background: #f3eee3;
+  color: #15263a;
+  box-shadow: 0 18px 45px rgba(43, 48, 54, .11);
+}
+
+#home-view > .asdb-mixtape:first-child::before {
+  height: 3px;
+  background: linear-gradient(90deg, #b94737 0 38%, #b89554 38% 62%, #357985 62% 100%);
+}
+
+#home-view > .asdb-mixtape .mixtape-intro h2 {
+  color: #15263a;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -.035em;
+}
+#home-view > .asdb-mixtape .mixtape-intro p { color: #62666b; }
+#home-view > .asdb-mixtape .card-eyebrow { color: #8f3e34; }
+#home-view > .asdb-mixtape .mixtape-eq i { background: #357985; }
+
+.mixtape-stage {
+  border-color: rgba(21,38,58,.28);
+  border-radius: 2px;
+  background: #111820;
+}
+
+.mixtape-stage-video {
+  background:
+    linear-gradient(145deg, rgba(53,121,133,.48), rgba(21,38,58,.34) 52%, rgba(185,71,55,.40)),
+    #172431;
+}
+.mixtape-stage-video::before {
+  width: 245px;
+  height: 245px;
+  border-width: 20px;
+  border-color: rgba(255,255,255,.045);
+  box-shadow: 0 0 0 42px rgba(255,255,255,.018);
+}
+.mixtape-stage-video > button span {
+  width: 70px;
+  height: 70px;
+  border-width: 1px;
+  background: rgba(10,16,23,.72);
+}
+
+.mixtape-stage-copy { background: #fbf8f1; color: #15263a; }
+.mixtape-stage-copy > span { color: #8f3e34; }
+.mixtape-stage-copy h3 {
+  font-style: normal;
+  font-weight: 600;
+  color: #15263a;
+}
+.mixtape-stage-copy > strong,
+.mixtape-stage-copy p { color: #62666b; }
+.mixtape-stage-copy button {
+  border-color: #15263a;
+  border-radius: 2px;
+  color: #15263a;
+}
+.mixtape-stage-copy button:first-child { border-color: #15263a; background: #15263a; color: #fff; }
+
+#home-view > .asdb-mixtape .mixtape-station {
+  border-color: #aaa293;
+  border-radius: 1px;
+  background: transparent;
+  color: #4f555c;
+}
+#home-view > .asdb-mixtape .mixtape-station:hover,
+#home-view > .asdb-mixtape .mixtape-station.active { border-color: #15263a; background: #15263a; color: #fff; }
+#home-view > .asdb-mixtape .mixtape-track {
+  border-color: #303943;
+  border-radius: 2px;
+  background: #1a222c;
+  box-shadow: none;
+}
+#home-view > .asdb-mixtape .mixtape-source-note { color: #7d7a73; }
+
+#home-view .memory-entry {
+  border-radius: 3px;
+  border-color: rgba(21,38,58,.24);
+  box-shadow: 0 13px 36px rgba(43,48,54,.08);
+}
+#home-view .memory-entry::before { height: 3px; background: linear-gradient(90deg, #b94737, #b89554 52%, #357985); }
+#home-view .memory-search-panel {
+  background:
+    linear-gradient(115deg, rgba(251,248,241,.98), rgba(246,240,229,.95)),
+    #fbf8f1;
+}
+#home-view .memory-search-panel::after { display: none; }
+#home-view .memory-search-panel h1 {
+  color: #15263a;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -.035em;
+}
+#home-view .memory-search input,
+#home-view .memory-search > button,
+#home-view .memory-prompts button { border-radius: 2px; box-shadow: none; }
+#home-view .memory-search > button { background: #15263a; }
+#home-view .memory-prompts button { background: #eee6d7; color: #424c56; }
+#home-view .memory-prompts .memory-surprise { background: #357985; color: #fff; }
+
+#home-view .memory-decade-panel {
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0, rgba(255,255,255,.018) 1px, transparent 1px, transparent 5px),
+    #15263a;
+}
+#home-view .memory-decades button,
+#home-view .memory-decades button:nth-child(even) {
+  min-height: 92px;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 1px;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+#home-view .memory-decades button:hover { background: rgba(255,255,255,.08); }
+#home-view .memory-decades button strong { color: #fff; font-family: Georgia, serif; font-style: normal; font-weight: 600; }
+#home-view .memory-decades button span { color: #adb8c1; }
+#home-view .memory-decades button:nth-child(2) { border-color: #b89554; background: rgba(184,149,84,.12); }
+
+#home-view .memory-categories,
+#home-view .memory-showcase-section,
+#home-view .archive-entry { border-radius: 3px; box-shadow: 0 10px 28px rgba(43,48,54,.07); }
+#home-view .memory-category-grid button {
+  border-radius: 1px;
+  background: #fbf8f1 !important;
+  box-shadow: none;
+}
+#home-view .memory-category-grid button::after { background: #357985; }
+#home-view .memory-category-grid span {
+  color: #9a463a;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.asdb-player {
+  border: 1px solid #38424d;
+  border-radius: 3px;
+  background: #15202b;
+  color: #fff;
+  box-shadow: 0 18px 50px rgba(0,0,0,.28);
+}
+.asdb-player::before { height: 2px; background: linear-gradient(90deg, #b94737, #b89554 52%, #357985); }
+.asdb-player-art { border-radius: 2px; background: #0d141c; box-shadow: inset 0 0 0 1px #4e5963; }
+.asdb-player-now small { color: #bb9b63; }
+.asdb-player-now strong { color: #fff; }
+.asdb-player-now span { color: #9ea8b0; }
+.asdb-player-actions button { color: #bcc4ca; }
+.asdb-player-actions button:hover { background: #263441; color: #fff; }
+.asdb-player-actions .asdb-player-main { background: #f4efe5; color: #15263a; }
