@@ -28,6 +28,9 @@ const State = {
   currentSport:    'all',
   currentEra:      'all',
   currentLocation: 'all',
+  currentType:     'all',
+  currentLetter:   'all',
+  directoryQuery:  '',
   directoryLimit:  60,
   history:         [],       // navigation history stack
   historyIdx:      -1,       // current position in history
@@ -744,6 +747,85 @@ function bornLink(bornStr, nodeId) {
   return bornStr;
 }
 
+const DIRECTORY_TYPE_GROUPS = {
+  people: ['athlete', 'person'],
+  brand: ['brand'],
+  media: ['media', 'film', 'publication'],
+  place: ['place', 'location'],
+  event: ['event'],
+  org: ['org', 'organization'],
+  equipment: ['equipment'],
+  music: ['music'],
+};
+
+const DIRECTORY_TYPE_LABELS = {
+  people: 'People', brand: 'Brands', media: 'Films & media', place: 'Places',
+  event: 'Events', org: 'Organizations', equipment: 'Equipment', music: 'Music',
+};
+
+function directoryTypeMatches(node, filter) {
+  if (!filter || filter === 'all') return true;
+  return (DIRECTORY_TYPE_GROUPS[filter] || [filter]).includes(node.type);
+}
+
+function directoryQueryMatches(node, query) {
+  const tokens = String(query || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
+  if (!tokens.length) return true;
+  const values = [
+    node.name, node.nick, node.type, node.bio, node.description, node.birthplace,
+    node.hometown, node.headquarters, node.nationality, node.country, node.era,
+    node.activeYears, node.sport, node.aliases, node.sponsors, node.keyPeople,
+    node.teamRiders, node.disciplines,
+  ];
+  const haystack = values.flatMap(value => Array.isArray(value) ? value : [value])
+    .filter(Boolean).join(' ').toLowerCase();
+  return tokens.every(token => haystack.includes(token));
+}
+
+function renderActiveDirectoryFilters() {
+  const wrap = document.getElementById('active-directory-filters');
+  if (!wrap) return;
+  const chips = [];
+  if (State.directoryQuery) chips.push(['query', `“${State.directoryQuery}”`]);
+  if (State.currentType !== 'all') chips.push(['type', DIRECTORY_TYPE_LABELS[State.currentType] || State.currentType]);
+  if (State.currentSport !== 'all') {
+    const label = document.querySelector(`.sport-tab[data-sport="${State.currentSport}"]`)?.textContent.trim() || State.currentSport;
+    chips.push(['sport', label]);
+  }
+  if (State.currentLocation !== 'all') {
+    const label = document.querySelector(`.loc-tab[data-location="${State.currentLocation}"]`)?.textContent.trim() || State.currentLocation;
+    chips.push(['location', label]);
+  }
+  if (State.currentEra !== 'all') {
+    const label = document.querySelector(`.era-chip[data-era="${State.currentEra}"]`)?.textContent.trim() || State.currentEra;
+    chips.push(['era', label]);
+  }
+  if (State.currentLetter !== 'all') chips.push(['letter', `Starts with ${State.currentLetter}`]);
+  wrap.innerHTML = chips.map(([facet, label]) => `<button type="button" onclick="clearDirectoryFacet('${facet}')">${escapeHtml(label)} <span aria-hidden="true">×</span></button>`).join('');
+  wrap.classList.toggle('visible', chips.length > 0);
+}
+
+function clearDirectoryFacet(facet) {
+  if (facet === 'query') {
+    State.directoryQuery = '';
+    const input = document.getElementById('directory-search-input');
+    if (input) input.value = '';
+  }
+  if (facet === 'type') State.currentType = 'all';
+  if (facet === 'sport') State.currentSport = 'all';
+  if (facet === 'location') State.currentLocation = 'all';
+  if (facet === 'era') State.currentEra = 'all';
+  if (facet === 'letter') State.currentLetter = 'all';
+  document.querySelectorAll('.type-chip').forEach(button => button.classList.toggle('active', button.dataset.directoryType === State.currentType));
+  document.querySelectorAll('.sport-tab').forEach(button => button.classList.toggle('active', button.dataset.sport === State.currentSport));
+  document.querySelectorAll('.loc-tab').forEach(button => button.classList.toggle('active', button.dataset.location === State.currentLocation));
+  document.querySelectorAll('.era-chip').forEach(button => button.classList.toggle('active', button.dataset.era === State.currentEra));
+  document.querySelectorAll('.letter-chip').forEach(button => button.classList.toggle('active', button.dataset.directoryLetter === State.currentLetter));
+  State.directoryLimit = 60;
+  renderGrid();
+}
+window.clearDirectoryFacet = clearDirectoryFacet;
+
 // ── RENDER NODE GRID ─────────────────────────────────────────
 function renderGrid() {
   const nodes = Object.values(ASDB.nodes).filter(n => !n.hidden && !n.redirectTo);
@@ -753,7 +835,10 @@ function renderGrid() {
 
   let filtered = nodes.filter(n =>
     sportMatchesFilter(n, State.currentSport) &&
-    eraMatchesFilter(n, State.currentEra)
+    eraMatchesFilter(n, State.currentEra) &&
+    directoryTypeMatches(n, State.currentType) &&
+    directoryQueryMatches(n, State.directoryQuery) &&
+    (State.currentLetter === 'all' || (n.name || '').trim().charAt(0).toUpperCase() === State.currentLetter)
   );
 
   // Location filter
@@ -787,6 +872,7 @@ function renderGrid() {
   browseTitle.textContent = [sportTitleMap[State.currentSport] || 'Browse', locationLabel, eraLabel]
     .filter(Boolean)
     .join(' · ');
+  renderActiveDirectoryFilters();
 
   if (filtered.length === 0) {
     nodeGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><h3>No entries found</h3><p>Try a different filter combination or <a href="#" onclick="resetFilters();return false;" style="color:var(--accent)">reset all filters</a>.</p></div>`;
@@ -836,6 +922,9 @@ function resetFilters() {
   State.currentSport    = 'all';
   State.currentEra      = 'all';
   State.currentLocation = 'all';
+  State.currentType     = 'all';
+  State.currentLetter   = 'all';
+  State.directoryQuery  = '';
   State.directoryLimit  = 60;
   document.querySelectorAll('.sport-tab').forEach(b => {
     b.classList.toggle('active', b.dataset.sport === 'all');
@@ -847,6 +936,14 @@ function resetFilters() {
   document.querySelectorAll('.loc-tab').forEach(b => {
     b.classList.toggle('active', b.dataset.location === 'all');
   });
+  document.querySelectorAll('.type-chip').forEach(b => {
+    b.classList.toggle('active', b.dataset.directoryType === 'all');
+  });
+  document.querySelectorAll('.letter-chip').forEach(b => {
+    b.classList.toggle('active', b.dataset.directoryLetter === 'all');
+  });
+  const directorySearch = document.getElementById('directory-search-input');
+  if (directorySearch) directorySearch.value = '';
   renderGrid();
 }
 window.resetFilters = resetFilters;
@@ -1154,7 +1251,7 @@ function navigateDirectory(addToHistory = true) {
   profileView.classList.remove('visible');
   breadcrumbBar.classList.remove('visible');
   setShellActive('directory');
-  renderNodes();
+  renderGrid();
   updateNavButtons();
   window.scrollTo({ top: 0, behavior: 'auto' });
 }
@@ -3338,6 +3435,51 @@ function setupLocationFilters() {
   });
 }
 
+// ── DIRECTORY FACETS ────────────────────────────────────────
+function setupDirectoryFacets() {
+  const nodes = Object.values(ASDB.nodes).filter(node => !node.hidden && !node.redirectTo);
+  document.querySelectorAll('[data-type-count]').forEach(span => {
+    const filter = span.dataset.typeCount;
+    const count = filter === 'all' ? nodes.length : nodes.filter(node => directoryTypeMatches(node, filter)).length;
+    span.textContent = count.toLocaleString();
+  });
+
+  document.querySelectorAll('.type-chip').forEach(button => {
+    button.addEventListener('click', () => {
+      State.currentType = button.dataset.directoryType || 'all';
+      State.directoryLimit = 60;
+      document.querySelectorAll('.type-chip').forEach(item => item.classList.toggle('active', item === button));
+      renderGrid();
+    });
+  });
+
+  document.querySelectorAll('.letter-chip').forEach(button => {
+    button.addEventListener('click', () => {
+      State.currentLetter = button.dataset.directoryLetter || 'all';
+      State.directoryLimit = 60;
+      document.querySelectorAll('.letter-chip').forEach(item => item.classList.toggle('active', item === button));
+      renderGrid();
+    });
+  });
+
+  const directorySearch = document.getElementById('directory-search-input');
+  if (directorySearch) {
+    directorySearch.addEventListener('input', event => {
+      State.directoryQuery = event.target.value.trim();
+      State.directoryLimit = 60;
+      renderGrid();
+    });
+    directorySearch.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        event.target.value = '';
+        State.directoryQuery = '';
+        State.directoryLimit = 60;
+        renderGrid();
+      }
+    });
+  }
+}
+
 // ── THEME TOGGLE ─────────────────────────────────────────────
 function setupTheme() {
   document.documentElement.setAttribute('data-theme', 'light');
@@ -4838,6 +4980,7 @@ function init() {
   setupSportFilters();
   setupEraFilters();
   setupLocationFilters();
+  setupDirectoryFacets();
 
   logoBtn.addEventListener('click', () => {
     window.location.hash = '';
