@@ -1,40 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-  <!-- ── PASSWORD GATE ────────────────────────────────────────── -->
-  <style>
-    #asdb-gate { display: flex; }
-    #asdb-root { display: none; }
-  </style>
-  <script>
-    var ASDB_PW = 'NSB1982';
-    var ASDB_KEY = 'asdb_v1';
-    // If already authed this session, flip immediately
-    try {
-      var _d = sessionStorage.getItem(ASDB_KEY);
-      if (_d && (Date.now() - JSON.parse(_d).t) < 28800000) {
-        document.addEventListener('DOMContentLoaded', function() {
-          document.getElementById('asdb-gate').style.display = 'none';
-          document.getElementById('asdb-root').style.display = 'block';
-        });
-      }
-    } catch(e) {}
-
-    function asdbUnlock() {
-      var val = (document.getElementById('gate-input').value || '').trim();
-      if (val === ASDB_PW) {
-        try { sessionStorage.setItem(ASDB_KEY, JSON.stringify({t: Date.now()})); } catch(e) {}
-        document.getElementById('asdb-gate').style.display = 'none';
-        document.getElementById('asdb-root').style.display = 'block';
-      } else {
-        var err = document.getElementById('gate-error');
-        if (err) { err.style.display = 'block'; setTimeout(function(){ err.style.display = 'none'; }, 2500); }
-        var inp = document.getElementById('gate-input');
-        if (inp) { inp.value = ''; inp.focus(); }
-      }
-    }
-    function asdbKeydown(e) { if (e.key === 'Enter') asdbUnlock(); }
-  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ASDB — Action Sports Database</title>
@@ -59,32 +25,6 @@
   <link rel="stylesheet" href="social-refresh.css?v=20260822s" />
 </head>
 <body>
-
-<!-- ── PASSWORD GATE OVERLAY ─────────────────────────────── -->
-<div id="asdb-gate" style="position:fixed;inset:0;z-index:99999;background:#0e0c09;align-items:center;justify-content:center;flex-direction:column;font-family:'Satoshi',system-ui,sans-serif;">
-  <div style="text-align:center;padding:2rem;max-width:360px;width:100%;">
-    <div style="font-size:2.5rem;font-weight:800;letter-spacing:-0.02em;color:#f0ede8;font-family:'Clash Display',system-ui,sans-serif;margin-bottom:0.25rem;">AS<span style="color:#f06030;">DB</span></div>
-    <div style="font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:#7a736a;margin-bottom:2.5rem;">Action Sports Database</div>
-    <div style="font-size:0.8rem;color:#7a736a;margin-bottom:1rem;letter-spacing:0.04em;">BETA ACCESS</div>
-    <input id="gate-input"
-      type="password"
-      placeholder="Enter password"
-      onkeydown="asdbKeydown(event)"
-      autofocus
-      style="width:100%;padding:0.75rem 1rem;background:#161310;border:1px solid #2c2822;border-radius:8px;color:#f0ede8;font-size:1rem;font-family:inherit;outline:none;margin-bottom:0.75rem;box-sizing:border-box;"
-    />
-    <div id="gate-error" style="display:none;color:#f06030;font-size:0.8rem;margin-bottom:0.75rem;">Incorrect password &mdash; try again.</div>
-    <button onclick="asdbUnlock()"
-      style="width:100%;padding:0.75rem 1rem;background:#f06030;color:#fff;border:none;border-radius:8px;font-size:0.9rem;font-weight:700;font-family:inherit;cursor:pointer;letter-spacing:0.02em;">
-      Enter
-    </button>
-    <div style="margin-top:2rem;font-size:0.7rem;color:#4a453f;">© Action Sports Database &mdash; All rights reserved. Unauthorized use prohibited.
-    </div>
-  </div>
-</div>
-
-<!-- ── MAIN APP (hidden until authed) ────────────────────── -->
-<div id="asdb-root">
 
 <!-- ── HEADER ─────────────────────────────────────────────── -->
 <header id="site-header">
@@ -550,6 +490,5 @@
 <script src="app.js?v=20260822s"></script>
 <script src="auth.js?v=20260712"></script>
 
-</div><!-- /#asdb-root -->
 </body>
 </html>
