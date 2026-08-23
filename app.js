@@ -33,6 +33,8 @@ const State = {
   historyIdx:      -1,       // current position in history
   currentNode:     null,     // currently displayed node id
   activeTab:       'overview',
+  directoryScrollY: 0,       // exact directory position before opening a profile
+  openedFromDirectory: false,
   userLat:         null,
   userLon:         null,
 };
@@ -1404,6 +1406,12 @@ function navigateTo(id, addToHistory = true) {
   if (ASDB.nodes[id].redirectTo) id = ASDB.nodes[id].redirectTo;
   trackInterest('profile', id);
 
+  const homeWasVisible = !homeView.classList.contains('hidden') && homeView.style.display !== 'none';
+  if (homeWasVisible) {
+    State.directoryScrollY = window.scrollY;
+    State.openedFromDirectory = true;
+  }
+
   if (addToHistory) {
     if (State.historyIdx < State.history.length - 1) {
       State.history = State.history.slice(0, State.historyIdx + 1);
@@ -1429,11 +1437,12 @@ function navigateTo(id, addToHistory = true) {
   renderProfile(id);
   updateBreadcrumb();
   updateNavButtons();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'auto' });
 }
 window.navigateTo = navigateTo;
 
-function navigateHome() {
+function navigateHome(restoreDirectoryPosition = false) {
+  const directoryY = State.directoryScrollY;
   State.currentNode = null;
   State.activeTab   = 'overview';
   window.location.hash = '';
@@ -1452,16 +1461,23 @@ function navigateHome() {
 
   updateBreadcrumb();
   updateNavButtons();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.requestAnimationFrame(() => {
+    window.scrollTo({ top: restoreDirectoryPosition ? directoryY : 0, behavior: 'auto' });
+  });
 }
 window.navigateHome = navigateHome;
+
+function returnToDirectory() {
+  navigateHome(true);
+}
+window.returnToDirectory = returnToDirectory;
 
 function goBack() {
   if (State.historyIdx <= 0) return;
   State.historyIdx--;
   const prev = State.history[State.historyIdx];
   if (!prev || prev === 'home') {
-    navigateHome();
+    navigateHome(State.openedFromDirectory);
   } else if (prev === 'feed') {
     navigateFeed(false);
   } else if (prev.startsWith('filter:')) {
@@ -1759,6 +1775,30 @@ function renderProfile(id) {
   const mediaTab       = renderMediaTab(node);
   const lineageTab     = renderLineageTab(node);
   const sidebar        = renderSidebar(node);
+  const activeDirectoryFilters = [
+    State.currentSport !== 'all' ? sportLabel(State.currentSport) : '',
+    State.currentLocation !== 'all'
+      ? State.currentLocation.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+      : 'All locations',
+    State.currentEra !== 'all' ? State.currentEra : 'All eras',
+  ].filter(Boolean);
+  const directoryContext = `
+    <aside class="profile-directory-context" aria-label="Directory context">
+      <div class="profile-directory-card">
+        <span class="card-eyebrow">The ASDB directory</span>
+        <h2>You’re still in the directory.</h2>
+        <p>Open profiles and follow their connections without losing your place.</p>
+        <button class="profile-back-results" type="button" onclick="returnToDirectory()">
+          <span aria-hidden="true">←</span>
+          <span>Back to results</span>
+        </button>
+        <div class="profile-directory-filters">
+          <span>Current view</span>
+          ${activeDirectoryFilters.map(filter => `<strong>${escapeHtml(filter)}</strong>`).join('')}
+        </div>
+      </div>
+    </aside>
+  `;
 
   // Only display sources that were explicitly reviewed for this profile.
   // Guessed article URLs and generic search-result pages are discovery aids, not citations.
@@ -1805,6 +1845,7 @@ function renderProfile(id) {
 
   profileView.innerHTML = `
     <div class="profile-layout">
+      ${directoryContext}
       <div class="profile-main">
         ${v2HeroHTML}
         <div class="profile-chips-row" style="margin:0 0 1rem 0;display:flex;gap:0.4rem;flex-wrap:wrap;">${headerChips}${renderBadges(node)}</div>
