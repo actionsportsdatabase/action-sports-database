@@ -4166,3 +4166,438 @@ main:has(#home-view) > .container,
     padding: 9px 13px;
   }
 }
+
+/* ── ASDB WORKSPACE SHELL ────────────────────────────────────
+   Dense, calm application structure inspired by the owner's CRM.
+   Surf culture lives in imagery and color; navigation stays quiet. */
+@media (min-width: 901px) {
+  body { padding-left: 218px; }
+
+  .app-sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 1200;
+    display: flex;
+    width: 218px;
+    padding: 16px 10px 124px;
+    flex-direction: column;
+    background:
+      radial-gradient(circle at 30% 0%, rgba(21, 195, 198, .12), transparent 28%),
+      #071923;
+    color: #fff;
+    box-shadow: 1px 0 0 rgba(255,255,255,.08);
+  }
+
+  #site-header {
+    left: 218px;
+    width: calc(100% - 218px);
+  }
+
+  #site-header .logo-mark { display: none; }
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 7px 18px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar-brand-mark {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 10px;
+  place-items: center;
+  background: linear-gradient(145deg, #0ba8bd, #ef3f88);
+  color: #fff;
+  font: 700 1rem/1 var(--font-display);
+  box-shadow: 0 8px 22px rgba(0,0,0,.2);
+}
+
+.sidebar-brand strong,
+.sidebar-brand small { display: block; }
+.sidebar-brand strong { font: 650 .92rem/1 var(--font-display); letter-spacing: -.02em; }
+.sidebar-brand small { margin-top: 4px; color: rgba(255,255,255,.45); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; }
+
+.sidebar-section-label {
+  padding: 10px 9px 7px;
+  color: rgba(255,255,255,.36);
+  font-size: .56rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.sidebar-nav { display: grid; gap: 4px; }
+.sidebar-nav-item {
+  display: flex;
+  width: 100%;
+  min-height: 42px;
+  align-items: center;
+  gap: 11px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255,255,255,.65);
+  cursor: pointer;
+  text-align: left;
+  transition: color 140ms ease, background 140ms ease;
+}
+.sidebar-nav-item > span { width: 18px; color: rgba(255,255,255,.46); font-size: 1rem; text-align: center; }
+.sidebar-nav-item strong { font-size: .73rem; font-weight: 700; }
+.sidebar-nav-item:hover { background: rgba(255,255,255,.07); color: #fff; }
+.sidebar-nav-item.active { background: #0f7f8d; color: #fff; box-shadow: inset 3px 0 0 #5ff0e4; }
+.sidebar-nav-item.active > span { color: #8afff5; }
+
+.sidebar-culture-note {
+  margin-top: auto;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,.11);
+  border-radius: 10px;
+  background:
+    linear-gradient(0deg, rgba(5,22,31,.88), rgba(5,22,31,.36)),
+    url('asdb-surf-hero-1988.png') center / cover;
+}
+.sidebar-culture-note span,
+.sidebar-culture-note strong,
+.sidebar-culture-note small { display: block; }
+.sidebar-culture-note span { color: #71ebe2; font-size: .5rem; font-weight: 900; letter-spacing: .15em; }
+.sidebar-culture-note strong { margin-top: 5px; font: 650 .8rem/1.1 var(--font-display); }
+.sidebar-culture-note small { margin-top: 4px; color: rgba(255,255,255,.58); font-size: .58rem; line-height: 1.35; }
+
+#site-header {
+  min-height: 64px;
+  border-bottom: 1px solid #dce5e8;
+  background: rgba(255,255,255,.96);
+  backdrop-filter: blur(14px);
+}
+#site-header .container { max-width: none; }
+#site-header .header-inner { min-height: 64px; padding: 9px 16px; }
+#site-header .search-wrap { max-width: 720px; }
+#site-header .search-input { height: 42px; border-radius: 8px; background: #f1f5f6; font-size: .78rem; }
+.header-music-btn {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  border: 1px solid #ccdadd;
+  border-radius: 7px;
+  background: #fff;
+  color: #315363;
+  font: 800 .66rem/1 var(--font-body);
+  cursor: pointer;
+}
+.header-music-btn:hover { border-color: #0f7f8d; color: #0f7f8d; }
+
+#app { min-height: calc(100vh - 64px); background: #eef3f4; }
+#app > .container { max-width: none; padding: 18px 22px 44px; }
+#site-footer { background: #eef3f4; }
+
+/* Compact the homepage into a workspace, not a billboard. */
+main:has(#home-view) {
+  background: #eef3f4;
+}
+#home-view { padding-top: 0; }
+#home-view .memory-entry {
+  grid-template-columns: minmax(0, 1fr) 290px;
+  min-height: 360px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(5,32,47,.2);
+}
+#home-view .memory-search-panel {
+  min-height: 360px;
+  padding: clamp(28px, 3.6vw, 48px);
+}
+#home-view .memory-search-panel h1 {
+  max-width: 710px;
+  margin: 8px 0 10px;
+  font-size: clamp(2.55rem, 4.8vw, 4.75rem);
+  line-height: .88;
+}
+#home-view .memory-search-panel > p { margin-bottom: 16px; font-size: .82rem; }
+#home-view .memory-search input,
+#home-view .memory-search > button { min-height: 48px; }
+#home-view .memory-proof { margin-top: 12px; padding-top: 10px; }
+#home-view .memory-decade-panel { padding: 28px 20px; }
+#home-view .memory-decade-panel h2 { margin: 6px 0 15px; font-size: 1.35rem; }
+#home-view .memory-decades { gap: 8px; }
+#home-view .memory-decades button,
+#home-view .memory-decades button:nth-child(even) { min-height: 74px; padding: 10px 12px; border-radius: 10px; }
+#home-view .memory-decades button strong { font-size: 1.08rem; }
+#home-view .memory-decades button span { font-size: .55rem; }
+
+/* Homepage music is intentionally gone; the global player and Music tab remain. */
+#home-view > .memory-entry + .asdb-mixtape { display: none !important; }
+
+#home-view .memory-categories,
+#home-view .memory-showcase-section,
+#home-view .archive-entry { margin-bottom: 14px; border-radius: 14px; box-shadow: 0 6px 20px rgba(16,55,70,.08); }
+#home-view .memory-categories,
+#home-view .memory-showcase-section { padding: 20px; }
+#home-view .memory-section-heading { margin-bottom: 13px; }
+#home-view .memory-section-heading h2,
+#home-view .entry-heading h2 { font-size: 1.25rem; }
+#home-view .memory-category-grid { gap: 8px; }
+#home-view .memory-category-grid button { min-height: 104px; padding: 14px; border-radius: 10px; }
+#home-view .memory-category-grid strong { font-size: .76rem; }
+#home-view .memory-category-grid small { font-size: .59rem; }
+#home-view .memory-card-visual { min-height: 128px; }
+#home-view .archive-entry { padding: 18px 20px; }
+
+/* Dedicated music workspace */
+.music-workspace { color: #1d3440; }
+.music-workspace-header {
+  display: flex;
+  min-height: 154px;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 30px 32px;
+  overflow: hidden;
+  border-radius: 14px 14px 0 0;
+  background:
+    linear-gradient(90deg, rgba(4,25,37,.95), rgba(4,25,37,.6)),
+    url('asdb-surf-hero-1988.png') center 54% / cover;
+  color: #fff;
+}
+.music-kicker { color: #67ece2; font-size: .58rem; font-weight: 900; letter-spacing: .17em; text-transform: uppercase; }
+.music-workspace-header h1 { margin: 5px 0 4px; font: 650 clamp(2rem, 3vw, 3rem)/1 var(--font-display); letter-spacing: -.05em; }
+.music-workspace-header p { max-width: 690px; margin: 0; color: rgba(255,255,255,.7); font-size: .72rem; }
+.music-saved-summary {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 14px;
+  border: 1px solid rgba(255,255,255,.34);
+  border-radius: 8px;
+  background: rgba(2,20,31,.48);
+  color: #fff;
+  font: 700 .68rem/1 var(--font-body);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+.music-saved-summary span { color: #ff6a8e; font-size: 1rem; }
+
+.music-toolbar {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) auto;
+  gap: 14px;
+  padding: 12px;
+  border: 1px solid #d2dfe2;
+  border-top: 0;
+  background: #fff;
+}
+.music-search-control {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid #c9d8dc;
+  border-radius: 8px;
+  background: #f5f8f8;
+  color: #6e848d;
+}
+.music-search-control input { width: 100%; border: 0; outline: 0; background: transparent; color: #203b47; font: 500 .72rem var(--font-body); }
+.music-filter-row { display: flex; align-items: center; gap: 6px; overflow-x: auto; }
+.music-filter-row button {
+  flex: 0 0 auto;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid #cbdadd;
+  border-radius: 999px;
+  background: #fff;
+  color: #59717c;
+  font: 800 .58rem/1 var(--font-body);
+  cursor: pointer;
+}
+.music-filter-row button.active { border-color: #0f7f8d; background: #0f7f8d; color: #fff; }
+
+.music-workspace-body {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  min-height: 520px;
+  border: 1px solid #d2dfe2;
+  border-top: 0;
+  border-radius: 0 0 14px 14px;
+  background: #fff;
+}
+.music-library-nav { padding: 14px 10px; border-right: 1px solid #d8e2e4; background: #f4f7f7; }
+.music-library-nav button {
+  display: grid;
+  width: 100%;
+  min-height: 38px;
+  grid-template-columns: 20px 1fr auto;
+  align-items: center;
+  gap: 5px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #5f747d;
+  font: 700 .66rem/1 var(--font-body);
+  cursor: pointer;
+  text-align: left;
+}
+.music-library-nav button strong { color: #87989f; font-size: .56rem; }
+.music-library-nav button.active { background: #dce9e9; color: #214b56; }
+
+.music-library-panel { min-width: 0; padding: 0 14px 18px; }
+.music-library-heading { display: flex; min-height: 46px; align-items: center; justify-content: space-between; border-bottom: 1px solid #d8e2e4; }
+.music-library-heading strong { font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; }
+.music-library-heading span { color: #83969e; font-size: .62rem; }
+.music-library-row {
+  display: grid;
+  grid-template-columns: 34px minmax(150px, .7fr) minmax(220px, 1.3fr) 48px 48px 34px;
+  min-height: 64px;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 4px;
+  border-bottom: 1px solid #dce5e7;
+}
+.music-library-row:hover { background: #f5f9f9; }
+.music-row-play {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  border: 1px solid color-mix(in srgb, var(--track-color), #fff 35%);
+  border-radius: 50%;
+  place-items: center;
+  background: color-mix(in srgb, var(--track-color), #fff 88%);
+  color: var(--track-color);
+  font-size: .56rem;
+  cursor: pointer;
+}
+.music-row-title strong,
+.music-row-title span,
+.music-row-connection strong,
+.music-row-connection span { display: block; }
+.music-row-title strong { color: #203944; font-size: .72rem; }
+.music-row-title span { margin-top: 3px; color: #70838b; font-size: .62rem; }
+.music-row-connection strong { color: #345d69; font-size: .57rem; text-transform: uppercase; }
+.music-row-connection span { margin-top: 3px; overflow: hidden; color: #7b8d94; font-size: .57rem; text-overflow: ellipsis; white-space: nowrap; }
+.music-library-row time { color: #798b92; font-size: .62rem; }
+.music-row-story,
+.music-row-save { border: 0; background: transparent; color: #66808a; font: 800 .58rem var(--font-body); cursor: pointer; }
+.music-row-story:hover { color: #0f7f8d; }
+.music-row-save { font-size: 1rem; }
+.music-row-save.saved { color: #ef496f; }
+.music-empty { display: grid; min-height: 260px; place-content: center; justify-items: center; color: #71868e; }
+.music-empty strong { color: #2b4752; }
+.music-empty span { margin-top: 5px; font-size: .68rem; }
+
+/* The persistent player behaves like the CRM's compact utility player. */
+@media (min-width: 901px) {
+  .asdb-player {
+    right: auto;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1400;
+    width: 198px;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 9px;
+    background: #0b202b;
+    box-shadow: 0 14px 34px rgba(0,0,0,.32);
+  }
+  .asdb-player.open { left: 228px; width: min(420px, calc(100vw - 248px)); }
+  .asdb-player-bar { min-height: 58px; grid-template-columns: 36px minmax(0,1fr) auto; gap: 7px; padding: 7px; }
+  .asdb-player-art { width: 36px; height: 36px; }
+  .asdb-player-now small { font-size: .41rem; }
+  .asdb-player-now strong { font-size: .64rem; }
+  .asdb-player-now span { font-size: .52rem; }
+  .asdb-player-actions { gap: 0; }
+  .asdb-player-actions button { width: 24px; height: 24px; }
+  .asdb-player:not(.open) .asdb-player-actions button:first-child,
+  .asdb-player:not(.open) .asdb-player-actions button:nth-child(3),
+  .asdb-player:not(.open) .asdb-player-actions button:last-child { display: none; }
+}
+
+@media (max-width: 1100px) and (min-width: 901px) {
+  #home-view .memory-entry { grid-template-columns: 1fr 240px; }
+  #home-view .memory-search-panel h1 { font-size: 3.3rem; }
+  .music-toolbar { grid-template-columns: 1fr; }
+  .music-filter-row { justify-content: flex-start; }
+  .music-library-row { grid-template-columns: 34px minmax(130px,.7fr) minmax(180px,1.3fr) 42px 34px; }
+  .music-row-story { display: none; }
+}
+
+@media (max-width: 900px) {
+  body { padding-bottom: 66px; }
+  .app-sidebar {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 1300;
+    height: 62px;
+    padding: 5px 8px max(5px, env(safe-area-inset-bottom));
+    background: rgba(6,25,35,.97);
+    backdrop-filter: blur(14px);
+  }
+  .sidebar-brand,
+  .sidebar-section-label,
+  .sidebar-culture-note { display: none; }
+  .sidebar-nav { display: grid; height: 100%; grid-template-columns: repeat(4,1fr); gap: 2px; }
+  .sidebar-nav-item {
+    display: grid;
+    min-height: 50px;
+    justify-items: center;
+    align-content: center;
+    gap: 2px;
+    padding: 0;
+    border-radius: 7px;
+    text-align: center;
+  }
+  .sidebar-nav-item > span { width: auto; font-size: .88rem; }
+  .sidebar-nav-item strong { font-size: .52rem; }
+  .sidebar-nav-item.active { box-shadow: inset 0 2px 0 #64f0e5; }
+  #site-header { width: 100%; }
+  .header-music-btn span { display: none; }
+  #app > .container { padding: 12px 10px 30px; }
+  #home-view .memory-entry { grid-template-columns: 1fr; min-height: 0; }
+  #home-view .memory-search-panel { min-height: 390px; padding: 26px 20px 20px; }
+  #home-view .memory-search-panel h1 { font-size: clamp(2.45rem, 12vw, 3.8rem); }
+  #home-view .memory-decade-panel { padding: 18px 16px; }
+  #home-view .memory-decades { grid-template-columns: repeat(4,minmax(0,1fr)); }
+  #home-view .memory-decades button,
+  #home-view .memory-decades button:nth-child(even) { min-height: 66px; padding: 8px; }
+  .music-workspace-header { min-height: 130px; padding: 22px 18px; }
+  .music-workspace-header p { max-width: 520px; }
+  .music-toolbar { grid-template-columns: 1fr; }
+  .music-filter-row { padding-bottom: 2px; }
+  .music-workspace-body { grid-template-columns: 1fr; }
+  .music-library-nav { display: none; }
+  .music-library-row { grid-template-columns: 32px minmax(110px,.7fr) minmax(140px,1fr) 34px; }
+  .music-library-row time,
+  .music-row-story { display: none; }
+  .asdb-player { bottom: 70px; }
+}
+
+@media (max-width: 620px) {
+  #site-header .header-inner { min-height: 58px; padding: 8px 10px; }
+  #site-header .search-input { height: 40px; }
+  .feed-nav-btn { display: none; }
+  #home-view .memory-search-panel { min-height: 350px; }
+  #home-view .memory-search-panel h1 { font-size: 2.55rem; }
+  #home-view .memory-search-panel > p { margin-bottom: 13px; }
+  #home-view .memory-prompts button:nth-child(n+4) { display: none; }
+  #home-view .memory-proof span:nth-child(2) { display: inline-flex; }
+  #home-view .memory-decade-panel h2 { font-size: 1.15rem; }
+  #home-view .memory-decades { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  #home-view .memory-category-grid button { min-height: 94px; }
+  .music-workspace-header { display: block; border-radius: 11px 11px 0 0; }
+  .music-saved-summary { margin-top: 15px; }
+  .music-toolbar { padding: 9px; }
+  .music-library-panel { padding: 0 8px 12px; }
+  .music-library-row { grid-template-columns: 32px minmax(0,1fr) 34px; gap: 8px; }
+  .music-row-connection { display: none; }
+}

@@ -22,9 +22,29 @@
   <link rel="stylesheet" href="base.css" />
   <link rel="stylesheet" href="style.css?v=20260822a" />
   <link rel="stylesheet" href="visual-v2.css?v=20260712h" />
-  <link rel="stylesheet" href="social-refresh.css?v=20260823a" />
+  <link rel="stylesheet" href="social-refresh.css?v=20260823b" />
 </head>
 <body>
+
+<!-- ── APPLICATION SIDEBAR ───────────────────────────────── -->
+<aside class="app-sidebar" id="app-sidebar" aria-label="Primary navigation">
+  <button class="sidebar-brand" type="button" onclick="navigateHome()" aria-label="ASDB home">
+    <span class="sidebar-brand-mark">A</span>
+    <span><strong>ASDB</strong><small>Memory archive</small></span>
+  </button>
+  <div class="sidebar-section-label">Explore</div>
+  <nav class="sidebar-nav">
+    <button class="sidebar-nav-item active" type="button" data-shell-route="home" onclick="navigateHome()"><span aria-hidden="true">⌂</span><strong>Home</strong></button>
+    <button class="sidebar-nav-item" type="button" data-shell-route="directory" onclick="navigateDirectory()"><span aria-hidden="true">⌕</span><strong>Directory</strong></button>
+    <button class="sidebar-nav-item" type="button" data-shell-route="music" onclick="navigateMusic()"><span aria-hidden="true">♫</span><strong>Music</strong></button>
+    <button class="sidebar-nav-item" type="button" data-shell-route="feed" onclick="navigateFeed()"><span aria-hidden="true">≡</span><strong>Updates</strong></button>
+  </nav>
+  <div class="sidebar-culture-note">
+    <span>ON DECK</span>
+    <strong>1980s surf</strong>
+    <small>Films, gear, graphics and soundtracks.</small>
+  </div>
+</aside>
 
 <!-- ── HEADER ─────────────────────────────────────────────── -->
 <header id="site-header">
@@ -64,6 +84,7 @@
 
       <!-- Actions -->
       <div class="header-actions">
+        <button class="header-music-btn" type="button" onclick="navigateMusic()" aria-label="Open music archive" title="Music archive">♫ <span>Music</span></button>
         <button class="feed-nav-btn" id="feed-nav-btn" onclick="navigateFeed()" aria-label="View updates" title="Updates">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <rect x="1" y="2" width="14" height="2.5" rx="1.25" fill="currentColor" opacity="0.8"/>
@@ -322,6 +343,44 @@
 
     </section>
 
+    <!-- ── MUSIC ARCHIVE VIEW ─────────────────────────────── -->
+    <section id="music-view" class="music-workspace" aria-label="Music archive" style="display:none">
+      <header class="music-workspace-header">
+        <div>
+          <span class="music-kicker">Soundtracks to the rabbit hole</span>
+          <h1>Music archive</h1>
+          <p>Search the songs, artists, films, games and skate parts that became part of the memory.</p>
+        </div>
+        <button class="music-saved-summary" type="button" onclick="showSavedAsdbTracks()"><span aria-hidden="true">♡</span><strong id="music-saved-count">0</strong> saved</button>
+      </header>
+      <div class="music-toolbar">
+        <label class="music-search-control" for="music-search-input">
+          <span aria-hidden="true">⌕</span>
+          <input id="music-search-input" type="search" placeholder="Search songs, artists, films, games or eras…" autocomplete="off" />
+        </label>
+        <div class="music-filter-row" id="music-filter-row" role="group" aria-label="Filter music">
+          <button class="active" type="button" data-music-filter="all">All tracks</button>
+          <button type="button" data-music-filter="punk">Skate punk</button>
+          <button type="button" data-music-filter="hip-hop">Hip-hop</button>
+          <button type="button" data-music-filter="alternative">Alternative</button>
+          <button type="button" data-music-filter="surf">Surf &amp; soul</button>
+          <button type="button" data-music-filter="saved">Saved</button>
+        </div>
+      </div>
+      <div class="music-workspace-body">
+        <aside class="music-library-nav" aria-label="Music library sections">
+          <button class="active" type="button" onclick="setMusicFilter('all')"><span>◉</span>All music <strong id="music-all-count">0</strong></button>
+          <button type="button" onclick="setMusicFilter('saved')"><span>♡</span>Saved tracks <strong id="music-side-saved-count">0</strong></button>
+          <button type="button" onclick="setMusicFilter('1980s')"><span>◷</span>1980s cuts</button>
+          <button type="button" onclick="setMusicFilter('surf')"><span>≈</span>Surf films</button>
+        </aside>
+        <div class="music-library-panel">
+          <div class="music-library-heading"><strong id="music-library-title">All tracks</strong><span id="music-result-count"></span></div>
+          <div class="music-library-list" id="music-library-list" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ── PROFILE VIEW ────────────────────────────────────── -->
     <section id="profile-view" aria-label="Profile page"></section>
 
@@ -487,7 +546,7 @@
 <script src="data.js?v=20260822o"></script>
 <script src="data-enrichment.js?v=20260822a"></script>
 <script src="data-new-profiles.js?v=20260822a"></script>
-<script src="app.js?v=20260823a"></script>
+<script src="app.js?v=20260823b"></script>
 <script src="auth.js?v=20260712"></script>
 
 </body>

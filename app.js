@@ -168,6 +168,7 @@ const searchView  = $('search-view');
 const legalView   = $('legal-view');
 const feedView    = $('feed-view');
 const adminView   = $('admin-view');
+const musicView   = $('music-view');
 const breadcrumbBar   = $('breadcrumb-bar');
 const breadcrumbTrail = $('breadcrumb-trail');
 const btnBack     = $('btn-back');
@@ -1008,6 +1009,141 @@ function renderAsdbMusic(genre = 'all') {
   }).join('');
 }
 
+const ASDB_SAVED_TRACKS_KEY = 'asdb_saved_tracks_v1';
+let activeMusicFilter = 'all';
+let activeMusicQuery = '';
+
+function getSavedAsdbTracks() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(ASDB_SAVED_TRACKS_KEY) || '[]');
+    return Array.isArray(saved) ? saved : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function updateMusicSavedCounts() {
+  const count = getSavedAsdbTracks().length;
+  ['music-saved-count', 'music-side-saved-count'].forEach(id => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = String(count);
+  });
+  const allCount = document.getElementById('music-all-count');
+  if (allCount) allCount.textContent = String(ASDB_TRACKS.length);
+}
+
+function toggleSaveAsdbTrack(id) {
+  const saved = getSavedAsdbTracks();
+  const index = saved.indexOf(id);
+  const track = ASDB_TRACKS.find(item => item.id === id);
+  if (index >= 0) {
+    saved.splice(index, 1);
+    showToast(`Removed ${track?.title || 'track'} from saved music`);
+  } else {
+    saved.push(id);
+    showToast(`Saved ${track?.title || 'track'}`);
+  }
+  try { localStorage.setItem(ASDB_SAVED_TRACKS_KEY, JSON.stringify(saved)); } catch (e) {}
+  updateMusicSavedCounts();
+  renderMusicWorkspace();
+}
+window.toggleSaveAsdbTrack = toggleSaveAsdbTrack;
+
+function musicTrackMatches(track, query) {
+  if (!query) return true;
+  const haystack = [track.title, track.artist, track.year, track.genre, track.sport, track.context].join(' ').toLowerCase();
+  return query.toLowerCase().split(/\s+/).filter(Boolean).every(term => haystack.includes(term));
+}
+
+function renderMusicWorkspace() {
+  const list = document.getElementById('music-library-list');
+  if (!list) return;
+  const saved = getSavedAsdbTracks();
+  const tracks = ASDB_TRACKS.filter(track => {
+    if (!musicTrackMatches(track, activeMusicQuery)) return false;
+    if (activeMusicFilter === 'saved') return saved.includes(track.id);
+    if (activeMusicFilter === '1980s') return Number(track.year) >= 1980 && Number(track.year) <= 1989;
+    return activeMusicFilter === 'all' || track.genre === activeMusicFilter;
+  });
+
+  const titles = { all: 'All tracks', saved: 'Saved tracks', '1980s': '1980s cuts', punk: 'Skate punk', 'hip-hop': 'Hip-hop', alternative: 'Alternative', surf: 'Surf & soul' };
+  const title = document.getElementById('music-library-title');
+  const count = document.getElementById('music-result-count');
+  if (title) title.textContent = activeMusicQuery ? `Results for “${activeMusicQuery}”` : (titles[activeMusicFilter] || 'Music');
+  if (count) count.textContent = `${tracks.length} ${tracks.length === 1 ? 'track' : 'tracks'}`;
+
+  document.querySelectorAll('[data-music-filter]').forEach(button => {
+    button.classList.toggle('active', button.dataset.musicFilter === activeMusicFilter);
+  });
+  document.querySelectorAll('.music-library-nav button').forEach((button, index) => {
+    const filters = ['all', 'saved', '1980s', 'surf'];
+    button.classList.toggle('active', filters[index] === activeMusicFilter);
+  });
+
+  if (!tracks.length) {
+    list.innerHTML = `<div class="music-empty"><strong>No tracks found.</strong><span>Try another artist, film, game, era or genre.</span></div>`;
+    updateMusicSavedCounts();
+    return;
+  }
+
+  list.innerHTML = tracks.map(track => {
+    const index = ASDB_TRACKS.findIndex(item => item.id === track.id);
+    const isSaved = saved.includes(track.id);
+    return `<article class="music-library-row" style="--track-color:${track.color}">
+      <button class="music-row-play" type="button" onclick="playAsdbTrack(${index})" aria-label="Play ${escapeHtml(track.title)} by ${escapeHtml(track.artist)}">▶</button>
+      <div class="music-row-title"><strong>${escapeHtml(track.title)}</strong><span>${escapeHtml(track.artist)}</span></div>
+      <div class="music-row-connection"><strong>${escapeHtml(track.sport)}</strong><span>${escapeHtml(track.context)}</span></div>
+      <time>${escapeHtml(track.year)}</time>
+      <button class="music-row-story" type="button" onclick="navigateTo('${track.nodeId}')">Story</button>
+      <button class="music-row-save${isSaved ? ' saved' : ''}" type="button" onclick="toggleSaveAsdbTrack('${track.id}')" aria-label="${isSaved ? 'Remove from' : 'Add to'} saved tracks">${isSaved ? '♥' : '♡'}</button>
+    </article>`;
+  }).join('');
+  updateMusicSavedCounts();
+}
+window.renderMusicWorkspace = renderMusicWorkspace;
+
+function setMusicFilter(filter) {
+  activeMusicFilter = filter || 'all';
+  renderMusicWorkspace();
+}
+window.setMusicFilter = setMusicFilter;
+
+function showSavedAsdbTracks() {
+  setMusicFilter('saved');
+}
+window.showSavedAsdbTracks = showSavedAsdbTracks;
+
+function setShellActive(route) {
+  document.querySelectorAll('[data-shell-route]').forEach(button => {
+    button.classList.toggle('active', button.dataset.shellRoute === route);
+  });
+}
+
+function navigateMusic(addToHistory = true) {
+  if (addToHistory) window.location.hash = '#music';
+  homeView.style.display = 'none';
+  homeView.classList.add('hidden');
+  profileView.style.display = 'none';
+  filterView.style.display = 'none';
+  searchView.style.display = 'none';
+  legalView.style.display = 'none';
+  feedView.style.display = 'none';
+  if (adminView) adminView.style.display = 'none';
+  musicView.style.display = 'block';
+  breadcrumbBar.classList.remove('visible');
+  setShellActive('music');
+  renderMusicWorkspace();
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+window.navigateMusic = navigateMusic;
+
+function navigateDirectory() {
+  navigateHome();
+  setShellActive('directory');
+  window.requestAnimationFrame(() => document.getElementById('browse-directory')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+}
+window.navigateDirectory = navigateDirectory;
+
 function filterAsdbMusic(genre, button) {
   document.querySelectorAll('.mixtape-station').forEach(item => item.classList.toggle('active', item === button));
   renderAsdbMusic(genre);
@@ -1024,13 +1160,11 @@ function playAsdbTrack(index) {
   const video = document.getElementById('asdb-player-video');
   const expand = document.getElementById('asdb-player-expand');
   player.hidden = false;
-  // Keep the YouTube player visible when playback starts. Safari can block
-  // audible autoplay in a hidden cross-origin iframe, while the surrounding
-  // UI misleadingly says the track is playing. Opening the drawer gives the
-  // user a real, visible player and a direct fallback play control.
-  drawer.hidden = false;
-  player.classList.add('open');
-  expand?.setAttribute('aria-expanded', 'true');
+  // Playback begins in the discreet global player. The user can expand the
+  // video/context drawer when they want it; music never takes over the page.
+  drawer.hidden = true;
+  player.classList.remove('open');
+  expand?.setAttribute('aria-expanded', 'false');
   document.getElementById('asdb-player-title').textContent = track.title;
   document.getElementById('asdb-player-artist').textContent = `${track.artist} · ${track.year}`;
   document.getElementById('asdb-player-context').innerHTML = `<strong>${escapeHtml(track.sport)}</strong><span>${escapeHtml(track.context)}</span><div><button type="button" onclick="navigateTo('${track.nodeId}')">Open the ASDB story ↗</button><a href="https://www.youtube.com/watch?v=${track.youtubeId}" target="_blank" rel="noopener">Listen on YouTube ↗</a></div>`;
@@ -1234,6 +1368,7 @@ function navigateFilter(type, value, addToHistory = true) {
   searchView.style.display  = 'none';
   legalView.style.display   = 'none';
   feedView.style.display    = 'none';
+  if (musicView) musicView.style.display = 'none';
   feedView.classList.remove('feed-active');
   filterView.style.display  = 'block';
 
@@ -1430,6 +1565,7 @@ function navigateTo(id, addToHistory = true) {
   homeView.style.display    = 'none';
   filterView.style.display  = 'none';
   searchView.style.display  = 'none';
+  if (musicView) musicView.style.display = 'none';
   profileView.style.display = 'block';
   homeView.classList.add('hidden');
   profileView.classList.add('visible');
@@ -1452,7 +1588,9 @@ function navigateHome(restoreDirectoryPosition = false) {
   profileView.style.display = 'none';
   filterView.style.display  = 'none';
   searchView.style.display  = 'none';
+  if (musicView) musicView.style.display = 'none';
   profileView.classList.remove('visible');
+  setShellActive('home');
 
   if (State.history[State.historyIdx] !== 'home') {
     State.history.push('home');
@@ -2928,6 +3066,7 @@ function navigateSearch(query, addToHistory = true) {
   filterView.style.display  = 'none';
   legalView.style.display   = 'none';
   feedView.style.display    = 'none';
+  if (musicView) musicView.style.display = 'none';
   feedView.classList.remove('feed-active');
   searchView.style.display  = 'block';
 
@@ -3943,10 +4082,12 @@ function navigateFeed(addToHistory) {
   filterView.style.display  = 'none';
   searchView.style.display  = 'none';
   legalView.style.display   = 'none';
+  if (musicView) musicView.style.display = 'none';
   profileView.classList.remove('visible');
 
   feedView.style.display = 'block';
   feedView.classList.add('feed-active');
+  setShellActive('feed');
 
   breadcrumbBar.classList.add('visible');
   updateBreadcrumb();
@@ -4001,6 +4142,12 @@ function handleHashChange() {
     return;
   }
 
+  // Dedicated music archive
+  if (hash === '#music') {
+    navigateMusic(false);
+    return;
+  }
+
   // Admin route
   if (hash === '#admin' || hash.startsWith('#admin/')) {
     if (typeof showAdmin === 'function') { showAdmin(hash.replace('#admin', '').replace(/^\//,'') || 'pending'); return; }
@@ -4017,9 +4164,11 @@ function showHome() {
   searchView.style.display  = 'none';
   legalView.style.display   = 'none';
   feedView.style.display    = 'none';
+  if (musicView) musicView.style.display = 'none';
   if (adminView) adminView.style.display = 'none';
   feedView.classList.remove('feed-active');
   profileView.classList.remove('visible');
+  setShellActive('home');
   breadcrumbBar.classList.remove('visible');
   updateNavButtons();
   resetSEO();
@@ -4548,6 +4697,7 @@ function renderLegal(tab = 'overview') {
   filterView.style.display  = 'none';
   searchView.style.display  = 'none';
   feedView.style.display    = 'none';
+  if (musicView) musicView.style.display = 'none';
   feedView.classList.remove('feed-active');
   lv.style.display          = 'block';
   homeView.classList.add('hidden');
@@ -4660,6 +4810,7 @@ function init() {
   renderGrid();
   renderMemoryShowcase();
   renderAsdbMusic();
+  renderMusicWorkspace();
   setupSportFilters();
   setupEraFilters();
   setupLocationFilters();
@@ -4698,6 +4849,16 @@ function init() {
       }
     });
   }
+  const musicSearchInput = document.getElementById('music-search-input');
+  if (musicSearchInput) {
+    musicSearchInput.addEventListener('input', event => {
+      activeMusicQuery = event.target.value.trim();
+      renderMusicWorkspace();
+    });
+  }
+  document.querySelectorAll('[data-music-filter]').forEach(button => {
+    button.addEventListener('click', () => setMusicFilter(button.dataset.musicFilter));
+  });
   document.addEventListener('click', e => {
     if (!e.target.closest('.search-wrap')) {
       searchDrop.classList.remove('open');
@@ -5543,6 +5704,7 @@ function showAdmin(tab) {
   searchView.style.display = 'none';
   legalView.style.display = 'none';
   feedView.style.display = 'none';
+  if (musicView) musicView.style.display = 'none';
   adminView.style.display = '';
   breadcrumbBar.classList.remove('visible');
 
