@@ -3447,3 +3447,130 @@ body::before {
 .asdb-player-actions button { color: #bcc4ca; }
 .asdb-player-actions button:hover { background: #263441; color: #fff; }
 .asdb-player-actions .asdb-player-main { background: #f4efe5; color: #15263a; }
+
+/* ── DIRECTORY-FIRST HIERARCHY ───────────────────────────────
+   Music remains present and persistent, but it supports the
+   archive instead of becoming the archive's landing page. */
+#home-view > .memory-entry:first-child { margin-top: 0; }
+
+#home-view > .memory-entry + .asdb-mixtape {
+  display: grid;
+  grid-template-columns: minmax(270px, .7fr) minmax(0, 1.3fr);
+  gap: 13px 22px;
+  margin: 14px 0 18px;
+  padding: 18px 20px 14px;
+  border: 1px solid rgba(21,38,58,.24);
+  border-radius: 3px;
+  background: #f3eee3;
+  color: #15263a;
+  box-shadow: 0 9px 26px rgba(43,48,54,.07);
+}
+
+#home-view > .memory-entry + .asdb-mixtape::before {
+  top: 0;
+  right: 0;
+  left: 0;
+  width: auto;
+  height: 2px;
+  border: 0;
+  background: linear-gradient(90deg, #b94737, #b89554 52%, #357985);
+}
+
+#home-view > .memory-entry + .asdb-mixtape .mixtape-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+#home-view > .memory-entry + .asdb-mixtape .mixtape-intro > div:first-child { flex: 1; }
+#home-view > .memory-entry + .asdb-mixtape .mixtape-intro h2 {
+  margin: 4px 0 5px;
+  color: #15263a;
+  font: 600 clamp(1.2rem, 2vw, 1.6rem)/1.05 Georgia, 'Times New Roman', serif;
+  letter-spacing: -.025em;
+}
+#home-view > .memory-entry + .asdb-mixtape .mixtape-intro p {
+  max-width: 430px;
+  margin: 0;
+  color: #65686b;
+  font-size: .72rem;
+  line-height: 1.45;
+}
+#home-view > .memory-entry + .asdb-mixtape .mixtape-eq {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 30px;
+  margin-top: 5px;
+}
+
+#home-view > .memory-entry + .asdb-mixtape .mixtape-stations {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+  margin: 0;
+}
+#home-view > .memory-entry + .asdb-mixtape .mixtape-station {
+  min-height: 28px;
+  padding: 0 9px;
+  border-color: #aaa293;
+  border-radius: 1px;
+  background: transparent;
+  color: #4f555c;
+  font-size: .58rem;
+}
+#home-view > .memory-entry + .asdb-mixtape .mixtape-station:hover,
+#home-view > .memory-entry + .asdb-mixtape .mixtape-station.active { border-color: #15263a; background: #15263a; color: #fff; }
+
+#home-view > .memory-entry + .asdb-mixtape .mixtape-track-list {
+  display: grid;
+  grid-auto-columns: minmax(220px, 250px);
+  grid-auto-flow: column;
+  grid-template-columns: none;
+  gap: 7px;
+  grid-column: 2;
+  grid-row: 2;
+  padding: 0 0 5px;
+  overflow-x: auto;
+}
+#home-view > .memory-entry + .asdb-mixtape .mixtape-track {
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  min-height: 62px;
+  padding: 8px;
+  border: 1px solid #303943;
+  border-radius: 2px;
+  background: #1a222c;
+  box-shadow: none;
+}
+#home-view > .memory-entry + .asdb-mixtape .mixtape-play { width: 34px; height: 34px; }
+#home-view > .memory-entry + .asdb-mixtape .mixtape-track-copy small { font-size: .48rem; }
+#home-view > .memory-entry + .asdb-mixtape .mixtape-track-copy strong { font-size: .68rem; }
+#home-view > .memory-entry + .asdb-mixtape .mixtape-track-copy span { font-size: .57rem; }
+#home-view > .memory-entry + .asdb-mixtape .mixtape-story { padding: 5px 7px; font-size: .51rem; }
+#home-view > .memory-entry + .asdb-mixtape .mixtape-source-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #858077;
+  font-size: .48rem;
+}
+
+@media (max-width: 900px) {
+  #home-view > .memory-entry + .asdb-mixtape {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  #home-view > .memory-entry + .asdb-mixtape .mixtape-intro,
+  #home-view > .memory-entry + .asdb-mixtape .mixtape-stations,
+  #home-view > .memory-entry + .asdb-mixtape .mixtape-track-list {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 620px) {
+  #home-view > .memory-entry + .asdb-mixtape { padding: 16px 12px 12px; }
+  #home-view > .memory-entry + .asdb-mixtape .mixtape-intro h2 { font-size: 1.35rem; }
+  #home-view > .memory-entry + .asdb-mixtape .mixtape-intro p { font-size: .68rem; }
+  #home-view > .memory-entry + .asdb-mixtape .mixtape-track-list { grid-auto-columns: minmax(205px, 76vw); }
+  #home-view > .memory-entry + .asdb-mixtape .mixtape-source-note { display: none; }
+}

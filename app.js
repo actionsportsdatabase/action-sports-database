@@ -1022,9 +1022,9 @@ function playAsdbTrack(index) {
   const video = document.getElementById('asdb-player-video');
   const expand = document.getElementById('asdb-player-expand');
   player.hidden = false;
-  drawer.hidden = false;
-  player.classList.add('open');
-  expand?.setAttribute('aria-expanded', 'true');
+  drawer.hidden = true;
+  player.classList.remove('open');
+  expand?.setAttribute('aria-expanded', 'false');
   document.getElementById('asdb-player-title').textContent = track.title;
   document.getElementById('asdb-player-artist').textContent = `${track.artist} · ${track.year}`;
   document.getElementById('asdb-player-context').innerHTML = `<strong>${escapeHtml(track.sport)}</strong><span>${escapeHtml(track.context)}</span><div><button type="button" onclick="navigateTo('${track.nodeId}')">Open the ASDB story ↗</button><a href="https://www.youtube.com/watch?v=${track.youtubeId}" target="_blank" rel="noopener">Listen on YouTube ↗</a></div>`;
