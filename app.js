@@ -1022,9 +1022,13 @@ function playAsdbTrack(index) {
   const video = document.getElementById('asdb-player-video');
   const expand = document.getElementById('asdb-player-expand');
   player.hidden = false;
-  drawer.hidden = true;
-  player.classList.remove('open');
-  expand?.setAttribute('aria-expanded', 'false');
+  // Keep the YouTube player visible when playback starts. Safari can block
+  // audible autoplay in a hidden cross-origin iframe, while the surrounding
+  // UI misleadingly says the track is playing. Opening the drawer gives the
+  // user a real, visible player and a direct fallback play control.
+  drawer.hidden = false;
+  player.classList.add('open');
+  expand?.setAttribute('aria-expanded', 'true');
   document.getElementById('asdb-player-title').textContent = track.title;
   document.getElementById('asdb-player-artist').textContent = `${track.artist} · ${track.year}`;
   document.getElementById('asdb-player-context').innerHTML = `<strong>${escapeHtml(track.sport)}</strong><span>${escapeHtml(track.context)}</span><div><button type="button" onclick="navigateTo('${track.nodeId}')">Open the ASDB story ↗</button><a href="https://www.youtube.com/watch?v=${track.youtubeId}" target="_blank" rel="noopener">Listen on YouTube ↗</a></div>`;
