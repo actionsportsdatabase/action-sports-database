@@ -4601,3 +4601,118 @@ main:has(#home-view) {
   .music-library-row { grid-template-columns: 32px minmax(0,1fr) 34px; gap: 8px; }
   .music-row-connection { display: none; }
 }
+
+/* ── DIRECTORY WORKSPACE ────────────────────────────────────
+   The archive gets a dedicated application view. The nostalgic homepage
+   remains an invitation; this route is the fast, information-dense tool. */
+#home-view.directory-mode > .memory-entry,
+#home-view.directory-mode > .asdb-mixtape,
+#home-view.directory-mode > .memory-categories,
+#home-view.directory-mode > .memory-showcase-section {
+  display: none !important;
+}
+
+#home-view.directory-mode .archive-entry {
+  position: sticky;
+  top: 76px;
+  z-index: 24;
+  margin-bottom: 12px;
+  padding: 13px 16px 11px;
+  border: 1px solid #d4e0e3;
+  border-radius: 11px;
+  box-shadow: 0 7px 22px rgba(11,45,58,.1);
+}
+#home-view.directory-mode .archive-entry .entry-heading { align-items: center; margin-bottom: 9px; }
+#home-view.directory-mode .archive-entry .card-eyebrow { font-size: .5rem; }
+#home-view.directory-mode .archive-entry h2 { margin-top: 2px; font-size: 1.06rem; letter-spacing: -.035em; }
+#home-view.directory-mode .archive-entry .entry-heading > p { display: none; }
+#home-view.directory-mode .archive-entry .sport-filters {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5px;
+  margin: 0;
+  padding: 0 0 3px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+#home-view.directory-mode .archive-entry .sport-tab {
+  min-height: 30px;
+  flex: 0 0 auto;
+  padding: 0 10px;
+  font-size: .58rem;
+}
+
+#home-view.directory-mode .home-social-layout {
+  grid-template-columns: 190px minmax(0, 1fr) 230px;
+  gap: 13px;
+}
+#home-view.directory-mode .home-discovery,
+#home-view.directory-mode .home-insights { top: 164px; }
+#home-view.directory-mode .network-card { padding: 15px; }
+#home-view.directory-mode .card-heading { padding-bottom: 10px; }
+#home-view.directory-mode .card-heading h2,
+#home-view.directory-mode .insight-card h2 { font-size: .88rem; }
+#home-view.directory-mode .discovery-card h3 { margin: 14px 0 5px; font-size: .57rem; }
+#home-view.directory-mode .discovery-card .loc-tab,
+#home-view.directory-mode .discovery-card .era-chip { padding: 6px 8px; font-size: .67rem; }
+
+#home-view.directory-mode .directory-hero {
+  min-height: 126px;
+  margin: -1px -1px 14px;
+  padding: 20px;
+  border-radius: 11px 11px 0 0;
+  background:
+    linear-gradient(90deg, rgba(4,28,41,.96), rgba(4,38,52,.7)),
+    url('asdb-surf-hero-1988.png') center 57% / cover;
+  color: #fff;
+}
+#home-view.directory-mode .directory-hero .card-eyebrow { color: #66ece3; }
+#home-view.directory-mode .directory-hero h2 { color: #fff; font-size: 1.35rem; }
+#home-view.directory-mode .directory-hero p { color: rgba(255,255,255,.7); font-size: .67rem; }
+#home-view.directory-mode .directory-total {
+  border-color: rgba(255,255,255,.2);
+  background: rgba(3,24,35,.54);
+  color: #fff;
+}
+#home-view.directory-mode .directory-total strong,
+#home-view.directory-mode .directory-total span { color: #fff; }
+#home-view.directory-mode .browse-section { padding: 0 14px 16px; }
+#home-view.directory-mode .directory-results-header { margin-bottom: 10px; padding-bottom: 10px; }
+#home-view.directory-mode .node-grid { gap: 8px; }
+#home-view.directory-mode .node-card { min-height: 126px; padding: 12px; }
+#home-view.directory-mode .home-insights { gap: 10px; }
+#home-view.directory-mode .insight-card p { margin: 8px 0 12px; font-size: .7rem; }
+#home-view.directory-mode .right-rail-feed .v2-feed-item:nth-of-type(n+4) { display: none; }
+#home-view.directory-mode .quick-links-card a { padding: 8px 0; font-size: .7rem; }
+
+@media (min-width: 1460px) {
+  #home-view.directory-mode .node-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 1180px) {
+  #home-view.directory-mode .home-social-layout { grid-template-columns: 176px minmax(0,1fr); }
+  #home-view.directory-mode .home-insights { display: none; }
+}
+
+@media (max-width: 900px) {
+  #home-view.directory-mode .archive-entry { top: 70px; }
+  #home-view.directory-mode .home-social-layout { grid-template-columns: 1fr; }
+  #home-view.directory-mode .home-discovery { position: static; }
+  #home-view.directory-mode .discovery-card { padding: 11px; }
+  #home-view.directory-mode .discovery-card .card-heading,
+  #home-view.directory-mode .discovery-card h3 { display: none; }
+  #home-view.directory-mode .discovery-card .location-filters,
+  #home-view.directory-mode .discovery-card .era-timeline { flex-direction: row; overflow-x: auto; }
+  #home-view.directory-mode .discovery-card .era-timeline { margin-top: 5px; }
+  #home-view.directory-mode .discovery-card .loc-tab,
+  #home-view.directory-mode .discovery-card .era-chip { width: auto; flex: 0 0 auto; }
+}
+
+@media (max-width: 620px) {
+  #home-view.directory-mode .archive-entry { top: 66px; padding: 10px; }
+  #home-view.directory-mode .archive-entry h2 { font-size: .92rem; }
+  #home-view.directory-mode .directory-hero { min-height: 112px; padding: 16px; }
+  #home-view.directory-mode .directory-hero h2 { font-size: 1.15rem; }
+  #home-view.directory-mode .directory-total { padding: 8px 10px; }
+  #home-view.directory-mode .directory-total strong { font-size: 1rem; }
+}

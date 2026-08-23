@@ -1137,10 +1137,26 @@ function navigateMusic(addToHistory = true) {
 }
 window.navigateMusic = navigateMusic;
 
-function navigateDirectory() {
-  navigateHome();
+function navigateDirectory(addToHistory = true) {
+  if (addToHistory && window.location.hash !== '#directory') window.location.hash = '#directory';
+
+  State.currentNode = null;
+  homeView.style.display = '';
+  homeView.classList.remove('hidden');
+  homeView.classList.add('directory-mode');
+  profileView.style.display = 'none';
+  filterView.style.display = 'none';
+  searchView.style.display = 'none';
+  legalView.style.display = 'none';
+  feedView.style.display = 'none';
+  if (musicView) musicView.style.display = 'none';
+  if (adminView) adminView.style.display = 'none';
+  profileView.classList.remove('visible');
+  breadcrumbBar.classList.remove('visible');
   setShellActive('directory');
-  window.requestAnimationFrame(() => document.getElementById('browse-directory')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  renderNodes();
+  updateNavButtons();
+  window.scrollTo({ top: 0, behavior: 'auto' });
 }
 window.navigateDirectory = navigateDirectory;
 
@@ -1585,6 +1601,7 @@ function navigateHome(restoreDirectoryPosition = false) {
 
   homeView.style.display    = '';
   homeView.classList.remove('hidden');
+  homeView.classList.remove('directory-mode');
   profileView.style.display = 'none';
   filterView.style.display  = 'none';
   searchView.style.display  = 'none';
@@ -1606,7 +1623,7 @@ function navigateHome(restoreDirectoryPosition = false) {
 window.navigateHome = navigateHome;
 
 function returnToDirectory() {
-  navigateHome(true);
+  navigateDirectory();
 }
 window.returnToDirectory = returnToDirectory;
 
@@ -4148,6 +4165,12 @@ function handleHashChange() {
     return;
   }
 
+  // Dedicated directory workspace
+  if (hash === '#directory') {
+    navigateDirectory(false);
+    return;
+  }
+
   // Admin route
   if (hash === '#admin' || hash.startsWith('#admin/')) {
     if (typeof showAdmin === 'function') { showAdmin(hash.replace('#admin', '').replace(/^\//,'') || 'pending'); return; }
@@ -4159,6 +4182,7 @@ function handleHashChange() {
 function showHome() {
   homeView.style.display    = '';
   homeView.classList.remove('hidden');
+  homeView.classList.remove('directory-mode');
   profileView.style.display = 'none';
   filterView.style.display  = 'none';
   searchView.style.display  = 'none';
