@@ -1209,7 +1209,7 @@ const ASDB_TRACKS = [
   {
     id: 'dinosaur-jr-heaven', title: 'Just Like Heaven', artist: 'Dinosaur Jr.', year: '1989',
     genre: 'alternative', sport: 'Skate · Video Days', youtubeId: 'UT7IpRx08tE',
-    context: 'Mark Gonzales, Blind’s Video Days and one of the most enduring song-to-skate-part connections ever made.',
+    context: 'Rudy Johnson, Blind’s Video Days and one of the most enduring song-to-skate-part connections ever made.',
     nodeId: 'video-days-blind', color: '#6d43a5'
   },
   {
@@ -1229,6 +1229,198 @@ const ASDB_TRACKS = [
     genre: 'surf', sport: 'Surf · Soul', youtubeId: '3wB6cWIMtXc',
     context: 'The filmmaker-surfer’s laid-back sound became the quieter counterpoint to the high-energy VHS era.',
     nodeId: 'jack-johnson', color: '#3e8f83'
+  },
+  {
+    id: 'bad-religion-only-gonna-die', title: 'We’re Only Gonna Die', artist: 'Bad Religion', year: '1982',
+    genre: 'punk', sport: 'Skate · Punk roots', youtubeId: 'NFMmc85gDIw',
+    context: 'Fast, sharp Southern California punk from the same scene that shaped generations of backyard ramps and skate videos.',
+    nodeId: 'bad-religion-punk-skate-scene', color: '#ef4444'
+  },
+  {
+    id: 'millencolin-no-cigar', title: 'No Cigar', artist: 'Millencolin', year: '2000',
+    genre: 'punk', sport: 'Skate · THPS2', youtubeId: 'OChjVLHlkVE',
+    context: 'A defining Tony Hawk’s Pro Skater 2 cut that turned a Swedish skate-punk song into a worldwide session soundtrack.',
+    nodeId: 'millencolin-no-cigar-hawk-cover-video', color: '#f97316'
+  },
+  {
+    id: 'suicidal-institutionalized', title: 'Institutionalized', artist: 'Suicidal Tendencies', year: '1983',
+    genre: 'punk', sport: 'Skate · Venice', youtubeId: 'LoF_a0-7xVQ',
+    context: 'Venice crossover energy: punk, metal and skate culture colliding before the rest of the world caught up.',
+    nodeId: 'suicidal-tendencies-institutionalized-video', color: '#dc2626'
+  },
+  {
+    id: 'offspring-come-out-play', title: 'Come Out and Play', artist: 'The Offspring', year: '1994',
+    genre: 'punk', sport: 'Skate · 1990s', youtubeId: 'GHUql3OC_uU',
+    context: 'Orange County punk that landed squarely in the sound of 1990s skate shops, road trips and video premieres.',
+    nodeId: 'offspring-come-out-and-play-video', color: '#fb7185'
+  },
+  {
+    id: 'fugazi-waiting-room', title: 'Waiting Room', artist: 'Fugazi', year: '1988',
+    genre: 'punk', sport: 'Skate · DIY', youtubeId: 'cMOAXm94VWo',
+    context: 'The patient build and explosive rhythm fit the DIY ethic and stop-start motion of street-skate edits.',
+    nodeId: 'bad-religion-punk-skate-scene', color: '#be123c'
+  },
+  {
+    id: 'black-flag-rise-above', title: 'Rise Above', artist: 'Black Flag', year: '1981',
+    genre: 'punk', sport: 'Skate · Hardcore', youtubeId: 'xHR-rzUjCzU',
+    context: 'An anthem from the Southern California hardcore ecosystem that grew alongside pools, ramps and independent skate culture.',
+    nodeId: 'black-flag', color: '#111827'
+  },
+  {
+    id: 'nofx-linoleum', title: 'Linoleum', artist: 'NOFX', year: '1994',
+    genre: 'punk', sport: 'Skate · Punk', youtubeId: '6axOY4PBusk',
+    context: 'Compact, fast and impossible to separate from the mid-1990s skate-punk boom.',
+    nodeId: 'bad-religion-punk-skate-scene', color: '#e11d48'
+  },
+  {
+    id: 'beastie-root-down', title: 'Root Down', artist: 'Beastie Boys', year: '1994',
+    genre: 'hip-hop', sport: 'Street skate · NYC', youtubeId: 'Xf1YF_MH1xc',
+    context: 'Loose funk and New York attitude made for the kind of rhythm street skaters could build a whole part around.',
+    nodeId: 'beastie-boys-root-down-video', color: '#f59e0b'
+  },
+  {
+    id: 'beastie-sabotage', title: 'Sabotage', artist: 'Beastie Boys', year: '1994',
+    genre: 'hip-hop', sport: 'Skate film · Spike Jonze', youtubeId: 'z5rRZdiu1UE',
+    context: 'Spike Jonze’s kinetic cop-show video connected music-video chaos with the visual imagination of skate filmmaking.',
+    nodeId: 'beastie-boys', color: '#ea580c'
+  },
+  {
+    id: 'mobb-deep-shook-ones', title: 'Shook Ones, Pt. II', artist: 'Mobb Deep', year: '1995',
+    genre: 'hip-hop', sport: 'Street skate · NYC', youtubeId: 'yoYZf-lBF_U',
+    context: 'Cold Queensbridge atmosphere that became part of the sonic vocabulary of East Coast street skating.',
+    nodeId: 'zoo-york-mixtape-1997', color: '#475569'
+  },
+  {
+    id: 'gang-starr-moment-truth', title: 'Moment of Truth', artist: 'Gang Starr', year: '1998',
+    genre: 'hip-hop', sport: 'Street skate · 1990s', youtubeId: 'Rr46FS7tkk4',
+    context: 'Premier’s drums and Guru’s voice carry the focus, repetition and resolve of a long street part.',
+    nodeId: 'zoo-york-mixtape-1997', color: '#0f766e'
+  },
+  {
+    id: 'nas-world-is-yours', title: 'The World Is Yours', artist: 'Nas', year: '1994',
+    genre: 'hip-hop', sport: 'Street skate · NYC', youtubeId: 'e5PnuIRnJW8',
+    context: 'A New York classic for the era when Zoo York and the city’s street spots defined a visual language of their own.',
+    nodeId: 'zoo-york-mixtape-1997', color: '#2563eb'
+  },
+  {
+    id: 'bring-the-noise', title: 'Bring the Noise', artist: 'Anthrax & Public Enemy', year: '1991',
+    genre: 'hip-hop', sport: 'Skate · THPS2', youtubeId: 'kl1hgXfX5-U',
+    context: 'Rap and metal crashing together—then returning for a new generation through Tony Hawk’s Pro Skater 2.',
+    nodeId: 'public-enemy', color: '#ca8a04'
+  },
+  {
+    id: 'weezer-undone', title: 'Undone — The Sweater Song', artist: 'Weezer', year: '1994',
+    genre: 'alternative', sport: 'Skate video · 1990s', youtubeId: 'LHQqqM5sr7g',
+    context: 'Slacker-era alternative that feels at home beside fisheye footage, parking-lot sessions and worn VHS copies.',
+    nodeId: 'weezer-undone-video', color: '#0ea5e9'
+  },
+  {
+    id: 'sonic-youth-superstar', title: 'Superstar', artist: 'Sonic Youth', year: '1994',
+    genre: 'alternative', sport: 'Skate film · Dream sequence', youtubeId: 'Y21VecIIdBI',
+    context: 'A hazy Carpenters cover with the slow-motion emotional pull of a favorite video part remembered years later.',
+    nodeId: 'sonic-youth', color: '#7c3aed'
+  },
+  {
+    id: 'cure-close-to-me', title: 'Close to Me', artist: 'The Cure', year: '1985',
+    genre: 'alternative', sport: 'Skate · New wave', youtubeId: 'Pb-rihW_SwU',
+    context: 'Bright percussion and nervous energy from the new-wave side of the 1980s skate-video mixtape.',
+    nodeId: 'video-days-blind', color: '#ec4899'
+  },
+  {
+    id: 'joy-division-love-tear-us', title: 'Love Will Tear Us Apart', artist: 'Joy Division', year: '1980',
+    genre: 'alternative', sport: 'Skate · Post-punk', youtubeId: 'zuuObGsB0No',
+    context: 'Post-punk melancholy for the reflective parts, empty streets and long rides home after the session.',
+    nodeId: 'video-days-blind', color: '#334155'
+  },
+  {
+    id: 'new-order-ceremony', title: 'Ceremony', artist: 'New Order', year: '1981',
+    genre: 'alternative', sport: 'Skate · Post-punk', youtubeId: 'fi33-cITS0s',
+    context: 'A bridge between post-punk gravity and the bright forward motion that defined the decade.',
+    nodeId: 'video-days-blind', color: '#0891b2'
+  },
+  {
+    id: 'pixies-where-is-my-mind', title: 'Where Is My Mind?', artist: 'Pixies', year: '1988',
+    genre: 'alternative', sport: 'Surf · Skate · Alternative', youtubeId: 'OJ62RzJkYUo',
+    context: 'Quiet-loud dynamics and a floating chorus made for the stranger, more cinematic side of action-sports edits.',
+    nodeId: 'the-pixies', color: '#8b5cf6'
+  },
+  {
+    id: 'primus-jerry-race-car', title: 'Jerry Was a Race Car Driver', artist: 'Primus', year: '1991',
+    genre: 'alternative', sport: 'Skate · THPS', youtubeId: 'LBQ2305fLeA',
+    context: 'A weird, bass-heavy original Tony Hawk’s Pro Skater cut that made every living room feel like a skatepark.',
+    nodeId: 'goldfinger-superman-thps-soundtrack', color: '#65a30d'
+  },
+  {
+    id: 'cky-96-bitter', title: '96 Quite Bitter Beings', artist: 'CKY', year: '1999',
+    genre: 'alternative', sport: 'Skate · CKY videos', youtubeId: '14eVFQeegxQ',
+    context: 'That riff became inseparable from the CKY video era and the unruly crossover into early-2000s skate television.',
+    nodeId: 'toy-machine-jump-off-a-building-1998', color: '#84cc16'
+  },
+  {
+    id: 'rage-guerrilla-radio', title: 'Guerrilla Radio', artist: 'Rage Against the Machine', year: '1999',
+    genre: 'metal', sport: 'Skate · THPS2', youtubeId: 'Rm1nCYOZB-s',
+    context: 'The opening hit of Tony Hawk’s Pro Skater 2: instant urgency before the first trick was even landed.',
+    nodeId: 'goldfinger-superman-thps-soundtrack', color: '#dc2626'
+  },
+  {
+    id: 'powerman-worlds-collide', title: 'When Worlds Collide', artist: 'Powerman 5000', year: '1999',
+    genre: 'metal', sport: 'Skate · THPS2', youtubeId: 'lsV500W4BHU',
+    context: 'Industrial-metal adrenaline from the Tony Hawk’s Pro Skater 2 soundtrack and countless virtual sessions.',
+    nodeId: 'goldfinger-superman-thps-soundtrack', color: '#9333ea'
+  },
+  {
+    id: 'metallica-orion', title: 'Orion', artist: 'Metallica', year: '1986',
+    genre: 'metal', sport: 'Skate · Flip Sorry', youtubeId: 'TydZ4NAXMic',
+    context: 'The long instrumental arc gave Arto Saari’s Flip Sorry part room to feel massive, tense and unforgettable.',
+    nodeId: 'flip-sorry-2002', color: '#64748b'
+  },
+  {
+    id: 'iron-maiden-hallowed', title: 'Hallowed Be Thy Name', artist: 'Iron Maiden', year: '1982',
+    genre: 'metal', sport: 'Skate · Flip Sorry', youtubeId: 'HAQQUDbuudY',
+    context: 'Epic British metal matched the scale and consequence of the heaviest early-2000s video parts.',
+    nodeId: 'flip-sorry-2002', color: '#b91c1c'
+  },
+  {
+    id: 'sublime-santeria', title: 'Santeria', artist: 'Sublime', year: '1996',
+    genre: 'surf', sport: 'Surf · Skate · Long Beach', youtubeId: 'AEYN5w4T_aM',
+    context: 'A sun-faded Southern California staple that followed surf and skate culture through beach lots, vans and VHS.',
+    nodeId: 'sublime-santeria-video', color: '#f59e0b'
+  },
+  {
+    id: 'dick-dale-misirlou', title: 'Misirlou', artist: 'Dick Dale', year: '1962',
+    genre: 'surf', sport: 'Surf · Instrumental', youtubeId: 'V4eEqN4HY7Q',
+    context: 'The lightning-fast guitar language that helped define what surf music sounded like before surf films became an industry.',
+    nodeId: 'dick-dale', color: '#06b6d4'
+  },
+  {
+    id: 'beach-boys-surfin-usa', title: 'Surfin’ U.S.A.', artist: 'The Beach Boys', year: '1963',
+    genre: 'surf', sport: 'Surf · California', youtubeId: 'EDb303T-B1w',
+    context: 'A map of California surf breaks disguised as a pop song—and one of the sounds that carried surf culture worldwide.',
+    nodeId: 'endless-summer', color: '#38bdf8'
+  },
+  {
+    id: 'aphex-windowlicker', title: 'Windowlicker', artist: 'Aphex Twin', year: '1999',
+    genre: 'electronic', sport: 'Skate · Experimental edits', youtubeId: 'UBS4Gi1y_nc',
+    context: 'Warped electronic detail for the experimental end of late-1990s and early-2000s action-sports filmmaking.',
+    nodeId: 'aphex-twin-windowlicker-video', color: '#a855f7'
+  },
+  {
+    id: 'prodigy-firestarter', title: 'Firestarter', artist: 'The Prodigy', year: '1996',
+    genre: 'electronic', sport: 'Snow · BMX · Skate', youtubeId: 'wmin5WkOuPw',
+    context: 'Breakbeat pressure built for contest reels, downhill speed and the louder edge of the X Games era.',
+    nodeId: 'x-games', color: '#f43f5e'
+  },
+  {
+    id: 'daft-punk-da-funk', title: 'Da Funk', artist: 'Daft Punk', year: '1995',
+    genre: 'electronic', sport: 'Skate film · Spike Jonze', youtubeId: 'mmi60Bd4jSs',
+    context: 'A night-walking music video directed by Spike Jonze, carrying the same offbeat eye he brought to skate films.',
+    nodeId: 'spike-jonze', color: '#fbbf24'
+  },
+  {
+    id: 'chemical-block-rockin', title: 'Block Rockin’ Beats', artist: 'The Chemical Brothers', year: '1997',
+    genre: 'electronic', sport: 'Snow · Skate · Big beat', youtubeId: 'iTxOKsyZ0Lw',
+    context: 'Big-beat momentum made for late-1990s contest footage, snow-film montages and fast city lines.',
+    nodeId: 'x-games', color: '#14b8a6'
   }
 ];
 
@@ -1237,7 +1429,9 @@ let currentAsdbTrackIndex = -1;
 function renderAsdbMusic(genre = 'all') {
   const list = document.getElementById('mixtape-track-list');
   if (!list) return;
-  const tracks = ASDB_TRACKS.filter(track => genre === 'all' || track.genre === genre);
+  const tracks = ASDB_TRACKS
+    .filter(track => genre === 'all' || track.genre === genre)
+    .slice(0, genre === 'all' ? 8 : 12);
   list.innerHTML = tracks.map(track => {
     const index = ASDB_TRACKS.findIndex(item => item.id === track.id);
     return `
@@ -1311,7 +1505,7 @@ function renderMusicWorkspace() {
     return activeMusicFilter === 'all' || track.genre === activeMusicFilter;
   });
 
-  const titles = { all: 'All tracks', saved: 'Saved tracks', '1980s': '1980s cuts', punk: 'Skate punk', 'hip-hop': 'Hip-hop', alternative: 'Alternative', surf: 'Surf & soul' };
+  const titles = { all: 'All tracks', saved: 'Saved tracks', '1980s': '1980s cuts', punk: 'Skate punk', 'hip-hop': 'Hip-hop', alternative: 'Alternative', surf: 'Surf & soul', metal: 'Metal & heavy', electronic: 'Electronic' };
   const title = document.getElementById('music-library-title');
   const count = document.getElementById('music-result-count');
   if (title) title.textContent = activeMusicQuery ? `Results for “${activeMusicQuery}”` : (titles[activeMusicFilter] || 'Music');
