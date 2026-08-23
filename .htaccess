@@ -25,8 +25,9 @@ RewriteRule ^(.*)$ /index.html [L]
 # ── CACHING ───────────────────────────────────────────────────────
 <IfModule mod_expires.c>
   ExpiresActive On
-  # HTML — short cache (content updates frequently)
-  ExpiresByType text/html              "access plus 1 hour"
+  # HTML — never cache the application shell. ASDB publishes frequently and
+  # stale index.html files can point visitors at an entire previous release.
+  ExpiresByType text/html              "access plus 0 seconds"
   # JS/CSS — longer cache (fingerprint if you update)
   ExpiresByType application/javascript "access plus 7 days"
   ExpiresByType text/css              "access plus 7 days"
@@ -45,6 +46,11 @@ RewriteRule ^(.*)$ /index.html [L]
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  <FilesMatch "\.html?$">
+    Header always set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header always set Pragma "no-cache"
+    Header always set Expires "0"
+  </FilesMatch>
 </IfModule>
 
 # ── BLOCK SENSITIVE FILES ─────────────────────────────────────────
