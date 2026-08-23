@@ -4863,3 +4863,39 @@ main:has(#home-view) {
   #home-view.directory-mode .directory-letter-facet,
   #home-view.directory-mode .directory-reset { display: none; }
 }
+
+.directory-select-filters { display: grid; gap: 7px; }
+.directory-select-filters label {
+  display: grid;
+  gap: 3px;
+  color: #71858d;
+  font-size: .48rem;
+  font-weight: 900;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+.directory-select-filters select {
+  width: 100%;
+  min-height: 32px;
+  padding: 0 25px 0 8px;
+  border: 1px solid #d1dde0;
+  border-radius: 6px;
+  outline: 0;
+  background: #f7f9f9;
+  color: #3f5a65;
+  font: 700 .6rem var(--font-body);
+  text-transform: none;
+  cursor: pointer;
+}
+.directory-select-filters select:focus { border-color: #168b95; box-shadow: 0 0 0 3px rgba(22,139,149,.1); }
+
+@media (max-width: 900px) {
+  #home-view.directory-mode .directory-advanced-facet > div {
+    grid-template-columns: repeat(2,minmax(150px,1fr));
+    overflow: visible;
+  }
+}
+
+@media (max-width: 520px) {
+  #home-view.directory-mode .directory-advanced-facet > div { grid-template-columns: 1fr; }
+}

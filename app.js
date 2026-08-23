@@ -30,6 +30,13 @@ const State = {
   currentLocation: 'all',
   currentType:     'all',
   currentLetter:   'all',
+  currentCountry:  'all',
+  currentRole:     'all',
+  currentDiscipline: 'all',
+  currentStance:   'all',
+  currentStatus:   'all',
+  currentDepth:    'all',
+  directorySort:   'recommended',
   directoryQuery:  '',
   directoryLimit:  60,
   history:         [],       // navigation history stack
@@ -782,6 +789,84 @@ function directoryQueryMatches(node, query) {
   return tokens.every(token => haystack.includes(token));
 }
 
+function directoryFieldText(node, fields) {
+  return fields.flatMap(field => Array.isArray(node[field]) ? node[field] : [node[field]])
+    .filter(Boolean).join(' ').toLowerCase();
+}
+
+function directoryCountryMatches(node, filter) {
+  if (!filter || filter === 'all') return true;
+  const text = directoryFieldText(node, ['country', 'nationality', 'hometown', 'birthplace', 'headquarters', 'region']);
+  const terms = {
+    usa: ['usa', 'united states', 'american', '🇺🇸'],
+    australia: ['australia', 'australian', '🇦🇺'],
+    brazil: ['brazil', 'brazilian', '🇧🇷'],
+    canada: ['canada', 'canadian', '🇨🇦'],
+    france: ['france', 'french', '🇫🇷'],
+    uk: ['united kingdom', 'british', 'england', 'scotland', 'wales', 'uk', '🇬🇧'],
+    japan: ['japan', 'japanese', '🇯🇵'],
+    'south-africa': ['south africa', 'south african', '🇿🇦'],
+    'new-zealand': ['new zealand', 'new zealander', 'kiwi', '🇳🇿'],
+    europe: ['europe', 'france', 'germany', 'italy', 'spain', 'portugal', 'austria', 'switzerland', 'netherlands', 'sweden', 'finland', 'slovenia', 'poland', 'czech', 'united kingdom', 'british'],
+  }[filter] || [filter.replace(/-/g, ' ')];
+  return terms.some(term => text.includes(term));
+}
+
+function directoryRoleMatches(node, filter) {
+  if (!filter || filter === 'all') return true;
+  const text = directoryFieldText(node, ['role', 'discipline', 'category', 'mediaType', 'type']);
+  const terms = {
+    competitor: ['athlete', 'competitor', 'pro surfer', 'surfer', 'skateboarder', 'rider', 'racer', 'climber', 'wakeboarder', 'kiteboarder', 'freerunner'],
+    photographer: ['photographer', 'photo'],
+    filmmaker: ['filmmaker', 'director', 'surf film', 'documentary', 'film fiction'],
+    shaper: ['shaper', 'designer'],
+    coach: ['coach', 'judge'],
+    media: ['journalist', 'editor', 'publisher', 'publication', 'magazine', 'media'],
+  }[filter] || [filter];
+  return terms.some(term => text.includes(term));
+}
+
+function directoryDisciplineMatches(node, filter) {
+  if (!filter || filter === 'all') return true;
+  const text = directoryFieldText(node, ['discipline', 'role', 'sport', 'category']);
+  const terms = {
+    competition: ['ct / competitor', 'competition', 'olympic', 'world tour'],
+    street: ['street'],
+    'vert-park': ['vert', 'park', 'halfpipe'],
+    'big-wave': ['big wave'],
+    shortboard: ['shortboard'],
+    longboard: ['longboard'],
+    racing: ['racing', 'racer', 'downhill', 'supercross', 'motocross', 'slalom'],
+    freeride: ['freeride', 'slopestyle', 'big air'],
+    adaptive: ['adaptive', 'para surf', 'kneeling', 'prone'],
+  }[filter] || [filter.replace(/-/g, ' ')];
+  return terms.some(term => text.includes(term));
+}
+
+function directoryStatusMatches(node, filter) {
+  if (!filter || filter === 'all') return true;
+  const status = `${node.status || ''} ${node.statusText || ''}`.toLowerCase();
+  const era = String(node.era || '').toLowerCase();
+  if (filter === 'active') return status.includes('active') || era.includes('present');
+  if (filter === 'legacy') return Boolean(node.yearDefunct) || /defunct|closed|historic/.test(status);
+  if (filter === 'memorial') return Boolean(node.died) || status.includes('memoriam');
+  return true;
+}
+
+function directoryDepthMatches(node, filter) {
+  if (!filter || filter === 'all') return true;
+  if (filter === 'connected') return Array.isArray(node.connections) && node.connections.length > 0;
+  if (filter === 'sponsored') return Array.isArray(node.sponsors) && node.sponsors.length > 0;
+  if (filter === 'sourced') return Boolean(node.source || node.website || (Array.isArray(node.sources) && node.sources.length));
+  return true;
+}
+
+function directoryNodeYear(node) {
+  const text = [node.founded, node.year, node.released, node.born, node.era].filter(Boolean).join(' ');
+  const match = text.match(/(?:18|19|20)\d{2}/);
+  return match ? Number(match[0]) : null;
+}
+
 function renderActiveDirectoryFilters() {
   const wrap = document.getElementById('active-directory-filters');
   if (!wrap) return;
@@ -801,6 +886,21 @@ function renderActiveDirectoryFilters() {
     chips.push(['era', label]);
   }
   if (State.currentLetter !== 'all') chips.push(['letter', `Starts with ${State.currentLetter}`]);
+  const selectFacets = [
+    ['country', State.currentCountry, 'directory-country-filter'],
+    ['role', State.currentRole, 'directory-role-filter'],
+    ['discipline', State.currentDiscipline, 'directory-discipline-filter'],
+    ['stance', State.currentStance, 'directory-stance-filter'],
+    ['status', State.currentStatus, 'directory-status-filter'],
+    ['depth', State.currentDepth, 'directory-depth-filter'],
+    ['sort', State.directorySort, 'directory-sort-filter'],
+  ];
+  selectFacets.forEach(([facet, value, id]) => {
+    if (value === 'all' || value === 'recommended') return;
+    const select = document.getElementById(id);
+    const label = select?.selectedOptions?.[0]?.textContent.trim() || value;
+    chips.push([facet, label]);
+  });
   wrap.innerHTML = chips.map(([facet, label]) => `<button type="button" onclick="clearDirectoryFacet('${facet}')">${escapeHtml(label)} <span aria-hidden="true">×</span></button>`).join('');
   wrap.classList.toggle('visible', chips.length > 0);
 }
@@ -816,11 +916,26 @@ function clearDirectoryFacet(facet) {
   if (facet === 'location') State.currentLocation = 'all';
   if (facet === 'era') State.currentEra = 'all';
   if (facet === 'letter') State.currentLetter = 'all';
+  if (facet === 'country') State.currentCountry = 'all';
+  if (facet === 'role') State.currentRole = 'all';
+  if (facet === 'discipline') State.currentDiscipline = 'all';
+  if (facet === 'stance') State.currentStance = 'all';
+  if (facet === 'status') State.currentStatus = 'all';
+  if (facet === 'depth') State.currentDepth = 'all';
+  if (facet === 'sort') State.directorySort = 'recommended';
   document.querySelectorAll('.type-chip').forEach(button => button.classList.toggle('active', button.dataset.directoryType === State.currentType));
   document.querySelectorAll('.sport-tab').forEach(button => button.classList.toggle('active', button.dataset.sport === State.currentSport));
   document.querySelectorAll('.loc-tab').forEach(button => button.classList.toggle('active', button.dataset.location === State.currentLocation));
   document.querySelectorAll('.era-chip').forEach(button => button.classList.toggle('active', button.dataset.era === State.currentEra));
   document.querySelectorAll('.letter-chip').forEach(button => button.classList.toggle('active', button.dataset.directoryLetter === State.currentLetter));
+  const facetValues = {
+    country: State.currentCountry, role: State.currentRole, discipline: State.currentDiscipline,
+    stance: State.currentStance, status: State.currentStatus, depth: State.currentDepth,
+    sort: State.directorySort,
+  };
+  document.querySelectorAll('[data-directory-select]').forEach(select => {
+    select.value = facetValues[select.dataset.directorySelect];
+  });
   State.directoryLimit = 60;
   renderGrid();
 }
@@ -838,6 +953,12 @@ function renderGrid() {
     eraMatchesFilter(n, State.currentEra) &&
     directoryTypeMatches(n, State.currentType) &&
     directoryQueryMatches(n, State.directoryQuery) &&
+    directoryCountryMatches(n, State.currentCountry) &&
+    directoryRoleMatches(n, State.currentRole) &&
+    directoryDisciplineMatches(n, State.currentDiscipline) &&
+    (State.currentStance === 'all' || String(n.stance || '').toLowerCase() === State.currentStance) &&
+    directoryStatusMatches(n, State.currentStatus) &&
+    directoryDepthMatches(n, State.currentDepth) &&
     (State.currentLetter === 'all' || (n.name || '').trim().charAt(0).toUpperCase() === State.currentLetter)
   );
 
@@ -883,6 +1004,23 @@ function renderGrid() {
 
   const typeOrder = { athlete:0, person:1, org:2, brand:3, media:4, music:5, location:6 };
   filtered.sort((a, b) => {
+    if (State.directorySort === 'name-az') return (a.name || '').localeCompare(b.name || '');
+    if (State.directorySort === 'name-za') return (b.name || '').localeCompare(a.name || '');
+    if (State.directorySort === 'connected') {
+      const connectionDiff = (b.connections?.length || 0) - (a.connections?.length || 0);
+      return connectionDiff || (a.name || '').localeCompare(b.name || '');
+    }
+    if (State.directorySort === 'oldest' || State.directorySort === 'newest') {
+      const ay = directoryNodeYear(a);
+      const by = directoryNodeYear(b);
+      if (ay !== null || by !== null) {
+        if (ay === null) return 1;
+        if (by === null) return -1;
+        const yearDiff = State.directorySort === 'oldest' ? ay - by : by - ay;
+        if (yearDiff) return yearDiff;
+      }
+      return (a.name || '').localeCompare(b.name || '');
+    }
     const ao = typeOrder[a.type] ?? 9;
     const bo = typeOrder[b.type] ?? 9;
     if (ao !== bo) return ao - bo;
@@ -924,6 +1062,13 @@ function resetFilters() {
   State.currentLocation = 'all';
   State.currentType     = 'all';
   State.currentLetter   = 'all';
+  State.currentCountry  = 'all';
+  State.currentRole     = 'all';
+  State.currentDiscipline = 'all';
+  State.currentStance   = 'all';
+  State.currentStatus   = 'all';
+  State.currentDepth    = 'all';
+  State.directorySort   = 'recommended';
   State.directoryQuery  = '';
   State.directoryLimit  = 60;
   document.querySelectorAll('.sport-tab').forEach(b => {
@@ -944,6 +1089,9 @@ function resetFilters() {
   });
   const directorySearch = document.getElementById('directory-search-input');
   if (directorySearch) directorySearch.value = '';
+  document.querySelectorAll('[data-directory-select]').forEach(select => {
+    select.value = select.dataset.directorySelect === 'sort' ? 'recommended' : 'all';
+  });
   renderGrid();
 }
 window.resetFilters = resetFilters;
@@ -3458,6 +3606,25 @@ function setupDirectoryFacets() {
       State.currentLetter = button.dataset.directoryLetter || 'all';
       State.directoryLimit = 60;
       document.querySelectorAll('.letter-chip').forEach(item => item.classList.toggle('active', item === button));
+      renderGrid();
+    });
+  });
+
+  const selectStateKeys = {
+    country: 'currentCountry',
+    role: 'currentRole',
+    discipline: 'currentDiscipline',
+    stance: 'currentStance',
+    status: 'currentStatus',
+    depth: 'currentDepth',
+    sort: 'directorySort',
+  };
+  document.querySelectorAll('[data-directory-select]').forEach(select => {
+    select.addEventListener('change', () => {
+      const key = selectStateKeys[select.dataset.directorySelect];
+      if (!key) return;
+      State[key] = select.value;
+      State.directoryLimit = 60;
       renderGrid();
     });
   });

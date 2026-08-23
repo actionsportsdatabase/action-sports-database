@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="base.css" />
   <link rel="stylesheet" href="style.css?v=20260822a" />
   <link rel="stylesheet" href="visual-v2.css?v=20260712h" />
-  <link rel="stylesheet" href="social-refresh.css?v=20260823d" />
+  <link rel="stylesheet" href="social-refresh.css?v=20260823e" />
 </head>
 <body>
 
@@ -320,6 +320,85 @@
               </div>
             </details>
 
+            <details class="directory-facet directory-advanced-facet" open>
+              <summary>More filters</summary>
+              <div class="directory-select-filters">
+                <label>Country / nationality
+                  <select id="directory-country-filter" data-directory-select="country">
+                    <option value="all">Any country</option>
+                    <option value="usa">United States</option>
+                    <option value="australia">Australia</option>
+                    <option value="brazil">Brazil</option>
+                    <option value="canada">Canada</option>
+                    <option value="france">France</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="japan">Japan</option>
+                    <option value="south-africa">South Africa</option>
+                    <option value="new-zealand">New Zealand</option>
+                    <option value="europe">Europe</option>
+                  </select>
+                </label>
+                <label>Role
+                  <select id="directory-role-filter" data-directory-select="role">
+                    <option value="all">Any role</option>
+                    <option value="competitor">Athlete / competitor</option>
+                    <option value="photographer">Photographer</option>
+                    <option value="filmmaker">Filmmaker / director</option>
+                    <option value="shaper">Shaper / designer</option>
+                    <option value="coach">Coach / judge</option>
+                    <option value="media">Journalist / media</option>
+                  </select>
+                </label>
+                <label>Detailed discipline
+                  <select id="directory-discipline-filter" data-directory-select="discipline">
+                    <option value="all">Any discipline</option>
+                    <option value="competition">Tour / competition</option>
+                    <option value="street">Street</option>
+                    <option value="vert-park">Vert / park</option>
+                    <option value="big-wave">Big wave</option>
+                    <option value="shortboard">Shortboard</option>
+                    <option value="longboard">Longboard</option>
+                    <option value="racing">Racing</option>
+                    <option value="freeride">Freeride / slopestyle</option>
+                    <option value="adaptive">Adaptive</option>
+                  </select>
+                </label>
+                <label>Stance
+                  <select id="directory-stance-filter" data-directory-select="stance">
+                    <option value="all">Any stance</option>
+                    <option value="regular">Regular</option>
+                    <option value="goofy">Goofy</option>
+                  </select>
+                </label>
+                <label>Historical status
+                  <select id="directory-status-filter" data-directory-select="status">
+                    <option value="all">Any status</option>
+                    <option value="active">Active / current</option>
+                    <option value="legacy">Legacy / defunct</option>
+                    <option value="memorial">In memoriam</option>
+                  </select>
+                </label>
+                <label>Profile depth
+                  <select id="directory-depth-filter" data-directory-select="depth">
+                    <option value="all">Any profile</option>
+                    <option value="connected">Has connections</option>
+                    <option value="sponsored">Has sponsors</option>
+                    <option value="sourced">Has source links</option>
+                  </select>
+                </label>
+                <label>Sort results
+                  <select id="directory-sort-filter" data-directory-select="sort">
+                    <option value="recommended">Recommended</option>
+                    <option value="name-az">Name A–Z</option>
+                    <option value="name-za">Name Z–A</option>
+                    <option value="connected">Most connected</option>
+                    <option value="oldest">Oldest first</option>
+                    <option value="newest">Newest first</option>
+                  </select>
+                </label>
+              </div>
+            </details>
+
             <details class="directory-facet directory-letter-facet">
               <summary>Name</summary>
               <div class="letter-filters" id="letter-filters" role="group" aria-label="Filter by first letter">
@@ -606,7 +685,7 @@
 <script src="data.js?v=20260822o"></script>
 <script src="data-enrichment.js?v=20260822a"></script>
 <script src="data-new-profiles.js?v=20260822a"></script>
-<script src="app.js?v=20260823d"></script>
+<script src="app.js?v=20260823e"></script>
 <script src="auth.js?v=20260712"></script>
 
 </body>
