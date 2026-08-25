@@ -1151,6 +1151,8 @@ function renderMemoryShowcase() {
     const node = ASDB.nodes[item.id];
     if (!node) return '';
     const query = encodeURIComponent(memoryMarketplaceQuery(node));
+    const ebayUrl = withAsdbAttribution(`${ASDB_COMMERCE_PARTNERS.ebay.searchBase}${query}`, node.id, 'ebay');
+    const amazonUrl = withAsdbAttribution(`${ASDB_COMMERCE_PARTNERS.amazon.searchBase}${query}`, node.id, 'amazon');
     const image = node.image || node.imageUrl || node.photo || '';
     const visualStyle = image
       ? `--memory-gradient:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.62)),url('${image}') center/cover no-repeat`
@@ -1168,8 +1170,8 @@ function renderMemoryShowcase() {
           <small>${item.note}</small>
         </div>
         <div class="memory-card-actions">
-          <a href="https://www.ebay.com/sch/i.html?_nkw=${query}" target="_blank" rel="noopener sponsored" onclick="trackInterest('marketplace','ebay:${node.id}')">Find on eBay</a>
-          <a href="https://www.amazon.com/s?k=${query}" target="_blank" rel="noopener sponsored" onclick="trackInterest('marketplace','amazon:${node.id}')">Try Amazon</a>
+          <a href="${escapeHtml(ebayUrl)}" target="_blank" rel="noopener" onclick="trackCommerceClick('ebay','${node.id}',this.href)">Find on eBay</a>
+          <a href="${escapeHtml(amazonUrl)}" target="_blank" rel="noopener" onclick="trackCommerceClick('amazon','${node.id}',this.href)">Try Amazon</a>
         </div>
       </article>`;
   }).join('');
@@ -1786,6 +1788,147 @@ function trackInterest(kind, value) {
 }
 window.trackInterest = trackInterest;
 
+// ── COMMERCE / REFERRAL FOUNDATION ──────────────────────────
+// A partner remains a plain referral until it supplies ASDB with an approved
+// affiliate URL or code. Flip `relationship` to `affiliate` only after that
+// agreement exists; the UI and rel/disclosure treatment update automatically.
+const ASDB_COMMERCE_PARTNERS = {
+  official: { name: 'Official site', relationship: 'official' },
+  skateboardStickers: {
+    name: 'SkateboardStickers.com',
+    relationship: 'referral',
+    searchBase: 'https://www.skateboardstickers.com/search?q='
+  },
+  ebay: {
+    name: 'eBay',
+    relationship: 'referral',
+    searchBase: 'https://www.ebay.com/sch/i.html?_nkw='
+  },
+  amazon: {
+    name: 'Amazon',
+    relationship: 'referral',
+    searchBase: 'https://www.amazon.com/s?k='
+  }
+};
+
+function normalizedExternalUrl(value) {
+  if (!value) return '';
+  try {
+    const url = new URL(/^https?:\/\//i.test(value) ? value : `https://${value}`);
+    return ['http:', 'https:'].includes(url.protocol) ? url.toString() : '';
+  } catch (e) {
+    return '';
+  }
+}
+
+function withAsdbAttribution(value, nodeId, partnerId) {
+  const safeUrl = normalizedExternalUrl(value);
+  if (!safeUrl) return '';
+  try {
+    const url = new URL(safeUrl);
+    if (!url.searchParams.has('utm_source')) url.searchParams.set('utm_source', 'actionsportsdb');
+    if (!url.searchParams.has('utm_medium')) url.searchParams.set('utm_medium', 'referral');
+    if (!url.searchParams.has('utm_campaign')) url.searchParams.set('utm_campaign', 'profile-commerce');
+    if (!url.searchParams.has('utm_content')) url.searchParams.set('utm_content', `${partnerId}-${nodeId}`);
+    return url.toString();
+  } catch (e) {
+    return safeUrl;
+  }
+}
+
+function trackCommerceClick(partnerId, nodeId, destination) {
+  const partner = ASDB_COMMERCE_PARTNERS[partnerId] || { relationship: 'referral' };
+  trackInterest('commerce-click', `${partnerId}:${nodeId}`);
+  try {
+    const key = 'asdb_commerce_events_v1';
+    const events = JSON.parse(localStorage.getItem(key) || '[]');
+    events.push({ partner: partnerId, profile: nodeId, relationship: partner.relationship, destination, at: Date.now() });
+    localStorage.setItem(key, JSON.stringify(events.slice(-500)));
+  } catch (e) {}
+}
+window.trackCommerceClick = trackCommerceClick;
+
+function profileHasSport(node, sport) {
+  const sports = Array.isArray(node.sport) ? node.sport : [node.sport];
+  return sports.filter(Boolean).some(value => String(value).toLowerCase() === sport);
+}
+
+function commerceLink({ partnerId, node, label, detail, rawUrl, relationship }) {
+  const safePartnerId = String(partnerId || 'custom').replace(/[^a-z0-9_-]/gi, '') || 'custom';
+  const partner = ASDB_COMMERCE_PARTNERS[safePartnerId] || { name: safePartnerId, relationship: 'referral' };
+  const activeRelationship = relationship || partner.relationship || 'referral';
+  const url = withAsdbAttribution(rawUrl, node.id, safePartnerId);
+  if (!url) return '';
+  const rel = activeRelationship === 'affiliate' ? 'noopener sponsored' : 'noopener';
+  const badge = activeRelationship === 'affiliate' ? 'ASDB earns commission' : (activeRelationship === 'official' ? 'Official destination' : 'Retail destination');
+  return `<a class="profile-commerce-link" href="${escapeHtml(url)}" target="_blank" rel="${rel}" onclick="trackCommerceClick('${safePartnerId}','${node.id}',this.href)">
+    <span class="profile-commerce-link-copy"><small>${escapeHtml(badge)}</small><strong>${escapeHtml(label)}</strong><em>${escapeHtml(detail)}</em></span>
+    <span class="profile-commerce-arrow" aria-hidden="true">↗</span>
+  </a>`;
+}
+
+function renderProfileCommerce(node) {
+  const query = memoryMarketplaceQuery(node);
+  const links = [];
+  const commerce = node.commerce || {};
+  const officialShop = commerce.officialShop || node.shopUrl || node.storeUrl || node.website;
+
+  if (officialShop) {
+    links.push(commerceLink({
+      partnerId: 'official', node, label: commerce.officialLabel || 'Visit the official site',
+      detail: 'Current work, products and updates', rawUrl: officialShop, relationship: 'official'
+    }));
+  }
+
+  if (profileHasSport(node, 'skate')) {
+    const partner = ASDB_COMMERCE_PARTNERS.skateboardStickers;
+    links.push(commerceLink({
+      partnerId: 'skateboardStickers', node, label: 'Browse related skate stickers',
+      detail: `Search SkateboardStickers.com for ${node.name}`,
+      rawUrl: `${partner.searchBase}${encodeURIComponent(node.name)}`
+    }));
+  }
+
+  links.push(commerceLink({
+    partnerId: 'ebay', node, label: 'Find vintage and original pieces',
+    detail: 'Search live eBay listings',
+    rawUrl: `${ASDB_COMMERCE_PARTNERS.ebay.searchBase}${encodeURIComponent(query)}`
+  }));
+  links.push(commerceLink({
+    partnerId: 'amazon', node, label: 'Search current products and books',
+    detail: 'Search Amazon’s current catalog',
+    rawUrl: `${ASDB_COMMERCE_PARTNERS.amazon.searchBase}${encodeURIComponent(query)}`
+  }));
+
+  const customLinks = Array.isArray(commerce.links) ? commerce.links : [];
+  customLinks.forEach((item, index) => {
+    if (!item?.url || !item?.label) return;
+    links.unshift(commerceLink({
+      partnerId: item.partnerId || `custom${index}`, node,
+      label: item.label, detail: item.detail || 'Related destination',
+      rawUrl: item.url, relationship: item.relationship || 'referral'
+    }));
+  });
+
+  const cleanLinks = links.filter(Boolean);
+  if (!cleanLinks.length) return '';
+  const hasAffiliate = [
+    ...Object.values(ASDB_COMMERCE_PARTNERS),
+    ...customLinks
+  ].some(item => item?.relationship === 'affiliate');
+
+  return `<section class="profile-commerce" id="profile-commerce-${node.id}" aria-labelledby="profile-commerce-heading-${node.id}">
+    <div class="profile-commerce-heading">
+      <div><span class="card-eyebrow">Shop the memory</span><h2 id="profile-commerce-heading-${node.id}">Keep following the story.</h2></div>
+      <p>Official destinations, current products and surviving pieces connected to ${escapeHtml(node.name)}.</p>
+    </div>
+    <div class="profile-commerce-grid">${cleanLinks.join('')}</div>
+    <p class="profile-commerce-disclosure">${hasAffiliate
+      ? 'ASDB may earn a commission from links marked “ASDB earns commission,” at no added cost to you.'
+      : 'These are currently unpaid destination links. ASDB does not earn a commission from them.'}</p>
+  </section>`;
+}
+
 function saveMemory(id) {
   try {
     const key = 'asdb_saved_memories_v1';
@@ -2219,16 +2362,12 @@ function buildV2Hero(node, id, isClaimed, isDefunct) {
 
   const statsHTML = stats.join('<span class="v2-stat-divider">·</span>');
 
-  // Memory actions — save the rabbit hole and search live marketplaces.
-  const marketQuery = encodeURIComponent(memoryMarketplaceQuery(node));
-
   const actionsHTML = `
     <button class="v2-action-btn primary" onclick="saveMemory('${id}')" title="Save ${node.name}">
       <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h12v18l-6-4-6 4V3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
       Save memory
     </button>
-    <a class="v2-action-btn secondary" href="https://www.ebay.com/sch/i.html?_nkw=${marketQuery}" target="_blank" rel="noopener sponsored" onclick="trackInterest('marketplace','ebay:${id}')">Find on eBay</a>
-    <a class="v2-action-btn ghost" href="https://www.amazon.com/s?k=${marketQuery}" target="_blank" rel="noopener sponsored" onclick="trackInterest('marketplace','amazon:${id}')">Try Amazon</a>
+    <button class="v2-action-btn secondary" type="button" onclick="document.getElementById('profile-commerce-${id}')?.scrollIntoView({behavior:'smooth',block:'center'})">Shop this memory</button>
     <button class="v2-action-btn ghost" id="btn-share-profile" title="Share this profile">
       <svg viewBox="0 0 24 24" fill="none"><circle cx="18" cy="5" r="2.5" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.5" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="2.5" stroke="currentColor" stroke-width="2"/><path d="M8 11l8-5M8 13l8 5" stroke="currentColor" stroke-width="2"/></svg>
       Share
@@ -2456,6 +2595,8 @@ function renderProfile(id) {
         <div id="tab-record"      class="tab-panel ${State.activeTab === 'record'      ? 'active' : ''}">${recordTab}</div>
         <div id="tab-media"       class="tab-panel ${State.activeTab === 'media'       ? 'active' : ''}">${mediaTab}</div>
         <div id="tab-lineage"     class="tab-panel ${State.activeTab === 'lineage'     ? 'active' : ''}">${lineageTab}</div>
+
+        ${renderProfileCommerce(node)}
 
         ${renderRelatedCarousel(node)}
 
